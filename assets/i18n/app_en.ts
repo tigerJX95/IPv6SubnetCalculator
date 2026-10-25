@@ -3220,6 +3220,102 @@ Check the destination, then save using another filename.</translation>
             <source>空闲容量总览</source>
             <translation>Free Capacity Overview</translation>
         </message>
+        <message>
+            <source>全部空闲</source>
+            <translation>Entirely free</translation>
+        </message>
+        <message>
+            <source>部分占用</source>
+            <translation>Partially occupied</translation>
+        </message>
+        <message>
+            <source>全部占用</source>
+            <translation>Fully occupied</translation>
+        </message>
+        <message>
+            <source>IPv6 候选网段可用性报告</source>
+            <translation>IPv6 Candidate Network Availability Report</translation>
+        </message>
+        <message>
+            <source>候选网段：{0}</source>
+            <translation>Candidate network: {0}</translation>
+        </message>
+        <message>
+            <source>主机位规范化：{0}</source>
+            <translation>Host bits normalized: {0}</translation>
+        </message>
+        <message>
+            <source>可用性：{0}</source>
+            <translation>Availability: {0}</translation>
+        </message>
+        <message>
+            <source>候选地址总数：{0:,}</source>
+            <translation>Candidate addresses: {0:,}</translation>
+        </message>
+        <message>
+            <source>候选内占用地址数（并集）：{0:,}</source>
+            <translation>Occupied addresses within candidate (union): {0:,}</translation>
+        </message>
+        <message>
+            <source>候选内空闲地址数：{0:,}</source>
+            <translation>Free addresses within candidate: {0:,}</translation>
+        </message>
+        <message>
+            <source>冲突记录：{0:,} 条（保留重复及包含项）</source>
+            <translation>Conflicting records: {0:,} (duplicates and containment retained)</translation>
+        </message>
+        <message>
+            <source>只统计候选网段以内的覆盖；清单中不相交的网段不影响可用性。</source>
+            <translation>Only coverage within the candidate is counted; disjoint list entries do not affect availability.</translation>
+        </message>
+        <message>
+            <source>空闲仅指相对于当前清单；不会自动分配地址或更改原清单。</source>
+            <translation>Free means relative to the current list only; no addresses are allocated and the original list is unchanged.</translation>
+        </message>
+        <message>
+            <source>冲突原始记录：</source>
+            <translation>Original conflicting records:</translation>
+        </message>
+        <message>
+            <source>候选内空闲范围：</source>
+            <translation>Free ranges within candidate:</translation>
+        </message>
+        <message>
+            <source>候选内占用范围：</source>
+            <translation>Occupied ranges within candidate:</translation>
+        </message>
+        <message>
+            <source>输入准备分配的 IPv6 CIDR，检查与清单的冲突及候选内空闲部分。</source>
+            <translation>Enter a candidate IPv6 CIDR to check list conflicts and free space within it.</translation>
+        </message>
+        <message>
+            <source>候选 IPv6 网段</source>
+            <translation>Candidate IPv6 network</translation>
+        </message>
+        <message>
+            <source>检查候选网段可用性</source>
+            <translation>Check candidate network availability</translation>
+        </message>
+        <message>
+            <source>候选网段可用性报告</source>
+            <translation>Candidate network availability report</translation>
+        </message>
+        <message>
+            <source>候选内空闲 CIDR</source>
+            <translation>Free CIDRs within candidate</translation>
+        </message>
+        <message>
+            <source>候选内占用 CIDR</source>
+            <translation>Occupied CIDRs within candidate</translation>
+        </message>
+        <message>
+            <source>网段可用性</source>
+            <translation>Network Availability</translation>
+        </message>
+        <message>
+            <source>清单查询：地址归属、覆盖比较、空闲容量与网段可用性</source>
+            <translation>List tools: address membership, coverage comparison, free capacity and network availability</translation>
+        </message>
     </context>
     <context>
         <name>Export</name>

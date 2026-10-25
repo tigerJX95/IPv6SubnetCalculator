@@ -280,6 +280,17 @@ class ReleaseCheck(QObject):
         inspection.capacity.input.setText('::/0')
         self.require(inspection.capacity.result is None, 'Edited parent retained stale capacity')
         self.checks.append('free_capacity_all_prefixes_alignment_and_invalidation')
+        inspection.availability.source = '::/128\n::3/128'
+        inspection.availability.input.setText('::/126')
+        self.require(inspection.availability.run(), 'Candidate availability failed')
+        candidate = inspection.availability.result
+        self.require(len(candidate.conflicts) == 2 and candidate.occupied == ((0, 0), (3, 3)),
+                     'Candidate conflict clipping failed')
+        self.require(inspection.availability.cidr_output.as_text() == '::1/128\n::2/128',
+                     'Candidate available CIDRs incorrect')
+        inspection.availability.input.setText('::/127')
+        self.require(inspection.availability.result is None, 'Edited candidate retained stale output')
+        self.checks.append('candidate_network_availability_conflicts_exact_cidrs_and_invalidation')
         inspection.deleteLater()
         self.checks.append('list_coverage_comparison_exact_delta_and_invalidation')
 

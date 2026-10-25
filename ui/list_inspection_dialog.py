@@ -89,8 +89,7 @@ class InspectionPanel(QWidget):
     def refresh_cidrs(self):
         self.cidr_output = None
         if self.result is not None:
-            self.cidr_output = (self.result.cidr_output(self.category.currentData()) if self.comparison
-                                else self.result.cidr_output())
+            self.cidr_output = self.result_cidrs()
         output = self.cidr_output
         available = output is not None and output.complete and bool(output.count)
         self.copy_cidrs_button.setEnabled(available)
@@ -103,6 +102,10 @@ class InspectionPanel(QWidget):
             self.cidr_status.setText(tx('所选结果为空，没有可输出的 CIDR。'))
         else:
             self.cidr_status.setText(tx('完整 CIDR：{0:,} 条，可复制或保存后重新导入清单。', output.count))
+
+    def result_cidrs(self):
+        return (self.result.cidr_output(self.category.currentData()) if self.comparison
+                else self.result.cidr_output())
 
     def value(self):
         return self.input.toPlainText() if self.comparison else self.input.text()
@@ -163,6 +166,44 @@ class InspectionPanel(QWidget):
             result.as_text(), lambda: self.result is result)
 
 
+class AvailabilityPanel(InspectionPanel):
+    def __init__(self, page, source):
+        super().__init__(page, source)
+        self.hint.setText(tx('输入准备分配的 IPv6 CIDR，检查与清单的冲突及候选内空闲部分。'))
+        self.input.setAccessibleName(tx('候选 IPv6 网段'))
+        self.input.setMaxLength(200)
+        self.input.setPlaceholderText('2001:db8::/64')
+        self.run_button.setToolTip(tx('检查候选网段可用性'))
+        self.run_button.setAccessibleName(tx('检查候选网段可用性'))
+        self.report.setAccessibleName(tx('候选网段可用性报告'))
+        self.category.clear()
+        for label, key in [(tx('候选内空闲 CIDR'), 'available'), (tx('候选内占用 CIDR'), 'occupied')]:
+            self.category.addItem(label, key)
+
+    def result_cidrs(self):
+        return self.result.cidr_output(self.category.currentData())
+
+    def run(self):
+        from core.network_availability import check_network_availability
+        self.invalidate()
+        try:
+            self.result = check_network_availability(self.source, self.value())
+        except InputError as exc:
+            self.report.setPlainText(tx('查询或比较失败：{0}', exc))
+            return False
+        self.report.setPlainText(self.result.as_text())
+        self.copy_button.setEnabled(True)
+        self.save_button.setEnabled(True)
+        self.refresh_cidrs()
+        return True
+
+    def save(self):
+        result = self.result
+        if result is not None:
+            self.page.output_controller._save('IPv6_NetworkAvailability.txt', result.as_text(),
+                                             lambda: self.result is result)
+
+
 class CapacityPanel(InspectionPanel):
     """Read-only snapshot analysis, reusing report copy/save conflict protection."""
     def __init__(self, page, source):
@@ -221,6 +262,10 @@ class ListInspectionDialog(QDialog):
         tabs.addTab(self.comparison, tx('覆盖差异比较'))
         self.capacity = CapacityPanel(page, source)
         tabs.addTab(self.capacity, tx('空闲容量总览'))
+        self.availability = AvailabilityPanel(page, source)
+        tabs.addTab(self.availability, tx('网段可用性'))
+        # Keep four translated tabs reachable at the minimum window width.
+        tabs.setUsesScrollButtons(True)
         layout.addWidget(tabs)
 
 

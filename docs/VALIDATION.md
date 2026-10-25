@@ -1,3 +1,13 @@
+## V1.15 — 2026-10-25
+
+- 完整回归 588 项通过，0 失败、0 错误、0 跳过。原 V1.14 的 561 项保留，新增候选可用性 21 项及文档截图 6 项。/ All 588 tests passed, with zero failures/errors/skips: 561 retained tests plus 21 availability and 6 screenshot checks.
+- 200 组随机集合对照独立枚举与标准库 CIDR 整理，验证交集、差集、最简输出；包含 /0、/128、最高地址、重复包含、主机位、无关网段、5,000 条上限和超限拒绝。/ 200 randomized cases compare independent enumerated sets and standard-library CIDR collapse, including full-space bounds, normalization, irrelevant records, limits and output overflow.
+- 界面回归覆盖中英文、深浅主题、最小窗口四页签可达、项目快照、输入失效、复制、纯 CIDR 回导、保存期间切换类别及文件冲突。/ UI tests cover languages/themes, minimum-size tab access, snapshots, invalidation, clipboard, CIDR reimport, save category changes and external conflicts.
+- 源码与 Linux 单文件程序各通过 32 项自检，版本和源码指纹一致。/ Source and Linux one-file build each passed 32 self-checks with matching version and source fingerprint.
+- 796 条 TS/QM 翻译、910 处源码调用、64 个文件的翻译检查通过。Ruff、pip check 通过。/ Translation checks passed for 796 catalog messages, 910 calls and 64 files; Ruff and pip check passed.
+- 18 张新拍截图分别使用实际中文／英文界面和对应语言示例注释，逐图检查中文字形和语言。文档的 20 处图片引用通过语言与 SHA-256 校验。自动校验为元数据检查，不代替人工核对图中文字。/ 18 fresh captures use the actual matching UI language and sample comments and were visually reviewed. All 20 document image references pass locale/hash checks; metadata checks do not perform OCR.
+- 结构化证据见 `../verification/v1.15/`。Windows EXE、实机和 GitHub 云端工作流未在本轮运行。Qt 依赖不变，最新安全公告及待处理升级见 DEPENDENCY_STATUS.md。/ Evidence: `../verification/v1.15/`. Windows build/desktop and GitHub hosted CI were not run in this iteration. Qt dependencies remain unchanged; see dependency status for upstream advisories and pending upgrade.
+
 ## V1.14 — 2026-10-24
 
 - 完整回归 561 项通过（原有 544 项及新增 17 项），0 失败／错误／跳过。/ All 561 regression tests passed (544 existing + 17 new), with no failures, errors or skips.

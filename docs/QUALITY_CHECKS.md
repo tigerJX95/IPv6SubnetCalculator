@@ -1,3 +1,7 @@
+## V1.15 documentation screenshot checks
+
+`python tools/check_doc_images.py` validates every Markdown image reference in root documents, docs and examples against the screenshot locale and SHA-256 catalog. `_EN.md` files require English screenshots; other Markdown documents require Chinese screenshots. Swapped locale assets, missing files and changed screenshot bytes fail the check. This runs in the static checks job and before local build manifest creation. Screenshot content is captured from the actual UI in the recorded language and visually reviewed; metadata validation does not independently perform OCR.
+
 # 自动质量检查 / Automated quality checks
 
 推送到 `main` 或向 `main` 提交 PR 时，GitHub Actions 自动运行以下检查。也可以在 Actions → Quality checks → Run workflow 手动运行（工作流合并到默认分支后可见）。

@@ -40,7 +40,7 @@ class ProjectController:
         row = QHBoxLayout()
         self.open_button = IconButton('open_plan', tx('打开规划项目 JSON（清单、父网段及分配参数）'))
         self.save_button = IconButton('save_plan', tx('另存规划项目 JSON（保留清单原文及注释）'))
-        self.inspect_button = IconButton('locate_small', tx('地址归属查询与清单覆盖差异比较'))
+        self.inspect_button = IconButton('locate_small', tx('清单查询：地址归属、覆盖比较、空闲容量与网段可用性'))
         self.label = QLabel(tx('规划项目：未保存'))
         self.label.setTextFormat(Qt.TextFormat.PlainText)
         self.label.setWordWrap(True)

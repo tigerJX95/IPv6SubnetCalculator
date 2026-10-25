@@ -1,6 +1,17 @@
 **简体中文** | [English](README_EN.md)
 
-# 🌐 IPv6 子网计算器 V1.14
+# 🌐 IPv6 子网计算器 V1.15
+
+## ✨ V1.15 候选网段可用性检查
+
+- 在“子网清单”最上方第三个圆形靶心按钮打开的查询窗口中，新增“网段可用性”页签。输入准备分配的 IPv6 CIDR，判断相对于当前占用清单是否全部空闲、部分占用或全部占用。
+- 报告列出所有冲突原始行号，保留重复和包含记录；占用容量按并集计数，只统计候选内覆盖，不相交记录不影响结果。主机位自动规范化。
+- 可分别复制／保存候选内空闲与占用的最简 CIDR。结果为空或超过 5,000 条时禁止输出空清单或部分清单，完整范围报告仍可保存。此操作不自动追加或更改原清单。
+- 修改候选立即清除旧结果；沿用覆盖确认和保存冲突保护。窗口使用打开时的清单快照，需更新基准时关闭重开；查询参数和结果不写入规划项目 JSON。
+- 补全查询入口悬停说明。中文文档仅引用中文截图，英文文档仅引用英文截图；新增检查接入本地构建和 GitHub 质量检查。
+- Qt 运行库仍为 6.11.2，本次不包含 Qt 安全升级。上游进度见 [依赖状态](docs/DEPENDENCY_STATUS.md)。
+
+![中文版候选网段可用性](docs/screenshots/availability_zh_CN_light.png)
 
 ## ✨ V1.14 空闲容量总览
 
@@ -11,7 +22,7 @@
 - 占用清单必须全部有效且位于父网段内；空清单表示父网段全空闲。总览输入及结果不保存到规划项目 JSON，需要留存时保存报告。
 - 保留 V1.13 CIDR 输出、翻译审计和跨平台换行修复。Qt 运行库保持现有版本，本次不包含 Qt 安全升级。
 
-![Free Capacity Overview](docs/screenshots/capacity_zh_CN_light.png)
+入口：切换到 **子网清单**，点击最上方文件夹、保存按钮右侧的 **圆形靶心查询图标（第三个按钮）**，在弹窗中选择 **空闲容量总览**。此功能从 V1.14 开始提供。
 
 ## ✨ V1.13 查询与比较结果 CIDR 输出
 
@@ -30,8 +41,6 @@
 - 翻译格式错误时回退原始消息，避免因占位符错误或译文行数变化引起显示异常；嵌套错误及后台清单错误保留翻译结构，文件路径及用户输入保留原文。
 - 将范围分隔符正则移出翻译目录，输入语法不参与翻译。新增维护说明及针对资源损坏、漏翻译、异常显示的回归检查。
 
-![查询与比较结果 CIDR 输出](docs/screenshots/inspection_output_zh_CN_light.png)
-
 ## ✨ V1.12 清单查询、覆盖比较与草稿保护
 
 - 新增地址归属查询：输入 IPv6 地址，按最长前缀优先列出清单中所有匹配网段及原始行号，保留重复及包含项。
@@ -44,8 +53,6 @@
 - 新草稿与已保存项目均显示未保存更改；只切换结果页签不触发提醒。
 - 保存取消、冲突或失败时保留当前工作；提示期间内容变化会中止操作。
 
-
-![清单查询与覆盖比较](docs/screenshots/comparison_zh_CN_light.png)
 
 ## ✨ V1.11 规划项目保存与恢复
 
@@ -136,35 +143,25 @@ IPv6SubnetCalculator 是一款适用于 Windows 的离线 IPv6 子网计算工�
 
 方案、TXT 和 Excel 输出在提交前检查目标文件变化；检出冲突时停止覆盖，保留完整恢复文件并提示路径。新建目标采用原子无覆盖提交。具体边界见 [保存保护说明](docs/SAVE_CONFLICTS.md)。Qt 安全升级的可用性与待处理状态见 [依赖状态](docs/DEPENDENCY_STATUS.md)。
 
-## 📸 运行截图
+## 📸 中文版运行截图
 
-下方旧功能截图沿用 V1.10；规划项目截图为 V1.11。
+![计算页面](docs/screenshots/calculation_zh_CN_light.png)
 
-### 简体中文
+![子网结果](docs/screenshots/results_zh_CN_dark.png)
 
-![浅色计算页面与语言入口](docs/screenshots/calculation_light.png)
+![地址工具](docs/screenshots/tools_zh_CN_light.png)
 
-![深色子网结果](docs/screenshots/results_dark.png)
+![查询入口](docs/screenshots/query_entry_zh_CN_light.png)
 
-### English
+![空闲空间](docs/screenshots/free_zh_CN_light.png)
 
-![English calculation, light](docs/screenshots/en_calculation_light.png)
+![分配建议](docs/screenshots/allocation_zh_CN_light.png)
 
-![English results, dark](docs/screenshots/en_results_dark.png)
-
-![English address tools](docs/screenshots/en_tools_light.png)
-
-![English subnet planning with English sample comments](docs/screenshots/en_aggregate_dark.png)
-
-![IPv6 address range to CIDR](docs/screenshots/en_address_range_dark.png)
-
-![Planning TXT save and transfer](docs/screenshots/free_light.png)
-
-![分配建议](docs/screenshots/allocation_light.png)
+![空闲容量总览](docs/screenshots/capacity_zh_CN_light.png)
 
 ## 📦 下载与使用
 
-从 GitHub [Releases](../../releases/latest) 的 Assets 中直接下载 `IPv6SubnetCalculator_V1.12.exe`，下载后即可运行，无需另行配置运行环境。输入 IPv6 网络地址与目标前缀，点击计算图标；完成后自动切换到结果页。
+从 GitHub [Releases](../../releases/latest) 的 Assets 中直接下载 `IPv6SubnetCalculator_V1.15.exe`，下载后即可运行，无需另行配置运行环境。输入 IPv6 网络地址与目标前缀，点击计算图标；完成后自动切换到结果页。
 
 按 F1 或点击顶部“ⓘ”可查看内置帮助、许可原文与法律责任说明。
 

@@ -1,4 +1,15 @@
-# 🌐 IPv6 Subnet Calculator V1.14
+# 🌐 IPv6 Subnet Calculator V1.15
+
+## ✨ V1.15 Candidate Network Availability
+
+- Added Network Availability in the list tools window opened from the third, target-shaped icon at the top of Subnet List. Enter a candidate IPv6 CIDR to determine whether it is entirely free, partially occupied or fully occupied relative to the occupied list.
+- Reports preserve all original conflicting line numbers, including duplicates and containing entries. Occupancy counts the union within the candidate only; disjoint entries do not affect the result. Host bits are normalized.
+- Copy or save minimal CIDRs for free or occupied coverage within the candidate. Empty results and outputs exceeding 5,000 CIDRs cannot produce empty or partial lists; complete range reports remain available. Nothing is appended or allocated automatically.
+- Editing the candidate clears stale results. Saves retain overwrite confirmation and conflict protection. The window uses the list snapshot taken when opened; reopen to refresh it. Query parameters and results are not stored in planning project JSON.
+- Expanded the list tools tooltip. Chinese documents reference Chinese screenshots only, and English documents reference English screenshots only. Checks run before local builds and in GitHub quality checks.
+- The Qt runtime remains 6.11.2; this release does not include a Qt security upgrade. See [dependency status](docs/DEPENDENCY_STATUS.md).
+
+![Candidate network availability in English](docs/screenshots/availability_en_US_light.png)
 
 ## ✨ V1.14 Free Capacity Overview
 
@@ -8,8 +19,6 @@
 - Copy bilingual reports or save TXT with overwrite confirmation and conflict protection. Editing the parent clears results. The list snapshot is taken when the window opens; original projects are unchanged. Reopen to use an updated list.
 - All occupied records must be valid and contained within the parent; an empty list leaves the entire parent free. Overview inputs and results are not stored in planning project JSON; save the report to retain them.
 - Retains V1.13 CIDR output, translation auditing and checkout newline fixes. Qt runtime dependencies are unchanged; this update does not include a Qt security upgrade.
-
-![Free Capacity Overview](docs/screenshots/capacity_en_US_light.png)
 
 ## ✨ V1.13 CIDR Output for Lookup and Coverage Results
 
@@ -28,8 +37,6 @@
 - Malformed translation formats and missing translated lines fall back to the original message. Nested exceptions and background list errors retain localized structure; filenames and user content remain unchanged.
 - Removed the range-separator regular expression from the catalog so parsing syntax is not translated. Added maintenance documentation and regression checks for damaged resources, missing translations and error display.
 
-![CIDR output for lookup and coverage results](docs/screenshots/inspection_output_en_US_light.png)
-
 ## ✨ V1.12 List Lookup, Coverage Comparison and Draft Protection
 
 - Added address membership lookup: list all containing networks and original line numbers, longest prefix first, including duplicates and containing entries.
@@ -42,8 +49,6 @@
 - New drafts and saved projects display their modified state. Switching result tabs alone does not trigger a reminder.
 - Cancelled, conflicting or failed saves preserve current work. Changes during confirmation abort the action.
 
-
-![List lookup and coverage comparison](docs/screenshots/comparison_en_US_light.png)
 
 ## ✨ V1.11 Planning Project Save and Restore
 
@@ -139,35 +144,25 @@ IPv6SubnetCalculator is an offline IPv6 subnet calculator for Windows. It analyz
 
 Plan, TXT and Excel saves check destination changes before committing. Detected conflicts stop replacement and preserve complete recovery output with its path. New destinations use atomic no-overwrite publication. See [protection details](docs/SAVE_CONFLICTS.md) and the [pending Qt dependency status](docs/DEPENDENCY_STATUS.md).
 
-## 📸 Screenshots
+## 📸 English screenshots
 
-Version: **V1.12**.
+![Calculation](docs/screenshots/calculation_en_US_light.png)
 
-### English
+![Subnet results](docs/screenshots/results_en_US_dark.png)
 
-![English calculation, light](docs/screenshots/en_calculation_light.png)
+![Address tools](docs/screenshots/tools_en_US_light.png)
 
-![English results, dark](docs/screenshots/en_results_dark.png)
+![List tools entry](docs/screenshots/query_entry_en_US_light.png)
 
-![English address tools](docs/screenshots/en_tools_light.png)
+![Free space](docs/screenshots/free_en_US_light.png)
 
-![English subnet planning with English sample comments](docs/screenshots/en_aggregate_dark.png)
+![Allocation suggestions](docs/screenshots/allocation_en_US_light.png)
 
-![IPv6 address range to CIDR](docs/screenshots/en_address_range_dark.png)
-
-![Planning TXT save and transfer](docs/screenshots/free_light.png)
-
-### 简体中文
-
-![Chinese calculation, light](docs/screenshots/calculation_light.png)
-
-![Chinese results, dark](docs/screenshots/results_dark.png)
-
-![Allocation suggestions](docs/screenshots/en_allocation_light.png)
+![Free capacity overview](docs/screenshots/capacity_en_US_light.png)
 
 ## 📦 Download and Usage
 
-Download `IPv6SubnetCalculator_V1.12.exe` directly from Assets on GitHub [Releases](../../releases/latest). Run the downloaded executable; no additional runtime setup is required. Enter a network and target prefix, then click the calculation icon; the application switches to Results when complete.
+Download `IPv6SubnetCalculator_V1.15.exe` directly from Assets on GitHub [Releases](../../releases/latest). Run the downloaded executable; no additional runtime setup is required. Enter a network and target prefix, then click the calculation icon; the application switches to Results when complete.
 
 Press F1 or use the top-bar information icon for built-in help, license texts and legal notices.
 

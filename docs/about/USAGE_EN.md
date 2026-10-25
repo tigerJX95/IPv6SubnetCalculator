@@ -1,3 +1,12 @@
+## ✨ V1.15 Candidate Network Availability
+
+- Added Network Availability in the list tools window opened from the third, target-shaped icon at the top of Subnet List. Enter a candidate IPv6 CIDR to determine whether it is entirely free, partially occupied or fully occupied relative to the occupied list.
+- Reports preserve all original conflicting line numbers, including duplicates and containing entries. Occupancy counts the union within the candidate only; disjoint entries do not affect the result. Host bits are normalized.
+- Copy or save minimal CIDRs for free or occupied coverage within the candidate. Empty results and outputs exceeding 5,000 CIDRs cannot produce empty or partial lists; complete range reports remain available. Nothing is appended or allocated automatically.
+- Editing the candidate clears stale results. Saves retain overwrite confirmation and conflict protection. The window uses the list snapshot taken when opened; reopen to refresh it. Query parameters and results are not stored in planning project JSON.
+- Expanded the list tools tooltip. Chinese documents reference Chinese screenshots only, and English documents reference English screenshots only. Checks run before local builds and in GitHub quality checks.
+- The Qt runtime remains 6.11.2; this release does not include a Qt security upgrade. See [dependency status](https://github.com/tigerJX95/IPv6SubnetCalculator/blob/main/docs/DEPENDENCY_STATUS.md).
+
 ## ✨ V1.14 Free Capacity Overview
 
 - Added a Free Capacity Overview tab in the Subnet List lookup window. Enter a parent network to count complete, aligned available subnets at every prefix from the parent prefix through /128.

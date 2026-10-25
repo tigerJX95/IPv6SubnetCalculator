@@ -1,3 +1,9 @@
+## V1.15 candidate availability and localized screenshots
+
+`core/network_availability.py` clips occupied union intervals to a candidate CIDR, preserves original conflicting records, and subtracts the clipped union without enumerating addresses. `AvailabilityPanel` shares bounded CIDR output and report save guards with existing inspection panels.
+
+`tools/check_doc_images.py` verifies screenshot language and SHA-256 against `docs/screenshots/catalog.json`. Localized Markdown filenames ending `_EN` require English assets; the remaining Markdown documents require Chinese assets. Screenshot filenames carry explicit locale codes. The check runs before `build_manifest.py` and in the static checks job. New captures must be reviewed and their catalog entries regenerated.
+
 ## V1.14 capacity overview
 
 `core/subnet_capacity.py` calculates all prefix capacities from complete free-space intervals. `aligned_blocks()` is shared with allocation suggestions to preserve alignment semantics. Counts use integers, with at most 129 report rows and no address enumeration. The existing bounded list parser validates occupied records and parent containment.

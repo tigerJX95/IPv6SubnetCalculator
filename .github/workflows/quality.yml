@@ -33,6 +33,9 @@ jobs:
       - name: Check Python execution errors
         run: python -m ruff check --output-format=github .
 
+      - name: Check document screenshot languages
+        run: python tools/check_doc_images.py
+
   tests:
     name: Regression tests (${{ matrix.os }})
     runs-on: ${{ matrix.os }}

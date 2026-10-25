@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "version": "1.15",
+  "images": {
+    "docs/screenshots/calculation_zh_CN_light.png": {
+      "language": "zh_CN",
+      "sha256": "afeb63340fc7fbb5bfe7719b3796242003b1239d5e6b2f2102c0220acd946cfd"
+    },
+    "docs/screenshots/results_zh_CN_dark.png": {
+      "language": "zh_CN",
+      "sha256": "437a120b1b0841c4d40ce08dd4ee0167235b13bd1bba4c176b1ae977bba69305"
+    },
+    "docs/screenshots/tools_zh_CN_light.png": {
+      "language": "zh_CN",
+      "sha256": "fb3412c233cd0bbec98410cc643d5e4410367736442e5a8350975210edc31b98"
+    },
+    "docs/screenshots/query_entry_zh_CN_light.png": {
+      "language": "zh_CN",
+      "sha256": "a8390d11a9c4a584f1c619a65519a8f65e58ec5b7b053afcda92b90ea80a877c"
+    },
+    "docs/screenshots/free_zh_CN_light.png": {
+      "language": "zh_CN",
+      "sha256": "cb837f28110f56abc02f0691dc98a22427588f9031bda782907e829168e3576b"
+    },
+    "docs/screenshots/allocation_zh_CN_light.png": {
+      "language": "zh_CN",
+      "sha256": "18b026f881c58e7eaa1e5ba873c4cfd548647ee127c1ac23ea7f64afc1f2be67"
+    },
+    "docs/screenshots/capacity_zh_CN_light.png": {
+      "language": "zh_CN",
+      "sha256": "4a78879783c628f87b02cabbc8069285df2c2bbeef71756af66c3d5c11b2adda"
+    },
+    "docs/screenshots/availability_zh_CN_light.png": {
+      "language": "zh_CN",
+      "sha256": "1604d7e97aaf31680661ea8658c6b742e405107f1fd6e7180e335885047eef72"
+    },
+    "docs/screenshots/availability_zh_CN_dark.png": {
+      "language": "zh_CN",
+      "sha256": "9ba3c354002b919055d2008ff68af692d8fa513c65e2773e8171cc7efb2953e2"
+    },
+    "docs/screenshots/calculation_en_US_light.png": {
+      "language": "en_US",
+      "sha256": "06b8a6bccfda3808d320d7f64d610d36f21f71111efa179fc1834f56e3349dce"
+    },
+    "docs/screenshots/results_en_US_dark.png": {
+      "language": "en_US",
+      "sha256": "4f5f9c282315021719122f12e54894ee5893f4f2d6e3cb547c51cd2640778193"
+    },
+    "docs/screenshots/tools_en_US_light.png": {
+      "language": "en_US",
+      "sha256": "8925569dd74fa2e5d1d560691ea2fccc5a497bd8aa782ffbf018427acfe1cdfa"
+    },
+    "docs/screenshots/query_entry_en_US_light.png": {
+      "language": "en_US",
+      "sha256": "97ca76a5f03157da1fa8ae063d08233417d997695706f2a2fea14d932daa8720"
+    },
+    "docs/screenshots/free_en_US_light.png": {
+      "language": "en_US",
+      "sha256": "512cb14349cf6e40b32ab698b19e762a1e2a1bd9d40299d87cb30e9f4d61a3f3"
+    },
+    "docs/screenshots/allocation_en_US_light.png": {
+      "language": "en_US",
+      "sha256": "5a28be2d337bb7902356aa1afd1da9ec4e956cb46ea7688927a846944b5cb914"
+    },
+    "docs/screenshots/capacity_en_US_light.png": {
+      "language": "en_US",
+      "sha256": "47a6582465e6dfa2597b30e24b3de7d994723179d18e92bd420a3817bc31a752"
+    },
+    "docs/screenshots/availability_en_US_light.png": {
+      "language": "en_US",
+      "sha256": "5812ac474bb11076bf1d4625af5d8fd8f9f0e3c1a1376014131c8256e0c5851d"
+    },
+    "docs/screenshots/availability_en_US_dark.png": {
+      "language": "en_US",
+      "sha256": "582c17a6e0bfedeecc2a7e308d51ed737bc963ea76397f515e0421f2700424d6"
+    }
+  }
+}

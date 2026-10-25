@@ -23,8 +23,13 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from services.build_info import current_build_info
 from tools.check_i18n import check_project
+from tools.check_doc_images import check_document_images
 
 if __name__ == '__main__':
+    images = check_document_images(ROOT)
+    if images['errors']:
+        raise SystemExit('Document screenshot checks failed:\n'+'\n'.join(images['errors']))
+    print(f"Document screenshots passed: {images['references']} references")
     result = check_project(ROOT)
     if result['errors']:
         raise SystemExit('Translation checks failed:\n'+'\n'.join(result['errors']))
