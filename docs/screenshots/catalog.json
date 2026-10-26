@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "version": "1.15",
+  "version": "1.16",
   "images": {
     "docs/screenshots/calculation_zh_CN_light.png": {
       "language": "zh_CN",
@@ -73,6 +73,38 @@
     "docs/screenshots/availability_en_US_dark.png": {
       "language": "en_US",
       "sha256": "582c17a6e0bfedeecc2a7e308d51ed737bc963ea76397f515e0421f2700424d6"
+    },
+    "docs/screenshots/about_zh_CN_light.png": {
+      "language": "zh_CN",
+      "sha256": "af1c0565aa4be02b3d5d1c51120948b93b758fa180351c4b119a1b358ccf4775"
+    },
+    "docs/screenshots/batch_availability_zh_CN_light.png": {
+      "language": "zh_CN",
+      "sha256": "916ee73da1e1aa0b91cbd9e7c162fd96e990b599e97292fe8855a7ad4306085f"
+    },
+    "docs/screenshots/about_zh_CN_dark.png": {
+      "language": "zh_CN",
+      "sha256": "52d51c5fe1cce96ce0f9c2e74cd4712c6b43d2da3381b8926fccaf8f1609a937"
+    },
+    "docs/screenshots/batch_availability_zh_CN_dark.png": {
+      "language": "zh_CN",
+      "sha256": "e17da968daa53a878e7d8c071b89a5ef7e1a41242ebf6cc51008c28164efab2d"
+    },
+    "docs/screenshots/about_en_US_light.png": {
+      "language": "en_US",
+      "sha256": "13da20bf7115052b70e61d73e934acb94d28a040978ee45fadc9bb06dd2b2d50"
+    },
+    "docs/screenshots/batch_availability_en_US_light.png": {
+      "language": "en_US",
+      "sha256": "f79ca3ca2bf72517b5a56ce04751d5a75d233b0f3adce8508ff6d247fe29dc0a"
+    },
+    "docs/screenshots/about_en_US_dark.png": {
+      "language": "en_US",
+      "sha256": "87986893a60d62b04067861d2778d097a4c1fbc79ec5c8fbaa19caf9a166c549"
+    },
+    "docs/screenshots/batch_availability_en_US_dark.png": {
+      "language": "en_US",
+      "sha256": "c76001c4351c91943c68213aba10f4ab8a8724760942b07e496f7a164f824c0c"
     }
   }
 }

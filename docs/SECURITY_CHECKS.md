@@ -16,7 +16,7 @@
 
 CodeQL 在 `.github/workflows/security.yml` 中配置 Python 和 Actions 两种分析。现有完整依赖审计保留在 `quality.yml`；安全源码扫描同时支持本地执行。依赖变化审查也覆盖 requirements-ci.txt 的受支持依赖图变更，但完整 pip-audit 的范围为应用 requirements.txt，不声称审计了所有 CI 工具的传递依赖。
 
-普通任务只读仓库；只有 CodeQL 作业额外申请上传报告所需的 security-events 写权限和 actions 读权限。Actions 使用完整提交 SHA；没有加入 pull_request_target、自托管运行器或 Release 发布权限。
+普通任务只读仓库；只有 CodeQL 作业额外申请上传报告所需的 security-events 写权限和 actions 读权限。Actions 使用完整提交 SHA；没有加入 pull_request_target 或自托管运行器。V1.16 的独立 Release 构建作业额外申请 contents 写权限，仅用于缺少 EXE 时新增附件；不对 PR 执行，不覆盖已有附件。见 RELEASE_BUILD.md。
 
 ## 本地构建和验证
 

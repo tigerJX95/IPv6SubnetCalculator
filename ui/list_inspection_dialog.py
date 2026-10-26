@@ -204,6 +204,42 @@ class AvailabilityPanel(InspectionPanel):
                                              lambda: self.result is result)
 
 
+class BatchAvailabilityPanel(InspectionPanel):
+    def __init__(self, page, source):
+        super().__init__(page, source, comparison=True)
+        self.hint.setText(tx('每行一个候选 IPv6 CIDR，最多 5,000 条。各候选独立对照基准清单，候选之间不会互相预留。'))
+        self.input.setAccessibleName(tx('批量候选 IPv6 网段'))
+        self.import_button.hide()
+        self.run_button.setToolTip(tx('检查批量候选网段'))
+        self.run_button.setAccessibleName(tx('检查批量候选网段'))
+        self.report.setAccessibleName(tx('批量网段可用性报告'))
+        self.category.clear()
+        self.category.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToMinimumContentsLengthWithIcon)
+        self.category.setMinimumContentsLength(12)
+        self.category.addItem(tx('全部空闲的候选 CIDR（去重，可能互相重叠）'), 'free_candidates')
+        self.category.setToolTip(tx('全部空闲的候选 CIDR（去重，可能互相重叠）'))
+
+    def run(self):
+        from core.batch_availability import check_batch_availability
+        self.invalidate()
+        try:
+            self.result = check_batch_availability(self.source, self.value())
+        except InputError as exc:
+            self.report.setPlainText(tx('批量检查失败：{0}', exc))
+            return False
+        self.report.setPlainText(self.result.as_text())
+        self.copy_button.setEnabled(True)
+        self.save_button.setEnabled(True)
+        self.refresh_cidrs()
+        return True
+
+    def save(self):
+        result = self.result
+        if result is not None:
+            self.page.output_controller._save('IPv6_BatchAvailability.txt', result.as_text(),
+                                             lambda: self.result is result)
+
+
 class CapacityPanel(InspectionPanel):
     """Read-only snapshot analysis, reusing report copy/save conflict protection."""
     def __init__(self, page, source):
@@ -264,7 +300,9 @@ class ListInspectionDialog(QDialog):
         tabs.addTab(self.capacity, tx('空闲容量总览'))
         self.availability = AvailabilityPanel(page, source)
         tabs.addTab(self.availability, tx('网段可用性'))
-        # Keep four translated tabs reachable at the minimum window width.
+        self.batch_availability = BatchAvailabilityPanel(page, source)
+        tabs.addTab(self.batch_availability, tx('批量可用性'))
+        # Keep translated tabs reachable at the minimum window width.
         tabs.setUsesScrollButtons(True)
         layout.addWidget(tabs)
 

@@ -1,3 +1,21 @@
+## V1.16 Release 构建规则补充 — 2026-10-26
+
+- 完整回归 640 项通过（原 628 项＋12 项 Release 工作流和附件策略测试），0 失败、0 错误、0 跳过。/ All 640 regressions passed (628 retained plus 12 Release policy/workflow tests), without failures, errors or skips.
+- 专项验证任意完整 EXE 跳过、非 EXE 附件继续构建、分页、大小写、无效身份／标签、未完成和空附件、不可变 Release、API 错误、上传前二次检查、固定 Release ID、新增 POST 不覆盖、上传确认及手动构建不修改 Release。测试通过模拟 API 执行，没有创建真实 Release 或上传附件。/ Mocked tests cover skip/build decisions, pagination, extension case, invalid identities/tags, incomplete/empty assets, immutable Releases, API failures, pre-upload rechecks, fixed-ID additive POST, upload confirmation and manual-run isolation. No real Release or attachment was created.
+- 工作流配置使用 YAML 解析验证；所有 Actions 使用完整 SHA，并核对 upload-artifact 的 archive:false 支持。Ruff、Bandit、pip-audit 应用依赖审计和 pip check 通过。/ YAML configuration checks, full-SHA action pinning, raw artifact support, Ruff, Bandit, application pip-audit and pip check passed.
+- 运行时代码及资源未变，源码指纹与前次 33 项源码／Linux 单文件自检一致。首次 Windows 托管构建、真实 Release 附件 API 和本版 GitHub CI 待提交后验证；不声称已在云端生成 EXE。/ Runtime sources/resources and fingerprint are unchanged from the 33-check source/Linux frozen validation. First hosted Windows build, real attachment API and hosted CI for this update remain pending after commit.
+- 最新结构化证据见 `../verification/v1.16/`；构建说明见 RELEASE_BUILD.md 与 RELEASE_BUILD_EN.md。/ See the latest structured evidence and bilingual Release build guides.
+
+## V1.16 — 2026-10-26
+
+- 完整回归 628 项通过（保留 V1.15 的 609 项，新增批量候选和关于链接 19 项）；0 失败、0 错误、0 跳过。 / All 628 tests passed: 609 retained plus 19 batch/about-link tests, with zero failures, errors or skips.
+- 新功能覆盖 80 组独立枚举对照、5000+5000 条极限输入、/0 与最高地址、精确并集、重复／包含／相邻候选、主机位规范化、坏行整批拒绝、输入失效、快照、双语切换及保存期间变化。 / Coverage includes 80 randomized enumerated oracles, 5000+5000 record limits, full-space bounds, exact unions, duplicate/containing/adjacent candidates, normalization, atomic batch rejection, invalidation, snapshots, live language switching and stale-save guards.
+- 关于页验证真实超链接、打开及语言／主题切换不联网、HTTPS 点击边界、启动浏览器失败提示、无重复底部关闭及 Esc；修正图标读取为 256 像素帧，并提高最小窗口高度以保留正文空间。 / About checks cover real anchors, no automatic browser launch, HTTPS-only clicks, browser failure feedback, no duplicate footer controls and Esc. The icon uses its 256-pixel frame; the minimum height preserves reading space.
+- 源码及 Linux 单文件程序各通过 33 项自检，版本及源码 SHA-256 一致。Windows EXE／实机和本版 GitHub Actions 尚未验证。 / Source and Linux one-file builds each passed 33 self-checks with matching version and SHA-256. Windows EXE/desktop and hosted CI for this version have not been validated.
+- i18n 检查通过：812 条翻译、932 处调用、66 个源码文件。8 张新截图均来自实际 Qt 界面，按中英文与浅深色核对；全部 28 处图片引用通过语言与哈希校验。 / i18n passed for 812 messages, 932 calls and 66 files. Eight fresh Qt screenshots were visually checked for locale/theme; all 28 image references passed locale/hash checks.
+- Ruff、pip check、Bandit 及 pip-audit 应用依赖审计通过；保留原 i18n／安全门禁，Windows 国际化回归加入新模块。Qt 运行依赖不变，不声称已修复上游 Qt 风险。 / Ruff, pip check, Bandit and application dependency auditing passed. Existing gates remain; Windows localization regression includes the new modules. Qt runtime dependencies are unchanged and no upstream Qt fix is claimed.
+- 本轮结构化证据：`../verification/v1.16/`；源码指纹：`86182135b4ac073ef90e3f09b9031a90e8c0761d98b845fa43b98beec74b1782`。 / Structured evidence and source fingerprint for this iteration.
+
 ## V1.15 检测规则维护 — 2026-10-26
 
 - 完整回归 609 项全部通过，0 失败、0 错误、0 跳过；新增 i18n 合约、完整 PR 变更检测、失败关闭门禁和安全配置测试。 / All 609 tests passed with no failures, errors or skips, including new contract, PR detection, fail-closed gate and security configuration tests.

@@ -162,7 +162,7 @@ class QtWorkflowTests(unittest.TestCase):
                 dialog.tabs.setCurrentIndex(index)
                 QApplication.processEvents()
                 self.assertLessEqual(dialog.tabs.geometry().right(), dialog.width())
-                self.assertLessEqual(dialog.close_button.geometry().bottom(), dialog.height())
+                self.assertFalse(hasattr(dialog, 'close_button'))
                 self.assertGreater(dialog.tabs.currentWidget().height(), 200)
             self.assertEqual(self.application.property('themeName'), theme)
             self.assertFalse(self.window.about_button.icon().isNull())

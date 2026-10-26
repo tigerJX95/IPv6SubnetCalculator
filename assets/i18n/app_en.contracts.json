@@ -85,8 +85,17 @@
     },
     {
       "context": "App",
-      "source": "**IPv6SubnetCalculator · V{0}**\n\n面向 Windows 的离线 IPv6 子网计算与地址分析工具。\n\n- **主要功能**：网络范围与容量计算、分页定位、方案保存与恢复、地址格式转换、地址范围转 CIDR、双网段关系分析、已有 CIDR 清单检查、空闲空间、等价 CIDR 整理、清单与规划文本保存、TXT／Excel 导出。\n- **项目许可**：GNU GPL v3.0 或任何后续版本（GPL-3.0-or-later）。\n- **版权**：Copyright © 2026 IPv6SubnetCalculator contributors。\n- **致谢**：感谢 PyQt6、Qt 6 和 SIP 上游项目及其贡献者。\n\n### 当前运行组件\n\n| 组件 | 实际运行版本 |\n|---|---|\n| PyQt6 | {1} |\n| Qt | {2} |\n| PyQt6-sip | {3} |\n\n许可原文、使用说明与法律责任信息可在本窗口离线查看。\n本程序提供数学计算与辅助规划信息，不会修改系统网络配置，也不验证地址的实际可达性。\n",
-      "source_sha256": "e865722f6d78ec3428c7efcc3527c1fd581bf14925093a0f888531528e347e1a",
+      "source": "### 项目网站\n\n- **项目主页**：[{0}]({0})\n- **下载正式版**：[{1}]({1})\n\n点击链接使用系统默认浏览器打开；仅在点击时联网。",
+      "source_sha256": "61b42db4d2bd6e989e66081c48402c5ba76d8f7dc661b84039b45d423440114a",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": true,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "**IPv6SubnetCalculator · V{0}**\n\n面向 Windows 的离线 IPv6 子网计算与地址分析工具。\n\n- **主要功能**：网络范围与容量计算、分页定位、方案保存与恢复、地址格式转换、地址范围转 CIDR、双网段关系分析、已有 CIDR 清单检查、空闲空间、等价 CIDR 整理、清单与规划文本保存、批量网段可用性、TXT／Excel 导出。\n- **项目许可**：GNU GPL v3.0 或任何后续版本（GPL-3.0-or-later）。\n- **版权**：Copyright © 2026 IPv6SubnetCalculator contributors。\n- **致谢**：感谢 PyQt6、Qt 6 和 SIP 上游项目及其贡献者。\n\n### 当前运行组件\n\n| 组件 | 实际运行版本 |\n|---|---|\n| PyQt6 | {1} |\n| Qt | {2} |\n| PyQt6-sip | {3} |\n\n许可原文、使用说明与法律责任信息可在本窗口离线查看。\n本程序提供数学计算与辅助规划信息，不会修改系统网络配置，也不验证地址的实际可达性。\n",
+      "source_sha256": "94f342bf330c8e4952de844ced010704c2763cf0db4b0ca67ad7f58f3ab82bb1",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": true,
@@ -484,6 +493,15 @@
       "context": "App",
       "source": "IPv6 子网详情",
       "source_sha256": "9b7c1ec7ac9a409814a7a11b19c71fd0f68a9e0c73bac5b5328660e2382074c7",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "IPv6 批量网段可用性报告",
+      "source_sha256": "3d1f7e64c78cb2ea7bd2e205f185a1609986d31e163cba318e2c2b7eb834c364",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -1404,6 +1422,15 @@
     },
     {
       "context": "App",
+      "source": "候选之间重叠的记录：{0:,} 条",
+      "source_sha256": "6c3090f1000f964e897301983054334768e755a7014eaef532311e636d9b1a51",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "候选内占用 CIDR",
       "source_sha256": "1e2b3349961578110aca8d5f1aa21869ee195cb0036e01f6fd758e5af8263b25",
       "protected_tokens": [],
@@ -1476,6 +1503,15 @@
     },
     {
       "context": "App",
+      "source": "候选网段：{0:,} 条；全部空闲：{1:,}；部分占用：{2:,}；全部占用：{3:,}",
+      "source_sha256": "addb5ac5e6f91066173d76535c8bbdf0798ecc53d1112ff33cc3ec7c4b467c62",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "候选网段：{0}",
       "source_sha256": "cd96a98377332f2e1c8c16ea9864d4a40a13179d5040e1efaeb87b0e11555615",
       "protected_tokens": [],
@@ -1532,6 +1568,15 @@
       "context": "App",
       "source": "全部空闲地址范围（包含首末地址）：",
       "source_sha256": "213aa20ef561136c4616297e84d80028bae5cce3c43708cb979e61ea6d35df00",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "全部空闲的候选 CIDR（去重，可能互相重叠）",
+      "source_sha256": "ed79f569e296d6d5622a3f0ca9fc2aa249e0f2f8344d0226dca52ec282af2e54",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -1862,6 +1907,15 @@
       "context": "App",
       "source": "单次最多复制 {0:,} 条子网；更多记录请使用文件导出。",
       "source_sha256": "bb68167be632a4650ea442f70e4de9362d4c578450aa12db469bdc55f9ef809f",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "占用地址：{0:,}；空闲地址：{1:,}；重叠候选记录：{2:,}；主机位规范化：{3}",
+      "source_sha256": "dbf7ad45c5483d61cd34951d9f721683ca8f4704cbc16643730eb61a3117234a",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -2237,6 +2291,15 @@
       "context": "App",
       "source": "地址数量",
       "source_sha256": "a1250e09a648aa471422ca3ec0903eebd9a8ad7009d6d8f894fd9b9215f65209",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "地址数量逐条统计，重叠候选不能相加。全部空闲仅表示未被基准清单覆盖，不证明实际可部署。",
+      "source_sha256": "6aa0aea8c823b44b3da3f4f506674ac20241f479fc0c9afe958c17b4824bd53b",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -3595,6 +3658,42 @@
     },
     {
       "context": "App",
+      "source": "批量候选 IPv6 网段",
+      "source_sha256": "21bfa1d9067b231d243debf78d26016ef60842b21df49e6e4bbc18804e7ba7b8",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "批量可用性",
+      "source_sha256": "0ac96f956ce437c5e01604f908b0b501136ed01fabdc85274bd82fc5ef103c97",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "批量检查失败：{0}",
+      "source_sha256": "d30327e7752dd15359158930970da81b0deb375b7d06a1a7c01c7adb497d0b24",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "批量网段可用性报告",
+      "source_sha256": "f04ea07d1036d698a9c66b379867973cc4773c6be46985074116c3471e4d9e53",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "找不到文件或目录，请检查路径。",
       "source_sha256": "329335cebf508cec53d4747fbc181007657d2fe9b5d868e00396086b4deb6f19",
       "protected_tokens": [],
@@ -4620,6 +4719,15 @@
     },
     {
       "context": "App",
+      "source": "检查批量候选网段",
+      "source_sha256": "656841969e455fc1938318261b7ab6ad77b146e2a5c1f161a66cccaae915d41c",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "检查未返回结果。",
       "source_sha256": "fa68dabfede953c3f67f83f7d12f5091c3c973d9fa97fbda29143eb2d054b1c3",
       "protected_tokens": [],
@@ -4775,6 +4883,15 @@
     },
     {
       "context": "App",
+      "source": "每条候选独立对照当前占用清单，不会互相预留；候选之间可能重叠，不能直接视为可同时分配。",
+      "source_sha256": "6c583a1755da2fce2a2324079115ca3de0a540e6159f7afbaadd6c771d8984ca",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "每次最多检查 {0:,} 条网段，请拆分清单。",
       "source_sha256": "5278adf4104ba6966611eef788f7ca1e38d5fd42073e2940234038381a3a9896",
       "protected_tokens": [],
@@ -4808,6 +4925,15 @@
       "context": "App",
       "source": "每行一个 IPv6 CIDR：校验与关系检查、父网段空闲空间、等价 CIDR 整理。",
       "source_sha256": "b80fb7f03e4b836137e77841a22631d1ee274d6d85e05ce660251d96400779c9",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "每行一个候选 IPv6 CIDR，最多 5,000 条。各候选独立对照基准清单，候选之间不会互相预留。",
+      "source_sha256": "137bb17306fcecb4a0fe9ff664d1c8372c2b6db7fc5f3b8667a18f8fe61cc5f8",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -5613,6 +5739,15 @@
       "context": "App",
       "source": "第 {0} 行：{1} → {2}｜",
       "source_sha256": "f0c8da154b253cfca38247a2bb575da0a533cdd05f18b4f38b4fb4aa31f46462",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "第 {0} 行：{1} → {2}｜{3}",
+      "source_sha256": "8704062f8b69e95bc11c419eb0149ba69bedc74335b2e8a92768834d2a1ad485",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -6945,6 +7080,15 @@
       "context": "App",
       "source": "选择需要复制的子网序号（最多 {0:,} 条）",
       "source_sha256": "69e3e7da13db1ea695c927e926bdb0726b4e1072a6a5af013a2c27b1715cd1f3",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "逐条候选结果（保留原始行号和重复项）：",
+      "source_sha256": "a2fd02034af0682d416140e070ea49252e1d8406413eba8486042a81f564d69b",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,

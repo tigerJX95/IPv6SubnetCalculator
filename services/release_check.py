@@ -291,6 +291,16 @@ class ReleaseCheck(QObject):
         inspection.availability.input.setText('::/127')
         self.require(inspection.availability.result is None, 'Edited candidate retained stale output')
         self.checks.append('candidate_network_availability_conflicts_exact_cidrs_and_invalidation')
+        inspection.batch_availability.source = '::/127'
+        inspection.batch_availability.input.setPlainText('::/126\n::4/126\n::4/126')
+        self.require(inspection.batch_availability.run(), 'Batch availability failed')
+        batch = inspection.batch_availability.result
+        self.require([e.occupied for e in batch.entries] == [2, 0, 0], 'Batch occupancy incorrect')
+        self.require([e.overlaps for e in batch.entries] == [0, 1, 1], 'Batch candidate overlap incorrect')
+        self.require(batch.cidr_output('free_candidates').as_text() == '::4/126', 'Batch free CIDRs incorrect')
+        inspection.batch_availability.input.setPlainText('::/0')
+        self.require(inspection.batch_availability.result is None, 'Batch stale result retained')
+        self.checks.append('batch_availability_independent_candidates_overlap_and_invalidation')
         inspection.deleteLater()
         self.checks.append('list_coverage_comparison_exact_delta_and_invalidation')
 

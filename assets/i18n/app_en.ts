@@ -2323,7 +2323,7 @@ File: </translation>
 
 面向 Windows 的离线 IPv6 子网计算与地址分析工具。
 
-- **主要功能**：网络范围与容量计算、分页定位、方案保存与恢复、地址格式转换、地址范围转 CIDR、双网段关系分析、已有 CIDR 清单检查、空闲空间、等价 CIDR 整理、清单与规划文本保存、TXT／Excel 导出。
+- **主要功能**：网络范围与容量计算、分页定位、方案保存与恢复、地址格式转换、地址范围转 CIDR、双网段关系分析、已有 CIDR 清单检查、空闲空间、等价 CIDR 整理、清单与规划文本保存、批量网段可用性、TXT／Excel 导出。
 - **项目许可**：GNU GPL v3.0 或任何后续版本（GPL-3.0-or-later）。
 - **版权**：Copyright © 2026 IPv6SubnetCalculator contributors。
 - **致谢**：感谢 PyQt6、Qt 6 和 SIP 上游项目及其贡献者。
@@ -2343,7 +2343,7 @@ File: </translation>
 
 An offline IPv6 subnet calculator and address-analysis tool for Windows.
 
-- **Features**: network ranges and capacities, pagination and location, calculation plans, address formats, address-range conversion, two-network relationships, CIDR list validation, free space, equivalent aggregation, list/planning text saves and TXT/Excel export.
+- **Features**: network ranges and capacities, pagination and location, calculation plans, address formats, address-range conversion, two-network relationships, CIDR list validation, free space, equivalent aggregation, list/planning text saves, batch network availability and TXT/Excel export.
 - **Project license**: GNU GPL v3.0 or any later version (GPL-3.0-or-later).
 - **Copyright**: Copyright © 2026 IPv6SubnetCalculator contributors.
 - **Acknowledgments**: PyQt6, Qt 6, SIP and their contributors.
@@ -3315,6 +3315,80 @@ Check the destination, then save using another filename.</translation>
         <message>
             <source>清单查询：地址归属、覆盖比较、空闲容量与网段可用性</source>
             <translation>List tools: address membership, coverage comparison, free capacity and network availability</translation>
+        </message>
+        <message>
+            <source>IPv6 批量网段可用性报告</source>
+            <translation>IPv6 Batch Network Availability Report</translation>
+        </message>
+        <message>
+            <source>候选网段：{0:,} 条；全部空闲：{1:,}；部分占用：{2:,}；全部占用：{3:,}</source>
+            <translation>Candidates: {0:,}; entirely free: {1:,}; partially occupied: {2:,}; fully occupied: {3:,}</translation>
+        </message>
+        <message>
+            <source>候选之间重叠的记录：{0:,} 条</source>
+            <translation>Candidate records overlapping another candidate: {0:,}</translation>
+        </message>
+        <message>
+            <source>每条候选独立对照当前占用清单，不会互相预留；候选之间可能重叠，不能直接视为可同时分配。</source>
+            <translation>Candidates are checked independently against the occupied list and do not reserve space for each other; overlapping candidates cannot be assumed allocatable together.</translation>
+        </message>
+        <message>
+            <source>地址数量逐条统计，重叠候选不能相加。全部空闲仅表示未被基准清单覆盖，不证明实际可部署。</source>
+            <translation>Address counts are per candidate; do not add overlapping candidates. Entirely free means uncovered by the baseline list, not verified deployability.</translation>
+        </message>
+        <message>
+            <source>逐条候选结果（保留原始行号和重复项）：</source>
+            <translation>Candidate results (original line numbers and duplicates retained):</translation>
+        </message>
+        <message>
+            <source>第 {0} 行：{1} → {2}｜{3}</source>
+            <translation>Line {0}: {1} → {2} | {3}</translation>
+        </message>
+        <message>
+            <source>占用地址：{0:,}；空闲地址：{1:,}；重叠候选记录：{2:,}；主机位规范化：{3}</source>
+            <translation>Occupied addresses: {0:,}; free addresses: {1:,}; overlapping candidate records: {2:,}; host bits normalized: {3}</translation>
+        </message>
+        <message>
+            <source>每行一个候选 IPv6 CIDR，最多 5,000 条。各候选独立对照基准清单，候选之间不会互相预留。</source>
+            <translation>One candidate IPv6 CIDR per line, up to 5,000. Each is checked against the baseline; candidates do not reserve space for each other.</translation>
+        </message>
+        <message>
+            <source>批量候选 IPv6 网段</source>
+            <translation>Candidate IPv6 network list</translation>
+        </message>
+        <message>
+            <source>检查批量候选网段</source>
+            <translation>Check candidate network list</translation>
+        </message>
+        <message>
+            <source>批量网段可用性报告</source>
+            <translation>Batch network availability report</translation>
+        </message>
+        <message>
+            <source>全部空闲的候选 CIDR（去重，可能互相重叠）</source>
+            <translation>Entirely free candidate CIDRs (deduplicated; may overlap)</translation>
+        </message>
+        <message>
+            <source>批量检查失败：{0}</source>
+            <translation>Batch check failed: {0}</translation>
+        </message>
+        <message>
+            <source>批量可用性</source>
+            <translation>Batch Availability</translation>
+        </message>
+        <message>
+            <source>### 项目网站
+
+- **项目主页**：[{0}]({0})
+- **下载正式版**：[{1}]({1})
+
+点击链接使用系统默认浏览器打开；仅在点击时联网。</source>
+            <translation>### Project Website
+
+- **Project home**: [{0}]({0})
+- **Download releases**: [{1}]({1})
+
+Click a link to open your default browser; a network connection is used only when you click.</translation>
         </message>
     </context>
     <context>

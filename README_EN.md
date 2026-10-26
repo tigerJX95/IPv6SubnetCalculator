@@ -1,8 +1,24 @@
-# 🌐 IPv6 Subnet Calculator V1.15
+[简体中文](README.md) | **English**
 
-### V1.15 check policy maintenance
+# 🌐 IPv6 Subnet Calculator V1.16
 
-Added an independent i18n gate, source contracts and structured translation checks; Python/Actions CodeQL, PR dependency review and local Bandit source scanning. Build and verification run localization/security preflight. Functionality, version and localized screenshots are unchanged. See [i18n checks](docs/INTERNATIONALIZATION_CI_EN.md) and [security checks](docs/SECURITY_CHECKS_EN.md). Hosted scans and repository protection require upload and configuration.
+### V1.16 Release build policy
+
+Published Releases with an existing complete EXE skip compilation. Releases without one build, verify and attach the Windows x64 single-file EXE. Manual runs retain output in Actions only. Attachments are checked again before upload to preserve manual files. See [Release build guide](docs/RELEASE_BUILD_EN.md).
+
+## ✨ V1.16 Batch Availability and About
+
+- Added Batch Availability: one candidate IPv6 CIDR per line, up to 5,000. Check each against the occupied list as entirely free, partially occupied or fully occupied, retaining original line numbers and duplicate candidates.
+- Reports show exact occupied/free address counts and the number of other overlapping candidate records. Checks are independent and reserve no space; candidates are not necessarily allocatable together.
+- Copy or save complete reports and entirely free candidate CIDRs. CIDR output removes duplicates while preserving candidate boundaries and containment; empty output is disabled. Edits clear stale results and saves retain conflict protection.
+- Updated About with the application icon, actual version, offline help, component licenses and legal information. Project home and release downloads are clickable links that open the default browser only on click. Use the title-bar close button or Esc; the duplicate footer close button was removed.
+- Updated both languages, documentation and matching-language screenshots; retained V1.15 i18n and security checks.
+
+See [Batch Availability](docs/BATCH_AVAILABILITY_EN.md) and [About and Website Links](docs/ABOUT_EN.md).
+
+![English batch availability](docs/screenshots/batch_availability_en_US_light.png)
+
+![English About page](docs/screenshots/about_en_US_light.png)
 
 ## ✨ V1.15 Candidate Network Availability
 

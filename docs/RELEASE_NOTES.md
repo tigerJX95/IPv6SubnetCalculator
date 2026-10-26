@@ -1,3 +1,29 @@
+## V1.16 Release 工作流补充 / Release workflow maintenance
+
+- 发布 Release 时先检查附件：任意完整 EXE 存在则跳过；没有 EXE 才构建和验证单文件 Windows x64 EXE，验证通过后新增附件。/ Inspect attachments on publication; skip for any complete EXE, otherwise build/verify and add the single-file Windows x64 EXE.
+- 上传前复查、不覆盖已有附件；手动构建仅输出 Actions 产物，普通提交及 PR 不构建。/ Recheck without overwriting; manual builds stay in Actions; no push/PR build trigger.
+- 首次云端构建与真实上传待提交后验证。详见 RELEASE_BUILD.md 及 RELEASE_BUILD_EN.md。/ First hosted build/upload remains pending; see the bilingual build guides.
+
+## ✨ V1.16 批量可用性与关于页面
+
+- 新增“批量可用性”：每行一个候选 IPv6 CIDR，最多 5,000 条；对照当前占用清单逐条显示全部空闲、部分占用或全部占用，保留原始行号和重复候选。
+- 报告显示各候选的精确占用／空闲地址数及与其他候选重叠的记录数；候选独立检查，不会互相预留，不代表可同时分配。
+- 支持复制／保存完整报告及全部空闲候选 CIDR；纯 CIDR 去重但保留候选边界和包含项，空结果禁用输出。修改输入会清除旧结果，保存沿用冲突保护。
+- 完善关于窗口：程序图标、实际版本、离线帮助、第三方许可和法律说明；项目主页及正式版下载地址以可点击超链接展示，仅点击时打开系统浏览器。保留右上角关闭和 Esc，去掉底部重复关闭按钮。
+- 中英文界面、说明和对应语言截图同步更新，保留 V1.15 的 i18n 与安全检测规则。
+
+入口及示例见 [批量可用性说明](BATCH_AVAILABILITY.md)；关于页见 [关于与网站链接](ABOUT.md)。
+
+## ✨ V1.16 Batch Availability and About
+
+- Added Batch Availability: one candidate IPv6 CIDR per line, up to 5,000. Check each against the occupied list as entirely free, partially occupied or fully occupied, retaining original line numbers and duplicate candidates.
+- Reports show exact occupied/free address counts and the number of other overlapping candidate records. Checks are independent and reserve no space; candidates are not necessarily allocatable together.
+- Copy or save complete reports and entirely free candidate CIDRs. CIDR output removes duplicates while preserving candidate boundaries and containment; empty output is disabled. Edits clear stale results and saves retain conflict protection.
+- Updated About with the application icon, actual version, offline help, component licenses and legal information. Project home and release downloads are clickable links that open the default browser only on click. Use the title-bar close button or Esc; the duplicate footer close button was removed.
+- Updated both languages, documentation and matching-language screenshots; retained V1.15 i18n and security checks.
+
+See [Batch Availability](BATCH_AVAILABILITY_EN.md) and [About and Website Links](ABOUT_EN.md).
+
 ## ✨ V1.13 CIDR 输出与翻译维护
 
 - 地址归属查询支持复制及保存匹配网段 CIDR：规范化、去重，按最长前缀优先排列，保留包含项；原报告仍保留原始行号及重复记录。

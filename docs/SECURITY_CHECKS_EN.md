@@ -11,7 +11,7 @@ This configuration adapts UnattendLocal V1.23 security checks to Python/PyQt. It
 - PR-only Dependency review fails on newly introduced known vulnerabilities of Low severity or higher, without building PR code or posting comments.
 - Existing pip-audit continues checking all locked application packages in requirements.txt. Vulnerabilities, source errors, timeouts and missing reports are failures. This does not claim a full transitive audit of every CI tool.
 
-Jobs default to read-only access. Only CodeQL additionally receives security-events write and actions read access for analysis uploads. Actions are pinned to full commit SHAs. No pull_request_target execution, self-hosted runner or Release publishing permissions are added.
+Jobs default to read-only access. Only CodeQL additionally receives security-events write and actions read access for analysis uploads. Actions are pinned to full commit SHAs. No pull_request_target execution or self-hosted runner is added. The separate V1.16 Release build job requests contents write access for adding a missing EXE attachment; it never runs on PRs or overwrites existing attachments. See RELEASE_BUILD_EN.md.
 
 ## Local checks
 

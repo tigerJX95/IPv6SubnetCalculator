@@ -19,13 +19,12 @@
 from ui.localized_widgets import QLabel, QTabWidget, QComboBox, QTextBrowser
 from core.localized_text import text as tx, join_text as jt
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QDesktopServices, QColor, QPalette, QTextCursor, QTextCharFormat
-from PyQt6.QtWidgets import QVBoxLayout, QHBoxLayout, QWidget, QApplication
-from app_info import APP_NAME, APP_VERSION
+from PyQt6.QtGui import QDesktopServices, QColor, QPalette, QTextCursor, QTextCharFormat, QIcon
+from PyQt6.QtWidgets import QVBoxLayout, QWidget, QApplication
+from app_info import APP_NAME, APP_VERSION, resource_path
 from services.about_content import (HELP_DOCUMENT, LEGAL_DOCUMENT, LICENSE_DOCUMENTS,
-                                    read_document, program_information)
+                                    read_document, program_information, project_links)
 from ui.dialogs import AppDialog
-from ui.widgets import IconButton
 from ui.theme import current_colors
 
 
@@ -76,7 +75,9 @@ class OfflineBrowser(QTextBrowser):
                 self.setToolTip(tx('无法打开系统浏览器，请复制链接后手动打开：')+url.toString())
 
     def _language_changed(self,*_args):
-        if self._document_path is None:return
+        if self._document_path is None:
+            self._refresh_links()
+            return
         v,h=self.verticalScrollBar().value(),self.horizontalScrollBar().value()
         self.display_document(self._document_path)
         self.verticalScrollBar().setValue(v)
@@ -108,11 +109,15 @@ class AboutDialog(AppDialog):
         super().__init__(tx('关于 {0} V{1}', APP_NAME, APP_VERSION), parent)
         self.setObjectName('AboutDialog')
         self.setModal(False)
-        self.setMinimumSize(680, 440)
+        self.setMinimumSize(680, 480)
         self.resize(820, 620)
         layout = QVBoxLayout(self)
         layout.setContentsMargins(20, 16, 20, 14)
         layout.setSpacing(10)
+        logo = QLabel()
+        logo.setPixmap(QIcon(str(resource_path('app.ico'))).pixmap(256, 256).scaled(56, 56, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
+        logo.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(logo)
         title = QLabel(tx('{0}  V{1}', APP_NAME, APP_VERSION))
         title.setObjectName('AppTitle')
         title.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -123,7 +128,8 @@ class AboutDialog(AppDialog):
         layout.addWidget(subtitle)
         self.tabs = QTabWidget()
         self.information = OfflineBrowser()
-        self.information.setMarkdown(program_information())
+        self.information.setMarkdown(project_links()+'\n\n'+program_information())
+        self.information._refresh_links()
         self.usage = OfflineBrowser()
         self.usage.display_document(HELP_DOCUMENT)
         self.licenses = OfflineBrowser()
@@ -145,15 +151,9 @@ class AboutDialog(AppDialog):
             self.tabs.addTab(widget, label)
         self._load_license()
         layout.addWidget(self.tabs, 1)
-        footer = QHBoxLayout()
         hint = QLabel(tx('文本可选择复制 · Esc 关闭'))
         hint.setObjectName('Reference')
-        footer.addWidget(hint)
-        footer.addStretch()
-        self.close_button = IconButton('close_small', tx('关闭关于窗口（Esc）'))
-        self.close_button.clicked.connect(self.close)
-        footer.addWidget(self.close_button)
-        layout.addLayout(footer)
+        layout.addWidget(hint)
 
     def _load_license(self, *_args):
         self.licenses.display_document(self.license_selector.currentData())
