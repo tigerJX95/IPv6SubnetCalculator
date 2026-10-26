@@ -1,20 +1,36 @@
-## V1.15 candidate availability and localized screenshots
+# 开发说明 / Development Notes
+
+本文采用中英对照，中文在前、英文在后。 / This document presents Chinese first, followed by English.
+
+## V1.15 候选网段可用性与本地化截图 / Candidate Availability and Localized Screenshots
+
+`core/network_availability.py` 将占用并集区间裁剪到候选 CIDR 内，保留冲突的原始记录，再从候选中扣除裁剪后的占用并集；整个过程不枚举地址。`AvailabilityPanel` 与现有查询面板共用有数量上限的 CIDR 输出及报告保存保护。
+
+`tools/check_doc_images.py` 根据 `docs/screenshots/catalog.json` 核对截图语言与 SHA-256。文件名以 `_EN` 结尾的本地化 Markdown 文档必须使用英文截图，其余 Markdown 文档必须使用中文截图；截图文件名明确标注语言代码。检查在 `build_manifest.py` 生成构建清单前及静态检查作业中运行。新增截图须人工核对，并更新对应目录记录。
 
 `core/network_availability.py` clips occupied union intervals to a candidate CIDR, preserves original conflicting records, and subtracts the clipped union without enumerating addresses. `AvailabilityPanel` shares bounded CIDR output and report save guards with existing inspection panels.
 
 `tools/check_doc_images.py` verifies screenshot language and SHA-256 against `docs/screenshots/catalog.json`. Localized Markdown filenames ending `_EN` require English assets; the remaining Markdown documents require Chinese assets. Screenshot filenames carry explicit locale codes. The check runs before `build_manifest.py` and in the static checks job. New captures must be reviewed and their catalog entries regenerated.
 
-## V1.14 capacity overview
+## V1.14 空闲容量总览 / Capacity Overview
+
+`core/subnet_capacity.py` 基于完整空闲区间计算各前缀的容量，与分配建议共用 `aligned_blocks()`，确保对齐规则一致。计数使用精确整数，报告最多 129 行，不枚举地址。现有有界清单解析器负责校验占用记录及其是否位于父网段内。
+
+`CapacityPanel` 复用只读清单快照和报告输出控制器。编辑父网段立即使旧结果失效；保存时在对话框返回后复核结果身份，并沿用文件版本冲突检查。容量总览独立于规划项目 JSON，不修改分配参数。
 
 `core/subnet_capacity.py` calculates all prefix capacities from complete free-space intervals. `aligned_blocks()` is shared with allocation suggestions to preserve alignment semantics. Counts use integers, with at most 129 report rows and no address enumeration. The existing bounded list parser validates occupied records and parent containment.
 
 `CapacityPanel` reuses the read-only inspection snapshot and report output controller. Parent edits invalidate results. Save operations validate result identity after dialogs and use the existing file version conflict checks. The overview is independent from project JSON and does not mutate allocation parameters.
 
-## V1.13 translation maintenance
+## V1.13 翻译维护 / Translation Maintenance
+
+TS/QM 重新生成、构建检查和源码扫描范围见 [I18N_MAINTENANCE.md](I18N_MAINTENANCE.md)。格式占位符与异常显示的回归测试位于 `tests/test_translation_catalog.py`。运行时自检核对翻译目录生成记录与消息，不安装审计用翻译器，也不改变当前界面语言。
 
 See [I18N_MAINTENANCE.md](I18N_MAINTENANCE.md) for TS/QM regeneration, build checks and source-scan scope. Formatting and exception regressions are in `tests/test_translation_catalog.py`. Runtime self-checks validate the catalog record and messages without installing the audit translator or changing the active locale.
 
-## V1.13 inspection output
+## V1.13 查询与比较结果输出 / Inspection Output
+
+`CidrOutput` 通过区间分解精确统计全部 CIDR 块，最多保留 5,000 条明细；不完整清单禁止序列化输出。地址归属查询的输出仅对规范化网段去重，不做聚合；覆盖比较则对所选数学集合生成精确聚合结果。保存对话框前后保留并复核结果、类别和输出对象的身份，避免写入过期数据。新增回归测试见 `tests/test_inspection_output.py`。
 
 `CidrOutput` counts all exact blocks using interval decomposition and retains at most 5,000 CIDRs. Incomplete lists refuse serialization. Lookup output deduplicates normalized networks without aggregation; coverage output aggregates each selected mathematical set exactly. Output actions retain result, category and output identity across save dialogs. New regression coverage: `tests/test_inspection_output.py`.
 
@@ -327,3 +343,6 @@ The regression runner emits structured counts, failures/errors, a run identifier
 ## Release 构建 / Release build
 
 发布 Release 时按 EXE 附件有无决定自动构建；手动运行只保留 Actions 产物。见 [中文说明](RELEASE_BUILD.md) / [English guide](RELEASE_BUILD_EN.md)。
+
+Release publication checks whether an EXE attachment exists before deciding to build. Manual runs retain output in Actions only. See the [Chinese guide](RELEASE_BUILD.md) or [English guide](RELEASE_BUILD_EN.md).
+
