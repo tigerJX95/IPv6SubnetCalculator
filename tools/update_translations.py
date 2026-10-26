@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from services.translation_catalog import TS_PATH, QM_PATH, RECORD_PATH, pair_record
 from tools.check_i18n import check_project
+from services.translation_contracts import CONTRACT_PATH
 
 
 def update(root, compiler):
@@ -25,6 +26,7 @@ def update(root, compiler):
             shutil.copyfile(root/name, staged/name)
         (staged/TS_PATH).parent.mkdir(parents=True)
         shutil.copyfile(root/TS_PATH, staged/TS_PATH)
+        shutil.copyfile(root/CONTRACT_PATH, staged/CONTRACT_PATH)
         subprocess.run([compiler, str(staged/TS_PATH), '-qm', str(staged/QM_PATH)], check=True)
         result = check_project(staged, verify_record=False)
         if result['errors']:

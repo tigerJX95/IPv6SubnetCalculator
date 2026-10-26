@@ -16,6 +16,8 @@ if not defined IPV6_APP_VERSION goto fail
 set "IPV6_APP_NAME=IPv6SubnetCalculator_V%IPV6_APP_VERSION%"
 %IPV6_PYTHON% -m pip install -r requirements.txt || goto fail
 %IPV6_PYTHON% -m pip install --upgrade "pyinstaller>=6.22.3,<7" || goto fail
+%IPV6_PYTHON% -m pip install -r requirements-ci.txt || goto fail
+%IPV6_PYTHON% tools\check_security.py || goto fail
 %IPV6_PYTHON% tools\build_manifest.py || goto fail
 %IPV6_PYTHON% -m PyInstaller --noconfirm --clean --onefile --windowed ^
  --name "%IPV6_APP_NAME%" --icon app.ico ^

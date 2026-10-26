@@ -21,6 +21,8 @@ from services.translation_catalog import audit_catalog, pair_record, TS_PATH, QM
 from tools.check_i18n import check_project, source_messages
 from tools.update_translations import update
 
+from services.translation_contracts import CONTRACT_PATH
+
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -40,7 +42,7 @@ class CatalogAuditTests(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.root = Path(self.temp.name)
         (self.root/'assets/i18n').mkdir(parents=True)
-        for path in (TS_PATH, QM_PATH, RECORD_PATH):
+        for path in (TS_PATH, QM_PATH, RECORD_PATH, CONTRACT_PATH):
             shutil.copyfile(ROOT/path, self.root/path)
         self.tree = ET.parse(self.root/TS_PATH)
         self.message = next(c for c in self.tree.getroot().findall('context') if c.findtext('name') == 'App').find('message')

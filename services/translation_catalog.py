@@ -8,6 +8,7 @@ import re
 import xml.etree.ElementTree as ET
 from PyQt6.QtCore import QCoreApplication, QTranslator
 from core.localized_text import format_signature
+from services.translation_contracts import audit_contracts
 
 TS_PATH = 'assets/i18n/app_en.ts'
 QM_PATH = 'assets/i18n/app_en.qm'
@@ -29,7 +30,8 @@ def audit_catalog(root, *, verify_record=True):
     root = Path(root)
     errors, messages = [], {}
     try:
-        tree = ET.parse(root/TS_PATH).getroot()
+        # Reviewed XML scope: trusted bundled TS, not user-imported XML
+        tree = ET.parse(root/TS_PATH).getroot()  # nosec B314
     except (OSError, ET.ParseError, UnicodeError) as exc:
         return dict(errors=['Cannot read TS catalog: '+str(exc)], messages={})
     if tree.tag != 'TS' or tree.get('language') != 'en_US':
@@ -62,6 +64,7 @@ def audit_catalog(root, *, verify_record=True):
                 errors.append(f'Untranslated Chinese text in English catalog: {key!r}')
     if not messages:
         errors.append('TS catalog has no active messages')
+    errors.extend(audit_contracts(root, messages))
     # Keep an app alive for QTranslator.load; never install this audit translator.
     application = QCoreApplication.instance() or QCoreApplication([])
     translator = QTranslator()

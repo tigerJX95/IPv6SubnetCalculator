@@ -1,3 +1,7 @@
+## V1.15 i18n and security policy maintenance
+
+Standalone localization checks and a stable required gate are in i18n-check.yml. Security adds Python/Actions CodeQL, PR dependency review and Bandit source scanning; existing application pip-audit remains in quality.yml. Local build/verification run i18n and source/dependency security preflight. See INTERNATIONALIZATION_CI.md and SECURITY_CHECKS.md for coverage, reviewed exceptions and hosted repository settings.
+
 ## V1.15 documentation screenshot checks
 
 `python tools/check_doc_images.py` validates every Markdown image reference in root documents, docs and examples against the screenshot locale and SHA-256 catalog. `_EN.md` files require English screenshots; other Markdown documents require Chinese screenshots. Swapped locale assets, missing files and changed screenshot bytes fail the check. This runs in the static checks job and before local build manifest creation. Screenshot content is captured from the actual UI in the recorded language and visually reviewed; metadata validation does not independently perform OCR.

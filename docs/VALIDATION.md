@@ -1,3 +1,11 @@
+## V1.15 检测规则维护 — 2026-10-26
+
+- 完整回归 609 项全部通过，0 失败、0 错误、0 跳过；新增 i18n 合约、完整 PR 变更检测、失败关闭门禁和安全配置测试。 / All 609 tests passed with no failures, errors or skips, including new contract, PR detection, fail-closed gate and security configuration tests.
+- 源码 32 项自检通过，与完整回归源码指纹一致；本轮没有重新构建单文件程序。 / All 32 source self-checks passed with the same fingerprint as the regression report; frozen binaries were not rebuilt in this maintenance iteration.
+- i18n 检查通过：796 条翻译、910 处调用、65 个源码文件；截图语言与哈希校验、Ruff、pip check 通过。原有截图未更改。 / i18n checks passed for 796 messages, 910 calls and 65 source files; screenshot locale/hash checks, Ruff and pip check passed. Existing screenshots were preserved.
+- Bandit 源码扫描及 pip-audit 应用锁定依赖审计通过。CodeQL、PR 依赖审查已配置但未在 GitHub 运行；未修改仓库保护设置。Windows 构建／实机未验证，Qt 依赖未升级。 / Local Bandit and pip-audit checks passed. CodeQL and PR dependency review are configured but have not run on GitHub; repository protection settings were not changed. Windows build/desktop validation and Qt upgrades remain pending.
+- 本轮证据：`../verification/rules/`。规则说明见 INTERNATIONALIZATION_CI.md、SECURITY_CHECKS.md 及对应英文版。 / Evidence: `../verification/rules/`; see the bilingual i18n and security check guides.
+
 ## V1.15 — 2026-10-25
 
 - 完整回归 588 项通过，0 失败、0 错误、0 跳过。原 V1.14 的 561 项保留，新增候选可用性 21 项及文档截图 6 项。/ All 588 tests passed, with zero failures/errors/skips: 561 retained tests plus 21 availability and 6 screenshot checks.

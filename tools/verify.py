@@ -96,6 +96,13 @@ def main():
         (output/'summary.json').write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
     save()
     try:
+        preflight = run([sys.executable, 'tools/check_i18n.py', '--report', str(output/'i18n.json')], output/'i18n.log', env, 60)
+        if preflight != 0:
+            raise RuntimeError('i18n preflight failed; see i18n.log')
+        security = run([sys.executable, 'tools/check_security.py', '--report-dir', str(output/'security')], output/'security.log', env, 360)
+        if security != 0:
+            raise RuntimeError('Security preflight failed; see security.log')
+        result['steps']['i18n_and_security'] = dict(status='passed')
         print('1/4 Running regression tests...', flush=True)
         token=uuid.uuid4().hex
         regression_report=output/'regression.json'

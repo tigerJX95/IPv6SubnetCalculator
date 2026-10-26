@@ -1,5 +1,9 @@
 # 🌐 IPv6 Subnet Calculator V1.15
 
+### V1.15 check policy maintenance
+
+Added an independent i18n gate, source contracts and structured translation checks; Python/Actions CodeQL, PR dependency review and local Bandit source scanning. Build and verification run localization/security preflight. Functionality, version and localized screenshots are unchanged. See [i18n checks](docs/INTERNATIONALIZATION_CI_EN.md) and [security checks](docs/SECURITY_CHECKS_EN.md). Hosted scans and repository protection require upload and configuration.
+
 ## ✨ V1.15 Candidate Network Availability
 
 - Added Network Availability in the list tools window opened from the third, target-shaped icon at the top of Subnet List. Enter a candidate IPv6 CIDR to determine whether it is entirely free, partially occupied or fully occupied relative to the occupied list.

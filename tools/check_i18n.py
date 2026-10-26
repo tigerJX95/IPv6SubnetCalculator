@@ -40,7 +40,7 @@ def source_messages(path):
                          {'QLabel', 'QPushButton', 'QGroupBox', 'QCheckBox', 'QRadioButton'}) or
                         (isinstance(node.func, ast.Attribute) and node.func.attr in
                          {'setText', 'setTitle', 'setWindowTitle', 'setToolTip', 'setPlaceholderText',
-                          'setAccessibleName', 'setAccessibleDescription'}))
+                          'setAccessibleName', 'setAccessibleDescription', 'setStatusTip', 'setWhatsThis'}))
         if display_call and isinstance(node.args[0], ast.Constant) and isinstance(node.args[0].value, str):
             value = node.args[0].value
             if TRANSLATABLE.search(value) and value != '简体中文':

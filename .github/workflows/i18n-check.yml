@@ -1,0 +1,105 @@
+name: i18n check
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: i18n-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  detect-changes:
+    name: Detect i18n changes
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      relevant: ${{ steps.detect.outputs.relevant }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Identify internationalization changes
+        id: detect
+        env:
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD: ${{ github.event.pull_request.head.sha }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: python3 tools/i18n_gate.py --event "$EVENT_NAME" --base "$PR_BASE" --head "$PR_HEAD" --output "$GITHUB_OUTPUT"
+
+  validate-resources:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.relevant == 'true'
+    name: Validate translations
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      QT_QPA_PLATFORM: offscreen
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements.txt
+      - name: Validate catalogs and protected translation content
+        run: python tools/check_i18n.py --report verification/i18n/catalog.json
+      - name: Validate localized screenshots
+        run: python tools/check_doc_images.py
+      - name: Upload translation report
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: i18n-catalog
+          path: verification/i18n/
+          if-no-files-found: warn
+          retention-days: 7
+
+  localization-regression:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.relevant == 'true'
+    name: Localization regression
+    runs-on: windows-latest
+    timeout-minutes: 15
+    env:
+      PYTHONUTF8: '1'
+      QT_QPA_PLATFORM: offscreen
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements.txt
+      - name: Verify runtime translation and new gate behavior
+        run: >-
+          python -m unittest tests.test_i18n tests.test_translation_catalog
+          tests.test_i18n_contracts tests.test_i18n_gate tests.test_document_images
+          tests.test_inspection_output tests.test_subnet_capacity
+          tests.test_network_availability
+
+  required-i18n-gate:
+    name: i18n required gate
+    needs: [detect-changes, validate-resources, localization-regression]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Enforce localization results without bypassing detection errors
+        env:
+          DETECT_RESULT: ${{ needs.detect-changes.result }}
+          RELEVANT: ${{ needs.detect-changes.outputs.relevant }}
+          RESOURCE_RESULT: ${{ needs.validate-resources.result }}
+          REGRESSION_RESULT: ${{ needs.localization-regression.result }}
+        run: python3 tools/i18n_gate.py --enforce
