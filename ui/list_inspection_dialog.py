@@ -3,7 +3,7 @@
 """Read-only list snapshot inspection; shares existing conflict-safe text output."""
 from pathlib import Path
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QSpinBox
 from core.localized_text import text as tx
 from core.ipv6_core import InputError
 from core.list_inspection import lookup_address, compare_coverage
@@ -224,6 +224,51 @@ class BatchAvailabilityPanel(InspectionPanel):
             (tx('全部候选 CIDR'), 'all_candidates')]:
             self.category.addItem(label, key)
         self.category.setToolTip(tx('下方输出完整候选网段，不是其中的空闲或占用片段；上方报告始终包含全部候选。'))
+        self.detail_dialog = None
+        row = QHBoxLayout()
+        row.addWidget(QLabel(tx('候选序号（按输入顺序）')))
+        self.detail_index = QSpinBox()
+        self.detail_index.setRange(1, 1)
+        self.detail_index.setEnabled(False)
+        self.detail_index.setAccessibleName(tx('查看详情的候选序号'))
+        self.detail_index.setToolTip(tx('按有效候选的输入顺序选择，原始行号和重复项均保留。'))
+        row.addWidget(self.detail_index)
+        self.detail_button = IconButton('locate_small', tx('查看候选详情：冲突原始行、空闲与占用范围及 CIDR'))
+        self.detail_button.setEnabled(False)
+        row.addWidget(self.detail_button)
+        row.addStretch()
+        self.layout().insertLayout(self.layout().count()-1, row)
+        self.detail_button.clicked.connect(self.open_detail)
+        self.detail_index.valueChanged.connect(self.close_detail)
+
+    def close_detail(self, *_args):
+        dialog = getattr(self, 'detail_dialog', None)
+        if dialog is not None:
+            dialog.panel.invalidate()
+            dialog.close()
+            dialog.deleteLater()
+            self.detail_dialog = None
+
+    def invalidate(self):
+        self.close_detail()
+        super().invalidate()
+        if hasattr(self, 'detail_index'):
+            self.detail_index.setRange(1, 1)
+            self.detail_index.setEnabled(False)
+            self.detail_button.setEnabled(False)
+
+    def open_detail(self):
+        result = self.result
+        if result is None:
+            return None
+        index = self.detail_index.value()-1
+        if not 0 <= index < len(result.entries):
+            return None
+        self.close_detail()
+        self.detail_dialog = BatchCandidateDialog(self.page, self.source, result.entries[index].record,
+                                                 index+1, self)
+        self.detail_dialog.show()
+        return self.detail_dialog
 
     def run(self):
         from core.batch_availability import check_batch_availability
@@ -237,6 +282,9 @@ class BatchAvailabilityPanel(InspectionPanel):
         self.copy_button.setEnabled(True)
         self.save_button.setEnabled(True)
         self.refresh_cidrs()
+        self.detail_index.setRange(1, len(self.result.entries))
+        self.detail_index.setEnabled(True)
+        self.detail_button.setEnabled(True)
         return True
 
     def save(self):
@@ -244,6 +292,34 @@ class BatchAvailabilityPanel(InspectionPanel):
         if result is not None:
             self.page.output_controller._save('IPv6_BatchAvailability.txt', result.as_text(),
                                              lambda: self.result is result)
+
+
+class BatchCandidateDialog(QDialog):
+    """One on-demand detail view; never precompute every candidate's conflicts."""
+    def __init__(self, page, source, record, ordinal, parent):
+        super().__init__(parent)
+        self.setWindowTitle(tx('批量候选详情'))
+        self.resize(820, 640)
+        self.setMinimumSize(600, 460)
+        layout = QVBoxLayout(self)
+        heading = QLabel(tx('候选序号：{0:,}；原始第 {1:,} 行；所属网段：{2}', ordinal, record.line, record.network))
+        heading.setWordWrap(True)
+        layout.addWidget(heading)
+        self.panel = AvailabilityPanel(page, source)
+        self.panel.hint.setText(tx('使用本次批量检查的同一基准快照；只查看当前候选，不计算候选之间的预留。'))
+        self.panel.input.setText(record.original)
+        self.panel.input.setReadOnly(True)
+        self.panel.run_button.hide()
+        self.panel.run()
+        layout.addWidget(self.panel, 1)
+
+    def done(self, code):
+        self.panel.invalidate()
+        super().done(code)
+
+    def closeEvent(self, event):
+        self.panel.invalidate()
+        super().closeEvent(event)
 
 
 class CapacityPanel(InspectionPanel):
@@ -311,6 +387,10 @@ class ListInspectionDialog(QDialog):
         # Keep translated tabs reachable at the minimum window width.
         tabs.setUsesScrollButtons(True)
         layout.addWidget(tabs)
+
+    def done(self, code):
+        self.batch_availability.close_detail()
+        super().done(code)
 
 
 def show_inspection(page):

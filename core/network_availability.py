@@ -42,7 +42,7 @@ class NetworkAvailability:
                  tx('只统计候选网段以内的覆盖；清单中不相交的网段不影响可用性。'),
                  tx('空闲仅指相对于当前清单；不会自动分配地址或更改原清单。'), '',
                  tx('冲突原始记录：')]
-        lines.extend(tx('第 {0} 行：{1} → {2}', r.line, r.original, r.network) for r in self.conflicts)
+        lines.extend(tx('第 {0} 行｜输入：{1}；所属网段：{2}', r.line, r.original, r.network) for r in self.conflicts)
         if not self.conflicts:
             lines.append(tx('无'))
         for heading, ranges in [(tx('候选内空闲范围：'), self.available),

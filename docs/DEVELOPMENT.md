@@ -1,3 +1,27 @@
+## V1.18 批量候选详情与界面整理
+
+- 批量可用性新增候选详情：按输入顺序选择序号，查看候选对应的基准冲突原始行、精确空闲／占用范围，复制或保存候选内部的空闲／占用 CIDR。
+- 保留重复候选及原始行号，详情输入只读，按需检查单条候选；使用同一基准快照，不改变占用清单，也不为候选互相预留。
+- 切换候选、修改批量输入或关闭查询窗口时清除旧详情，保存期间发生上述变化时拒绝旧输出。
+- 合入展示修订：报告明确区分“输入／所属网段”；使用说明与版本日志分开，关于窗口仅展示当前 V1.18 日志；各正文大标题居中并与下方小标题留白。
+- 地址格式与双网段关系结果改为右键复制，移除右侧复制图标，保留连续 128 位二进制和完整报告复制；同步中英文说明、截图、i18n 与安全检查。
+- 保留按附件决定是否构建 EXE 的 Release 工作流，以及不抓取历史标签的 main 祖先校验；本版不修改历史标签或仓库设置。
+
+## V1.18 Batch Candidate Details and Interface Cleanup
+
+- Batch Availability adds candidate details: select a number in input order to inspect baseline conflict source lines, exact free/occupied ranges, and copy or save CIDRs inside that candidate.
+- Duplicate candidates and physical source line numbers are retained. Read-only details are computed on demand against the same baseline snapshot; they neither change the occupied list nor reserve space between candidates.
+- Changing the selected candidate, editing batch input or closing inspection invalidates old details and rejects pending stale saves.
+- Includes presentation revisions: explicit input/containing-network labels; separate user help and release notes, with only current V1.18 notes in About; centered main document titles with spacing before subheadings.
+- Address-format and two-network results use context-menu copying instead of right-side copy icons, retaining continuous 128-bit binary and complete reports. Both languages, matching screenshots, i18n and security checks are updated.
+- Retains attachment-aware EXE Release builds and main ancestry validation without fetching historical tags. This release does not change historical tags or repository settings.
+
+## V1.17 展示修订 / Presentation revision
+
+中文：关于所有文档大标题统一居中与下方留白；地址工具复制入口改为结果右键菜单，保留连续 128 位及完整报告。批量报告明确区分原始输入与所属网段；使用说明按功能编排，移除历史版本摘要；关于窗口新增独立版本更新页，仅展示当前 V1.17，中英文切换同步。
+
+English: All About document titles use centered alignment and spacing. Address-tool context menus replace copy icons while preserving continuous 128-bit output and complete reports. Batch reports label original input and containing network explicitly. Help uses functional instructions without historical highlights. A separate About tab displays only current V1.17 release notes in the selected language.
+
 # 开发说明 / Development Notes
 
 本文采用中英对照，中文在前、英文在后。 / This document presents Chinese first, followed by English.

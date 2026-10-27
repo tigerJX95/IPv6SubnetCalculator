@@ -1,4 +1,26 @@
+## V1.18 批量候选详情与界面整理
+
+- 批量可用性新增候选详情：按输入顺序选择序号，查看候选对应的基准冲突原始行、精确空闲／占用范围，复制或保存候选内部的空闲／占用 CIDR。
+- 保留重复候选及原始行号，详情输入只读，按需检查单条候选；使用同一基准快照，不改变占用清单，也不为候选互相预留。
+- 切换候选、修改批量输入或关闭查询窗口时清除旧详情，保存期间发生上述变化时拒绝旧输出。
+- 合入展示修订：报告明确区分“输入／所属网段”；使用说明与版本日志分开，关于窗口仅展示当前 V1.18 日志；各正文大标题居中并与下方小标题留白。
+- 地址格式与双网段关系结果改为右键复制，移除右侧复制图标，保留连续 128 位二进制和完整报告复制；同步中英文说明、截图、i18n 与安全检查。
+- 保留按附件决定是否构建 EXE 的 Release 工作流，以及不抓取历史标签的 main 祖先校验；本版不修改历史标签或仓库设置。
+
+## V1.18 Batch Candidate Details and Interface Cleanup
+
+- Batch Availability adds candidate details: select a number in input order to inspect baseline conflict source lines, exact free/occupied ranges, and copy or save CIDRs inside that candidate.
+- Duplicate candidates and physical source line numbers are retained. Read-only details are computed on demand against the same baseline snapshot; they neither change the occupied list nor reserve space between candidates.
+- Changing the selected candidate, editing batch input or closing inspection invalidates old details and rejects pending stale saves.
+- Includes presentation revisions: explicit input/containing-network labels; separate user help and release notes, with only current V1.18 notes in About; centered main document titles with spacing before subheadings.
+- Address-format and two-network results use context-menu copying instead of right-side copy icons, retaining continuous 128-bit binary and complete reports. Both languages, matching screenshots, i18n and security checks are updated.
+- Retains attachment-aware EXE Release builds and main ancestry validation without fetching historical tags. This release does not change historical tags or repository settings.
+
 ## ✨ V1.17 批量候选按状态输出
+
+- 地址工具移除格式转换及关系分析的复制图标，结果右键菜单保留选中文本、单项／全部格式、连续二进制和完整关系报告复制。
+- 关于窗口所有正文大标题居中，与下方小标题留出间距；统一应用到中英文文档及许可原文显示。
+- 修订：批量报告用“输入／所属网段”取代易误解的箭头；使用说明去除历史更新摘要，关于窗口独立展示最新版更新日志。
 
 - 批量可用性新增“部分占用”“全部占用”“存在占用冲突”“全部候选”四种 CIDR 输出类别，保留原有全部空闲类别。
 - 输出规范化后的完整候选网段，按首次输入顺序去重，保留包含项；不是候选内部的空闲或占用片段。上方完整报告始终保留全部记录，候选之间不会互相预留。
@@ -6,6 +28,10 @@
 - Windows 构建只检出目标提交，发布时按需补齐 main 历史，不再抓取全部标签，避免历史标签大小写冲突；版本与 main 祖先校验继续保留，不删除或修改标签。
 
 ## ✨ V1.17 Candidate Output by Status
+
+- Address tools replace conversion/relationship copy icons with result context menus for selected text, individual/all formats, continuous binary and complete relationship reports.
+- About document titles are centered with space before following subheadings, consistently across both languages and original license displays.
+- Revision: explicit input/containing-network labels replace the ambiguous arrow; user help no longer starts with historical release highlights, and About presents current release notes separately.
 
 - Batch Availability adds partially occupied, fully occupied, conflicting and all-candidate CIDR categories alongside entirely free candidates.
 - Output contains whole normalized candidate networks, deduplicated in first-input order with containment retained. These are not free/occupied fragments. The complete report retains every record; candidates reserve no space for each other.

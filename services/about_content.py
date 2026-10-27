@@ -32,9 +32,10 @@ LICENSE_DOCUMENTS = (
     (tx('Qt 中文控件 · 来源与许可'), 'docs/licenses/Qt_Translations_NOTICE.txt'),
     (tx('PyQt6-sip · 许可原文'), 'docs/licenses/PyQt6_sip_LICENSE.txt'),
 )
+RELEASE_DOCUMENT = 'docs/about/RELEASE_NOTES.md'
 HELP_DOCUMENT = 'docs/about/USAGE.md'
 LEGAL_DOCUMENT = 'docs/about/LEGAL.md'
-DOCUMENT_PATHS = frozenset(path for _, path in LICENSE_DOCUMENTS) | {HELP_DOCUMENT, LEGAL_DOCUMENT, 'docs/about/USAGE_EN.md','docs/about/LEGAL_EN.md','docs/about/COMPONENTS.md','docs/about/COMPONENTS_EN.md'}
+DOCUMENT_PATHS = frozenset(path for _, path in LICENSE_DOCUMENTS) | {RELEASE_DOCUMENT, 'docs/about/RELEASE_NOTES_EN.md', HELP_DOCUMENT, LEGAL_DOCUMENT, 'docs/about/USAGE_EN.md','docs/about/LEGAL_EN.md','docs/about/COMPONENTS.md','docs/about/COMPONENTS_EN.md'}
 
 
 def read_document(relative):

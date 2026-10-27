@@ -1,4 +1,24 @@
-## V1.17 — 2026-10-27
+## V1.18 — 2026-10-27
+
+- 完整回归 658 项通过，0 失败、0 错误、0 跳过；保留修订版 652 项，新增 6 项批量候选详情验证。/ All 658 tests passed without failures, errors or skips: 652 retained plus six candidate-detail tests.
+- 详情覆盖按需计算、同一基准快照、原始行号与重复候选、精确冲突与内部 CIDR、双语复制和保存、非法输入、候选切换／输入变化／关闭／Esc 的失效保护、过期保存拒绝、完整 IPv6 空间及 5,000 条上限、两种主题和最小窗口。/ Detail checks cover on-demand computation, snapshot and line fidelity, exact conflicts/CIDRs, bilingual copying/saving, invalidation and stale-save guards, full IPv6 space, 5,000 entries, both themes and minimum windows.
+- 源码和独立 Linux 单文件分别通过 35 项自检；指纹一致。完整验证流程还通过计算、分页、导出和内存性能检查。/ Source and separately checked Linux one-file builds passed 35 checks each with matching fingerprints; calculation, pagination, export and memory performance passed.
+- i18n 831 条目录消息、947 处调用和 66 个运行源码文件通过；42 处文档图片引用、Ruff、pip check、Bandit 与项目依赖审计通过。/ i18n passed for 831 catalog messages, 947 calls and 66 runtime source files; 42 documentation image references, Ruff, pip check, Bandit and project dependency auditing passed.
+- 初次专项测试修正了把空闲范围元组误写成容量整数的测试预期；随后专项与完整回归均通过。/ Corrected an initial test expectation that confused free intervals with an address count; the subsequent targeted and complete regressions passed.
+- Windows 构建、人工验收和云端 CodeQL 本次未运行；未修改 GitHub 代码、标签、Release 或设置。/ Windows build/acceptance and hosted CodeQL were not run; GitHub code, tags, releases and settings were not changed.
+- 证据 / Evidence: `../verification/v1.18/`。Linux 单文件独立证据为 `linux-frozen.json`；完整验证摘要未提供 EXE，故该摘要的打包步骤显示 skipped，不影响独立单文件检查的通过结果。/ The Linux binary was verified separately in `linux-frozen.json`; the general verification summary has no executable argument and therefore marks its own packaged step as skipped.
+- 运行资源 SHA-256 / Runtime SHA-256: `9257a7a443a09909cfe8baf0a7a0828c7f58f8f5f9d32bff8bf947d55206d97f`。
+
+## V1.17 展示修订验证 / Presentation revision — 2026-10-27
+
+- 完整回归 652 项通过，0 失败、0 错误、0 跳过；新增关于文档标题、最新版双语日志与帮助隔离、网段规范化文案、右键复制菜单的验证。/ All 652 regression tests passed without failures, errors or skips, including document styling, current bilingual release notes, normalization labels and context-menu copying.
+- 源码与 Linux 单文件各通过 34 项自检，运行资源指纹一致；Windows 自动构建及人工验收尚未执行。/ Source and Linux one-file builds passed 34 checks each with matching runtime fingerprints. Windows build and acceptance remain pending.
+- Ruff、i18n、38 处文档图片引用检查、Bandit、依赖审计与 pip check 通过；CodeQL 未在本地运行。/ Ruff, i18n, 38 documentation image references, Bandit, dependency auditing and pip check passed. Hosted CodeQL is not claimed.
+- 检查中修正了旧的四页签断言，并修正测试对已选文本及英文剪贴板输出的预期；最终完整重跑通过。/ Updated the old four-tab assertion and test expectations for retained selections and translated clipboard output; the final complete rerun passed.
+- 当前修订证据 / Current evidence: `../verification/v1.17_revision/`。
+- 当前运行资源 SHA-256 / Current runtime SHA-256: `b3f4ed644525ca6bee5a1f9b3e375334e27e4c28dc1ef933b4479da0704e636a`。
+
+## V1.17 初版验证 / Initial validation — 2026-10-27
 
 - 完整回归 648 项通过，0 失败、0 错误、0 跳过；保留 640 项既有测试，新增 4 项候选类别和 4 项历史检出测试。/ All 648 tests passed without failures, errors or skips: 640 retained plus four category and four history tests.
 - 候选类别覆盖全部空闲、部分占用、全部占用、存在冲突及全部候选；验证完整网段边界、输入顺序、规范化去重、包含项、空类别、双语、报告不变及保存期间切换保护。/ Categories cover free, partial, occupied, conflicting and all candidates, preserving whole-network boundaries, first-input order, deduplication, containment, empty output guards, languages, full reports and save guards.

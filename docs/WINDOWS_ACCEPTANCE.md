@@ -1,3 +1,12 @@
+## V1.18 新增人工验收（待 Windows 执行） / New manual acceptance (pending Windows)
+
+1. 基准输入 `::/127` 与 `::3/128`，批量候选输入 `::3/126`、`::4/126` 及重复的 `::3/126`，确认候选序号上限为 3。/ With this baseline and these candidates, confirm the candidate number limit is 3.
+2. 查看第 1 项详情：输入只读、所属网段为 `::/126`，冲突原始行完整，空闲 CIDR 为 `::2/128`，占用 CIDR 为 `::/127` 与 `::3/128`。/ Inspect read-only input, containing network, conflict lines and exact free/occupied CIDRs.
+3. 复制／保存详情报告及两个 CIDR 类别，重新导入 CIDR；修改批量输入、切换序号、关闭或 Esc 返回后，不应留下可保存的旧详情。/ Copy/save reports and both categories; reimport CIDRs and verify stale-detail guards.
+4. 切换中英文和浅深色，缩小窗口检查序号和详情按钮可见、报告可滚动；原批量报告、输入、基准清单不被改写。/ Check both languages/themes and minimum windows without changing batch data.
+5. 关于窗口检查五个页签：使用说明没有历史更新摘要；版本更新仅为 V1.18；正文大标题居中并与小标题留白。/ Check the five About tabs, current notes and heading spacing.
+6. 地址工具右侧复制图标已移除；结果右键复制选中文本、当前／全部格式、连续 128 位二进制及完整关系报告；非法输入后不得复制旧结果。/ Verify context-menu copying and stale-result invalidation in Address Tools.
+
 ## V1.13
 
 - 检查归属查询的去重 CIDR 复制和 TXT 保存，再导入验证；报告仍保留重复行。

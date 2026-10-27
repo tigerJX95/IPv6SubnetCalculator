@@ -1,34 +1,35 @@
 # User Guide
 
-## ✨ V1.11 Planning Project Save and Restore
+This guide explains current operations. Version changes are listed separately on the Release Notes tab.
 
-- New open/save-as icons at the top of Subnet List remain accessible on the Allocation Suggestions tab.
+## Planning project save and restore
+
+- Open/save-as icons at the top of Subnet List remain accessible on the Allocation Suggestions tab.
 - Separate JSON preserves the original list (comments and blank lines included), parent network, allocation prefix, requested count and result tab. Unfinished drafts are supported.
 - Files are validated before replacement confirmation. Restoring clears derived results; run checks or planning again. This format is separate from calculation plans; Ctrl+S/Ctrl+O still operate calculation plans.
 - Reuses save conflict protection and rejects stale actions when inputs or tasks change during dialogs. Changes to saved projects are marked as unsaved.
 - Projects require manual saving. Before closing or opening another project, save, discard or cancel unsaved planning changes. Cancelled or failed saves preserve current work. Tab navigation alone does not trigger a reminder.
-- Qt pins retain the verified baseline. The pending security upgrade is not resolved by this feature release.
 
 
-## 1. Calculate a network
+## Calculate a network
 
 Enter an IPv6 CIDR such as **2026:1015:abcd::/48**, then a target prefix such as **64** without a slash. Source and target prefixes range from 0 to 128; the target must be at least the source prefix. Click Calculate or press Enter in either input. Uppercase hexadecimal is normalized to lowercase; host bits are normalized to the containing network.
 
 The summary contains the network range, subnet count, addresses per subnet and additional subnet bits. IPv6 has no broadcast address; the last address is the maximum address in the range. Address capacity is a mathematical count, not an assignable-host guarantee. Review address-use guidance before deployment.
 
-## 2. Browse, select and locate
+## Browse, select and locate
 
 Results load one page at a time, with 25, 50, 100 or 200 records. Page indices and address counts retain integer precision even for the full IPv6 space. Use the navigation icons or enter a page number.
 
 Choose a location mode: IPv6 address, subnet index, address range or index range. Ranges include both endpoints. Location selects the first matching row and preserves range highlighting across pages. Clear highlighting and Clear selection are separate actions. Ctrl+click and Shift+click select records; Ctrl+A selects the current page, Ctrl+C copies and Esc clears manual selection. Double-click or press Enter for subnet details.
 
-## 3. Copy and export
+## Copy and export
 
 Copy selected subnets, the entire page, a bounded index range, exact statistics or the calculation summary using the relevant icons. Tooltips explain each action. Range copying is limited to 5,000 records per operation; export larger sets.
 
 Export all subnets or an index range to TXT or Excel (XLSX). A worksheet supports 1,048,575 data rows plus its header; use TXT above this limit. Review size estimates and available space before very large exports. Cancelling removes incomplete temporary files and preserves an existing destination. Excel headers and the worksheet name use the interface language at export start. English output uses “No.”, “IPv6 Subnet” and the worksheet name “IPv6 Subnets”; Chinese output retains its original Chinese labels. Switching languages during export does not change that file. TXT contains one CIDR per line. Addresses, selected ranges and exact index values are unchanged.
 
-## 4. Calculation plans and drag-and-drop
+## Calculation plans and drag-and-drop
 
 Save the last successful calculation, name, notes, page size, current page, range, page selection and active calculation/tool tab as JSON. Use Ctrl+S, Ctrl+Shift+S for Save As or Ctrl+O to open. Recalculate edited parameters before saving.
 
@@ -36,19 +37,19 @@ Drop one local .json plan anywhere in the main window, including inputs and tabl
 
 Multiple files, folders, remote links and unsupported formats are rejected. TXT/CIDR lists use Subnet List's Import icon. Finish or cancel background work before dropping a plan. Windows may block Explorer drops into an elevated application; use Open Plan in that case.
 
-## 5. Address tools
+## Address tools
 
 Convert one IPv6 address without a prefix or zone identifier into canonical lowercase compression, full expansion and binary. Binary is displayed in 16-bit groups and copied as 128 consecutive bits. IPv4-mapped IPv6 notation is supported.
 
 Two-network analysis identifies equality, containment in either direction, adjacency or separation, with exact overlapping and gap address counts. Adjacency alone does not imply the two CIDRs can merge into one. These tools do not change the calculator's parameters or result.
 
-## 6. Subnet lists
+## Subnet lists
 
 Paste or import a UTF-8 TXT/CIDR file (BOM allowed), one CIDR per line. Blank lines and whole-line # comments are ignored; inline comments, CSV and spreadsheets are unsupported. Limits apply independently: **5,000 validation entries**, **1,048,576 UTF-8 bytes (1 MiB)** and **20,000 physical lines**, including blank/comment lines. Byte size is not a line count.
 
 Validation retains source line numbers and original input. Invalid entries are excluded from relationship checks. Duplicate, containment and adjacent pairs are counted exactly; at most 1,000 detail pairs are retained. Copy normalized valid unique networks or the report. This deduplication does not remove contained networks or merge adjacent ranges. Background tasks can be cancelled without editing input or source files.
 
-## 7. Free space and aggregation
+## Free space and aggregation
 
 Free Space subtracts the union of occupied entries from the parent network. Every occupied entry must be valid and fully inside the parent; otherwise the entire operation is rejected. An empty list means the full parent is free. Counts are exact integers; overlapping or duplicate occupied entries are counted once.
 
@@ -56,30 +57,30 @@ Free CIDR details are capped at 5,000 while the exact CIDR total and every free 
 
 Aggregation removes duplicate and covered networks and merges only precisely representable adjacent ranges. It preserves exact address coverage without rewriting input, but does not retain allocation hierarchy or business boundaries. Review those boundaries before deployment. Editing inputs invalidates old planning results; editing the parent clears only Free Space. Lists and planning results are not stored in calculation plans; copy input/reports to retain them.
 
-## 8. Language, themes and help
+## Language, themes and help
 
 The upper-right icons are **Language → Theme → About**. The globe menu offers 简体中文 and English. Switching is immediate and preserves inputs, results, pages, selections, location highlighting and list/planning state. The language preference is saved for the next launch. User names, notes, paths, input text and original third-party licenses are not translated.
 
 The moon/sun icon or Ctrl+Shift+T switches Light/Dark and remembers the theme. F1 opens the reusable non-modal About window with information, this guide, third-party licenses and legal information. Esc closes dialogs. No Internet connection is required for calculation, switching languages or reading bundled documents.
 
-## 9. Input feedback
+## Input feedback
 
 Invalid input receives a red border, warning indicator and specific explanation; bottom errors are bold. Editing clears the corresponding field marker and the next action validates again. List errors retain physical line numbers. Copy/export range errors appear inside their dialogs. A plan-file error marks the file status rather than valid current parameters.
 
 
-## 9. English samples
+## English samples
 
 The source examples include `SubnetList_EN.txt`, `PlanningNetworks_EN.txt` and `OfficeNetwork_EN.json`. Their CIDRs, calculation parameters and view state match the Chinese samples; comments, names and notes use English. Choose a file according to your reading preference. Switching interface languages preserves imported text.
 
 
-## 10. Address range to CIDR
+## Address range to CIDR
 
 In Address Tools, enter inclusive first and last IPv6 addresses, then use the conversion icon or press Enter. Supports one address through the complete IPv6 space. The last address must be at least the first; omit CIDR prefixes and zone identifiers. Results cover exactly the range using minimal CIDRs and show an exact address count. Editing either address invalidates old results.
 
 Icons copy the CIDR list or full report, or send the results to Subnet List for automatic checking. Different existing input requires confirmation with No as the default. Busy list tasks block transfer. Calculator results and calculation plans are preserved.
 
 
-## 11. Save and reuse list/planning text
+## Save and reuse list/planning text
 
 Use the save icon above Subnet List:
 - Original Input saves current editor text, including comments, blank lines and errors, even before checking.
@@ -92,7 +93,7 @@ Reports use the interface language at actual save time; original input stays unc
 
 The Send Back for Checking icon returns complete planning results to Subnet List. Different existing input requires confirmation with No as the default. Accepted transfer clears old analysis and starts a new check. Busy tasks block transfer.
 
-## 12. Subnet allocation suggestions
+## Subnet allocation suggestions
 
 Calculate the parent and occupied list in Free Space, then open Allocation. Enter a target prefix (64 or /64) and a count from 1 to 5,000. Click the calculation icon or press Enter. The target prefix must be at least as long as the parent prefix. Capacity counts aligned CIDR blocks; candidates start at the lowest available address. Insufficient capacity produces an exact count without partial suggestions.
 
@@ -113,8 +114,6 @@ Suggestions are not reserved. Copy CIDRs or a report, or save TXT. Confirm the a
 - Reports preserve all original conflicting line numbers, including duplicates and containing entries. Occupancy counts the union within the candidate only; disjoint entries do not affect the result. Host bits are normalized.
 - Copy or save minimal CIDRs for free or occupied coverage within the candidate. Empty results and outputs exceeding 5,000 CIDRs cannot produce empty or partial lists; complete range reports remain available. Nothing is appended or allocated automatically.
 - Editing the candidate clears stale results. Saves retain overwrite confirmation and conflict protection. The window uses the list snapshot taken when opened; reopen to refresh it. Query parameters and results are not stored in planning project JSON.
-- Expanded the list tools tooltip. Chinese documents reference Chinese screenshots only, and English documents reference English screenshots only. Checks run before local builds and in GitHub quality checks.
-- The Qt runtime remains 6.11.2; this release does not include a Qt security upgrade. See [dependency status](https://github.com/tigerJX95/IPv6SubnetCalculator/blob/main/docs/DEPENDENCY_STATUS.md).
 
 ## Free Capacity Overview
 
@@ -123,7 +122,6 @@ Suggestions are not reserved. Copy CIDRs or a report, or save TXT. Confirm the a
 - Uses complete free ranges even when the 5,000-CIDR preview is truncated. Counts are exact integers without enumerating IPv6 addresses. Rows partition the same free space differently and must not be added together.
 - Copy bilingual reports or save TXT with overwrite confirmation and conflict protection. Editing the parent clears results. The list snapshot is taken when the window opens; original projects are unchanged. Reopen to use an updated list.
 - All occupied records must be valid and contained within the parent; an empty list leaves the entire parent free. Overview inputs and results are not stored in planning project JSON; save the report to retain them.
-- Retains V1.13 CIDR output, translation auditing and checkout newline fixes. Qt runtime dependencies are unchanged; this update does not include a Qt security upgrade.
 
 ## CIDR Output for Lookup and Coverage Results
 
@@ -131,7 +129,6 @@ Suggestions are not reserved. Copy CIDRs or a report, or save TXT. Confirm the a
 - Select added, removed or common coverage and produce its exact minimal CIDR list. Copy or save TXT for reimport into Subnet List.
 - Show the selected CIDR count. Empty categories cannot produce empty files; results exceeding 5,000 CIDRs disable list output while complete range reports remain available.
 - Editing inputs invalidates output. Changing category or recalculating during a save dialog aborts stale output; overwrite confirmation and save conflict protection still apply.
-- Updated bilingual UI and offline help. Retains the merged GitHub Actions checks. The Qt security upgrade is pending a compatible runtime release; this version does not fix Qt vulnerabilities.
 
 
 
@@ -151,3 +148,21 @@ Use the upper-right information icon or F1. Program Information provides clickab
 ## Batch candidate status output
 
 Select entirely free, partially occupied, fully occupied, conflicting or all candidates in Batch Availability. The adjacent copy/save buttons output whole normalized candidate CIDRs, not their free/occupied fragments. Results are deduplicated in first-input order and retain containment. The full report is unaffected. For baseline `::/127` and candidate `::/126`, partially occupied output is `::/126`, while its free fragment is `::2/127`; use the single-network availability tab to output fragments. Empty categories disable CIDR output; category changes during saving cancel stale output.
+
+## Input and containing network
+
+In Batch Availability, “Input” retains your text and “containing network” shows the normalized CIDR. These labels do not indicate sorting or a range. For example, `2026:1051:3000:311a::/61` belongs to `2026:1051:3000:3118::/61`: the last three host bits are cleared; the fourth group spans `3118` through `311f`. Candidate records remain in input order.
+
+## Copy address tool results
+
+Address conversion and network relationship results use right-click menus instead of copy icons. Select text and choose Copy selected text; right-click a format for Copy current format / Copy continuous 128 bits or Copy all address formats. Right-click relationship results for the complete report. Editing input clears stale results and disables the associated copy actions.
+
+## Batch candidate details
+
+After a successful batch check, choose a Candidate number (input order) above the report and click the adjacent locate icon. Numbers start at 1 and count valid candidates, excluding blank/comment lines; duplicate candidates remain separate. Details show the candidate number, original physical line number and containing network. The original input is read-only.
+
+Details use the same baseline snapshot. Reports retain all intersecting baseline records and their original source lines, including duplicates and containment, plus exact free/occupied ranges. Choose Free CIDRs inside candidate or Occupied CIDRs inside candidate to copy/save internal fragments, unlike the batch page's whole candidate output. Empty or over-5,000 CIDR outputs are disabled; the complete range report remains available.
+
+Example: baseline `::/127` and `::3/128`, candidate `::3/126`. Its containing network is `::/126`, three addresses are occupied and the free CIDR is `::2/128`. Occupied CIDRs are `::/127` and `::3/128`. Copying does not change the baseline.
+
+Changing candidate number, editing batch input or closing inspection clears old details and rejects pending stale saves. Closing details or pressing Esc preserves batch results; reopen with the icon. Close and reopen inspection to refresh its baseline snapshot.

@@ -16,10 +16,10 @@
 # along with IPv6SubnetCalculator. If not, see <https://www.gnu.org/licenses/>.
 
 """地址格式与双网段分析独立页面，结果不改变计算器状态。"""
-from ui.localized_widgets import QGroupBox, QLabel, QLineEdit
+from ui.localized_widgets import QGroupBox, QLabel, QLineEdit, LanguageAction
 from core.localized_text import text as tx, join_text as jt
-from PyQt6.QtCore import Qt, QSize, pyqtSignal
-from PyQt6.QtWidgets import QWidget, QScrollArea, QVBoxLayout, QGridLayout, QSizePolicy
+from PyQt6.QtCore import Qt, pyqtSignal
+from PyQt6.QtWidgets import QWidget, QScrollArea, QVBoxLayout, QGridLayout, QSizePolicy, QMenu
 from app_info import DEFAULT_NETWORK
 from core.ipv6_core import InputError
 from core.address_conversion import convert_address
@@ -38,13 +38,12 @@ def _input(text, tooltip):
     return widget
 
 
-def _copy_button(name, tooltip):
-    button = IconButton('copy', tooltip)
-    button.setObjectName(name)
-    button.setIconSize(QSize(30, 30))
-    button.setFixedSize(36, 36)
-    button.setEnabled(False)
-    return button
+def _copy_action(parent, name, label):
+    action = LanguageAction(parent)
+    action.setText(label)
+    action.setObjectName(name)
+    action.setEnabled(False)
+    return action
 
 
 class AddressToolsPage(QWidget):
@@ -77,11 +76,10 @@ class AddressToolsPage(QWidget):
         self.address_input = _input(DEFAULT_NETWORK.split('/')[0], tx('填写单个 IPv6 地址，不带 / 前缀或 % 区域标识。'))
         self.address_input.setObjectName('format_address_input')
         self.convert_button = IconButton('calculate', tx('转换地址格式（输入框内按 Enter）'))
-        self.copy_formats_button = _copy_button('copy_all_formats', tx('复制全部地址格式\n二进制以连续 128 位复制。'))
+        self.copy_formats_action = _copy_action(self, 'copy_all_formats', tx('复制全部地址格式'))
         grid.addWidget(self.address_input, 0, 0, 1, 2)
         grid.addWidget(self.convert_button, 0, 2)
-        grid.addWidget(self.copy_formats_button, 0, 3)
-        self.format_fields, self.format_copy_buttons = {}, {}
+        self.format_fields, self.format_copy_actions = {}, {}
         for row, (label, key) in enumerate(((tx('压缩 / 规范化'), 'compressed'),
                                             (tx('完整展开'), 'expanded'), (tx('二进制 · 128 位'), 'binary')), 1):
             grid.addWidget(QLabel(tx('{0}：',label)), row, 0)
@@ -91,14 +89,15 @@ class AddressToolsPage(QWidget):
             if key == 'binary':
                 field.setFont(data_font(dense=True))
             grid.addWidget(field, row, 1, 1, 2)
-            button = _copy_button('copy_format_'+key, tx('复制')+label+tx('\n复制当前显示的转换结果。'))
-            button.clicked.connect(lambda _checked=False, key=key: self.copy_format(key))
-            grid.addWidget(button, row, 3)
-            self.format_fields[key], self.format_copy_buttons[key] = field, button
+            button = _copy_action(self, 'copy_format_'+key, tx('复制连续 128 位') if key == 'binary' else tx('复制当前格式'))
+            button.triggered.connect(lambda _checked=False, key=key: self.copy_format(key))
+            self.format_fields[key], self.format_copy_actions[key] = field, button
+            field.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+            field.customContextMenuRequested.connect(lambda pos, key=key: self._show_result_menu(self.format_menu(key), self.format_fields[key], pos))
         hint = QLabel(tx('规范化采用小写压缩表示；二进制按 16 位分组显示，复制为连续 128 位。'))
         hint.setObjectName('Reference')
         hint.setWordWrap(True)
-        grid.addWidget(hint, 4, 0, 1, 4)
+        grid.addWidget(hint, 4, 0, 1, 3)
         body.addWidget(conversion)
 
         networks = QGroupBox(tx('双网段关系分析'))
@@ -116,24 +115,29 @@ class AddressToolsPage(QWidget):
         grid.addWidget(self.network_a_input, 1, 0)
         grid.addWidget(self.network_b_input, 1, 1)
         self.analyze_button = IconButton('calculate', tx('分析双网段关系（输入框内按 Enter）'))
-        self.copy_relation_button = _copy_button('copy_network_relation', tx('复制关系分析\n包含两个网段的范围、精确重叠和间隔地址数。'))
+        self.copy_relation_action = _copy_action(self, 'copy_network_relation', tx('复制完整关系报告'))
         grid.addWidget(self.analyze_button, 1, 2)
-        grid.addWidget(self.copy_relation_button, 1, 3)
         self.relation_title = QLabel(tx('输入两个 CIDR 后点击分析图标。'))
         self.relation_title.setObjectName('Hint')
         self.relation_title.setWordWrap(True)
-        grid.addWidget(self.relation_title, 2, 0, 1, 4)
+        grid.addWidget(self.relation_title, 2, 0, 1, 3)
         self.relation_fields = {}
         for row, key in enumerate(('a', 'b', 'counts'), 3):
             field = value_label()
             # Long IPv6 strings must wrap within the available viewport width.
             field.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Preferred)
-            grid.addWidget(field, row, 0, 1, 4)
+            grid.addWidget(field, row, 0, 1, 3)
             self.relation_fields[key] = field
+            field.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+            field.customContextMenuRequested.connect(lambda pos, field=field: self._show_result_menu(self.relation_menu(field), field, pos))
         self.relation_detail = QLabel(tx('识别相同、包含、相邻或完全独立；输入主机位会自动规范化。'))
         self.relation_detail.setObjectName('Reference')
         self.relation_detail.setWordWrap(True)
-        grid.addWidget(self.relation_detail, 6, 0, 1, 4)
+        grid.addWidget(self.relation_detail, 6, 0, 1, 3)
+        for field in (self.relation_title, self.relation_detail):
+            field.setTextInteractionFlags(Qt.TextInteractionFlag.TextSelectableByMouse)
+            field.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+            field.customContextMenuRequested.connect(lambda pos, field=field: self._show_result_menu(self.relation_menu(field), field, pos))
         body.addWidget(networks)
         self.range_panel=AddressRangePanel(clipboard)
         self.range_panel.feedback.connect(self.feedback)
@@ -146,19 +150,45 @@ class AddressToolsPage(QWidget):
         self.address_input.returnPressed.connect(self.convert)
         self.network_a_input.returnPressed.connect(self.analyze)
         self.network_b_input.returnPressed.connect(self.analyze)
-        self.convert_button.clicked.connect(self.convert)
-        self.analyze_button.clicked.connect(self.analyze)
-        self.copy_formats_button.clicked.connect(self.copy_formats)
-        self.copy_relation_button.clicked.connect(self.copy_relation)
+        self.convert_button.triggered.connect(self.convert)
+        self.analyze_button.triggered.connect(self.analyze)
+        self.copy_formats_action.triggered.connect(self.copy_formats)
+        self.copy_relation_action.triggered.connect(self.copy_relation)
         for field in (self.address_input,self.network_a_input,self.network_b_input):
             bind_input(field)
+
+    def _show_result_menu(self, menu, field, position):
+        try:
+            menu.exec(field.mapToGlobal(position))
+        finally:
+            menu.deleteLater()
+
+    def _result_menu(self, field):
+        menu = QMenu(self)
+        selection = LanguageAction(menu)
+        selection.setText(tx('复制所选文本'))
+        menu.addAction(selection)
+        selection.setEnabled(field.hasSelectedText())
+        selection.triggered.connect(lambda: self.clipboard.copy_text(field.selectedText(), tx('地址格式已复制到剪贴板。'), self))
+        return menu
+
+    def format_menu(self, key):
+        menu = self._result_menu(self.format_fields[key])
+        menu.addAction(self.format_copy_actions[key])
+        menu.addAction(self.copy_formats_action)
+        return menu
+
+    def relation_menu(self, field):
+        menu = self._result_menu(field)
+        menu.addAction(self.copy_relation_action)
+        return menu
 
     def _clear_formats(self):
         self.formats = None
         for key, field in self.format_fields.items():
             field.setText('—')
-            self.format_copy_buttons[key].setEnabled(False)
-        self.copy_formats_button.setEnabled(False)
+            self.format_copy_actions[key].setEnabled(False)
+        self.copy_formats_action.setEnabled(False)
 
     def _clear_relation(self):
         self.relation = None
@@ -166,7 +196,7 @@ class AddressToolsPage(QWidget):
         for field in self.relation_fields.values():
             field.setText('—')
         self.relation_detail.setText(tx('识别相同、包含、相邻或完全独立；输入主机位会自动规范化。'))
-        self.copy_relation_button.setEnabled(False)
+        self.copy_relation_action.setEnabled(False)
 
     def convert(self):
         clear_invalid(self.address_input)
@@ -185,8 +215,8 @@ class AddressToolsPage(QWidget):
                 groups = [text[index:index+16] for index in range(0, 128, 16)]
                 text = jt(' ', groups[:4])+'\n'+jt(' ', groups[4:])
             field.setText(text)
-            self.format_copy_buttons[key].setEnabled(True)
-        self.copy_formats_button.setEnabled(True)
+            self.format_copy_actions[key].setEnabled(True)
+        self.copy_formats_action.setEnabled(True)
         self.feedback.emit(tx('地址格式转换完成。'), 'success')
 
     def analyze(self):
@@ -207,7 +237,7 @@ class AddressToolsPage(QWidget):
         self.relation_fields['b'].setText(tx('B：{0}',relation.network_b))
         self.relation_fields['counts'].setText(tx('重叠地址数：{0:,}    间隔地址数：{1:,}', relation.overlap_count, relation.gap_count))
         self.relation_detail.setText(relation.detail)
-        self.copy_relation_button.setEnabled(True)
+        self.copy_relation_action.setEnabled(True)
         normalized = tx('（主机位已规范化：{0}）',jt(tx('、'), (label for label, flag in (('A', relation.normalized_a), ('B', relation.normalized_b)) if flag))) if relation.normalized_a or relation.normalized_b else ''
         self.feedback.emit(tx('网段关系分析完成')+normalized+tx('。'), 'success')
 

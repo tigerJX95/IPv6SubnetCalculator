@@ -68,3 +68,7 @@ Each candidate is independently checked against the baseline; candidates do not 
 Calculations use exact integers and the occupied union without enumerating addresses. Disjoint occupied records have no effect. Editing candidates clears output immediately; input or result changes during saving cancel stale output. Saves retain overwrite confirmation and external-file conflict protection.
 
 The baseline is unchanged. Nothing is allocated or appended automatically. Candidate inputs and results are not stored in planning project JSON; save them separately when needed. Free means uncovered by the supplied baseline, not verified network state, allocation rights or deployability.
+
+## Candidate details
+
+Select a candidate number after checking, then click the locate icon to inspect baseline conflicts and internal CIDRs. See [settings and example](BATCH_DETAILS_EN.md).

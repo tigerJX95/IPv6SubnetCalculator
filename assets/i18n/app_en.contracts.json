@@ -1113,6 +1113,15 @@
     },
     {
       "context": "App",
+      "source": "使用本次批量检查的同一基准快照；只查看当前候选，不计算候选之间的预留。",
+      "source_sha256": "4624665d135875e41944b78621230a67e1d411c4583102d131bffc38b9b477d6",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "使用说明",
       "source_sha256": "cb4ba40bf823511da493b4e7535ccf2e9fcba7051f945ff9793e28da79bc81bf",
       "protected_tokens": [],
@@ -1496,6 +1505,24 @@
       "context": "App",
       "source": "候选地址总数：{0:,}",
       "source_sha256": "511798908304809f2cdb0a8a2988d0a7ce5a1724c7fb2b1f0b4be38f6a259be5",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "候选序号（按输入顺序）",
+      "source_sha256": "16e595ba171e5a0d2a58672fd31212e67ccc73b50f92b8c8735f6c65dddad203",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "候选序号：{0:,}；原始第 {1:,} 行；所属网段：{2}",
+      "source_sha256": "41b6a76acd9b2c8bb3ca8576feb33307e498b6184416457db5722f6e772b194e",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -2496,6 +2523,15 @@
     },
     {
       "context": "App",
+      "source": "复制全部地址格式",
+      "source_sha256": "f8e3904ec652190b85386c5ac8a3acc71d78263f0cc15af2b65c05e2c5d6fa1b",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "复制全部地址格式\n二进制以连续 128 位复制。",
       "source_sha256": "d2a0e10f40354bcf1b9c560155bb2091a240735cd6ce7066c0e4d786fabe7d0e",
       "protected_tokens": [],
@@ -2559,6 +2595,15 @@
     },
     {
       "context": "App",
+      "source": "复制完整关系报告",
+      "source_sha256": "ad9e30ccde891179393bebf5c036ee513e6d18099d4b69a1a63b624f1499ed6a",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "复制完整子网详情",
       "source_sha256": "4431c37f9d8e5e04de750cb4dbb0122c97f7d19cf244f817807fa73f72afd651",
       "protected_tokens": [],
@@ -2570,6 +2615,24 @@
       "context": "App",
       "source": "复制完整空闲 CIDR；明细截断时禁用，避免漏复制",
       "source_sha256": "3d7a6d1ccc163305fe3b2aa1e5ebef70aaa12b148c25419b9f124fecc3c99443",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "复制当前格式",
+      "source_sha256": "95b1b3b223b3407bedc45eae43a0fa03afc276a0b8cb990980f38639d1edd16c",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "复制所选文本",
+      "source_sha256": "731d1d72443c66b438621797e53955ac81f9be830c1585a4b680514708d96dbc",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -2660,6 +2723,15 @@
       "context": "App",
       "source": "复制转换后的完整 CIDR 清单",
       "source_sha256": "50e4713ef21b7120a76abfa2c66af5dc468d066e143e662fac1aa2cfd5863bce",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "复制连续 128 位",
+      "source_sha256": "c99c34df952754b30816d0e2a1bd24eea4f7fdb437783eb936cd25d7c6384836",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -3703,6 +3775,15 @@
     },
     {
       "context": "App",
+      "source": "批量候选详情",
+      "source_sha256": "30dd354c4ba021b673c5489a3b0c28a57976454f7eaf8f995300d4574bc78e12",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "批量可用性",
       "source_sha256": "0ac96f956ce437c5e01604f908b0b501136ed01fabdc85274bd82fc5ef103c97",
       "protected_tokens": [],
@@ -3840,6 +3921,15 @@
       "context": "App",
       "source": "按最长前缀优先显示；原始行号包含空行和注释。",
       "source_sha256": "b2138bd97831cc20f4e68e1b00b58d8778a9a7800a306d5ee677d5a3c58b06a4",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "按有效候选的输入顺序选择，原始行号和重复项均保留。",
+      "source_sha256": "5508bfb7856c8662d53cd84cf1414c1bbf93a96dee4fb8cdc8fb760383fb97d6",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -4656,6 +4746,24 @@
     },
     {
       "context": "App",
+      "source": "查看候选详情：冲突原始行、空闲与占用范围及 CIDR",
+      "source_sha256": "8498b46e3d2cb7e22f7fddaf3cac34abd3fd81d0d8c30f9467892de34f7f6860",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "查看详情的候选序号",
+      "source_sha256": "a1e691b21de51250e3db61c874a2c6be2d5da99917aad06a8e99b2ec72253657",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "查询 IPv6 地址",
       "source_sha256": "2880530a7284b1ef50dc552498d1a0eb87d95601b483e15a6e08838b05b71018",
       "protected_tokens": [],
@@ -5287,6 +5395,15 @@
     },
     {
       "context": "App",
+      "source": "版本更新",
+      "source_sha256": "42e40f432b6da0e0d595e260e3136c5bd7395dfee51c7b8616e69a30f8095f48",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "环回地址",
       "source_sha256": "1614a1d7f9dfae01fc7784a9f072d3de74519fa697e2bd5bf852eb62aa7a2510",
       "protected_tokens": [],
@@ -5782,8 +5899,8 @@
     },
     {
       "context": "App",
-      "source": "第 {0} 行：{1} → {2}｜{3}",
-      "source_sha256": "8704062f8b69e95bc11c419eb0149ba69bedc74335b2e8a92768834d2a1ad485",
+      "source": "第 {0} 行：{1}｜错误：{2}",
+      "source_sha256": "d44116b3a351802977d26b46d2bb80e5698634d6ecc64b8bb283c9195c3f58d9",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -5791,8 +5908,17 @@
     },
     {
       "context": "App",
-      "source": "第 {0} 行：{1}｜错误：{2}",
-      "source_sha256": "d44116b3a351802977d26b46d2bb80e5698634d6ecc64b8bb283c9195c3f58d9",
+      "source": "第 {0} 行｜输入：{1}；所属网段：{2}",
+      "source_sha256": "2948e6a66b9a9f437963f091597803188d1a745a7371d7ba708606d3a45e7952",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "第 {0} 行｜输入：{1}；所属网段：{2}｜{3}",
+      "source_sha256": "8837c2ec9ac2d848d13582754bf8b2853ee4095959a47f93320190106f9722fc",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,

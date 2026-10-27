@@ -130,7 +130,7 @@ class ReleaseCheck(QObject):
         from services.about_content import LICENSE_DOCUMENTS
         self.window.show_about()
         about = self.window.about_dialog
-        self.require(about.tabs.count() == 4, '关于窗口页面缺失')
+        self.require(about.tabs.count() == 5, '关于窗口页面缺失')
         self.require(APP_VERSION in about.information.toPlainText(), '关于版本不一致')
         self.require(DEFAULT_NETWORK in about.usage.toPlainText(), '离线帮助缺失')
         self.require('无担保' in about.legal.toPlainText(), '法律说明缺失')
@@ -141,7 +141,7 @@ class ReleaseCheck(QObject):
         about.license_selector.setCurrentIndex(0)
         for theme in ('dark', 'light'):
             self.application.theme_manager.apply(theme, persist=False)
-            for index in range(4):
+            for index in range(about.tabs.count()):
                 about.tabs.setCurrentIndex(index)
                 self.application.processEvents()
         about.close()
@@ -155,7 +155,7 @@ class ReleaseCheck(QObject):
         self.require(calculation.summary_text() == snapshot, '摘要混入尚未计算的输入')
         self.checks.append('calculation_summary_snapshot')
         tools = self.window.address_tools_page
-        self.require(not tools.copy_formats_button.isEnabled(), '未转换时应禁用格式复制')
+        self.require(not tools.copy_formats_action.isEnabled(), '未转换时应禁用格式复制')
         tools.address_input.setText('::ffff:192.0.2.1')
         tools.convert()
         self.require(tools.formats.expanded == '0000:0000:0000:0000:0000:ffff:c000:0201', '映射地址展开不完整')
@@ -170,7 +170,7 @@ class ReleaseCheck(QObject):
         self.require(tools.relation.kind == 'adjacent', '不同前缀相邻判断不正确')
         tools.network_b_input.setText('bad')
         tools.analyze()
-        self.require(not tools.copy_relation_button.isEnabled(), '非法分析后未禁用复制')
+        self.require(not tools.copy_relation_action.isEnabled(), '非法分析后未禁用复制')
         tools.network_a_input.setText(DEFAULT_NETWORK)
         tools.network_b_input.setText('2026:1015:abcd::/64')
         tools.analyze()
@@ -306,6 +306,13 @@ class ReleaseCheck(QObject):
         self.require(inspection.batch_availability.cidr_output.as_text() == '::/126', 'Category UI output incorrect')
         self.require(inspection.batch_availability.report.toPlainText() == report_snapshot, 'Category changed full report')
         self.checks.append('batch_candidate_status_categories_preserve_whole_networks_and_report')
+        detail = inspection.batch_availability.open_detail()
+        self.require(detail.panel.result.network.prefixlen == 126, 'Batch detail candidate mismatch')
+        self.require(detail.panel.result.occupied == ((0, 1),), 'Batch detail baseline mismatch')
+        self.require(detail.panel.cidr_output.as_text() == '::2/127', 'Batch detail free CIDRs incorrect')
+        inspection.batch_availability.detail_index.setValue(2)
+        self.require(detail.panel.result is None, 'Changed candidate retained stale detail')
+        self.checks.append('batch_candidate_details_snapshot_conflicts_and_invalidation')
         inspection.batch_availability.input.setPlainText('::/0')
         self.require(inspection.batch_availability.result is None, 'Batch stale result retained')
         self.checks.append('batch_availability_independent_candidates_overlap_and_invalidation')

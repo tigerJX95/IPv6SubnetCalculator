@@ -1,0 +1,102 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (C) 2026 IPv6SubnetCalculator contributors
+import unittest
+from unittest.mock import patch
+from PyQt6.QtCore import Qt
+from PyQt6.QtTest import QTest
+from core.network_availability import check_network_availability
+from services.language_service import display
+from tests import test_list_inspection as fixtures
+
+
+class BatchDetailTests(unittest.TestCase):
+    setUpClass=classmethod(fixtures.InspectionUiTests.setUpClass.__func__)
+    tearDownClass=classmethod(fixtures.InspectionUiTests.tearDownClass.__func__)
+    setUp=fixtures.InspectionUiTests.setUp
+    tearDown=fixtures.InspectionUiTests.tearDown
+
+    def prepare(self):
+        p=self.d.batch_availability
+        p.source='# baseline\n::/127\n::1/128\n::3/128\n::20/128'
+        p.input.setPlainText('# candidates\n\n::3/126\n::4/126\n::3/126')
+        self.assertTrue(p.run())
+        return p
+
+    def test_on_demand_details_preserve_source_lines_duplicates_and_snapshot(self):
+        p=self.prepare();before=self.page.project_controller.snapshot()
+        with patch('core.network_availability.check_network_availability',wraps=check_network_availability) as check:
+            p.run();self.assertFalse(check.called)
+            d=p.open_detail();self.assertEqual(check.call_count,1)
+        r=d.panel.result
+        self.assertTrue(d.panel.input.isReadOnly())
+        self.assertEqual(d.panel.input.text(),'::3/126')
+        self.assertEqual([r.line for r in r.conflicts],[2,3,4])
+        self.assertEqual(r.occupied,((0,1),(3,3)))
+        self.assertEqual(d.panel.cidr_output.as_text(),'::2/128')
+        self.page.editor.setPlainText('::/0')
+        p.detail_index.setValue(3);d=p.open_detail()
+        self.assertEqual(d.panel.result.occupied,((0,1),(3,3)))
+        self.assertEqual(p.result.entries[2].record.line,5)
+        self.assertEqual(self.page.editor.toPlainText(),'::/0')
+        self.page.editor.setPlainText(before.text)
+        self.assertEqual(before,self.page.project_controller.snapshot())
+
+    def test_selection_and_input_changes_invalidate_detail_and_stale_saves(self):
+        p=self.prepare();d=p.open_detail()
+        def change(*args,**kwargs):
+            p.detail_index.setValue(2)
+            return str(self.path),''
+        with patch('ui.list_output_controller.QFileDialog.getSaveFileName',side_effect=change):d.panel.save()
+        self.assertFalse(self.path.exists());self.assertIsNone(d.panel.result)
+        d=p.open_detail();self.assertEqual(d.panel.result.available,((4,7),))
+        p.input.setPlainText('bad')
+        self.assertIsNone(d.panel.result);self.assertIsNone(p.open_detail())
+        self.assertFalse(p.detail_button.isEnabled());self.assertFalse(p.detail_index.isEnabled())
+        self.assertFalse(p.run());self.assertFalse(p.detail_button.isEnabled())
+
+    def test_bilingual_copy_save_and_category_switch_preserve_batch(self):
+        p=self.prepare();report=p.report.toPlainText();result=p.result
+        for language in ('zh_CN','en_US'):
+            self.app.language_manager.apply(language,persist=False)
+            p.detail_index.setValue(1);d=p.open_detail()
+            d.panel.copy();self.assertEqual(self.app.clipboard().text(),display(d.panel.result.as_text()))
+            d.panel.category.setCurrentIndex(1);self.assertEqual(d.panel.cidr_output.as_text(),'::/127\n::3/128')
+            d.panel.copy_cidrs();self.assertEqual(self.app.clipboard().text(),'::/127\n::3/128')
+            with patch('ui.list_output_controller.QFileDialog.getSaveFileName',return_value=(str(self.path),'')):
+                self.path.unlink(missing_ok=True);d.panel.save_cidrs()
+            self.assertEqual(self.path.read_text().strip(),'::/127\n::3/128')
+            p.category.setCurrentIndex(4);self.assertIs(p.result,result)
+            if language=='en_US':
+                self.assertNotRegex(d.windowTitle()+d.panel.hint.text()+d.panel.report.toPlainText(),r'[\u4e00-\u9fff]')
+        self.app.language_manager.apply('zh_CN',persist=False)
+        self.assertEqual(p.report.toPlainText(),report)
+
+    def test_close_escape_and_reopen_have_no_stale_detail(self):
+        p=self.prepare();d=p.open_detail();QTest.keyClick(d,Qt.Key.Key_Escape)
+        self.assertIsNone(d.panel.result)
+        d=p.open_detail();self.assertIsNotNone(d.panel.result)
+        self.d.reject();self.assertIsNone(d.panel.result);self.assertIsNone(p.detail_dialog)
+
+    def test_full_and_empty_candidates_and_record_limit(self):
+        p=self.d.batch_availability;p.source='::/0';p.input.setPlainText('::/0');p.run()
+        d=p.open_detail();self.assertEqual(d.panel.result.occupied,((0,2**128-1),))
+        self.assertFalse(d.panel.copy_cidrs_button.isEnabled());d.panel.category.setCurrentIndex(1)
+        self.assertEqual(d.panel.cidr_output.as_text(),'::/0')
+        p.source='';p.input.setPlainText('::/128\n'*5000);p.run();self.assertEqual(p.detail_index.maximum(),5000)
+        p.detail_index.setValue(5000);d=p.open_detail();self.assertEqual(d.panel.cidr_output.as_text(),'::/128')
+
+    def test_detail_controls_fit_minimum_bilingual_themes(self):
+        from PyQt6.QtWidgets import QApplication
+        p=self.prepare()
+        for language in ('zh_CN','en_US'):
+            self.app.language_manager.apply(language,persist=False)
+            for theme in ('light','dark'):
+                self.app.theme_manager.apply(theme,persist=False)
+                self.d.show();self.d.resize(600,460);QApplication.processEvents()
+                d=p.open_detail();d.resize(600,460);QApplication.processEvents()
+                self.assertTrue(d.panel.category.isVisible())
+                self.assertLessEqual(d.panel.category.geometry().right(),d.panel.width())
+                self.assertLessEqual(d.panel.save_cidrs_button.geometry().right(),d.panel.width())
+                self.assertLessEqual(p.detail_button.geometry().right(),p.width())
+                self.assertGreater(d.panel.report.height(),40)
+        self.app.language_manager.apply('zh_CN',persist=False)

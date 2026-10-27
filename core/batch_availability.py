@@ -52,7 +52,7 @@ class BatchAvailability:
                  tx('逐条候选结果（保留原始行号和重复项）：')]
         for e in self.entries:
             r = e.record
-            lines.extend([tx('第 {0} 行：{1} → {2}｜{3}', r.line, r.original, r.network, e.status),
+            lines.extend([tx('第 {0} 行｜输入：{1}；所属网段：{2}｜{3}', r.line, r.original, r.network, e.status),
                           tx('占用地址：{0:,}；空闲地址：{1:,}；重叠候选记录：{2:,}；主机位规范化：{3}', e.occupied, e.available, e.overlaps, tx('是') if r.normalized else tx('否'))])
         return jt('\n', lines)
 

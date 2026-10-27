@@ -22,7 +22,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QDesktopServices, QColor, QPalette, QTextCursor, QTextCharFormat, QIcon
 from PyQt6.QtWidgets import QVBoxLayout, QWidget, QApplication
 from app_info import APP_NAME, APP_VERSION, resource_path
-from services.about_content import (HELP_DOCUMENT, LEGAL_DOCUMENT, LICENSE_DOCUMENTS,
+from services.about_content import (HELP_DOCUMENT, RELEASE_DOCUMENT, LEGAL_DOCUMENT, LICENSE_DOCUMENTS,
                                     read_document, program_information, project_links)
 from ui.dialogs import AppDialog
 from ui.theme import current_colors
@@ -43,6 +43,37 @@ class OfflineBrowser(QTextBrowser):
         manager = getattr(QApplication.instance(), 'theme_manager', None)
         if manager is not None:
             manager.changed.connect(self._refresh_links)
+
+    def retranslate(self, *_args):
+        super().retranslate(*_args)
+        self._format_titles(plain=getattr(self, "_plain_document", False))
+
+    def setMarkdown(self, text):
+        self._plain_document = False
+        super().setMarkdown(text)
+        self._format_titles()
+
+    def setPlainText(self, text):
+        self._plain_document = True
+        super().setPlainText(text)
+        self._format_titles(plain=True)
+
+    def _format_titles(self, plain=False):
+        """Keep source/license text intact; style document titles consistently."""
+        block = self.document().begin()
+        first_text = True
+        while block.isValid():
+            style = block.blockFormat()
+            is_title = style.headingLevel() == 1 or (plain and first_text and bool(block.text().strip()))
+            if is_title:
+                style.setAlignment(Qt.AlignmentFlag.AlignHCenter)
+                style.setTopMargin(12)
+                style.setBottomMargin(24)
+                cursor = QTextCursor(block)
+                cursor.setBlockFormat(style)
+            if block.text().strip():
+                first_text = False
+            block = block.next()
 
     def _refresh_links(self, *_args):
         color = QColor(current_colors()['accent'])
@@ -88,7 +119,7 @@ class OfflineBrowser(QTextBrowser):
         language=QApplication.instance().language_manager.name
         if relative=='THIRD_PARTY_NOTICES.md':
             relative='docs/about/COMPONENTS_EN.md' if language=='en_US' else 'docs/about/COMPONENTS.md'
-        if language=='en_US' and relative in (HELP_DOCUMENT,LEGAL_DOCUMENT):
+        if language=='en_US' and relative in (HELP_DOCUMENT,RELEASE_DOCUMENT,LEGAL_DOCUMENT):
             relative=relative.replace('.md','_EN.md')
         try:
             text = read_document(relative)
@@ -128,10 +159,12 @@ class AboutDialog(AppDialog):
         layout.addWidget(subtitle)
         self.tabs = QTabWidget()
         self.information = OfflineBrowser()
-        self.information.setMarkdown(project_links()+'\n\n'+program_information())
+        self.information.setMarkdown('# '+tx('程序信息')+'\n\n'+project_links()+'\n\n'+program_information())
         self.information._refresh_links()
         self.usage = OfflineBrowser()
         self.usage.display_document(HELP_DOCUMENT)
+        self.release_notes = OfflineBrowser()
+        self.release_notes.display_document(RELEASE_DOCUMENT)
         self.licenses = OfflineBrowser()
         self.license_selector = QComboBox()
         self.license_selector.setAccessibleName(tx('选择许可文档'))
@@ -147,7 +180,7 @@ class AboutDialog(AppDialog):
         self.legal = OfflineBrowser()
         self.legal.display_document(LEGAL_DOCUMENT)
         for widget, label in ((self.information, tx('程序信息')), (self.usage, tx('使用说明')),
-                              (license_page, tx('第三方许可')), (self.legal, tx('法律责任'))):
+                              (self.release_notes, tx('版本更新')), (license_page, tx('第三方许可')), (self.legal, tx('法律责任'))):
             self.tabs.addTab(widget, label)
         self._load_license()
         layout.addWidget(self.tabs, 1)

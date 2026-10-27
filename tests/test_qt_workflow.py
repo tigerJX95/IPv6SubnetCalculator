@@ -103,7 +103,7 @@ class QtWorkflowTests(unittest.TestCase):
         QApplication.processEvents()
         dialog = self.window.about_dialog
         self.assertTrue(dialog.isVisible())
-        self.assertEqual(dialog.tabs.count(), 4)
+        self.assertEqual(dialog.tabs.count(), 5)
         self.assertIn('V'+APP_VERSION, dialog.information.toPlainText())
         self.assertFalse(dialog.isModal())
         dialog.tabs.setCurrentIndex(1)
@@ -598,16 +598,16 @@ class QtWorkflowTests(unittest.TestCase):
     def test_address_tools_start_disabled_and_enter_converts_and_copies(self):
         tools = self.window.address_tools_page
         self.window.tabs.setCurrentIndex(2)
-        self.assertFalse(tools.copy_formats_button.isEnabled())
-        self.assertFalse(tools.copy_relation_button.isEnabled())
+        self.assertFalse(tools.copy_formats_action.isEnabled())
+        self.assertFalse(tools.copy_relation_action.isEnabled())
         tools.address_input.setText('2026:1015:ABCD::1')
         QTest.keyClick(tools.address_input, Qt.Key.Key_Return)
         self.assertEqual(tools.format_fields['compressed'].text(), '2026:1015:abcd::1')
-        for key, button in tools.format_copy_buttons.items():
-            button.click()
+        for key, button in tools.format_copy_actions.items():
+            button.trigger()
             self.assertEqual(QApplication.clipboard().text(), getattr(tools.formats, key))
         self.assertEqual(len(tools.formats.binary), 128)
-        tools.copy_formats_button.click()
+        tools.copy_formats_action.trigger()
         self.assertEqual(QApplication.clipboard().text(), tools.formats.as_text())
 
     def test_address_tools_edits_and_invalid_conversion_clear_only_conversion(self):
@@ -616,13 +616,13 @@ class QtWorkflowTests(unittest.TestCase):
         tools.analyze()
         relation = tools.relation
         tools.address_input.setText('bad')
-        self.assertFalse(tools.copy_formats_button.isEnabled())
-        self.assertTrue(all(not button.isEnabled() for button in tools.format_copy_buttons.values()))
+        self.assertFalse(tools.copy_formats_action.isEnabled())
+        self.assertTrue(all(not button.isEnabled() for button in tools.format_copy_actions.values()))
         tools.convert()
         self.assertEqual(self.window.feedback.property('severity'), 'error')
         self.assertIsNone(tools.formats)
         self.assertIs(tools.relation, relation)
-        self.assertTrue(tools.copy_relation_button.isEnabled())
+        self.assertTrue(tools.copy_relation_action.isEnabled())
 
     def test_network_relation_direction_normalization_copy_and_invalid_retry(self):
         tools = self.window.address_tools_page
@@ -631,18 +631,18 @@ class QtWorkflowTests(unittest.TestCase):
         QTest.keyClick(tools.network_b_input, Qt.Key.Key_Return)
         self.assertEqual(tools.relation.kind, 'b_contains_a')
         self.assertIn('主机位已规范化：A', self.window.feedback.text())
-        tools.copy_relation_button.click()
+        tools.copy_relation_action.trigger()
         self.assertEqual(QApplication.clipboard().text(), tools.relation.as_text())
         self.assertIn('关系：B 包含 A', QApplication.clipboard().text())
         tools.network_b_input.setText('invalid')
-        self.assertFalse(tools.copy_relation_button.isEnabled())
+        self.assertFalse(tools.copy_relation_action.isEnabled())
         tools.analyze()
         self.assertIn('网段 B：', self.window.feedback.text())
         self.assertTrue(all(field.text()=='—' for field in tools.relation_fields.values()))
         tools.network_b_input.setText('2026:1015:abcd::/64')
         tools.analyze()
         self.assertEqual(tools.relation.kind, 'same')
-        self.assertTrue(tools.copy_relation_button.isEnabled())
+        self.assertTrue(tools.copy_relation_action.isEnabled())
 
     def test_tools_preserve_calculator_selection_and_results_across_tabs_and_themes(self):
         self.locate('190-210')
@@ -655,8 +655,8 @@ class QtWorkflowTests(unittest.TestCase):
         for theme in ('light', 'dark'):
             self.application.theme_manager.apply(theme, persist=False)
             self.window.tabs.setCurrentIndex(2)
-            tools.copy_formats_button.click()
-            tools.copy_relation_button.click()
+            tools.copy_formats_action.trigger()
+            tools.copy_relation_action.trigger()
             self.window.tabs.setCurrentIndex(1)
             self.assertIs(self.window.result, result)
             self.assertEqual(self.page.model.records, records)
@@ -672,12 +672,12 @@ class QtWorkflowTests(unittest.TestCase):
         formats, relation = tools.formats, tools.relation
         with patch('services.clipboard_service.QApplication.clipboard', side_effect=RuntimeError('busy')), \
                 patch('services.clipboard_service.QMessageBox.warning'):
-            tools.copy_formats_button.click()
-            tools.copy_relation_button.click()
+            tools.copy_formats_action.trigger()
+            tools.copy_relation_action.trigger()
         self.assertEqual(self.window.feedback.property('severity'), 'error')
         self.assertIs(tools.formats, formats)
         self.assertIs(tools.relation, relation)
-        tools.copy_relation_button.click()
+        tools.copy_relation_action.trigger()
         self.assertEqual(QApplication.clipboard().text(), relation.as_text())
 
     def test_tools_minimum_window_scroll_and_background_in_both_themes(self):
@@ -698,10 +698,10 @@ class QtWorkflowTests(unittest.TestCase):
                 rendered = widget.grab().toImage()
                 self.assertEqual(rendered.pixelColor(1,1).name(), THEMES[theme]['surface'])
             self.assertIn(f'{2**128:,}', tools.relation_fields['counts'].text())
-            scroll.ensureWidgetVisible(tools.copy_relation_button)
+            scroll.ensureWidgetVisible(tools.relation_fields['counts'])
             QApplication.processEvents()
-            self.assertTrue(scroll.viewport().rect().intersects(tools.copy_relation_button.geometry().translated(
-                tools.copy_relation_button.parentWidget().mapTo(scroll.viewport(),tools.copy_relation_button.parentWidget().rect().topLeft()))))
+            self.assertTrue(scroll.viewport().rect().intersects(tools.relation_fields['counts'].geometry().translated(
+                tools.relation_fields['counts'].parentWidget().mapTo(scroll.viewport(),tools.relation_fields['counts'].parentWidget().rect().topLeft()))))
 
     def test_calculation_background_uses_theme_with_dark_system_palette(self):
         original_palette = self.application.palette()
