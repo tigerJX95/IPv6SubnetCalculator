@@ -4,6 +4,22 @@
 
 Open Subnet List → the third, target-shaped icon in the top row → Batch Availability. Scroll the tabs at small window sizes. The occupied baseline is a snapshot taken when this window opens; close, edit the original list and reopen to refresh it.
 
+## V1.17 Output categories
+
+The category selects CIDRs for its adjacent copy/save controls. Upper report controls still output every candidate. Output contains **whole candidate networks, not their free/occupied fragments**.
+
+| Category | Condition | Baseline `::/127`, candidates `::/126`, `::4/126`, `::/127` |
+|---|---|---|
+| Entirely free | Zero occupied addresses | `::4/126` |
+| Partially occupied | Both occupied and free addresses | `::/126` |
+| Fully occupied | Zero free addresses | `::/127` |
+| With occupied addresses | Partially or fully occupied | `::/126`, `::/127` |
+| All candidates | No occupancy filter | `::/126`, `::4/126`, `::/127` |
+
+Every category normalizes and deduplicates in first-input order, preserving candidate boundaries and containment without aggregation or allocation. Overlapping candidates are not necessarily allocatable together. Category changes preserve the result, input and full report. Category/result changes during saving cancel stale CIDR output. Empty categories disable CIDR output while complete reports remain available.
+
+![English category selection](screenshots/batch_categories_en_US_light.png)
+
 ## Inputs and controls
 
 | Item | Behavior and rules | Example |
@@ -12,8 +28,8 @@ Open Subnet List → the third, target-shaped icon in the top row → Batch Avai
 | Candidate input | One complete IPv6 CIDR per line; blank lines and # comments are ignored; physical line numbers are retained; host bits are normalized | `2001:db8::3/126` becomes `2001:db8::/126` |
 | Check icon | Validates both lists before processing the whole batch; any invalid record rejects the batch | Click the check icon below the input |
 | Upper copy/save icons | Output the complete per-candidate report, including state, capacity, overlapping candidate counts and normalization | Save `IPv6_BatchAvailability.txt` |
-| Output category | Entirely free candidates, normalized and deduplicated in first-input order; containment retained, no aggregation | Both `::/125` and `::/126` are retained |
-| Category copy/save icons | Output pure CIDRs for reimport into Subnet List; disabled when no entirely free candidates exist | Save `IPv6_free_candidates_CIDRs.txt` |
+| Output category | Select candidate occupancy status; normalize and deduplicate in first-input order; containment retained, no aggregation | Both `::/125` and `::/126` are retained |
+| Category copy/save icons | Output pure CIDRs for reimport into Subnet List; disabled when the selected category is empty | Save `IPv6_free_candidates_CIDRs.txt` |
 
 Each list has independent limits of 5,000 records, 1 MiB of UTF-8 text and 20,000 physical lines. A CIDR may contain at most 200 characters. Candidates cannot be empty. IPv4, zone identifiers, invalid prefixes and missing prefixes are rejected.
 

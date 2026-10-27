@@ -3390,6 +3390,26 @@ Check the destination, then save using another filename.</translation>
 
 Click a link to open your default browser; a network connection is used only when you click.</translation>
         </message>
+        <message>
+            <source>部分占用的候选 CIDR</source>
+            <translation>Partially occupied candidate CIDRs</translation>
+        </message>
+        <message>
+            <source>全部占用的候选 CIDR</source>
+            <translation>Fully occupied candidate CIDRs</translation>
+        </message>
+        <message>
+            <source>存在占用冲突的候选 CIDR</source>
+            <translation>Candidate CIDRs with occupied addresses</translation>
+        </message>
+        <message>
+            <source>全部候选 CIDR</source>
+            <translation>All candidate CIDRs</translation>
+        </message>
+        <message>
+            <source>下方输出完整候选网段，不是其中的空闲或占用片段；上方报告始终包含全部候选。</source>
+            <translation>Outputs whole candidate networks, not their free or occupied fragments; the report above always includes all candidates.</translation>
+        </message>
     </context>
     <context>
         <name>Export</name>

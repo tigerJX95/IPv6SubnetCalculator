@@ -28,10 +28,17 @@ class BatchAvailability:
     entries: tuple
 
     def cidr_output(self, category):
-        if category != 'free_candidates':
+        selectors = {
+            'free_candidates': lambda e: not e.occupied,
+            'partial_candidates': lambda e: bool(e.occupied and e.available),
+            'occupied_candidates': lambda e: not e.available,
+            'conflicting_candidates': lambda e: bool(e.occupied),
+            'all_candidates': lambda e: True,
+        }
+        if category not in selectors:
             raise ValueError('Unknown batch availability category')
-        # Preserve candidate boundaries and first-input order; do not collapse containment.
-        networks = tuple(dict.fromkeys(e.record.network for e in self.entries if not e.occupied))
+        # Output whole candidates, not their free/occupied fragments. Keep first-input order.
+        networks = tuple(dict.fromkeys(e.record.network for e in self.entries if selectors[category](e)))
         return CidrOutput(networks, len(networks))
 
     def as_text(self):

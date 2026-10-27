@@ -78,9 +78,27 @@ def publish(repository, release_id, tag, package):
     return 'Attached verified EXE: '+expected
 
 
+def verify_main_history(tag):
+    if tag != 'v'+app_version():
+        raise ValueError('Release tag does not match APP_VERSION')
+
+    def git(*arguments):
+        return subprocess.run(['git', *arguments], cwd=ROOT, check=True, capture_output=True,
+                              text=True, encoding='utf-8', timeout=180).stdout.strip()
+
+    shallow = git('rev-parse', '--is-shallow-repository')
+    if shallow not in ('true', 'false'):
+        raise ValueError('Unknown Git history state')
+    arguments = ['fetch', '--no-tags']
+    if shallow == 'true':
+        arguments.append('--unshallow')
+    git(*arguments, 'origin', '+refs/heads/main:refs/remotes/origin/main')
+    git('merge-base', '--is-ancestor', 'HEAD', 'refs/remotes/origin/main')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=['inspect', 'publish', 'version'])
+    parser.add_argument('command', choices=['inspect', 'publish', 'version', 'history'])
     parser.add_argument('--repository', default=os.environ.get('GITHUB_REPOSITORY', ''))
     parser.add_argument('--release-id', type=int, default=0)
     parser.add_argument('--tag', default='')
@@ -89,6 +107,10 @@ def main():
     try:
         if args.command == 'version':
             print(app_version())
+            return 0
+        if args.command == 'history':
+            verify_main_history(args.tag)
+            print('Release version and main history verified without fetching tags.')
             return 0
         if args.command == 'inspect':
             build, reason = build_decision(args.repository, args.release_id, args.tag)

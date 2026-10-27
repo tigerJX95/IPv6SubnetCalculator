@@ -2,6 +2,16 @@
 
 本文采用中英对照，中文在前、英文在后。 / This document presents Chinese first, followed by English.
 
+## V1.17 候选类别与标签检出 / Candidate Categories and Tag Checkout
+
+`BatchAvailability.cidr_output()` 按占用／空闲整数计数筛选完整候选网段，统一规范化、首次顺序去重并保留包含项。`BatchAvailabilityPanel` 复用类别变更通知、数量刷新及对话框前后的输出身份保护；完整报告不受类别影响。专项测试位于 `tests/test_batch_categories.py`。
+
+`BatchAvailability.cidr_output()` selects whole networks using exact occupied/free counts, retaining first-input order and containment after normalization/deduplication. The panel reuses category notifications, count updates and save identity guards; the complete report is unchanged. See `tests/test_batch_categories.py`.
+
+Windows 构建检出深度改为 1 且不拉取标签。`tools/release_assets.py history` 先核对版本，判断浅克隆状态，只抓取 main；浅克隆使用 `--unshallow --no-tags` 补齐历史，再检查 HEAD 是否为 main 的祖先。抓取和祖先检查失败均拒绝发布，不删除远端标签。测试包含带大小写冲突标签的真实浅克隆。
+
+Windows checkout uses depth 1 without tags. The history command validates the version, checks shallow state, fetches only main with `--unshallow --no-tags` when needed, then checks HEAD ancestry. Fetch/ancestry failures block publication. Remote tags are untouched; tests include a real shallow clone with case-variant tags.
+
 ## V1.15 候选网段可用性与本地化截图 / Candidate Availability and Localized Screenshots
 
 `core/network_availability.py` 将占用并集区间裁剪到候选 CIDR 内，保留冲突的原始记录，再从候选中扣除裁剪后的占用并集；整个过程不枚举地址。`AvailabilityPanel` 与现有查询面板共用有数量上限的 CIDR 输出及报告保存保护。
@@ -61,13 +71,13 @@ python -m pip install -r requirements.txt
 python main.py
 ```
 
-Windows 下运行 `build.cmd`，会安装固定版本的界面依赖和 PyInstaller，生成 `dist/IPv6SubnetCalculator_V1.16.exe`。构建需要联网下载依赖；生成后的程序离线运行，不要求目标电脑安装 Python。EXE 的架构取决于所用 Python 的架构，建议使用 Windows x64 Python。
+Windows 下运行 `build.cmd`，会安装固定版本的界面依赖和 PyInstaller，生成 `dist/IPv6SubnetCalculator_V1.17.exe`。构建需要联网下载依赖；生成后的程序离线运行，不要求目标电脑安装 Python。EXE 的架构取决于所用 Python 的架构，建议使用 Windows x64 Python。
 
-On Windows, `build.cmd` installs the pinned interface dependencies and PyInstaller, then creates `dist/IPv6SubnetCalculator_V1.16.exe`. Building requires internet access to download dependencies. The resulting application works offline without Python on the target computer. Its architecture follows the Python interpreter used; Windows x64 Python is recommended.
+On Windows, `build.cmd` installs the pinned interface dependencies and PyInstaller, then creates `dist/IPv6SubnetCalculator_V1.17.exe`. Building requires internet access to download dependencies. The resulting application works offline without Python on the target computer. Its architecture follows the Python interpreter used; Windows x64 Python is recommended.
 
-可选运行 `python tools/package_release.py` 生成 `dist/IPv6SubnetCalculator_V1.16_Windows.zip`，包含 EXE、项目 `LICENSE`／`NOTICE` 及第三方许可文件。Windows 用户默认直接下载 EXE；ZIP 仅为可选归档，源码包单独提供。发布前运行 `verify.cmd` 检查本次 EXE。
+可选运行 `python tools/package_release.py` 生成 `dist/IPv6SubnetCalculator_V1.17_Windows.zip`，包含 EXE、项目 `LICENSE`／`NOTICE` 及第三方许可文件。Windows 用户默认直接下载 EXE；ZIP 仅为可选归档，源码包单独提供。发布前运行 `verify.cmd` 检查本次 EXE。
 
-Optionally run `python tools/package_release.py` to create `dist/IPv6SubnetCalculator_V1.16_Windows.zip`, containing the EXE, project LICENSE/NOTICE, and third-party license files. Publish the EXE as the default Windows download; the ZIP is optional and source is provided separately. Run `verify.cmd` before publishing to check the executable from this build.
+Optionally run `python tools/package_release.py` to create `dist/IPv6SubnetCalculator_V1.17_Windows.zip`, containing the EXE, project LICENSE/NOTICE, and third-party license files. Publish the EXE as the default Windows download; the ZIP is optional and source is provided separately. Run `verify.cmd` before publishing to check the executable from this build.
 
 ## 模块职责 / Module Responsibilities
 
@@ -159,7 +169,7 @@ python tools/verify.py --report-dir verification
 指定打包程序可运行： / To include a packaged application:
 
 ```console
-python tools/verify.py --exe dist/IPv6SubnetCalculator_V1.16.exe --report-dir verification
+python tools/verify.py --exe dist/IPv6SubnetCalculator_V1.17.exe --report-dir verification
 ```
 
 `summary.json` 保存环境、逐阶段结果及性能数据；`SUMMARY.md` 为简要结果，`tests.log` 保存回归日志；`source.json` 和 `executable.json` 分别记录源码与打包程序检查。源码检查通过时，未提供的 EXE 仍标记为 `not_run`。只有在 Windows 上执行且 EXE 检查通过后，`windows_automated_checks` 才标记为通过；人工验证始终独立登记，见 [Windows 验证](WINDOWS_ACCEPTANCE.md)。

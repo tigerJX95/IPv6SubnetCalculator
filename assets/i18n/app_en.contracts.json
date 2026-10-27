@@ -913,6 +913,15 @@
     },
     {
       "context": "App",
+      "source": "下方输出完整候选网段，不是其中的空闲或占用片段；上方报告始终包含全部候选。",
+      "source_sha256": "141a0937ab1bc57cb7e74c0d6cc360e960fc7cec212869df5acef7f52dc36ebd",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "不保存",
       "source_sha256": "8bcc3e177f5f3b104ca4215c929b193e4c69efcd34fcd7b7b75fc495bd7be7fa",
       "protected_tokens": [],
@@ -1539,8 +1548,26 @@
     },
     {
       "context": "App",
+      "source": "全部候选 CIDR",
+      "source_sha256": "52955bc043654416b8c85c31302e8141b381c3751d4b557ad6d94edba145dc18",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "全部占用",
       "source_sha256": "35a29ca1375fe8d2187370f63bdd4ca4eef2b599020ccf6eca7bcb3c0f08008d",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "全部占用的候选 CIDR",
+      "source_sha256": "9ec5de704609bb738331899f561c2ada18aadeaf37c33b13a97a320a2df74d15",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -2797,6 +2824,15 @@
       "context": "App",
       "source": "子网详细信息已复制到剪贴板。",
       "source_sha256": "6d38c083d53143a2be1390d764b0924b01c4bc15a9b40cd0972fc0374b0af789",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "存在占用冲突的候选 CIDR",
+      "source_sha256": "2d78c903261796877062be7c323f13ca2d7cf73f6ca817d5d0699dce19b0c259",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -7098,6 +7134,15 @@
       "context": "App",
       "source": "部分占用",
       "source_sha256": "ce5b027bebbfcd89bd1f24cc3c49d97e738829d1dbc8e0ac781b40600e1b5bcb",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "部分占用的候选 CIDR",
+      "source_sha256": "ecabeecc376d2936a818cca3be8541a983d38973fa3437773b890853c4cc8594",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,

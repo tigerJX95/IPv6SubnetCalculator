@@ -6,7 +6,7 @@ Click the upper-right About information icon or press F1. The information groupi
 
 | Page/control | Contents | Example |
 |---|---|---|
-| Program Information | Icon, actual version, project links, features, copyright, acknowledgments and runtime component versions | V1.16 and the actual Qt runtime version |
+| Program Information | Icon, actual version, project links, features, copyright, acknowledgments and runtime component versions | V1.17 and the actual Qt runtime version |
 | Project home | Selectable HTTPS hyperlink; opens the system default browser when clicked | `https://github.com/tigerJX95/IPv6SubnetCalculator` |
 | Download releases | Hyperlink to Releases for published EXE downloads | `https://github.com/tigerJX95/IPv6SubnetCalculator/releases` |
 | User Guide | Bundled offline help following the interface language | Batch candidate inputs and result boundaries |

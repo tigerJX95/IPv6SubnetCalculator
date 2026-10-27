@@ -217,7 +217,13 @@ class BatchAvailabilityPanel(InspectionPanel):
         self.category.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToMinimumContentsLengthWithIcon)
         self.category.setMinimumContentsLength(12)
         self.category.addItem(tx('全部空闲的候选 CIDR（去重，可能互相重叠）'), 'free_candidates')
-        self.category.setToolTip(tx('全部空闲的候选 CIDR（去重，可能互相重叠）'))
+        for label, key in [
+            (tx('部分占用的候选 CIDR'), 'partial_candidates'),
+            (tx('全部占用的候选 CIDR'), 'occupied_candidates'),
+            (tx('存在占用冲突的候选 CIDR'), 'conflicting_candidates'),
+            (tx('全部候选 CIDR'), 'all_candidates')]:
+            self.category.addItem(label, key)
+        self.category.setToolTip(tx('下方输出完整候选网段，不是其中的空闲或占用片段；上方报告始终包含全部候选。'))
 
     def run(self):
         from core.batch_availability import check_batch_availability

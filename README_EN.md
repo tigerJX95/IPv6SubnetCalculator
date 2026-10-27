@@ -1,6 +1,17 @@
 [简体中文](README.md) | **English**
 
-# 🌐 IPv6 Subnet Calculator V1.16
+# 🌐 IPv6 Subnet Calculator V1.17
+
+## ✨ V1.17 Candidate Output by Status
+
+- Batch Availability adds partially occupied, fully occupied, conflicting and all-candidate CIDR categories alongside entirely free candidates.
+- Output contains whole normalized candidate networks, deduplicated in first-input order with containment retained. These are not free/occupied fragments. The complete report retains every record; candidates reserve no space for each other.
+- Switching categories updates counts and availability immediately. Switching during a save cancels stale output; empty categories cannot produce empty lists.
+- Windows builds check out the target commit without fetching all tags. Release validation fetches main history on demand, avoiding historical case-variant tag conflicts while retaining version/ancestry checks and all existing tags.
+
+![Candidate categories in English](docs/screenshots/batch_categories_en_US_light.png)
+
+See [Batch Availability](docs/BATCH_AVAILABILITY_EN.md) and [Release builds](docs/RELEASE_BUILD_EN.md).
 
 ### V1.16 Release build policy
 

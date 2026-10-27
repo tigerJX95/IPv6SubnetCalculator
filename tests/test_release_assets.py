@@ -110,4 +110,50 @@ class ReleaseAssetTests(unittest.TestCase):
         self.assertIn('steps.output.outputs.filename',artifact['with']['path'])
         verify=next(i for i,s in enumerate(steps) if 'tools/verify.py' in s.get('run',''))
         upload=steps.index(artifact);self.assertLess(verify,upload)
-        self.assertTrue(any('merge-base --is-ancestor' in s.get('run','') for s in steps))
+        self.assertTrue(any('release_assets.py history' in s.get('run','') for s in steps))
+
+
+class ReleaseHistoryTests(unittest.TestCase):
+    def test_shallow_fetches_only_main_without_tags_before_ancestry_check(self):
+        def run(command,**kwargs):
+            value='true' if 'rev-parse' in command else ''
+            return subprocess.CompletedProcess(command,0,value,'')
+        with patch.object(r.subprocess,'run',side_effect=run) as invoke:
+            r.verify_main_history(TAG)
+        commands=[c.args[0] for c in invoke.call_args_list]
+        self.assertEqual(commands[1],['git','fetch','--no-tags','--unshallow','origin','+refs/heads/main:refs/remotes/origin/main'])
+        self.assertEqual(commands[2],['git','merge-base','--is-ancestor','HEAD','refs/remotes/origin/main'])
+
+    def test_complete_history_does_not_use_unshallow(self):
+        with patch.object(r.subprocess,'run',side_effect=[subprocess.CompletedProcess([],0,'false',''),subprocess.CompletedProcess([],0,'',''),subprocess.CompletedProcess([],0,'','')]) as invoke:
+            r.verify_main_history(TAG)
+        self.assertNotIn('--unshallow',invoke.call_args_list[1].args[0])
+
+    def test_wrong_tag_invalid_history_and_nonancestor_fail_closed(self):
+        with patch.object(r.subprocess,'run') as invoke,self.assertRaises(ValueError):r.verify_main_history('v0.0')
+        invoke.assert_not_called()
+        with patch.object(r.subprocess,'run',return_value=subprocess.CompletedProcess([],0,'unknown','')),self.assertRaises(ValueError):r.verify_main_history(TAG)
+        with patch.object(r.subprocess,'run',side_effect=[subprocess.CompletedProcess([],0,'true',''),subprocess.CompletedProcess([],0,'',''),subprocess.CalledProcessError(1,['git'])]),self.assertRaises(subprocess.CalledProcessError):r.verify_main_history(TAG)
+
+    def test_real_shallow_clone_with_case_variant_tags_keeps_remote_tags(self):
+        import os
+        def git(root,*args):
+            return subprocess.run(['git',*args],cwd=root,check=True,capture_output=True,text=True,env={**os.environ,'GIT_CONFIG_NOSYSTEM':'1'}).stdout.strip()
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);origin=root/'origin';origin.mkdir()
+            git(origin,'init','-b','main');git(origin,'config','user.email','tests@example.invalid');git(origin,'config','user.name','Tests')
+            (origin/'file').write_text('a');git(origin,'add','.');git(origin,'commit','-m','first')
+            # Case-sensitive remote refs are created in a bare repo after cloning, for Windows compatibility.
+            (origin/'file').write_text('b');git(origin,'commit','-am','second')
+            remote=root/'remote.git';git(root,'clone','--bare',str(origin),str(remote))
+            commit=git(remote,'rev-parse','HEAD')
+            # packed-refs supports the colliding historic names even on Windows.
+            with (remote/'packed-refs').open('ab') as refs:
+                refs.write((commit+' refs/tags/V1.0\n'+commit+' refs/tags/v1.0\n').encode('ascii'))
+            clone=root/'clone';git(root,'clone','--depth=1','--no-tags',remote.as_uri(),str(clone))
+            self.assertEqual(git(clone,'rev-parse','--is-shallow-repository'),'true')
+            with patch.object(r,'ROOT',clone),patch.object(r,'app_version',return_value=TAG[1:]):r.verify_main_history(TAG)
+            self.assertEqual(git(clone,'rev-parse','--is-shallow-repository'),'false')
+            self.assertEqual(git(clone,'tag','--list'),'')
+            names=git(remote,'for-each-ref','--format=%(refname)','refs/tags')
+            self.assertIn('refs/tags/V1.0',names);self.assertIn('refs/tags/v1.0',names)

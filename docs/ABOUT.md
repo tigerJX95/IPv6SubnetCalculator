@@ -6,7 +6,7 @@
 
 | 页面／设置 | 内容 | 示例 |
 |---|---|---|
-| 程序信息 | 图标、实际版本、项目网站、功能、版权、致谢及运行组件版本 | 显示 V1.16 与实际运行 Qt 版本 |
+| 程序信息 | 图标、实际版本、项目网站、功能、版权、致谢及运行组件版本 | 显示 V1.17 与实际运行 Qt 版本 |
 | 项目主页 | 可选择复制的 HTTPS 超链接，点击时交给系统默认浏览器 | `https://github.com/tigerJX95/IPv6SubnetCalculator` |
 | 下载正式版 | 指向 Releases 的超链接，供下载发布的 EXE | `https://github.com/tigerJX95/IPv6SubnetCalculator/releases` |
 | 使用说明 | 随程序打包的离线帮助，跟随界面语言 | 查看批量候选输入与结果边界 |

@@ -146,3 +146,8 @@ Candidates are independent and do not reserve space for each other. Duplicates a
 ## About and Project Website
 
 Use the upper-right information icon or F1. Program Information provides clickable project home and release-download links, opened only on click in the system browser. The other tabs provide offline help, original component licenses and legal information. Close with the title-bar close button or Esc; select text to copy. Language/theme changes do not open a browser.
+
+
+## Batch candidate status output
+
+Select entirely free, partially occupied, fully occupied, conflicting or all candidates in Batch Availability. The adjacent copy/save buttons output whole normalized candidate CIDRs, not their free/occupied fragments. Results are deduplicated in first-input order and retain containment. The full report is unaffected. For baseline `::/127` and candidate `::/126`, partially occupied output is `::/126`, while its free fragment is `::2/127`; use the single-network availability tab to output fragments. Empty categories disable CIDR output; category changes during saving cancel stale output.

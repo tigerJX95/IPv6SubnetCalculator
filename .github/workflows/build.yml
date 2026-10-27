@@ -53,7 +53,8 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
-          fetch-depth: 0
+          fetch-depth: 1
+          fetch-tags: false
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
         with:
           python-version: '3.12'
@@ -64,14 +65,8 @@ jobs:
         env:
           RELEASE_TAG: ${{ github.event.release.tag_name }}
         run: |
-          $ErrorActionPreference = 'Stop'
-          $version = python tools/release_assets.py version
-          if ($LASTEXITCODE -ne 0) { throw 'Invalid application version.' }
-          if ($env:RELEASE_TAG -cne "v$version") { throw 'Release tag must exactly match vAPP_VERSION.' }
-          git fetch --no-tags origin +refs/heads/main:refs/remotes/origin/main
-          if ($LASTEXITCODE -ne 0) { throw 'Could not fetch main.' }
-          git merge-base --is-ancestor HEAD refs/remotes/origin/main
-          if ($LASTEXITCODE -ne 0) { throw 'Release commit must already be on main.' }
+          python tools/release_assets.py history --tag "$env:RELEASE_TAG"
+          if ($LASTEXITCODE -ne 0) { throw 'Release version or main history validation failed.' }
       - name: Install locked application and check dependencies
         run: python -m pip install -r requirements.txt -r requirements-ci.txt pyinstaller==6.22.3
       - name: Build single-file EXE

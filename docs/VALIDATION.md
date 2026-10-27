@@ -1,3 +1,14 @@
+## V1.17 — 2026-10-27
+
+- 完整回归 648 项通过，0 失败、0 错误、0 跳过；保留 640 项既有测试，新增 4 项候选类别和 4 项历史检出测试。/ All 648 tests passed without failures, errors or skips: 640 retained plus four category and four history tests.
+- 候选类别覆盖全部空闲、部分占用、全部占用、存在冲突及全部候选；验证完整网段边界、输入顺序、规范化去重、包含项、空类别、双语、报告不变及保存期间切换保护。/ Categories cover free, partial, occupied, conflicting and all candidates, preserving whole-network boundaries, first-input order, deduplication, containment, empty output guards, languages, full reports and save guards.
+- 历史校验包括真实本地浅克隆，远端 packed-refs 同时保留 V1.0／v1.0；不抓取标签即可补齐 main 历史并完成祖先检查。另覆盖非浅仓库、错版本、未知状态及祖先失败的拒绝路径。没有修改 GitHub 历史标签。/ A real shallow clone with case-variant remote packed refs validates main ancestry without fetching tags; tests also cover complete history and fail-closed paths. Hosted tags were not changed.
+- 源码及 Linux 单文件程序各通过 34 项自检，版本与运行源码指纹一致。Windows EXE／实机和本版 GitHub 工作流仍待上传后验证。/ Source and Linux one-file builds passed 34 self-checks each with matching version/fingerprint. Windows EXE/desktop and hosted CI remain pending for this version.
+- i18n：817 条翻译、936 处调用、66 个源码文件通过。中英文浅深色真实界面截图已更新，32 处文档图片引用通过语言和哈希检查。/ i18n passed for 817 messages, 936 calls and 66 source files. Updated locale/theme screenshots and 32 image references pass locale/hash validation.
+- Ruff、pip check、Bandit、应用依赖 pip-audit 通过。Qt 运行依赖不变；本轮不包含 Qt 安全升级，不声称 CodeQL 云端已通过。/ Ruff, pip check, Bandit and application dependency auditing passed; Qt runtime versions are unchanged and hosted CodeQL is not claimed.
+- 第一次回归期间截图仍在更新，图片一致性测试失败；最终截图定稿后完整重跑，以上通过结果对应最终文件。/ The first regression overlapped screenshot updates; after finalizing captures the complete suite was rerun successfully.
+- 证据 / Evidence: `../verification/v1.17/`。运行源码 SHA-256 / runtime source SHA-256: `757096164fc275f4c4271c38c450d26eeef87ef2ce1c72e47e40548dd2daaed6`。
+
 ## V1.16 Release 构建规则补充 — 2026-10-26
 
 - 完整回归 640 项通过（原 628 项＋12 项 Release 工作流和附件策略测试），0 失败、0 错误、0 跳过。/ All 640 regressions passed (628 retained plus 12 Release policy/workflow tests), without failures, errors or skips.

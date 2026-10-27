@@ -1,3 +1,17 @@
+## ✨ V1.17 批量候选按状态输出
+
+- 批量可用性新增“部分占用”“全部占用”“存在占用冲突”“全部候选”四种 CIDR 输出类别，保留原有全部空闲类别。
+- 输出规范化后的完整候选网段，按首次输入顺序去重，保留包含项；不是候选内部的空闲或占用片段。上方完整报告始终保留全部记录，候选之间不会互相预留。
+- 切换类别立即更新数量和按钮状态，保存期间切换类别会中止旧输出；空类别禁止输出空清单。
+- Windows 构建只检出目标提交，发布时按需补齐 main 历史，不再抓取全部标签，避免历史标签大小写冲突；版本与 main 祖先校验继续保留，不删除或修改标签。
+
+## ✨ V1.17 Candidate Output by Status
+
+- Batch Availability adds partially occupied, fully occupied, conflicting and all-candidate CIDR categories alongside entirely free candidates.
+- Output contains whole normalized candidate networks, deduplicated in first-input order with containment retained. These are not free/occupied fragments. The complete report retains every record; candidates reserve no space for each other.
+- Switching categories updates counts and availability immediately. Switching during a save cancels stale output; empty categories cannot produce empty lists.
+- Windows builds check out the target commit without fetching all tags. Release validation fetches main history on demand, avoiding historical case-variant tag conflicts while retaining version/ancestry checks and all existing tags.
+
 ## V1.16 Release 工作流补充 / Release workflow maintenance
 
 - 发布 Release 时先检查附件：任意完整 EXE 存在则跳过；没有 EXE 才构建和验证单文件 Windows x64 EXE，验证通过后新增附件。/ Inspect attachments on publication; skip for any complete EXE, otherwise build/verify and add the single-file Windows x64 EXE.
