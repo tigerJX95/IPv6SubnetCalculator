@@ -14,8 +14,6 @@
 
 ![Candidate details with continuous navigation](docs/screenshots/batch_detail_en_US_light.png)
 
-![Current release notes and Update History](docs/screenshots/about_release_en_US_dark.png)
-
 ## 📖 Overview
 
 IPv6SubnetCalculator is an offline IPv6 subnet calculator for Windows. It analyzes network ranges, divides subnets, identifies address usage, and provides Calculation, Results, Address Tools, and Subnet List tabs for subnet operations and address/network analysis.
