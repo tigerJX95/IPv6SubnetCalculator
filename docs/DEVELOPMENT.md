@@ -1,5 +1,7 @@
 ## V1.19 批量候选导入与运行组件更新
 
+- 修订：修复 Windows 正常文件被误判为读取期间变化，恢复计算方案、规划项目和候选清单导入。
+
 - 批量可用性新增 TXT／CIDR 和规划项目 JSON 导入；JSON 只取清单文本，保留注释、空行和重复候选。
 - 替换已有候选前确认；取消、文件错误或对话框期间内容变化时保留原输入和结果，成功导入后再手动检查。
 - 优化普通文件读取和变化提示；清单悬停内容按原文显示特殊字符。
@@ -7,6 +9,8 @@
 - 保留候选详情、内部 CIDR 输出、地址工具右键复制及关于页排版；同步中英文说明与对应语言截图。
 
 ## V1.19 Batch Candidate Import and Runtime Update
+
+- Revision: fixes unchanged Windows files being reported as modified during reading, restoring calculation-plan, planning-project and candidate imports.
 
 - Batch Availability imports TXT/CIDR and planning-project JSON; JSON uses list text only, retaining comments, blank lines and duplicate candidates.
 - Replacing candidates requires confirmation. Cancellation, file errors or dialog-time content changes preserve existing input/results; imported content is checked explicitly afterward.

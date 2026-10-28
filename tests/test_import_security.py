@@ -89,3 +89,50 @@ class ImportSecurityTests(unittest.TestCase):
             with patch('services.input_files.os.fstat',side_effect=fake):
                 with self.assertRaises(InputError):read_input_file(p,100,'limit')
             with self.assertRaises(OSError):real(opened[0])
+
+
+class WindowsImportMetadataTests(unittest.TestCase):
+    @staticmethod
+    def copy_info(info,**changes):
+        from types import SimpleNamespace
+        fields={name:getattr(info,name) for name in ('st_dev','st_ino','st_mode','st_size','st_mtime_ns','st_ctime_ns')}
+        fields.update(changes)
+        return SimpleNamespace(**fields)
+
+    def test_windows_different_path_and_handle_ctime_accepts_unchanged_file(self):
+        real=os.fstat
+        with tempfile.TemporaryDirectory() as folder:
+            p=Path(folder)/'input.txt';p.write_bytes(b'::/128')
+            def handle(fd):return self.copy_info(real(fd),st_ctime_ns=real(fd).st_ctime_ns+1000000)
+            with patch('services.input_files._WINDOWS',True),patch('services.input_files.os.fstat',side_effect=handle):
+                self.assertEqual(load_subnet_list(p),'::/128')
+
+    def test_windows_handle_ctime_change_during_read_is_still_rejected(self):
+        real=os.fstat;calls=0
+        with tempfile.TemporaryDirectory() as folder:
+            p=Path(folder)/'input.txt';p.write_bytes(b'::/128')
+            def handle(fd):
+                nonlocal calls
+                calls+=1
+                return self.copy_info(real(fd),st_ctime_ns=real(fd).st_ctime_ns+calls)
+            with patch('services.input_files._WINDOWS',True),patch('services.input_files.os.fstat',side_effect=handle):
+                with self.assertRaises(InputError):load_subnet_list(p)
+
+    def test_windows_path_ctime_change_during_read_is_still_rejected(self):
+        real=os.stat;calls=0
+        with tempfile.TemporaryDirectory() as folder:
+            p=Path(folder)/'input.txt';p.write_bytes(b'::/128')
+            def path_info(path):
+                nonlocal calls
+                calls+=1;info=real(path)
+                return self.copy_info(info,st_ctime_ns=info.st_ctime_ns+calls)
+            with patch('services.input_files._WINDOWS',True),patch('services.input_files.os.stat',side_effect=path_info):
+                with self.assertRaises(InputError):load_subnet_list(p)
+
+    def test_posix_cross_api_ctime_difference_remains_rejected(self):
+        real=os.fstat
+        with tempfile.TemporaryDirectory() as folder:
+            p=Path(folder)/'input.txt';p.write_bytes(b'::/128')
+            def handle(fd):return self.copy_info(real(fd),st_ctime_ns=real(fd).st_ctime_ns+1)
+            with patch('services.input_files._WINDOWS',False),patch('services.input_files.os.fstat',side_effect=handle):
+                with self.assertRaises(InputError):load_subnet_list(p)

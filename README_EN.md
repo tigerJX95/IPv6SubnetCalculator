@@ -4,6 +4,8 @@
 
 ## V1.19 Batch Candidate Import and Runtime Update
 
+- Revision: fixes unchanged Windows files being reported as modified during reading, restoring calculation-plan, planning-project and candidate imports.
+
 - Batch Availability imports TXT/CIDR and planning-project JSON; JSON uses list text only, retaining comments, blank lines and duplicate candidates.
 - Replacing candidates requires confirmation. Cancellation, file errors or dialog-time content changes preserve existing input/results; imported content is checked explicitly afterward.
 - Improves ordinary-file reading and change messages; list tooltips display special characters literally.
