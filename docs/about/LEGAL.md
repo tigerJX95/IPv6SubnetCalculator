@@ -24,8 +24,6 @@ PyQt6、Qt 6、PyQt6-sip 等第三方组件保留各自版权和许可。本项�
 
 ---
 
-# Legal Notice and Responsibility
-
 ## Purpose and deployment
 
 This application provides mathematical IPv6 calculations and planning assistance. Its results and address classifications do not grant address allocation rights or certify reachability, device compatibility, or deployment suitability. Review allocations, routing, security and device requirements before deployment. Handle networks only within your authority and protect plan/export files that may contain internal information.

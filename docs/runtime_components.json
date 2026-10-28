@@ -1,0 +1,27 @@
+{
+  "checked_date": "2026-10-28",
+  "channel": "Riverbank official pre-release index",
+  "index": "https://www.riverbankcomputing.com/pypi/simple/",
+  "pyqt": "6.12.0",
+  "qt": "6.12.0",
+  "sip": "13.13.0",
+  "main_pypi_runtime_latest_at_check": "6.11.2",
+  "resolved_linux_files": [
+    {
+      "name": "PyQt6",
+      "version": "6.12.0",
+      "url": "https://www.riverbankcomputing.com/pypi/packages/pyqt6/pyqt6-6.12.0-cp310-abi3-manylinux_2_34_x86_64.whl",
+      "hashes": {
+        "sha256": "1922bf7440310845a4fd06f4242288084dc26cf682a67e561b115570a8def3d1"
+      }
+    },
+    {
+      "name": "PyQt6-Qt6",
+      "version": "6.12.0",
+      "url": "https://www.riverbankcomputing.com/pypi/packages/Qt-6.12/pyqt6_qt6-6.12.0-py3-none-manylinux_2_34_x86_64.whl",
+      "hashes": {
+        "sha256": "b76e9962e83cf7daff9bb7ab169c804f37b77ab2d7393d3b380351f5a2441ee0"
+      }
+    }
+  ]
+}

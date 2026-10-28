@@ -3094,6 +3094,33 @@
     },
     {
       "context": "App",
+      "source": "导入仅支持普通文件，不支持设备、管道或其他特殊文件。",
+      "source_sha256": "65063663340cce764c6ee6eb4f4c251c787ca9b82a4a17ea2e0aba125bf2c717",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "导入候选 TXT／CIDR 或规划项目 JSON（仅取清单文本）",
+      "source_sha256": "aa3e1bf6f1c351872719b49b665afa84ec4784b43dce2b90ca145c2fd4da05ae",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "导入候选清单失败：{0}",
+      "source_sha256": "24ca3cc41cb6f3ee5279bab5c9e53faf7ce1a9772a1084e32d9e12a34dee8ac2",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "导入失败：",
       "source_sha256": "f806c8cb6b405b591a1082081ee68cff44399c329b1ffcbb3141f2a2010c6431",
       "protected_tokens": [],
@@ -3123,6 +3150,24 @@
       "context": "App",
       "source": "导入对比清单失败：{0}",
       "source_sha256": "2d0a5b25459dfce9af922315397233b9d9f45c66460a5936a026a19a999cecf1",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "导入将替换当前候选输入并清除检查结果，是否继续？",
+      "source_sha256": "31af2a6d93d465507b039dae3fde987d788e782fee97490fb583480cb94f6e63",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "导入批量候选清单",
+      "source_sha256": "8ec8bccf43f286503b6179741ca5b8e6ad177fba7af1fccac78fb5ea3f2e115d",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -4514,6 +4559,15 @@
       "context": "App",
       "source": "暂无计算结果",
       "source_sha256": "9ca1eb322cabf827acbc6a0175c4ed79ea0a47c9bfd9c33726b5303a735dd237",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "替换候选清单",
+      "source_sha256": "f405b98aab42505ec71dde380e72860ad808333fdb437ffe636954949432186b",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -6864,6 +6918,15 @@
       "context": "App",
       "source": "请选择有效的定位方式。",
       "source_sha256": "554514152c2dcf4489beffb692ef7ae7bd839553e667b31cbadfc74d1f667a74",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "读取期间文件已变化，请等待写入完成后重新导入。",
+      "source_sha256": "58a045077c62050b34eb7730446d959c4580c3d3d28a9415cd3580b410d1b11b",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,

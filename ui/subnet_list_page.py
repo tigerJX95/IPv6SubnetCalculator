@@ -29,6 +29,7 @@ from core.ipv6_core import InputError
 from core.subnet_list import MAX_RELATION_DETAILS
 from services.subnet_list_service import SubnetListService, load_subnet_list
 from services.language_service import display
+from ui.text_safety import literal_tooltip
 from ui.fonts import data_font
 from ui.theme import current_colors
 from ui.widgets import IconButton
@@ -78,7 +79,7 @@ class ListTableModel(QAbstractTableModel):
         if role == Qt.ItemDataRole.DisplayRole:
             return display(row[index.column()])
         if role == Qt.ItemDataRole.ToolTipRole:
-            return display(jt('\n', (tx('{0}：{1}', name, value) for name, value in zip(self.headers, row))))
+            return literal_tooltip(display(jt('\n', (tx('{0}：{1}', name, value) for name, value in zip(self.headers, row)))))
         if role == Qt.ItemDataRole.FontRole:
             return data_font()
         if role == Qt.ItemDataRole.ForegroundRole and index.row() in self.errors:

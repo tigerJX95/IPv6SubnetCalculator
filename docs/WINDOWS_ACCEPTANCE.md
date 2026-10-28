@@ -1,3 +1,10 @@
+## V1.19 新增操作验收 / New operation checks
+
+1. 关于窗口确认 PyQt6 与 Qt 均显示 6.12.0；安装时通过 requirements.txt 使用 Riverbank 官方预发布源。/ Confirm both runtime versions in About and the official index installation.
+2. 批量可用性导入 TXT／CIDR 或规划项目 JSON，确认仅候选文本变化，基准、父网段和分配参数保持原样。/ Import candidates without restoring baseline or allocation parameters.
+3. 已有候选时确认替换；取消、无效编码和超限文件应保留原结果。/ Check replacement confirmation and preservation on cancellation or errors.
+4. 在中英文、浅深色主题下检查文件夹入口、候选详情、关于页标题及右键复制。/ Inspect both languages/themes, candidate details, document headings and context menus.
+
 ## V1.18 新增人工验收（待 Windows 执行） / New manual acceptance (pending Windows)
 
 1. 基准输入 `::/127` 与 `::3/128`，批量候选输入 `::3/126`、`::4/126` 及重复的 `::3/126`，确认候选序号上限为 3。/ With this baseline and these candidates, confirm the candidate number limit is 3.
@@ -122,7 +129,6 @@ Check inclusive bounds, exact counts, invalid-order recovery, copy/report langua
 Verify output content, reimport, incomplete/empty results, overwrite and failure recovery, dialog-time changes, save-time language and protected planning transfer on Windows.
 
 
-## V1.10 双语审计修订 / Bilingual Revision
 
 - [ ] 简体中文模式：导出／打开／保存等文件选择器中，普通文件夹类型为“文件夹”，其他类型、大小单位及日期不受 Windows 显示语言影响。
 - [ ] English 模式：Folder、文件类型与日期均使用英文展示。

@@ -18,6 +18,7 @@
 """有界 UTF-8 文件读取与可取消的后台清单检查。"""
 from core.localized_text import text as tx, join_text as jt
 from threading import Event
+from services.input_files import read_input_file
 from PyQt6.QtCore import QObject, QThread, pyqtSignal
 from core.subnet_planning import free_space, aggregate_cidrs
 from core.ipv6_core import InputError
@@ -25,10 +26,7 @@ from core.subnet_list import MAX_LIST_BYTES, validate_list_text, analyze_subnet_
 
 
 def load_subnet_list(path):
-    with open(path, 'rb') as stream:
-        data = stream.read(MAX_LIST_BYTES+1)
-    if len(data)>MAX_LIST_BYTES:
-        raise InputError(tx('清单文件不能超过 1 MiB，请拆分后导入。'))
+    data = read_input_file(path, MAX_LIST_BYTES, tx('清单文件不能超过 1 MiB，请拆分后导入。'))
     try:
         text = data.decode('utf-8-sig')
     except UnicodeError as exc:

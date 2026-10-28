@@ -31,6 +31,7 @@ class AboutPresentationTests(unittest.TestCase):
                                 self.assertGreaterEqual(block.blockFormat().bottomMargin(),24,path)
                                 found=True
                             block=block.next()
+                        self.assertTrue(found,path)
                     self.assertEqual(d.information.document().begin().blockFormat().alignment(),Qt.AlignmentFlag.AlignHCenter)
         finally:
             d.close();d.deleteLater()

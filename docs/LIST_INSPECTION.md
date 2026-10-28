@@ -11,7 +11,6 @@ V1.14 入口：**子网清单 → 顶部第三个圆形靶心查询按钮（文�
 - 使用全部空闲范围计算，不受 5,000 条 CIDR 预览截断影响；容量使用精确整数，不枚举 IPv6 地址。每一行都是同一空闲空间的不同划分，不能跨行相加。
 - 支持双语报告复制及 TXT 保存，沿用覆盖确认和文件冲突保护；修改父网段立即清除结果。基于打开窗口时的清单快照，不修改原项目，关闭后重开可使用最新清单。
 - 占用清单必须全部有效且位于父网段内；空清单表示父网段全空闲。总览输入及结果不保存到规划项目 JSON，需要留存时保存报告。
-- 保留 V1.13 CIDR 输出、翻译审计和跨平台换行修复。Qt 运行库保持现有版本，本次不包含 Qt 安全升级。
 
 ## ✨ V1.14 Free Capacity Overview
 
@@ -20,7 +19,6 @@ V1.14 入口：**子网清单 → 顶部第三个圆形靶心查询按钮（文�
 - Uses complete free ranges even when the 5,000-CIDR preview is truncated. Counts are exact integers without enumerating IPv6 addresses. Rows partition the same free space differently and must not be added together.
 - Copy bilingual reports or save TXT with overwrite confirmation and conflict protection. Editing the parent clears results. The list snapshot is taken when the window opens; original projects are unchanged. Reopen to use an updated list.
 - All occupied records must be valid and contained within the parent; an empty list leaves the entire parent free. Overview inputs and results are not stored in planning project JSON; save the report to retain them.
-- Retains V1.13 CIDR output, translation auditing and checkout newline fixes. Qt runtime dependencies are unchanged; this update does not include a Qt security upgrade.
 
 ## ✨ V1.13 查询与比较结果 CIDR 输出
 
@@ -28,7 +26,6 @@ V1.14 入口：**子网清单 → 顶部第三个圆形靶心查询按钮（文�
 - 覆盖比较可分别选择新增、移除、共同覆盖，生成精确覆盖结果的最简 CIDR 清单，支持复制及 TXT 保存后重新导入。
 - 显示所选类别的 CIDR 条数。空结果不生成空清单；超过 5,000 条时禁用纯 CIDR 输出，完整地址范围报告仍可保存。
 - 修改输入立即清除结果；保存期间切换类别或重新计算会中止旧结果保存。沿用现有覆盖确认及保存冲突保护。
-- 同步中英文界面及离线说明，保留已合并的 GitHub Actions 质量检查。Qt 安全升级仍待兼容运行库发布，本版不包含 Qt 漏洞修复。
 
 ## ✨ V1.13 CIDR Output for Lookup and Coverage Results
 
@@ -36,7 +33,6 @@ V1.14 入口：**子网清单 → 顶部第三个圆形靶心查询按钮（文�
 - Select added, removed or common coverage and produce its exact minimal CIDR list. Copy or save TXT for reimport into Subnet List.
 - Show the selected CIDR count. Empty categories cannot produce empty files; results exceeding 5,000 CIDRs disable list output while complete range reports remain available.
 - Editing inputs invalidates output. Changing category or recalculating during a save dialog aborts stale output; overwrite confirmation and save conflict protection still apply.
-- Updated bilingual UI and offline help. Retains the merged GitHub Actions checks. The Qt security upgrade is pending a compatible runtime release; this version does not fix Qt vulnerabilities.
 
 # 清单查询与覆盖比较 / List Lookup and Coverage Comparison
 

@@ -11,7 +11,8 @@ from services.language_service import display
 from services.project_storage import load_project
 from services.subnet_list_service import load_subnet_list
 from services.error_messages import describe_error
-from ui.standard_dialogs import QFileDialog
+from ui.standard_dialogs import QFileDialog, QMessageBox
+from core.subnet_list import validate_list_text
 from ui.localized_widgets import QDialog, QLabel, QLineEdit, QPlainTextEdit, QTextBrowser, QTabWidget, QComboBox
 from ui.widgets import IconButton
 from ui.fonts import data_font
@@ -209,7 +210,7 @@ class BatchAvailabilityPanel(InspectionPanel):
         super().__init__(page, source, comparison=True)
         self.hint.setText(tx('每行一个候选 IPv6 CIDR，最多 5,000 条。各候选独立对照基准清单，候选之间不会互相预留。'))
         self.input.setAccessibleName(tx('批量候选 IPv6 网段'))
-        self.import_button.hide()
+        self.import_button.setToolTip(tx('导入候选 TXT／CIDR 或规划项目 JSON（仅取清单文本）'))
         self.run_button.setToolTip(tx('检查批量候选网段'))
         self.run_button.setAccessibleName(tx('检查批量候选网段'))
         self.report.setAccessibleName(tx('批量网段可用性报告'))
@@ -240,6 +241,34 @@ class BatchAvailabilityPanel(InspectionPanel):
         self.layout().insertLayout(self.layout().count()-1, row)
         self.detail_button.clicked.connect(self.open_detail)
         self.detail_index.valueChanged.connect(self.close_detail)
+
+    def import_file(self):
+        before, result = self.value(), self.result
+        path, _ = QFileDialog.getOpenFileName(self, tx('导入批量候选清单'), '',
+                                             tx('清单或规划项目 (*.txt *.cidr *.json)'))
+        if not path:
+            return False
+        try:
+            text = load_project(path).text if Path(path).suffix.lower() == '.json' else load_subnet_list(path)
+            validate_list_text(text)
+        except (OSError, InputError) as exc:
+            self.page.feedback.emit(tx('导入候选清单失败：{0}', describe_error(exc)), 'error')
+            return False
+        def current():
+            return self.value() == before and self.result is result and not self.page.service.busy
+        if not current():
+            return False
+        if text == before:
+            return True
+        if before.strip() and QMessageBox.question(self, tx('替换候选清单'),
+                tx('导入将替换当前候选输入并清除检查结果，是否继续？'),
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+                QMessageBox.StandardButton.No) != QMessageBox.StandardButton.Yes:
+            return False
+        if not current():
+            return False
+        self.input.setPlainText(text)
+        return True
 
     def close_detail(self, *_args):
         dialog = getattr(self, 'detail_dialog', None)

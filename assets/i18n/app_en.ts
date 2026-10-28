@@ -3466,6 +3466,34 @@ Click a link to open your default browser; a network connection is used only whe
       <source>第 {0} 行｜输入：{1}；所属网段：{2}</source>
       <translation>Line {0} | Input: {1}; containing network: {2}</translation>
     </message>
+    <message>
+      <source>导入仅支持普通文件，不支持设备、管道或其他特殊文件。</source>
+      <translation>Only ordinary files can be imported; devices, pipes and other special files are not supported.</translation>
+    </message>
+    <message>
+      <source>读取期间文件已变化，请等待写入完成后重新导入。</source>
+      <translation>The file changed while reading; wait for writing to finish, then import again.</translation>
+    </message>
+    <message>
+      <source>导入候选 TXT／CIDR 或规划项目 JSON（仅取清单文本）</source>
+      <translation>Import candidate TXT/CIDR or a planning project JSON (list text only)</translation>
+    </message>
+    <message>
+      <source>导入批量候选清单</source>
+      <translation>Import Batch Candidate List</translation>
+    </message>
+    <message>
+      <source>导入候选清单失败：{0}</source>
+      <translation>Failed to import candidate list: {0}</translation>
+    </message>
+    <message>
+      <source>替换候选清单</source>
+      <translation>Replace Candidate List</translation>
+    </message>
+    <message>
+      <source>导入将替换当前候选输入并清除检查结果，是否继续？</source>
+      <translation>Import will replace the current candidate input and clear check results. Continue?</translation>
+    </message>
   </context>
   <context>
     <name>Export</name>

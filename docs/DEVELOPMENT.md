@@ -1,10 +1,25 @@
+## V1.19 批量候选导入与运行组件更新
+
+- 批量可用性新增 TXT／CIDR 和规划项目 JSON 导入；JSON 只取清单文本，保留注释、空行和重复候选。
+- 替换已有候选前确认；取消、文件错误或对话框期间内容变化时保留原输入和结果，成功导入后再手动检查。
+- 优化普通文件读取和变化提示；清单悬停内容按原文显示特殊字符。
+- PyQt6 与 Qt 运行组件升级至 6.12.0，使用 Riverbank 官方预发布源；保持现有 PyQt 界面与单文件构建方式。
+- 保留候选详情、内部 CIDR 输出、地址工具右键复制及关于页排版；同步中英文说明与对应语言截图。
+
+## V1.19 Batch Candidate Import and Runtime Update
+
+- Batch Availability imports TXT/CIDR and planning-project JSON; JSON uses list text only, retaining comments, blank lines and duplicate candidates.
+- Replacing candidates requires confirmation. Cancellation, file errors or dialog-time content changes preserve existing input/results; imported content is checked explicitly afterward.
+- Improves ordinary-file reading and change messages; list tooltips display special characters literally.
+- Updates PyQt6 and Qt runtime components to 6.12.0 from Riverbank's official pre-release index, retaining the existing PyQt interface and one-file build.
+- Retains candidate details, internal CIDR output, address-tool context menus and About formatting; updates both languages and matching screenshots.
+
 ## V1.18 批量候选详情与界面整理
 
 - 批量可用性新增候选详情：按输入顺序选择序号，查看候选对应的基准冲突原始行、精确空闲／占用范围，复制或保存候选内部的空闲／占用 CIDR。
 - 保留重复候选及原始行号，详情输入只读，按需检查单条候选；使用同一基准快照，不改变占用清单，也不为候选互相预留。
 - 切换候选、修改批量输入或关闭查询窗口时清除旧详情，保存期间发生上述变化时拒绝旧输出。
 - 合入展示修订：报告明确区分“输入／所属网段”；使用说明与版本日志分开，关于窗口仅展示当前 V1.18 日志；各正文大标题居中并与下方小标题留白。
-- 地址格式与双网段关系结果改为右键复制，移除右侧复制图标，保留连续 128 位二进制和完整报告复制；同步中英文说明、截图、i18n 与安全检查。
 - 保留按附件决定是否构建 EXE 的 Release 工作流，以及不抓取历史标签的 main 祖先校验；本版不修改历史标签或仓库设置。
 
 ## V1.18 Batch Candidate Details and Interface Cleanup
@@ -58,9 +73,7 @@ Windows checkout uses depth 1 without tags. The history command validates the ve
 
 ## V1.13 翻译维护 / Translation Maintenance
 
-TS/QM 重新生成、构建检查和源码扫描范围见 [I18N_MAINTENANCE.md](I18N_MAINTENANCE.md)。格式占位符与异常显示的回归测试位于 `tests/test_translation_catalog.py`。运行时自检核对翻译目录生成记录与消息，不安装审计用翻译器，也不改变当前界面语言。
 
-See [I18N_MAINTENANCE.md](I18N_MAINTENANCE.md) for TS/QM regeneration, build checks and source-scan scope. Formatting and exception regressions are in `tests/test_translation_catalog.py`. Runtime self-checks validate the catalog record and messages without installing the audit translator or changing the active locale.
 
 ## V1.13 查询与比较结果输出 / Inspection Output
 
@@ -81,8 +94,6 @@ New membership and coverage comparison modules use bounded parsing, interval uni
 # V1.11 开发说明 / Development Notes
 
 新增 `core/planning_project.py`、`services/project_storage.py`、`ui/project_controller.py`。规划项目格式与计算方案分离，共用受限 JSON 读取和冲突保护写入。未完成的字段按草稿保留，恢复不信任派生结果。
-
-# V1.10 开发说明 / Development Notes
 
 ## 运行与构建 / Run and Build
 
@@ -343,15 +354,12 @@ The text service atomically replaces a destination after writing UTF-8 in the sa
 Planning transfer reuses the existing controller with a source-result identity guard. Truncated or empty CIDR results do not enable list saving/transfer; full interval reports remain available. Regression tests cover output content and dialog transaction protections.
 
 
-## V1.10 双语审计修订 / Bilingual Audit Revision
 
 `ui/file_dialog_model.py` 用恒等代理仅转换文件列表展示元数据，避免依赖操作系统返回的类型语言；文件名、路径、图标、过滤、排序和选中索引沿用源模型。语言改变仅通知当前视图的展示列及表头，不重置模型。
 
 The identity proxy localizes metadata without changing source paths, names, icons, filtering, sorting or selection. Language changes update display columns and headers without resetting the model.
 
-第三方组件概览在界面中使用 `docs/about/COMPONENTS.md` 与 `COMPONENTS_EN.md`，完整双语 THIRD_PARTY_NOTICES.md 及许可证继续随包保留。审计范围和原文边界见 I18N_AUDIT.md；18 项新增回归见 tests/test_language_audit.py。
 
-The UI uses localized component summaries while keeping the full bundled notices and license originals. See I18N_AUDIT.md and the 18 new audit tests.
 
 
 ## V1.10 分配建议 / Allocation Suggestions
@@ -363,9 +371,7 @@ The UI uses localized component summaries while keeping the full bundled notices
 The core counts aligned blocks from complete free intervals using exact integers. Generation is bounded by the request, never by total IPv6 capacity. The separate view invalidates stale suggestions and checks both text limits and snapshots around confirmation. Existing atomic TXT saving and background free-space calculation are reused. New tests cover independent explicit-set comparisons, fragmented and full-space boundaries, bilingual reports, append confirmation and stale-state rejection.
 
 
-## V1.10 审计修订 / Audit Revision
 
-核心保存提交收敛到 core/file_commit.py；文件版本快照在确认前取得，经服务传入后台任务。算法、布局和版本号保持不变。已完成 A01 的长窗口冲突检测/原子新建及恢复、A02 状态一致性、A03 结构化测试门禁。更多实现边界见 SAVE_CONFLICTS.md。Qt 兼容安全版本未在 PyPI 发布，D01 待完成，详见 DEPENDENCY_STATUS.md；requirements.txt 保持可安装版本。
 
 File commits now share core/file_commit.py, passing approval-time revisions through services to workers. A01/A02/A03 changes are included without changing the version or calculator algorithms. See SAVE_CONFLICTS.md for concurrency limits. D01 remains pending compatible upstream Qt wheels; requirements remain installable.
 

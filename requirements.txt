@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Copyright (C) 2026 IPv6SubnetCalculator contributors
-PyQt6==6.11.0
-PyQt6-Qt6==6.11.2
+--extra-index-url https://www.riverbankcomputing.com/pypi/simple/
+PyQt6==6.12.0
+PyQt6-Qt6==6.12.0
 PyQt6-sip==13.13.0

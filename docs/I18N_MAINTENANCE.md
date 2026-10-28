@@ -32,6 +32,4 @@ The checker compares every active TS message with QM in its context and verifies
 
 ## V1.13 整合范围 / Integration scope
 
-保留地址归属匹配 CIDR 输出、新增／移除／共同覆盖的最简 CIDR 输出及其保存保护；版本仍为 V1.13。Qt 安全升级仍待可安装的兼容运行库。本次不修改 GitHub 仓库。
 
-Retains membership CIDR output, minimal added/removed/common coverage lists and save protection. Version stays V1.13. The Qt security upgrade remains pending an installable compatible runtime. No GitHub repository changes are published.

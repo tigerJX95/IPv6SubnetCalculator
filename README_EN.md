@@ -1,6 +1,14 @@
 [简体中文](README.md) | **English**
 
-# 🌐 IPv6 Subnet Calculator V1.18
+# 🌐 IPv6 Subnet Calculator V1.19
+
+## V1.19 Batch Candidate Import and Runtime Update
+
+- Batch Availability imports TXT/CIDR and planning-project JSON; JSON uses list text only, retaining comments, blank lines and duplicate candidates.
+- Replacing candidates requires confirmation. Cancellation, file errors or dialog-time content changes preserve existing input/results; imported content is checked explicitly afterward.
+- Improves ordinary-file reading and change messages; list tooltips display special characters literally.
+- Updates PyQt6 and Qt runtime components to 6.12.0 from Riverbank's official pre-release index, retaining the existing PyQt interface and one-file build.
+- Retains candidate details, internal CIDR output, address-tool context menus and About formatting; updates both languages and matching screenshots.
 
 ## V1.18 Batch Candidate Details and Interface Cleanup
 
@@ -49,7 +57,6 @@ See [Batch Availability](docs/BATCH_AVAILABILITY_EN.md) and [About and Website L
 - Copy or save minimal CIDRs for free or occupied coverage within the candidate. Empty results and outputs exceeding 5,000 CIDRs cannot produce empty or partial lists; complete range reports remain available. Nothing is appended or allocated automatically.
 - Editing the candidate clears stale results. Saves retain overwrite confirmation and conflict protection. The window uses the list snapshot taken when opened; reopen to refresh it. Query parameters and results are not stored in planning project JSON.
 - Expanded the list tools tooltip. Chinese documents reference Chinese screenshots only, and English documents reference English screenshots only. Checks run before local builds and in GitHub quality checks.
-- The Qt runtime remains 6.11.2; this release does not include a Qt security upgrade. See [dependency status](docs/DEPENDENCY_STATUS.md).
 
 ![Candidate network availability in English](docs/screenshots/availability_en_US_light.png)
 
@@ -60,7 +67,6 @@ See [Batch Availability](docs/BATCH_AVAILABILITY_EN.md) and [About and Website L
 - Uses complete free ranges even when the 5,000-CIDR preview is truncated. Counts are exact integers without enumerating IPv6 addresses. Rows partition the same free space differently and must not be added together.
 - Copy bilingual reports or save TXT with overwrite confirmation and conflict protection. Editing the parent clears results. The list snapshot is taken when the window opens; original projects are unchanged. Reopen to use an updated list.
 - All occupied records must be valid and contained within the parent; an empty list leaves the entire parent free. Overview inputs and results are not stored in planning project JSON; save the report to retain them.
-- Retains V1.13 CIDR output, translation auditing and checkout newline fixes. Qt runtime dependencies are unchanged; this update does not include a Qt security upgrade.
 
 ## ✨ V1.13 CIDR Output for Lookup and Coverage Results
 
@@ -68,7 +74,6 @@ See [Batch Availability](docs/BATCH_AVAILABILITY_EN.md) and [About and Website L
 - Select added, removed or common coverage and produce its exact minimal CIDR list. Copy or save TXT for reimport into Subnet List.
 - Show the selected CIDR count. Empty categories cannot produce empty files; results exceeding 5,000 CIDRs disable list output while complete range reports remain available.
 - Editing inputs invalidates output. Changing category or recalculating during a save dialog aborts stale output; overwrite confirmation and save conflict protection still apply.
-- Updated bilingual UI and offline help. Retains the merged GitHub Actions checks. The Qt security upgrade is pending a compatible runtime release; this version does not fix Qt vulnerabilities.
 
 
 ### 🌐 Translation Maintenance and Error Display
@@ -184,7 +189,6 @@ IPv6SubnetCalculator is an offline IPv6 subnet calculator for Windows. It analyz
 
 ## 🛡️ Save Conflict Protection
 
-Plan, TXT and Excel saves check destination changes before committing. Detected conflicts stop replacement and preserve complete recovery output with its path. New destinations use atomic no-overwrite publication. See [protection details](docs/SAVE_CONFLICTS.md) and the [pending Qt dependency status](docs/DEPENDENCY_STATUS.md).
 
 ## 📸 English screenshots
 
@@ -241,4 +245,5 @@ The interface uses PyQt6 and Qt 6. Copyright, license information, and upstream 
 
 ## Automated quality checks
 
-Python static checks, Windows/Linux regression tests and dependency vulnerability audits run through GitHub Actions. See [quality checks](docs/QUALITY_CHECKS.md).
+
+[Runtime components and installation source](docs/RUNTIME_DEPENDENCIES.md).

@@ -30,7 +30,7 @@ from zipfile import ZipFile
 from PyQt6.QtCore import QObject, QTimer, QSettings, qVersion, PYQT_VERSION_STR
 from PyQt6.QtGui import QIcon
 from app_info import APP_VERSION, DEFAULT_NETWORK, resource_path
-from core.ipv6_core import calculate
+from core.ipv6_core import calculate, InputError
 from services.export_service import ExportService
 from services.build_info import current_build_info
 
@@ -145,6 +145,8 @@ class ReleaseCheck(QObject):
                 about.tabs.setCurrentIndex(index)
                 self.application.processEvents()
         about.close()
+        self.require(PYQT_VERSION_STR == '6.12.0' and qVersion() == '6.12.0', 'Runtime components do not match this release')
+        self.checks.append('matched_qt_binding_runtime_versions')
         self.checks.append('about_help_licenses_legal_offline')
         calculation = self.window.calculation_page
         self.require(calculation.copy_summary_button.isEnabled(), '摘要复制入口不可用')
@@ -313,6 +315,30 @@ class ReleaseCheck(QObject):
         inspection.batch_availability.detail_index.setValue(2)
         self.require(detail.panel.result is None, 'Changed candidate retained stale detail')
         self.checks.append('batch_candidate_details_snapshot_conflicts_and_invalidation')
+        imported = self.directory/'candidates.txt'
+        imported.write_text('# candidates\n::3/126\n::4/126', encoding='utf-8')
+        from ui.standard_dialogs import QMessageBox as StandardBox
+        with patch('ui.list_inspection_dialog.QFileDialog.getOpenFileName', return_value=(str(imported), '')), \
+                patch('ui.list_inspection_dialog.QMessageBox.question', return_value=StandardBox.StandardButton.Yes):
+            self.require(inspection.batch_availability.import_file(), 'Batch candidate import failed')
+        self.require(inspection.batch_availability.result is None, 'Import retained old batch report')
+        self.require(inspection.batch_availability.value() == imported.read_text(encoding='utf-8'), 'Imported candidate text changed')
+        self.checks.append('batch_candidate_import_text_only_and_result_invalidation')
+        from services.input_files import read_input_file
+        try:
+            read_input_file(self.directory, 1024, 'limit')
+        except InputError:
+            pass
+        else:
+            raise AssertionError('Special import path was accepted')
+        self.checks.append('ordinary_file_import_rejects_special_paths')
+        from ui.text_safety import literal_tooltip
+        from PyQt6.QtGui import QTextDocument
+        document = QTextDocument()
+        payload = '<img src="file:///not-loaded.png"> & <b>literal</b>'
+        document.setHtml(literal_tooltip(payload))
+        self.require(document.toPlainText() == payload, 'Tooltip interpreted imported markup')
+        self.checks.append('literal_tooltips_preserve_untrusted_markup')
         inspection.batch_availability.input.setPlainText('::/0')
         self.require(inspection.batch_availability.result is None, 'Batch stale result retained')
         self.checks.append('batch_availability_independent_candidates_overlap_and_invalidation')

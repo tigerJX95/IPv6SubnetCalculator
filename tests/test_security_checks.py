@@ -20,7 +20,8 @@ class SecurityCheckTests(unittest.TestCase):
                 if timeout:raise subprocess.TimeoutExpired(command,300)
                 if write_report:
                     target=Path(command[command.index('-o')+1]) if '-o' in command else Path(command[command.index('--output')+1])
-                    target.write_text('{}',encoding='utf-8')
+                    content = {'results': [], 'errors': []} if '-o' in command else {'dependencies': [{'name': n, 'version': v, 'vulns': []} for n,v in [('pyqt6','6.12.0'),('pyqt6-qt6','6.12.0'),('pyqt6-sip','13.13.0')]]}
+                    target.write_text(json.dumps(content),encoding='utf-8')
                 return subprocess.CompletedProcess(command,code,'','')
             with patch('sys.argv',['check_security','--report-dir',folder]),patch('tools.check_security.subprocess.run',side_effect=fake):
                 result=check_security.main()
@@ -71,3 +72,20 @@ class SecurityCheckTests(unittest.TestCase):
         self.assertEqual(gate['if'],'always()')
         self.assertEqual(set(gate['needs']),{'detect-changes','validate-resources','localization-regression'})
         self.assertTrue(any(step.get('run')=='python3 tools/i18n_gate.py --enforce' for step in gate['steps']))
+
+
+class DependencyCoverageTests(unittest.TestCase):
+    def test_empty_missing_skipped_duplicate_and_wrong_versions_fail(self):
+        valid=[{'name':n,'version':v,'vulns':[]} for n,v in [('pyqt6','6.12.0'),('pyqt6-qt6','6.12.0'),('pyqt6-sip','13.13.0')]]
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'report.json'
+            path.write_text(json.dumps({'dependencies':valid}),encoding='utf-8')
+            self.assertTrue(check_security.valid_dependency_report(path))
+            invalid=[{}, {'dependencies':[]}, {'dependencies':valid[:-1]},
+                {'dependencies':[dict(valid[0],skip_reason='not found'),*valid[1:]]},
+                {'dependencies':[valid[0],valid[0],valid[2]]},
+                {'dependencies':[dict(valid[0],version='6.11.0'),*valid[1:]]},
+                {'dependencies':[dict(valid[0],vulns=[{'id':'example'}]),*valid[1:]]}]
+            for value in invalid:
+                path.write_text(json.dumps(value),encoding='utf-8')
+                self.assertFalse(check_security.valid_dependency_report(path))

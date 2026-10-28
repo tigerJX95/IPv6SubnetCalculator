@@ -1,10 +1,25 @@
+## V1.19 批量候选导入与运行组件更新
+
+- 批量可用性新增 TXT／CIDR 和规划项目 JSON 导入；JSON 只取清单文本，保留注释、空行和重复候选。
+- 替换已有候选前确认；取消、文件错误或对话框期间内容变化时保留原输入和结果，成功导入后再手动检查。
+- 优化普通文件读取和变化提示；清单悬停内容按原文显示特殊字符。
+- PyQt6 与 Qt 运行组件升级至 6.12.0，使用 Riverbank 官方预发布源；保持现有 PyQt 界面与单文件构建方式。
+- 保留候选详情、内部 CIDR 输出、地址工具右键复制及关于页排版；同步中英文说明与对应语言截图。
+
+## V1.19 Batch Candidate Import and Runtime Update
+
+- Batch Availability imports TXT/CIDR and planning-project JSON; JSON uses list text only, retaining comments, blank lines and duplicate candidates.
+- Replacing candidates requires confirmation. Cancellation, file errors or dialog-time content changes preserve existing input/results; imported content is checked explicitly afterward.
+- Improves ordinary-file reading and change messages; list tooltips display special characters literally.
+- Updates PyQt6 and Qt runtime components to 6.12.0 from Riverbank's official pre-release index, retaining the existing PyQt interface and one-file build.
+- Retains candidate details, internal CIDR output, address-tool context menus and About formatting; updates both languages and matching screenshots.
+
 ## V1.18 批量候选详情与界面整理
 
 - 批量可用性新增候选详情：按输入顺序选择序号，查看候选对应的基准冲突原始行、精确空闲／占用范围，复制或保存候选内部的空闲／占用 CIDR。
 - 保留重复候选及原始行号，详情输入只读，按需检查单条候选；使用同一基准快照，不改变占用清单，也不为候选互相预留。
 - 切换候选、修改批量输入或关闭查询窗口时清除旧详情，保存期间发生上述变化时拒绝旧输出。
 - 合入展示修订：报告明确区分“输入／所属网段”；使用说明与版本日志分开，关于窗口仅展示当前 V1.18 日志；各正文大标题居中并与下方小标题留白。
-- 地址格式与双网段关系结果改为右键复制，移除右侧复制图标，保留连续 128 位二进制和完整报告复制；同步中英文说明、截图、i18n 与安全检查。
 - 保留按附件决定是否构建 EXE 的 Release 工作流，以及不抓取历史标签的 main 祖先校验；本版不修改历史标签或仓库设置。
 
 ## V1.18 Batch Candidate Details and Interface Cleanup
@@ -50,7 +65,6 @@
 - 报告显示各候选的精确占用／空闲地址数及与其他候选重叠的记录数；候选独立检查，不会互相预留，不代表可同时分配。
 - 支持复制／保存完整报告及全部空闲候选 CIDR；纯 CIDR 去重但保留候选边界和包含项，空结果禁用输出。修改输入会清除旧结果，保存沿用冲突保护。
 - 完善关于窗口：程序图标、实际版本、离线帮助、第三方许可和法律说明；项目主页及正式版下载地址以可点击超链接展示，仅点击时打开系统浏览器。保留右上角关闭和 Esc，去掉底部重复关闭按钮。
-- 中英文界面、说明和对应语言截图同步更新，保留 V1.15 的 i18n 与安全检测规则。
 
 入口及示例见 [批量可用性说明](BATCH_AVAILABILITY.md)；关于页见 [关于与网站链接](ABOUT.md)。
 
@@ -70,7 +84,6 @@ See [Batch Availability](BATCH_AVAILABILITY_EN.md) and [About and Website Links]
 - 覆盖比较可分别选择新增、移除、共同覆盖，生成精确覆盖结果的最简 CIDR 清单，支持复制及 TXT 保存后重新导入。
 - 显示所选类别的 CIDR 条数。空结果不生成空清单；超过 5,000 条时禁用纯 CIDR 输出，完整地址范围报告仍可保存。
 - 修改输入立即清除结果；保存期间切换类别或重新计算会中止旧结果保存。沿用现有覆盖确认及保存冲突保护。
-- 同步中英文界面及离线说明，保留已合并的 GitHub Actions 质量检查。Qt 安全升级仍待兼容运行库发布，本版不包含 Qt 漏洞修复。
 
 - 修正 verify.cmd 仍查找 V1.12 程序的问题；验证目标改为从 APP_VERSION 自动读取，与构建输出名称一致。
 
@@ -90,7 +103,6 @@ See [Batch Availability](BATCH_AVAILABILITY_EN.md) and [About and Website Links]
 - Select added, removed or common coverage and produce its exact minimal CIDR list. Copy or save TXT for reimport into Subnet List.
 - Show the selected CIDR count. Empty categories cannot produce empty files; results exceeding 5,000 CIDRs disable list output while complete range reports remain available.
 - Editing inputs invalidates output. Changing category or recalculating during a save dialog aborts stale output; overwrite confirmation and save conflict protection still apply.
-- Updated bilingual UI and offline help. Retains the merged GitHub Actions checks. The Qt security upgrade is pending a compatible runtime release; this version does not fix Qt vulnerabilities.
 
 - Fixed verify.cmd still targeting V1.12. The verification executable name now follows APP_VERSION, matching the build output.
 
@@ -129,8 +141,6 @@ See [Batch Availability](BATCH_AVAILABILITY_EN.md) and [About and Website Links]
 - Modified indicators also cover new drafts; tab navigation alone does not mark a project as modified.
 - Cancelled or failed saves and save conflicts preserve current work. Changes during confirmation abort the action.
 
-# V1.11
-
 ## ✨ V1.11 规划项目保存与恢复
 
 - “子网清单”顶部新增打开／另存规划项目图标，分配建议页也可使用。
@@ -138,7 +148,6 @@ See [Batch Availability](BATCH_AVAILABILITY_EN.md) and [About and Website Links]
 - 恢复前验证文件并确认替换，恢复后清除派生结果，请重新检查或规划。此文件与原有“计算方案”格式分开；Ctrl+S／Ctrl+O 仍操作计算方案。
 - 沿用保存冲突保护；对话框期间输入或任务变化时拒绝过期操作。已有项目修改后显示未保存状态。
 - 规划项目需手动保存，退出时暂不提供规划项目自动保存或未保存确认。
-- Qt 依赖维持经验证基线，安全升级仍待处理；本版功能更新不代表漏洞已修复。
 
 ## ✨ V1.11 Planning Project Save and Restore
 
@@ -151,11 +160,6 @@ See [Batch Availability](BATCH_AVAILABILITY_EN.md) and [About and Website Links]
 
 ---
 
-# V1.10 — 子网分配建议 / Subnet Allocation Suggestions
-
-## 简体中文
-
-### 🐛 审计修复（统一并入 V1.10）
 
 - 🐛 A01：方案、TXT 保存与批量 TXT/XLSX 导出增加确认时文件快照及提交前冲突检测。原本不存在的目标采用原子无覆盖新建；同程序并发保存协调提交。
 - 🐛 检出冲突时保留目标文件，并保留本次完整恢复输出，提示路径；取消仍清理未完成文件。拒绝覆盖目录、符号链接等非普通目标。
@@ -163,7 +167,6 @@ See [Batch Availability](BATCH_AVAILABILITY_EN.md) and [About and Website Links]
 - 🐛 A03：验证改用带运行标识的结构化 unittest 结果，拒绝缺失、截断、零测试、未完成、失败或旧证据；自检须完成全部约定工作流。
 - 🌐 新增冲突、恢复路径及错误提示同步提供中英文。
 - 📸 删除独立保存菜单截图及中英文 README 的相应引用，保留完整程序窗口截图。
-- ⏳ D01 / Qt：核实官方 PyPI 最新可安装 Qt wheel 仍为 6.11.2，6.11.3 尚未发布；兼容升级暂未完成，不虚写已修复或已升级。详见 [依赖状态](DEPENDENCY_STATUS.md)。
 
 保存保护的实际边界和恢复方法见 [保存冲突保护](SAVE_CONFLICTS.md)。
 
@@ -173,9 +176,6 @@ See [Batch Availability](BATCH_AVAILABILITY_EN.md) and [About and Website Links]
 🛡️ 追加前后检查状态快照，遵守清单原有的记录、字节与物理行限制；修改输入后清除旧建议。
 🌐 新界面、提示、报告、帮助及截图同步提供简体中文和 English。保留 V1.9 双语修订。
 
-## English
-
-### 🐛 Audit fixes merged into V1.10
 
 - 🐛 A01: plans, TXT saves and bulk TXT/XLSX exports retain the approval-time destination revision and check for conflicts at commit. Initially absent targets use atomic no-overwrite publication; cooperating application processes coordinate existing-file commits.
 - 🐛 Conflicts preserve the destination and complete recovery output, with a reported recovery path. Cancellation still removes incomplete files. Directories, symbolic links and other nonregular targets cannot be overwritten.
@@ -183,7 +183,6 @@ See [Batch Availability](BATCH_AVAILABILITY_EN.md) and [About and Website Links]
 - 🐛 A03: verification now requires structured unittest evidence bound to a run identifier. Missing, truncated, zero-test, incomplete, failed or stale evidence is rejected. Self-checks must include every required workflow.
 - 🌐 Conflict and recovery messages support both interface languages.
 - 📸 Removed standalone save-menu screenshots and their Chinese/English README references, retaining full application-window screenshots.
-- ⏳ D01 / Qt: official PyPI still provides Qt 6.11.2 as the latest installable wheel, with no 6.11.3 distribution. The compatible upgrade remains pending; it is not reported as completed. See [dependency status](DEPENDENCY_STATUS.md).
 
 See [save conflict protection](SAVE_CONFLICTS.md) for recovery steps and concurrency limits.
 
@@ -194,8 +193,6 @@ See [save conflict protection](SAVE_CONFLICTS.md) for recovery steps and concurr
 🌐 New controls, tooltips, reports, help and screenshots support Simplified Chinese and English. V1.9 bilingual fixes are retained.
 
 ---
-
-# IPv6SubnetCalculator V1.9
 
 ## 🐛 双语一致性修订
 

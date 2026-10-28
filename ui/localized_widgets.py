@@ -17,7 +17,8 @@
 
 """将展示文本绑定到 Qt 控件；重新翻译只更新文字，不重建控件或编辑内容。"""
 from PyQt6 import QtWidgets as W
-from PyQt6.QtCore import QSignalBlocker, QCoreApplication
+from PyQt6.QtCore import QSignalBlocker, QCoreApplication, Qt
+from ui.text_safety import literal_tooltip
 from PyQt6.QtGui import QAction
 from core.localized_text import Text
 from services.language_service import display
@@ -34,11 +35,13 @@ class Localized:
 
     def _bind(self,key,value):
         self._localized[key]=value
-        getattr(super(),key)(display(value))
+        rendered = display(value)
+        getattr(super(),key)(literal_tooltip(rendered) if key == 'setToolTip' else rendered)
 
     def retranslate(self,*_):
         for key,value in self._localized.items():
-            getattr(super(),key)(display(value))
+            rendered = display(value)
+            getattr(super(),key)(literal_tooltip(rendered) if key == 'setToolTip' else rendered)
 
     def setWindowTitle(self,value):self._bind('setWindowTitle',value)
     def setToolTip(self,value):self._bind('setToolTip',value)
@@ -51,6 +54,7 @@ class QLabel(Localized,W.QLabel):
     def __init__(self,*args,**kwargs):
         value=args[0] if args and isinstance(args[0],str) else None
         super().__init__(*args,**kwargs)
+        self.setTextFormat(Qt.TextFormat.PlainText)
         if value is not None:self.setText(value)
     def setText(self,value):self._bind('setText',value)
     def sourceText(self):return self._localized.get('setText',super().text())

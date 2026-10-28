@@ -72,3 +72,17 @@ The baseline is unchanged. Nothing is allocated or appended automatically. Candi
 ## Candidate details
 
 Select a candidate number after checking, then click the locate icon to inspect baseline conflicts and internal CIDRs. See [settings and example](BATCH_DETAILS_EN.md).
+
+## Import batch candidates
+
+The folder icon below Batch Availability input imports UTF-8 TXT/CIDR (BOM allowed) or planning-project JSON. JSON imports list text only, without restoring the parent network, allocation parameters, result tab or baseline. Comments, blank lines and duplicates are retained. Click Check after import to generate results.
+
+Limits remain 1 MiB of UTF-8 text, 20,000 physical lines and 5,000 candidates. Replacing existing input requires confirmation, defaulting to No. Cancellation, encoding/format/size errors, empty lists or input/result changes during dialogs preserve current candidates and results. Successfully importing different text clears old reports and details.
+
+Example: import a TXT containing `# candidates`, `::3/126` and `::4/126`. The baseline remains the main-window snapshot. Against `::/127`, the two candidates are partially occupied and entirely free.
+
+Only ordinary files are imported. Devices and pipes are rejected; retry after writing finishes if a file changes or is replaced during reading. Ordinary files on network shares may still be delayed by networking or filesystem behavior; this policy does not provide network access timeouts.
+
+The planning JSON container is limited to 7 MiB to allow JSON escaping; its imported list still has the 1 MiB UTF-8 text limit.
+
+![Imported candidates in English](screenshots/batch_import_en_US_light.png)

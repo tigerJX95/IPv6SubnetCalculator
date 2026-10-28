@@ -24,6 +24,7 @@ from core.file_commit import capture_file,commit_file,SaveConflict
 from pathlib import Path
 from core.ipv6_core import InputError
 from core.calculation_plan import plan_from_payload, plan_to_payload
+from services.input_files import read_input_file
 
 MAX_PLAN_BYTES = 64 * 1024
 
@@ -42,10 +43,7 @@ def _invalid_constant(value):
 
 
 def _load_document(path, parser, maximum, limit_message):
-    with Path(path).open('rb') as stream:
-        data = stream.read(maximum+1)
-    if len(data) > maximum:
-        raise InputError(limit_message)
+    data = read_input_file(path, maximum, limit_message)
     try:
         payload = json.loads(data.decode('utf-8-sig'), object_pairs_hook=_unique_object,
                              parse_constant=_invalid_constant)
