@@ -167,7 +167,7 @@ Example: baseline `::/127` and `::3/128`, candidate `::3/126`. Its containing ne
 
 Changing candidate number, editing batch input or closing inspection clears old details and rejects pending stale saves. Closing details or pressing Esc preserves batch results; reopen with the icon. Close and reopen inspection to refresh its baseline snapshot.
 
-Use the Previous candidate details / Next candidate details icons at the top to browse in the same window and synchronize the batch-page index. The corresponding button is disabled at either boundary. Switching retains the free/occupied CIDR category, clears the old report and computes details for the current candidate. Duplicate candidates remain separate items, and switching during a save rejects the old output. For example, with `::3/126`, `::4/126`, `::3/126`, Next moves from item 1 to item 2 and then item 3, preserving the distinct physical lines of the duplicate entries.
+Use the Previous candidate details / Next candidate details icons in the fixed bottom navigation bar to browse in the same window and synchronize the batch-page index. The corresponding button is disabled at either boundary. Switching retains the free/occupied CIDR category, clears the old report and computes details for the current candidate. Duplicate candidates remain separate items, and switching during a save rejects the old output. For example, with `::3/126`, `::4/126`, `::3/126`, Next moves from item 1 to item 2 and then item 3, preserving the distinct physical lines of the duplicate entries.
 
 ## Import batch candidates
 
@@ -180,3 +180,5 @@ Example: import a TXT containing `# candidates`, `::3/126` and `::4/126`. The ba
 Only ordinary files are imported. Devices and pipes are rejected; retry after writing finishes if a file changes or is replaced during reading. Ordinary files on network shares may still be delayed by networking or filesystem behavior; this policy does not provide network access timeouts.
 
 The planning JSON container is limited to 7 MiB to allow JSON escaping; its imported list still has the 1 MiB UTF-8 text limit.
+
+The bottom bar uses the same icon style as Subnet Results. First/Last moves to either boundary. Enter an index from 1 through the candidate count, then press Enter or click Go. For example, `3` opens item 3; the total count appears on the right. Invalid or out-of-range input is marked without changing the report. The bar stays below the report and does not scroll with it.

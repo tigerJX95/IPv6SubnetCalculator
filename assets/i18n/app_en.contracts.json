@@ -1512,6 +1512,15 @@
     },
     {
       "context": "App",
+      "source": "候选序号须为 1～{0:,} 的整数。",
+      "source_sha256": "78a7514784f3e2ce558aee300987d258a9f0d0b1fd2f7d1b91f204005311304d",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "候选序号（按输入顺序）",
       "source_sha256": "16e595ba171e5a0d2a58672fd31212e67ccc73b50f92b8c8735f6c65dddad203",
       "protected_tokens": [],
@@ -1640,6 +1649,15 @@
       "context": "App",
       "source": "共 {0:,} 条 CIDR，超过 5,000 条；请保存完整范围报告。",
       "source_sha256": "7f17a3361b3e90e3c0a8a5cbab85d7678dc32270ce1805db1a4bae2a44b862da",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "共 {0:,} 项",
+      "source_sha256": "030cf2f8525095494cd4acc0c6c966ad24f432b74460bb96823924b18d65ccc4",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -3544,6 +3562,15 @@
     },
     {
       "context": "App",
+      "source": "序号：",
+      "source_sha256": "d880489134870486982080f36d6cae101333cf4d7d694c10a46910708062ffde",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "应用程序",
       "source_sha256": "6a59400b83ffb70e7be7063e24f186d77dbd17cb1b3892a56738f32105958d2c",
       "protected_tokens": [],
@@ -4820,6 +4847,24 @@
       "context": "App",
       "source": "查看候选详情：冲突原始行、空闲与占用范围及 CIDR",
       "source_sha256": "8498b46e3d2cb7e22f7fddaf3cac34abd3fd81d0d8c30f9467892de34f7f6860",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "查看最后一个候选详情",
+      "source_sha256": "83f87ec0256a40c35b3405412aa02615aa8bffad3b8804072b3b06a998eddfed",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "查看第一个候选详情",
+      "source_sha256": "8bb6342281d1aba9594825635cc82d0913953d534e647d14ec9299556a67326e",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -7051,6 +7096,15 @@
     },
     {
       "context": "App",
+      "source": "跳转到指定候选（Enter）",
+      "source_sha256": "bd2f9a8b77858777eebfbc82fc2d7dd862a6cb794ecc27a69d40b96bd416b173",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "跳转到指定页码（Enter）",
       "source_sha256": "f93a2115177b3dc266a0e667d4b67e84957add126698de6029a17e2701357938",
       "protected_tokens": [],
@@ -7107,6 +7161,15 @@
       "context": "App",
       "source": "输入两个 CIDR 后点击分析图标。",
       "source_sha256": "b8f9a69d41788b60928354319eb47bf50562eaf683684c368a0dd86689a1a9fd",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "输入候选序号后按 Enter 或点击跳转按钮。",
+      "source_sha256": "ec02a332d02e70b854ea9ba7412a7636a75be74a1ef60a9c286561fcd19d980e",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,

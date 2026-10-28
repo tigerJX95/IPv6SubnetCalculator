@@ -25,6 +25,9 @@ Changing candidate number, editing batch input or closing inspection clears old 
 | CIDR category | Free or occupied fragments inside the candidate | Free: `::2/128` |
 | CIDR copy/save | Complete minimal CIDRs for that category; disabled if empty or truncated | Save `IPv6_available_CIDRs.txt` |
 | Previous / Next | Browse in one window; boundaries disabled; retain CIDR category and synchronize the batch index | Next moves item 1 to item 2 |
+| First / Last | Bottom buttons go directly to either boundary, disabled at that boundary | Last goes to item 5,000 |
+| Index and Go | Enter 1 through the total and press Enter or click Go; invalid input preserves the report | Enter 3 for item 3 |
+| Total count | Counts all checked candidates, including duplicates | of 3 |
 | Close/Esc | Return without changing input or the baseline | Reopen with the locate icon |
 
 ![English batch candidate entry](screenshots/batch_categories_en_US_light.png)
@@ -35,4 +38,6 @@ Details explain conflicts with the baseline, not conflicts between candidates or
 
 The batch CIDR output category does not filter candidate numbers in the detail selector; all checked candidates remain available in input order.
 
-Use the Previous candidate details / Next candidate details icons at the top to browse in the same window and synchronize the batch-page index. The corresponding button is disabled at either boundary. Switching retains the free/occupied CIDR category, clears the old report and computes details for the current candidate. Duplicate candidates remain separate items, and switching during a save rejects the old output. For example, with `::3/126`, `::4/126`, `::3/126`, Next moves from item 1 to item 2 and then item 3, preserving the distinct physical lines of the duplicate entries.
+Use the Previous candidate details / Next candidate details icons in the fixed bottom navigation bar to browse in the same window and synchronize the batch-page index. The corresponding button is disabled at either boundary. Switching retains the free/occupied CIDR category, clears the old report and computes details for the current candidate. Duplicate candidates remain separate items, and switching during a save rejects the old output. For example, with `::3/126`, `::4/126`, `::3/126`, Next moves from item 1 to item 2 and then item 3, preserving the distinct physical lines of the duplicate entries.
+
+The bottom bar uses the same icon style as Subnet Results. First/Last moves to either boundary. Enter an index from 1 through the candidate count, then press Enter or click Go. For example, `3` opens item 3; the total count appears on the right. Invalid or out-of-range input is marked without changing the report. The bar stays below the report and does not scroll with it.

@@ -312,6 +312,16 @@ class ReleaseCheck(QObject):
         self.require(detail.panel.result.network.prefixlen == 126, 'Batch detail candidate mismatch')
         self.require(detail.panel.result.occupied == ((0, 1),), 'Batch detail baseline mismatch')
         self.require(detail.panel.cidr_output.as_text() == '::2/127', 'Batch detail free CIDRs incorrect')
+        detail.last_button.click()
+        self.require(detail.ordinal == 3 and inspection.batch_availability.detail_index.value() == 3,
+                     'Batch detail last navigation did not synchronize')
+        self.require(not detail.last_button.isEnabled(), 'Last candidate allowed boundary navigation')
+        detail.first_button.click()
+        detail.index_input.setText('2')
+        detail.jump_button.click()
+        self.require(detail.ordinal == 2 and detail.panel.input.text() == '::4/126',
+                     'Batch detail index jump failed')
+        detail.first_button.click()
         inspection.batch_availability.detail_index.setValue(2)
         self.require(detail.panel.result is None, 'Changed candidate retained stale detail')
         self.checks.append('batch_candidate_details_snapshot_conflicts_and_invalidation')

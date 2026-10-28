@@ -16,6 +16,7 @@ from core.subnet_list import validate_list_text
 from ui.localized_widgets import QDialog, QLabel, QLineEdit, QPlainTextEdit, QTextBrowser, QTabWidget, QComboBox
 from ui.widgets import IconButton
 from ui.fonts import data_font
+from ui.input_feedback import bind_input, mark_invalid, clear_invalid
 
 
 class InspectionPanel(QWidget):
@@ -337,20 +338,41 @@ class BatchCandidateDialog(QDialog):
         self.heading = QLabel('')
         self.heading.setWordWrap(True)
         layout.addWidget(self.heading)
-        navigation = QHBoxLayout()
-        self.previous_button = IconButton('previous_small', tx('查看上一个候选详情'))
-        self.next_button = IconButton('next_small', tx('查看下一个候选详情'))
-        navigation.addWidget(self.previous_button)
-        navigation.addWidget(self.next_button)
-        navigation.addStretch()
-        layout.addLayout(navigation)
         self.panel = AvailabilityPanel(page, source)
         self.panel.hint.setText(tx('使用本次批量检查的同一基准快照；只查看当前候选，不计算候选之间的预留。'))
         self.panel.input.setReadOnly(True)
         self.panel.run_button.hide()
         layout.addWidget(self.panel, 1)
+        navigation = QHBoxLayout()
+        navigation.setSpacing(7)
+        self.first_button = IconButton('first_small', tx('查看第一个候选详情'))
+        self.previous_button = IconButton('previous_small', tx('查看上一个候选详情'))
+        self.next_button = IconButton('next_small', tx('查看下一个候选详情'))
+        self.last_button = IconButton('last_small', tx('查看最后一个候选详情'))
+        for button in (self.first_button, self.previous_button, self.next_button, self.last_button):
+            navigation.addWidget(button)
+        navigation.addSpacing(9)
+        navigation.addWidget(QLabel(tx('序号：')))
+        self.index_input = QLineEdit(str(ordinal))
+        bind_input(self.index_input)
+        self.index_input.setMaxLength(42)
+        self.index_input.setMinimumWidth(65)
+        self.index_input.setMaximumWidth(120)
+        self.index_input.setAccessibleName(tx('查看详情的候选序号'))
+        self.index_input.setToolTip(tx('输入候选序号后按 Enter 或点击跳转按钮。'))
+        navigation.addWidget(self.index_input, 1)
+        self.jump_button = IconButton('jump_small', tx('跳转到指定候选（Enter）'))
+        navigation.addWidget(self.jump_button)
+        navigation.addStretch()
+        self.count_label = QLabel(tx('共 {0:,} 项', len(self.batch_result.entries)))
+        navigation.addWidget(self.count_label)
+        layout.addLayout(navigation)
+        self.first_button.clicked.connect(lambda: self.go_to(1))
         self.previous_button.clicked.connect(lambda: self.navigate(-1))
         self.next_button.clicked.connect(lambda: self.navigate(1))
+        self.last_button.clicked.connect(lambda: self.go_to(len(self.batch_result.entries)))
+        self.jump_button.clicked.connect(self.jump)
+        self.index_input.returnPressed.connect(self.jump)
         self.show_candidate(record, ordinal)
 
     def show_candidate(self, record, ordinal):
@@ -362,14 +384,37 @@ class BatchCandidateDialog(QDialog):
         self.panel.input.setText(record.original)
         self.panel.category.setCurrentIndex(category)
         self.panel.run()
+        clear_invalid(self.index_input)
+        self.index_input.setText(str(ordinal))
+        self.first_button.setEnabled(ordinal > 1)
         self.previous_button.setEnabled(ordinal > 1)
         self.next_button.setEnabled(ordinal < len(self.batch_result.entries))
+        self.last_button.setEnabled(ordinal < len(self.batch_result.entries))
 
     def navigate(self, offset):
+        self.go_to(self.ordinal + offset)
+
+    def jump(self):
+        total = len(self.batch_result.entries)
+        try:
+            ordinal = int(self.index_input.text().strip())
+            if not 1 <= ordinal <= total:
+                raise ValueError
+        except ValueError:
+            mark_invalid(self.index_input, tx('候选序号须为 1～{0:,} 的整数。', total))
+            self.index_input.setFocus()
+            self.index_input.selectAll()
+            return
+        self.go_to(ordinal)
+
+    def go_to(self, ordinal):
         if self.owner.result is not self.batch_result or self.panel.result is None:
             return
-        ordinal = self.ordinal + offset
         if not 1 <= ordinal <= len(self.batch_result.entries):
+            return
+        if ordinal == self.ordinal:
+            clear_invalid(self.index_input)
+            self.index_input.setText(str(ordinal))
             return
         with QSignalBlocker(self.owner.detail_index):
             self.owner.detail_index.setValue(ordinal)

@@ -125,6 +125,35 @@ class BatchDetailTests(unittest.TestCase):
             if language=='en_US':
                 self.assertNotRegex(d.heading.text()+d.previous_button.toolTip()+d.next_button.toolTip(),r'[\u4e00-\u9fff]')
 
+    def test_footer_first_last_jump_and_invalid_input_preserve_report(self):
+        p=self.prepare();batch=p.result;d=p.open_detail()
+        self.assertFalse(d.first_button.isEnabled());self.assertTrue(d.last_button.isEnabled())
+        d.last_button.click()
+        self.assertEqual((d.ordinal,p.detail_index.value(),d.index_input.text()),(3,3,'3'))
+        self.assertFalse(d.last_button.isEnabled());self.assertFalse(d.next_button.isEnabled())
+        d.first_button.click();self.assertEqual(d.ordinal,1)
+        d.index_input.setText('2');QTest.keyClick(d.index_input,Qt.Key.Key_Return)
+        self.assertEqual((d.ordinal,p.detail_index.value()),(2,2))
+        result=d.panel.result;report=d.panel.report.toPlainText()
+        for value in ('', '0', '-1', '4', '10000', '1.5', 'bad'):
+            d.index_input.setText(value);d.jump_button.click()
+            self.assertTrue(d.index_input.property('invalid'))
+            self.assertEqual(d.ordinal,2);self.assertIs(d.panel.result,result)
+            self.assertEqual(d.panel.report.toPlainText(),report)
+        d.index_input.setText(' 2 ');d.jump_button.click()
+        self.assertFalse(d.index_input.property('invalid'));self.assertEqual(d.index_input.text(),'2')
+        self.assertIs(d.panel.result,result);self.assertIs(p.result,batch)
+
+    def test_footer_jump_during_pending_save_rejects_old_duplicate_output(self):
+        p=self.prepare();d=p.open_detail()
+        def change(*args,**kwargs):
+            d.index_input.setText('3');d.jump_button.click()
+            return str(self.path),''
+        for save in (d.panel.save,d.panel.save_cidrs):
+            d.first_button.click()
+            with patch('ui.list_output_controller.QFileDialog.getSaveFileName',side_effect=change):save()
+            self.assertFalse(self.path.exists());self.assertEqual(d.ordinal,3)
+
     def test_full_and_empty_candidates_and_record_limit(self):
         p=self.d.batch_availability;p.source='::/0';p.input.setPlainText('::/0');p.run()
         d=p.open_detail();self.assertEqual(d.panel.result.occupied,((0,2**128-1),))
@@ -147,4 +176,12 @@ class BatchDetailTests(unittest.TestCase):
                 self.assertLessEqual(d.panel.save_cidrs_button.geometry().right(),d.panel.width())
                 self.assertLessEqual(p.detail_button.geometry().right(),p.width())
                 self.assertGreater(d.panel.report.height(),40)
+                self.assertGreaterEqual(d.previous_button.y(),d.panel.y()+d.panel.height())
+                for control in (d.first_button,d.last_button,d.index_input,d.jump_button,d.count_label):
+                    self.assertTrue(control.isVisible())
+                    self.assertLessEqual(control.geometry().right(),d.width())
+                d.panel.report.verticalScrollBar().setValue(d.panel.report.verticalScrollBar().maximum())
+                self.assertGreaterEqual(d.previous_button.y(),d.panel.y()+d.panel.height())
+                if language=='en_US':
+                    self.assertNotRegex(d.count_label.text()+d.index_input.toolTip()+d.first_button.toolTip()+d.last_button.toolTip()+d.jump_button.toolTip(),r'[\u4e00-\u9fff]')
         self.app.language_manager.apply('zh_CN',persist=False)

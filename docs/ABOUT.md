@@ -24,8 +24,7 @@
 
 ![中文版法律责任](screenshots/about_legal_zh_CN_dark.png)
 
-![中文版最新版更新日志](screenshots/about_release_zh_CN_dark.png)
-
 “版本更新”中的“历史更新”链接打开内置旧版本记录，可点击“返回最新版更新”返回；离线可用，语言切换后仍显示对应语言。
 
-![中文版离线历史更新](screenshots/about_history_zh_CN_light.png)
+
+[当前版本更新](about/RELEASE_NOTES.md) · [历史更新](HISTORY.md)

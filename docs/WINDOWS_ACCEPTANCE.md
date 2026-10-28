@@ -1,6 +1,6 @@
 ## V1.20 新增操作验收 / New operation checks
 
-1. 批量检查三项（含重复项），在详情中连续前后浏览，检查序号、原始行号、首末禁用和 CIDR 类别保持。/ Browse three candidates including duplicates; verify index, source lines, boundaries and retained CIDR category.
+1. 批量检查三项（含重复项），在详情底部通过首项、前后项、末项及序号跳转浏览，检查总数、原始行号、边界禁用和 CIDR 类别保持；无效序号保留当前报告。/ Browse three candidates including duplicates using the bottom First/Previous/Next/Last buttons and index jump; verify count, source lines, boundaries and retained CIDR category. Invalid indices retain the current report.
 2. 保存期间切换详情，确认不写入旧输出；修改候选后旧详情失效。/ Switch during saving to reject stale output; editing candidates invalidates details.
 3. 关于窗口从最新版进入历史更新并返回；离线切换中英文、浅深主题，确认标题居中和链接正常。/ Navigate current notes/history offline; switch languages and themes and verify centered titles and links.
 

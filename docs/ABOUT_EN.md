@@ -24,8 +24,7 @@ The User Guide explains operations. The separate Release Notes tab shows only th
 
 ![English Legal page](screenshots/about_legal_en_US_dark.png)
 
-![English current release notes](screenshots/about_release_en_US_dark.png)
-
 The Update History link in Release Notes opens bundled older records. Back to current release returns to the latest notes; both links work offline and follow interface-language changes.
 
-![Offline update history](screenshots/about_history_en_US_light.png)
+
+[Current release notes](about/RELEASE_NOTES_EN.md) · [Update History](HISTORY_EN.md)

@@ -3502,6 +3502,34 @@ Click a link to open your default browser; a network connection is used only whe
       <source>查看下一个候选详情</source>
       <translation>Next candidate details</translation>
     </message>
+    <message>
+      <source>查看第一个候选详情</source>
+      <translation>First candidate details</translation>
+    </message>
+    <message>
+      <source>查看最后一个候选详情</source>
+      <translation>Last candidate details</translation>
+    </message>
+    <message>
+      <source>序号：</source>
+      <translation>Index:</translation>
+    </message>
+    <message>
+      <source>输入候选序号后按 Enter 或点击跳转按钮。</source>
+      <translation>Enter a candidate number and press Enter or click Go.</translation>
+    </message>
+    <message>
+      <source>跳转到指定候选（Enter）</source>
+      <translation>Go to candidate (Enter)</translation>
+    </message>
+    <message>
+      <source>共 {0:,} 项</source>
+      <translation>of {0:,}</translation>
+    </message>
+    <message>
+      <source>候选序号须为 1～{0:,} 的整数。</source>
+      <translation>Candidate number must be an integer from 1 to {0:,}.</translation>
+    </message>
   </context>
   <context>
     <name>Export</name>
