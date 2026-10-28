@@ -14,8 +14,6 @@
 
 ![中文版候选详情连续浏览](docs/screenshots/batch_detail_zh_CN_light.png)
 
-![中文版最新版更新与历史入口](docs/screenshots/about_release_zh_CN_dark.png)
-
 ## 📖 项目简介
 
 IPv6SubnetCalculator 是一款适用于 Windows 的离线 IPv6 子网计算工具，可分析网络范围、划分子网、识别地址用途，提供子网计算、子网结果、地址工具及子网清单四个页面，用于浏览、定位、保存子网及分析地址与网段关系。
