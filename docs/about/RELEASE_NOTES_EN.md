@@ -1,11 +1,11 @@
 # Release Notes
 
-## V1.19 Batch Candidate Import and Runtime Update
+## V1.20 Continuous Candidate Details and Documentation Cleanup
 
-- Revision: fixes unchanged Windows files being reported as modified during reading, restoring calculation-plan, planning-project and candidate imports.
+- Batch candidate details add previous/next buttons to browse in input order in the same window, synchronizing the candidate number on the batch page.
+- Retains duplicate candidates, physical line numbers, the baseline snapshot and the selected internal CIDR category; boundary buttons are disabled.
+- Switching details clears old results and rejects pending saves of the previous candidate, without changing the baseline list or batch results.
+- Home pages and About show only the current release. Earlier releases move to Update History, with offline history/return links in About.
+- User instructions remain separate from release notes; both languages and matching actual interface screenshots are updated.
 
-- Batch Availability imports TXT/CIDR and planning-project JSON; JSON uses list text only, retaining comments, blank lines and duplicate candidates.
-- Replacing candidates requires confirmation. Cancellation, file errors or dialog-time content changes preserve existing input/results; imported content is checked explicitly afterward.
-- Improves ordinary-file reading and change messages; list tooltips display special characters literally.
-- Updates PyQt6 and Qt runtime components to 6.12.0 from Riverbank's official pre-release index, retaining the existing PyQt interface and one-file build.
-- Retains candidate details, internal CIDR output, address-tool context menus and About formatting; updates both languages and matching screenshots.
+[Update History](HISTORY.md)

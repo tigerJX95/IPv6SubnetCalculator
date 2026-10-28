@@ -62,3 +62,27 @@ class AboutLinkTests(unittest.TestCase):
         self.assertEqual(self.dialog.findChildren(QPushButton),[])
         self.dialog.show();QTest.keyClick(self.dialog,Qt.Key.Key_Escape)
         self.assertFalse(self.dialog.isVisible())
+
+    def test_bilingual_history_and_return_are_offline_and_allowlisted(self):
+        import re
+        from app_info import APP_VERSION
+        browser=self.dialog.release_notes
+        with patch('ui.about_dialog.QDesktopServices.openUrl') as open_url:
+            for language in ('zh_CN','en_US'):
+                self.app.language_manager.apply(language,persist=False)
+                self.assertEqual(set(re.findall(r'V(\d+\.\d+)',browser.toPlainText())),{APP_VERSION})
+                browser.open_link(QUrl('HISTORY.md'))
+                self.assertIn('V1.19',browser.toPlainText())
+                self.assertNotIn('V'+APP_VERSION,browser.toPlainText())
+                if language=='en_US':self.assertNotRegex(browser.toPlainText(),r'[\u4e00-\u9fff]')
+                original=browser.toPlainText()
+                for target in ('../HISTORY.md','HISTORY_EN.md','file:///etc/passwd','HISTORY.md?x=1','HISTORY.md#x'):
+                    browser.open_link(QUrl(target))
+                    self.assertEqual(browser.toPlainText(),original)
+                browser.open_link(QUrl('RELEASE_NOTES.md'))
+                self.assertEqual(set(re.findall(r'V(\d+\.\d+)',browser.toPlainText())),{APP_VERSION})
+            self.assertFalse(open_url.called)
+        browser.open_link(QUrl('HISTORY.md'))
+        self.app.language_manager.apply('en_US',persist=False)
+        self.assertIn('Update History',browser.toPlainText())
+        self.assertNotRegex(browser.toPlainText(),r'[\u4e00-\u9fff]')

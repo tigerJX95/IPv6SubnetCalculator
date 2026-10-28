@@ -167,6 +167,8 @@ Example: baseline `::/127` and `::3/128`, candidate `::3/126`. Its containing ne
 
 Changing candidate number, editing batch input or closing inspection clears old details and rejects pending stale saves. Closing details or pressing Esc preserves batch results; reopen with the icon. Close and reopen inspection to refresh its baseline snapshot.
 
+Use the Previous candidate details / Next candidate details icons at the top to browse in the same window and synchronize the batch-page index. The corresponding button is disabled at either boundary. Switching retains the free/occupied CIDR category, clears the old report and computes details for the current candidate. Duplicate candidates remain separate items, and switching during a save rejects the old output. For example, with `::3/126`, `::4/126`, `::3/126`, Next moves from item 1 to item 2 and then item 3, preserving the distinct physical lines of the duplicate entries.
+
 ## Import batch candidates
 
 The folder icon below Batch Availability input imports UTF-8 TXT/CIDR (BOM allowed) or planning-project JSON. JSON imports list text only, without restoring the parent network, allocation parameters, result tab or baseline. Comments, blank lines and duplicates are retained. Click Check after import to generate results.

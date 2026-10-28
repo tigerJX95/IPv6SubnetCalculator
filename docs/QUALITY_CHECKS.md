@@ -1,10 +1,3 @@
-## V1.15 i18n and security policy maintenance
-
-
-## V1.15 documentation screenshot checks
-
-`python tools/check_doc_images.py` validates every Markdown image reference in root documents, docs and examples against the screenshot locale and SHA-256 catalog. `_EN.md` files require English screenshots; other Markdown documents require Chinese screenshots. Swapped locale assets, missing files and changed screenshot bytes fail the check. This runs in the static checks job and before local build manifest creation. Screenshot content is captured from the actual UI in the recorded language and visually reviewed; metadata validation does not independently perform OCR.
-
 # 自动质量检查 / Automated quality checks
 
 推送到 `main` 或向 `main` 提交 PR 时，GitHub Actions 自动运行以下检查。也可以在 Actions → Quality checks → Run workflow 手动运行（工作流合并到默认分支后可见）。
@@ -52,3 +45,10 @@ On headless Linux, set `QT_QPA_PLATFORM=offscreen`. CI uses Python 3.12 and UTF-
 旧 `test_v06.py` 和 `test_v07.py` 为 Tk 版本的重复测试，已由 `test_selection_summary.py`、`test_excel_precision.py` 和 `test_qt_workflow.py` 覆盖：选择容量、Ctrl/Shift 选择、复制顺序、跨页高亮、分页锚点、无效输入恢复、剪贴板失败重试及 Excel 大整数精度。弹窗定位及图标测试改为检查真实 Qt 对象。
 
 The duplicate Tk-era suites are superseded by the existing selection-summary, Excel-precision and Qt-workflow suites. Dialog positioning and icon checks now exercise the actual Qt objects. Cross-platform tests compare address values and file identity rather than platform-specific string spellings; application-localized file labels remain covered independently of OS MIME descriptions. No failing checks are ignored.
+
+
+## 文档截图检查 / Documentation screenshot checks
+
+`python tools/check_doc_images.py` 检查文档图片的语言、存在性及 SHA-256；英文文档要求英文截图，中文文档要求中文截图。截图来自对应语言的实际程序界面，并进行人工排版核对。
+
+`python tools/check_doc_images.py` checks image references, language and SHA-256. English documents require English screenshots, and Chinese documents require Chinese screenshots. Captures come from the actual interface in that language and are visually reviewed.

@@ -77,6 +77,54 @@ class BatchDetailTests(unittest.TestCase):
         d=p.open_detail();self.assertIsNotNone(d.panel.result)
         self.d.reject();self.assertIsNone(d.panel.result);self.assertIsNone(p.detail_dialog)
 
+    def test_navigation_boundaries_duplicates_category_and_parent_index(self):
+        p=self.prepare();batch=p.result;report=p.report.toPlainText();d=p.open_detail()
+        self.assertFalse(d.previous_button.isEnabled())
+        self.assertTrue(d.next_button.isEnabled())
+        d.panel.category.setCurrentIndex(1)
+        original=d.panel.result
+        d.next_button.click()
+        self.assertIs(p.detail_dialog,d)
+        self.assertEqual((d.ordinal,p.detail_index.value()),(2,2))
+        self.assertEqual(d.panel.category.currentData(),'occupied')
+        self.assertEqual(d.panel.input.text(),'::4/126')
+        d.next_button.click()
+        self.assertEqual(d.ordinal,3)
+        self.assertIn('5',d.heading.text())
+        self.assertEqual(d.panel.input.text(),'::3/126')
+        self.assertIsNot(d.panel.result,original)
+        self.assertFalse(d.next_button.isEnabled())
+        d.navigate(1);self.assertEqual(d.ordinal,3)
+        d.previous_button.click();self.assertEqual(d.ordinal,2)
+        self.assertIs(p.result,batch);self.assertEqual(p.report.toPlainText(),report)
+        p.input.setPlainText('::/0')
+        self.assertIsNone(d.panel.result)
+        d.navigate(-1);self.assertEqual(d.ordinal,2)
+
+    def test_navigation_during_pending_save_rejects_old_report_and_cidrs(self):
+        p=self.prepare();d=p.open_detail()
+        def change(*args,**kwargs):
+            d.next_button.click()
+            return str(self.path),''
+        for save in (d.panel.save,d.panel.save_cidrs):
+            d.previous_button.click()
+            with patch('ui.list_output_controller.QFileDialog.getSaveFileName',side_effect=change):save()
+            self.assertFalse(self.path.exists())
+            self.assertEqual(d.ordinal,2)
+
+    def test_duplicate_navigation_and_single_item_buttons(self):
+        p=self.d.batch_availability;p.source='';p.input.setPlainText('::/128\n::/128');p.run()
+        d=p.open_detail();old=d.panel.result
+        d.next_button.click()
+        self.assertIsNot(d.panel.result,old)
+        self.assertEqual(p.detail_index.value(),2)
+        p.input.setPlainText('::/128');p.run();d=p.open_detail()
+        self.assertFalse(d.previous_button.isEnabled());self.assertFalse(d.next_button.isEnabled())
+        for language in ('en_US','zh_CN'):
+            self.app.language_manager.apply(language,persist=False)
+            if language=='en_US':
+                self.assertNotRegex(d.heading.text()+d.previous_button.toolTip()+d.next_button.toolTip(),r'[\u4e00-\u9fff]')
+
     def test_full_and_empty_candidates_and_record_limit(self):
         p=self.d.batch_availability;p.source='::/0';p.input.setPlainText('::/0');p.run()
         d=p.open_detail();self.assertEqual(d.panel.result.occupied,((0,2**128-1),))

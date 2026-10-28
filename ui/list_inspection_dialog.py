@@ -2,7 +2,7 @@
 # Copyright (C) 2026 IPv6SubnetCalculator contributors
 """Read-only list snapshot inspection; shares existing conflict-safe text output."""
 from pathlib import Path
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, QSignalBlocker
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QSpinBox
 from core.localized_text import text as tx
 from core.ipv6_core import InputError
@@ -331,16 +331,49 @@ class BatchCandidateDialog(QDialog):
         self.resize(820, 640)
         self.setMinimumSize(600, 460)
         layout = QVBoxLayout(self)
-        heading = QLabel(tx('候选序号：{0:,}；原始第 {1:,} 行；所属网段：{2}', ordinal, record.line, record.network))
-        heading.setWordWrap(True)
-        layout.addWidget(heading)
+        self.owner = parent
+        self.batch_result = parent.result
+        self.ordinal = ordinal
+        self.heading = QLabel('')
+        self.heading.setWordWrap(True)
+        layout.addWidget(self.heading)
+        navigation = QHBoxLayout()
+        self.previous_button = IconButton('previous_small', tx('查看上一个候选详情'))
+        self.next_button = IconButton('next_small', tx('查看下一个候选详情'))
+        navigation.addWidget(self.previous_button)
+        navigation.addWidget(self.next_button)
+        navigation.addStretch()
+        layout.addLayout(navigation)
         self.panel = AvailabilityPanel(page, source)
         self.panel.hint.setText(tx('使用本次批量检查的同一基准快照；只查看当前候选，不计算候选之间的预留。'))
-        self.panel.input.setText(record.original)
         self.panel.input.setReadOnly(True)
         self.panel.run_button.hide()
-        self.panel.run()
         layout.addWidget(self.panel, 1)
+        self.previous_button.clicked.connect(lambda: self.navigate(-1))
+        self.next_button.clicked.connect(lambda: self.navigate(1))
+        self.show_candidate(record, ordinal)
+
+    def show_candidate(self, record, ordinal):
+        # Invalidate even for duplicate input, so pending saves cannot use old details.
+        category = self.panel.category.currentIndex()
+        self.panel.invalidate()
+        self.ordinal = ordinal
+        self.heading.setText(tx('候选序号：{0:,}；原始第 {1:,} 行；所属网段：{2}', ordinal, record.line, record.network))
+        self.panel.input.setText(record.original)
+        self.panel.category.setCurrentIndex(category)
+        self.panel.run()
+        self.previous_button.setEnabled(ordinal > 1)
+        self.next_button.setEnabled(ordinal < len(self.batch_result.entries))
+
+    def navigate(self, offset):
+        if self.owner.result is not self.batch_result or self.panel.result is None:
+            return
+        ordinal = self.ordinal + offset
+        if not 1 <= ordinal <= len(self.batch_result.entries):
+            return
+        with QSignalBlocker(self.owner.detail_index):
+            self.owner.detail_index.setValue(ordinal)
+        self.show_candidate(self.batch_result.entries[ordinal-1].record, ordinal)
 
     def done(self, code):
         self.panel.invalidate()

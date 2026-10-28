@@ -1,4 +1,4 @@
-# V1.10 国际化实现 / Internationalization Implementation
+# 国际化实现 / Internationalization Implementation
 
 ## 已实现 / Implemented
 
@@ -26,7 +26,7 @@
 V1.8 后续重点为国际化后的布局、翻译完整性和兼容收敛；按实际反馈调整，不为版本数量堆叠功能。
 
 
-## V1.7 导出国际化 / Export Localization
+## 导出国际化 / Export Localization
 
 - `App` 上下文保留界面“序号 → Index”；新增 `Export` 上下文将同一中文源词译为“No.”，并提供“IPv6 Subnet”“IPv6 Subnets”。维护目录时按上下文检查，不能只按源文字去重。
 - GUI 线程在任务实际开始时解析导出标签并冻结；即使文件选择期间或导出期间切换语言，也以任务开始时为准。完成提示使用完成时的界面语言。
@@ -36,7 +36,7 @@ V1.8 后续重点为国际化后的布局、翻译完整性和兼容收敛；按
 The `Export` context separates file wording (“No.”) from UI wording (“Index”). Resolve labels at actual task start on the GUI thread and pass an immutable snapshot to the Qt-free writer. Completion feedback follows the current interface language. Refresh internal tab-scroll tooltips explicitly; keep TXT and JSON language-independent.
 
 
-## V1.8 示例语言 / Sample Language
+## 示例语言 / Sample Language
 
 示例注释不是界面翻译键。增加独立英文示例供文档和截图使用，保持 CIDR、顺序、计算与规划结果一致；用户输入和已导入文件不因切换语言被改写。
 

@@ -1,11 +1,17 @@
-## V1.19 新增操作验收 / New operation checks
+## V1.20 新增操作验收 / New operation checks
+
+1. 批量检查三项（含重复项），在详情中连续前后浏览，检查序号、原始行号、首末禁用和 CIDR 类别保持。/ Browse three candidates including duplicates; verify index, source lines, boundaries and retained CIDR category.
+2. 保存期间切换详情，确认不写入旧输出；修改候选后旧详情失效。/ Switch during saving to reject stale output; editing candidates invalidates details.
+3. 关于窗口从最新版进入历史更新并返回；离线切换中英文、浅深主题，确认标题居中和链接正常。/ Navigate current notes/history offline; switch languages and themes and verify centered titles and links.
+
+## 新增操作验收 / New operation checks
 
 1. 关于窗口确认 PyQt6 与 Qt 均显示 6.12.0；安装时通过 requirements.txt 使用 Riverbank 官方预发布源。/ Confirm both runtime versions in About and the official index installation.
 2. 批量可用性导入 TXT／CIDR 或规划项目 JSON，确认仅候选文本变化，基准、父网段和分配参数保持原样。/ Import candidates without restoring baseline or allocation parameters.
 3. 已有候选时确认替换；取消、无效编码和超限文件应保留原结果。/ Check replacement confirmation and preservation on cancellation or errors.
 4. 在中英文、浅深色主题下检查文件夹入口、候选详情、关于页标题及右键复制。/ Inspect both languages/themes, candidate details, document headings and context menus.
 
-## V1.18 新增人工验收（待 Windows 执行） / New manual acceptance (pending Windows)
+## 新增人工验收（待 Windows 执行） / New manual acceptance (pending Windows)
 
 1. 基准输入 `::/127` 与 `::3/128`，批量候选输入 `::3/126`、`::4/126` 及重复的 `::3/126`，确认候选序号上限为 3。/ With this baseline and these candidates, confirm the candidate number limit is 3.
 2. 查看第 1 项详情：输入只读、所属网段为 `::/126`，冲突原始行完整，空闲 CIDR 为 `::2/128`，占用 CIDR 为 `::/127` 与 `::3/128`。/ Inspect read-only input, containing network, conflict lines and exact free/occupied CIDRs.
@@ -14,21 +20,21 @@
 5. 关于窗口检查五个页签：使用说明没有历史更新摘要；版本更新仅为 V1.18；正文大标题居中并与小标题留白。/ Check the five About tabs, current notes and heading spacing.
 6. 地址工具右侧复制图标已移除；结果右键复制选中文本、当前／全部格式、连续 128 位二进制及完整关系报告；非法输入后不得复制旧结果。/ Verify context-menu copying and stale-result invalidation in Address Tools.
 
-## V1.13
+## 查询输出检查 / Inspection output checks
 
 - 检查归属查询的去重 CIDR 复制和 TXT 保存，再导入验证；报告仍保留重复行。
 - 检查新增／移除／共同覆盖输出方向、类别切换、空结果及 5,000 条限制。
 - 检查保存取消、覆盖拒绝和冲突；保存框打开时切换类别不应保存旧内容。
 - 检查中英、深浅主题、最小窗口及高 DPI 下新增控件。
 
-# V1.12 清单查询与覆盖比较 / List Lookup and Coverage Comparison
+# 清单查询与覆盖比较 / List Lookup and Coverage Comparison
 
 - 点击子网清单顶部查询图标；确认地址归属查询列出全部匹配网段和原始行号，最长前缀优先。
 - 对比 TXT 和规划项目 JSON；确认新增／移除方向、空清单与等价拆分，原规划项目不变。
 - 检查中英、深浅主题、最小窗口、键盘操作、报告复制和 TXT 保存；取消覆盖或目标冲突时保留已有文件。
 - Verify all matches and line numbers, exact comparison direction, imports, unchanged source projects, themes, languages, minimum size, clipboard and conflict-safe saving on Windows.
 
-# V1.12 手工检查 / Manual checks
+# 手工检查 / Manual checks
 
 1. 新建规划草稿后关闭，分别选择保存、放弃、取消；取消或保存失败应保留窗口与原文。
 2. 仅切换结果页签再关闭，不应出现规划修改提示。
@@ -36,7 +42,7 @@
 4. 后台检查中关闭，任务取消后应出现未保存提示；取消退出后窗口可继续使用。
 5. 在简体中文、English、浅色、深色和高 DPI 下检查提示按钮、状态标签与窗口布局。
 
-# V1.10 Windows 验证 / Windows Verification
+# Windows 验证 / Windows Verification
 
 V1.10 增加清单／规划 TXT 保存与结果回流。需要在 Windows 中验证语言切换、显示缩放及打包资源，既有功能验证继续保留。
 
@@ -98,7 +104,7 @@ Use a temporary test folder and keep copies of originals for overwrite/cancellat
 Check actual Excel opening, both header languages and sheet names, non-first ranges and exact large indices. Switch languages in the picker and during export; verify task-start file language and current-language feedback. Reimport TXT, cancel an export and inspect tab-scroll tooltips in both themes.
 
 
-## V1.8 示例 / Examples
+## 示例 / Examples
 
 - [ ] 打开 `PlanningNetworks_EN.txt`，确认首行是英文 Parent network，五条网段及规划结果与中文样例一致。
 - [ ] 英文清单和方案示例的注释、名称、备注使用英文；切换语言不修改已导入内容。
@@ -107,7 +113,7 @@ Check actual Excel opening, both header languages and sheet names, non-first ran
 Open the English examples and compare matching CIDRs and results. Confirm switching languages preserves their original text and the README planning image uses English comments.
 
 
-## V1.8 地址范围 / Address Ranges
+## 地址范围 / Address Ranges
 
 - [ ] 范围 `2026:1015:abcd::1`～`2026:1015:abcd::ff`：255 个地址，精确 CIDR 清单；单地址为 `/128`，完整 IPv6 空间为 `::/0`，精确计数为 2^128。
 - [ ] 非法／反向地址定位正确字段，修改后清除错误并禁用旧结果操作。
@@ -117,7 +123,7 @@ Open the English examples and compare matching CIDRs and results. Confirm switch
 Check inclusive bounds, exact counts, invalid-order recovery, copy/report language, minimum-size access and safe transfer to existing/busy lists.
 
 
-## V1.10 文本保存与回流 / Text Output and Transfer
+## 文本保存与回流 / Text Output and Transfer
 
 - [ ] 中英文、两主题：保存菜单文案、悬停提示及启用状态正确。
 - [ ] 原始输入保留空行、注释与中文内容；有效 CIDR 文件可重新导入，报告包含错误行及精确数量。
@@ -139,7 +145,7 @@ Verify output content, reimport, incomplete/empty results, overwrite and failure
 Verify these cases on Windows in both OS display languages where available; Linux offscreen and simulated native-type strings do not replace Windows verification.
 
 
-## V1.10 分配建议 / Allocation
+## 分配建议 / Allocation
 
 - 两主题、中英文、900×620 与高 DPI 下检查新页签、标签、五个操作图标和悬停提示。 / Check both themes/languages, minimum size and high DPI.
 - 空清单计算 /48，查询 /64 的容量应为 65,536；占用一个 /64 后应为 65,535。 / Verify exact aligned capacity.
@@ -148,7 +154,7 @@ Verify these cases on Windows in both OS display languages where available; Linu
 - 复制、保存 CIDR 和报告，切换语言后内容准确，原有计算方案不变。 / Verify outputs, language switching and calculator independence.
 
 
-## V1.10 保存冲突修订 / Save Conflict Revision
+## 保存冲突修订 / Save Conflict Revision
 
 - 用两个程序实例同时保存新文件、同时覆盖同一旧版本，确认只有一个提交，另一份完整内容可恢复。 / Two instances, new/existing targets: one commit, one recoverable output.
 - 长 TXT/XLSX 导出期间用编辑器新建、修改或替换同名目标；确认不静默覆盖，恢复 TXT/XLSX/JSON 内容可用。 / Detect rival writes during export and verify complete recovery files.

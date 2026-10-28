@@ -1,103 +1,22 @@
-## V1.19 批量候选导入与运行组件更新
-
-- 修订：修复 Windows 正常文件被误判为读取期间变化，恢复计算方案、规划项目和候选清单导入。
-
-- 批量可用性新增 TXT／CIDR 和规划项目 JSON 导入；JSON 只取清单文本，保留注释、空行和重复候选。
-- 替换已有候选前确认；取消、文件错误或对话框期间内容变化时保留原输入和结果，成功导入后再手动检查。
-- 优化普通文件读取和变化提示；清单悬停内容按原文显示特殊字符。
-- PyQt6 与 Qt 运行组件升级至 6.12.0，使用 Riverbank 官方预发布源；保持现有 PyQt 界面与单文件构建方式。
-- 保留候选详情、内部 CIDR 输出、地址工具右键复制及关于页排版；同步中英文说明与对应语言截图。
-
-## V1.19 Batch Candidate Import and Runtime Update
-
-- Revision: fixes unchanged Windows files being reported as modified during reading, restoring calculation-plan, planning-project and candidate imports.
-
-- Batch Availability imports TXT/CIDR and planning-project JSON; JSON uses list text only, retaining comments, blank lines and duplicate candidates.
-- Replacing candidates requires confirmation. Cancellation, file errors or dialog-time content changes preserve existing input/results; imported content is checked explicitly afterward.
-- Improves ordinary-file reading and change messages; list tooltips display special characters literally.
-- Updates PyQt6 and Qt runtime components to 6.12.0 from Riverbank's official pre-release index, retaining the existing PyQt interface and one-file build.
-- Retains candidate details, internal CIDR output, address-tool context menus and About formatting; updates both languages and matching screenshots.
-
-## V1.18 批量候选详情与界面整理
-
-- 批量可用性新增候选详情：按输入顺序选择序号，查看候选对应的基准冲突原始行、精确空闲／占用范围，复制或保存候选内部的空闲／占用 CIDR。
-- 保留重复候选及原始行号，详情输入只读，按需检查单条候选；使用同一基准快照，不改变占用清单，也不为候选互相预留。
-- 切换候选、修改批量输入或关闭查询窗口时清除旧详情，保存期间发生上述变化时拒绝旧输出。
-- 合入展示修订：报告明确区分“输入／所属网段”；使用说明与版本日志分开，关于窗口仅展示当前 V1.18 日志；各正文大标题居中并与下方小标题留白。
-- 保留按附件决定是否构建 EXE 的 Release 工作流，以及不抓取历史标签的 main 祖先校验；本版不修改历史标签或仓库设置。
-
-## V1.18 Batch Candidate Details and Interface Cleanup
-
-- Batch Availability adds candidate details: select a number in input order to inspect baseline conflict source lines, exact free/occupied ranges, and copy or save CIDRs inside that candidate.
-- Duplicate candidates and physical source line numbers are retained. Read-only details are computed on demand against the same baseline snapshot; they neither change the occupied list nor reserve space between candidates.
-- Changing the selected candidate, editing batch input or closing inspection invalidates old details and rejects pending stale saves.
-- Includes presentation revisions: explicit input/containing-network labels; separate user help and release notes, with only current V1.18 notes in About; centered main document titles with spacing before subheadings.
-- Address-format and two-network results use context-menu copying instead of right-side copy icons, retaining continuous 128-bit binary and complete reports. Both languages, matching screenshots, i18n and security checks are updated.
-- Retains attachment-aware EXE Release builds and main ancestry validation without fetching historical tags. This release does not change historical tags or repository settings.
-
-## V1.17 展示修订 / Presentation revision
-
-中文：关于所有文档大标题统一居中与下方留白；地址工具复制入口改为结果右键菜单，保留连续 128 位及完整报告。批量报告明确区分原始输入与所属网段；使用说明按功能编排，移除历史版本摘要；关于窗口新增独立版本更新页，仅展示当前 V1.17，中英文切换同步。
-
-English: All About document titles use centered alignment and spacing. Address-tool context menus replace copy icons while preserving continuous 128-bit output and complete reports. Batch reports label original input and containing network explicitly. Help uses functional instructions without historical highlights. A separate About tab displays only current V1.17 release notes in the selected language.
-
 # 开发说明 / Development Notes
 
-本文采用中英对照，中文在前、英文在后。 / This document presents Chinese first, followed by English.
+## V1.20 候选详情连续浏览与文档整理
 
-## V1.17 候选类别与标签检出 / Candidate Categories and Tag Checkout
+- 批量候选详情新增上一项／下一项按钮，在同一窗口按输入顺序连续查看，自动同步批量页候选序号。
+- 保留重复候选及原始行号，沿用同一基准快照与所选内部 CIDR 类别；首末项禁用越界按钮。
+- 切换详情立即清除旧结果，保存期间切换候选时拒绝旧输出；不修改基准清单或批量检查结果。
+- 首页与关于窗口仅展示当前版本更新，旧版本归入“历史更新”；关于窗口的历史与返回链接均可离线使用。
+- 使用说明与更新日志分开维护，同步中英文文档及对应语言的实际界面截图。
 
-`BatchAvailability.cidr_output()` 按占用／空闲整数计数筛选完整候选网段，统一规范化、首次顺序去重并保留包含项。`BatchAvailabilityPanel` 复用类别变更通知、数量刷新及对话框前后的输出身份保护；完整报告不受类别影响。专项测试位于 `tests/test_batch_categories.py`。
+## V1.20 Continuous Candidate Details and Documentation Cleanup
 
-`BatchAvailability.cidr_output()` selects whole networks using exact occupied/free counts, retaining first-input order and containment after normalization/deduplication. The panel reuses category notifications, count updates and save identity guards; the complete report is unchanged. See `tests/test_batch_categories.py`.
+- Batch candidate details add previous/next buttons to browse in input order in the same window, synchronizing the candidate number on the batch page.
+- Retains duplicate candidates, physical line numbers, the baseline snapshot and the selected internal CIDR category; boundary buttons are disabled.
+- Switching details clears old results and rejects pending saves of the previous candidate, without changing the baseline list or batch results.
+- Home pages and About show only the current release. Earlier releases move to Update History, with offline history/return links in About.
+- User instructions remain separate from release notes; both languages and matching actual interface screenshots are updated.
 
-Windows 构建检出深度改为 1 且不拉取标签。`tools/release_assets.py history` 先核对版本，判断浅克隆状态，只抓取 main；浅克隆使用 `--unshallow --no-tags` 补齐历史，再检查 HEAD 是否为 main 的祖先。抓取和祖先检查失败均拒绝发布，不删除远端标签。测试包含带大小写冲突标签的真实浅克隆。
-
-Windows checkout uses depth 1 without tags. The history command validates the version, checks shallow state, fetches only main with `--unshallow --no-tags` when needed, then checks HEAD ancestry. Fetch/ancestry failures block publication. Remote tags are untouched; tests include a real shallow clone with case-variant tags.
-
-## V1.15 候选网段可用性与本地化截图 / Candidate Availability and Localized Screenshots
-
-`core/network_availability.py` 将占用并集区间裁剪到候选 CIDR 内，保留冲突的原始记录，再从候选中扣除裁剪后的占用并集；整个过程不枚举地址。`AvailabilityPanel` 与现有查询面板共用有数量上限的 CIDR 输出及报告保存保护。
-
-`tools/check_doc_images.py` 根据 `docs/screenshots/catalog.json` 核对截图语言与 SHA-256。文件名以 `_EN` 结尾的本地化 Markdown 文档必须使用英文截图，其余 Markdown 文档必须使用中文截图；截图文件名明确标注语言代码。检查在 `build_manifest.py` 生成构建清单前及静态检查作业中运行。新增截图须人工核对，并更新对应目录记录。
-
-`core/network_availability.py` clips occupied union intervals to a candidate CIDR, preserves original conflicting records, and subtracts the clipped union without enumerating addresses. `AvailabilityPanel` shares bounded CIDR output and report save guards with existing inspection panels.
-
-`tools/check_doc_images.py` verifies screenshot language and SHA-256 against `docs/screenshots/catalog.json`. Localized Markdown filenames ending `_EN` require English assets; the remaining Markdown documents require Chinese assets. Screenshot filenames carry explicit locale codes. The check runs before `build_manifest.py` and in the static checks job. New captures must be reviewed and their catalog entries regenerated.
-
-## V1.14 空闲容量总览 / Capacity Overview
-
-`core/subnet_capacity.py` 基于完整空闲区间计算各前缀的容量，与分配建议共用 `aligned_blocks()`，确保对齐规则一致。计数使用精确整数，报告最多 129 行，不枚举地址。现有有界清单解析器负责校验占用记录及其是否位于父网段内。
-
-`CapacityPanel` 复用只读清单快照和报告输出控制器。编辑父网段立即使旧结果失效；保存时在对话框返回后复核结果身份，并沿用文件版本冲突检查。容量总览独立于规划项目 JSON，不修改分配参数。
-
-`core/subnet_capacity.py` calculates all prefix capacities from complete free-space intervals. `aligned_blocks()` is shared with allocation suggestions to preserve alignment semantics. Counts use integers, with at most 129 report rows and no address enumeration. The existing bounded list parser validates occupied records and parent containment.
-
-`CapacityPanel` reuses the read-only inspection snapshot and report output controller. Parent edits invalidate results. Save operations validate result identity after dialogs and use the existing file version conflict checks. The overview is independent from project JSON and does not mutate allocation parameters.
-
-## V1.13 翻译维护 / Translation Maintenance
-
-
-
-## V1.13 查询与比较结果输出 / Inspection Output
-
-`CidrOutput` 通过区间分解精确统计全部 CIDR 块，最多保留 5,000 条明细；不完整清单禁止序列化输出。地址归属查询的输出仅对规范化网段去重，不做聚合；覆盖比较则对所选数学集合生成精确聚合结果。保存对话框前后保留并复核结果、类别和输出对象的身份，避免写入过期数据。新增回归测试见 `tests/test_inspection_output.py`。
-
-`CidrOutput` counts all exact blocks using interval decomposition and retains at most 5,000 CIDRs. Incomplete lists refuse serialization. Lookup output deduplicates normalized networks without aggregation; coverage output aggregates each selected mathematical set exactly. Output actions retain result, category and output identity across save dialogs. New regression coverage: `tests/test_inspection_output.py`.
-
-# V1.12 清单分析扩展 / List Analysis Extensions
-
-新增模块 `core/list_inspection.py`、`ui/list_inspection_dialog.py`。地址归属查询保留重复及包含记录，最长前缀优先；覆盖比较先归并区间，再做差集和交集，不枚举地址。独立窗口持有只读清单快照；查询和比较输入不持久化，导出报告复用现有保存冲突保护。JSON 格式不变。
-
-New membership and coverage comparison modules use bounded parsing, interval unions and differences without enumerating addresses. The dialog holds a read-only source snapshot; reports reuse conflict-safe text saving. Project JSON remains unchanged.
-
-# V1.12 开发说明 / Development Notes
-
-规划项目在关闭和恢复前检查未保存输入。比较清单、父网段及分配参数，不把结果页签浏览视为内容修改；确认期间检查快照，保存取消或失败时中止操作。
-
-# V1.11 开发说明 / Development Notes
-
-新增 `core/planning_project.py`、`services/project_storage.py`、`ui/project_controller.py`。规划项目格式与计算方案分离，共用受限 JSON 读取和冲突保护写入。未完成的字段按草稿保留，恢复不信任派生结果。
+[历史更新](HISTORY.md) · [Update History](HISTORY_EN.md) · [开发历史 / Development history](DEVELOPMENT_HISTORY.md)
 
 ## 运行与构建 / Run and Build
 
@@ -110,13 +29,13 @@ python -m pip install -r requirements.txt
 python main.py
 ```
 
-Windows 下运行 `build.cmd`，会安装固定版本的界面依赖和 PyInstaller，生成 `dist/IPv6SubnetCalculator_V1.17.exe`。构建需要联网下载依赖；生成后的程序离线运行，不要求目标电脑安装 Python。EXE 的架构取决于所用 Python 的架构，建议使用 Windows x64 Python。
+Windows 下运行 `build.cmd`，会安装固定版本的界面依赖和 PyInstaller，生成 `dist/IPv6SubnetCalculator_V1.20.exe`。构建需要联网下载依赖；生成后的程序离线运行，不要求目标电脑安装 Python。EXE 的架构取决于所用 Python 的架构，建议使用 Windows x64 Python。
 
-On Windows, `build.cmd` installs the pinned interface dependencies and PyInstaller, then creates `dist/IPv6SubnetCalculator_V1.17.exe`. Building requires internet access to download dependencies. The resulting application works offline without Python on the target computer. Its architecture follows the Python interpreter used; Windows x64 Python is recommended.
+On Windows, `build.cmd` installs the pinned interface dependencies and PyInstaller, then creates `dist/IPv6SubnetCalculator_V1.20.exe`. Building requires internet access to download dependencies. The resulting application works offline without Python on the target computer. Its architecture follows the Python interpreter used; Windows x64 Python is recommended.
 
-可选运行 `python tools/package_release.py` 生成 `dist/IPv6SubnetCalculator_V1.17_Windows.zip`，包含 EXE、项目 `LICENSE`／`NOTICE` 及第三方许可文件。Windows 用户默认直接下载 EXE；ZIP 仅为可选归档，源码包单独提供。发布前运行 `verify.cmd` 检查本次 EXE。
+可选运行 `python tools/package_release.py` 生成 `dist/IPv6SubnetCalculator_V1.20_Windows.zip`，包含 EXE、项目 `LICENSE`／`NOTICE` 及第三方许可文件。Windows 用户默认直接下载 EXE；ZIP 仅为可选归档，源码包单独提供。发布前运行 `verify.cmd` 检查本次 EXE。
 
-Optionally run `python tools/package_release.py` to create `dist/IPv6SubnetCalculator_V1.17_Windows.zip`, containing the EXE, project LICENSE/NOTICE, and third-party license files. Publish the EXE as the default Windows download; the ZIP is optional and source is provided separately. Run `verify.cmd` before publishing to check the executable from this build.
+Optionally run `python tools/package_release.py` to create `dist/IPv6SubnetCalculator_V1.20_Windows.zip`, containing the EXE, project LICENSE/NOTICE, and third-party license files. Publish the EXE as the default Windows download; the ZIP is optional and source is provided separately. Run `verify.cmd` before publishing to check the executable from this build.
 
 ## 模块职责 / Module Responsibilities
 
@@ -185,15 +104,15 @@ Widget colors come from one stylesheet, without mixing in global `setPalette`. C
 
 Project-authored content uses `GPL-3.0-or-later`. The root `LICENSE` contains the unmodified GPLv3 text; `NOTICE` identifies the versions, scope, and lack of warranty. Third-party license files are retained separately.
 
-`build.cmd` 会将项目与第三方许可嵌入程序，并在 `dist/IPv6SubnetCalculator_V1.11_Licenses/` 输出可直接阅读的副本。该目录可作为独立许可附件保留；EXE 已嵌入许可文件。发布时提供与 EXE 对应版本的完整源码及构建材料（包括 `build.cmd`、`requirements.txt`、资源和开发说明）。源码可放在同一 Release 的源码附件中；确保该 Release 对应正确的提交和标签，不要仅链接到持续变化的主分支。
+`build.cmd` 会将项目与第三方许可嵌入程序，并在 `dist/IPv6SubnetCalculator_V1.20_Licenses/` 输出可直接阅读的副本。该目录可作为独立许可附件保留；EXE 已嵌入许可文件。发布时提供与 EXE 对应版本的完整源码及构建材料（包括 `build.cmd`、`requirements.txt`、资源和开发说明）。源码可放在同一 Release 的源码附件中；确保该 Release 对应正确的提交和标签，不要仅链接到持续变化的主分支。
 
-`build.cmd` embeds project and third-party license files in the application and also writes readable copies to `dist/IPv6SubnetCalculator_V1.11_Licenses/`. Retain that folder as an optional standalone license attachment; licenses are also embedded in the EXE. Provide the complete matching application source and build materials, including `build.cmd`, `requirements.txt`, assets, and these instructions. A source archive can accompany the same Release; use the matching commit and tag rather than linking only to a changing main branch.
+`build.cmd` embeds project and third-party license files in the application and also writes readable copies to `dist/IPv6SubnetCalculator_V1.20_Licenses/`. Retain that folder as an optional standalone license attachment; licenses are also embedded in the EXE. Provide the complete matching application source and build materials, including `build.cmd`, `requirements.txt`, assets, and these instructions. A source archive can accompany the same Release; use the matching commit and tag rather than linking only to a changing main branch.
 
 程序包含的第三方组件仍须按各自许可履行源码、版权和再分发义务。完整源码的提供范围包括适用许可证要求的依赖源码；仅附上项目的 Python 文件或上游主页链接并不自动满足所有第三方二进制分发条件。组件版本及获取入口见 `THIRD_PARTY_NOTICES.md`，发布时应保留所用版本的依赖源码及构建信息。
 
 Bundled third-party components retain their own source, attribution, and redistribution obligations. The source offer must also cover dependency source where required by the applicable licenses; providing only the application's Python files or an upstream home-page link does not automatically satisfy all third-party binary distribution conditions. Versions and upstream entry points are listed in `THIRD_PARTY_NOTICES.md`. Retain the dependency sources and build information for the versions actually shipped.
 
-## V1.10 自动验证 / Automated Verification
+## 自动验证 / Automated Verification
 
 Windows 下先运行 `build.cmd`，再运行 `verify.cmd`。验证入口执行回归测试、性能测量、源码程序检查和本次构建的 EXE 检查，将结果保存在 `verification/`，不加入 Git。
 
@@ -208,7 +127,7 @@ python tools/verify.py --report-dir verification
 指定打包程序可运行： / To include a packaged application:
 
 ```console
-python tools/verify.py --exe dist/IPv6SubnetCalculator_V1.17.exe --report-dir verification
+python tools/verify.py --exe dist/IPv6SubnetCalculator_V1.20.exe --report-dir verification
 ```
 
 `summary.json` 保存环境、逐阶段结果及性能数据；`SUMMARY.md` 为简要结果，`tests.log` 保存回归日志；`source.json` 和 `executable.json` 分别记录源码与打包程序检查。源码检查通过时，未提供的 EXE 仍标记为 `not_run`。只有在 Windows 上执行且 EXE 检查通过后，`windows_automated_checks` 才标记为通过；人工验证始终独立登记，见 [Windows 验证](WINDOWS_ACCEPTANCE.md)。
@@ -226,14 +145,6 @@ A pre-build `build_manifest.json` records a SHA-256 fingerprint of runtime sourc
 性能数据来自当前机器的重复测量，不设置依赖硬件的固定速度门槛。导出内存数据由 `tracemalloc` 记录，仅表示 Python 分配量，不包含 Qt 原生分配或完整进程内存。检查入口对意外的导出内存增长设置粗粒度回归保护。
 
 Performance timings are measurements of the current machine, without fixed hardware-dependent speed thresholds. Export memory is measured with `tracemalloc` and covers Python allocations only, excluding native Qt allocations and total process memory. A coarse guard detects unexpected export-memory growth.
-
-本轮环境与测量记录见 [V1.10 验证记录](VALIDATION.md)。 / See the [V1.10 validation record](VALIDATION.md) for this run and its environment.
-
-## V1.10 发布范围 / Release Scope
-
-V1.10 新增原始输入、有效 CIDR、检查／规划报告的 TXT 保存及完整规划结果回流检查。沿用已有计算、地址范围转换和导出行为。结构与维护说明见 [I18N_PLAN.md](I18N_PLAN.md)，本版更新见 [RELEASE_NOTES.md](RELEASE_NOTES.md)，验证记录见 [VALIDATION.md](VALIDATION.md)。Git 标签使用 v1.10。
-
-V1.10 adds list/planning TXT saves and protected planning-result transfer while preserving existing calculation, range conversion and export behavior. Refer to the implementation, release and validation documents above.
 
 ## 计算摘要复制 / Calculation Summary Copying
 
@@ -267,7 +178,7 @@ The full suite repeatedly creates/closes windows, switches themes, resizes, and 
 
 `ui/fonts.py` centralizes 12 pt interface text, 12 pt monospaced text, 11 pt dense binary text, and the 28 px title. Pages, the data model, shared value labels, and tooltips use these settings; dialogs inherit the application font. Index-column sizing uses font metrics, with a default row height of 38. Calculation and Address Tools use scrolling/wrapping in smaller windows.
 
-## V1.8 方案文件 / Plan Files
+## 方案文件 / Plan Files
 
 `core/calculation_plan.py` 定义格式与校验；`services/plan_storage.py` 负责有大小上限的 UTF-8 JSON 读写及原子替换；`ui/plan_controller.py` 协调文件选择、未保存提示和界面恢复。保存后只在参数、名称或备注变化时提示未保存，浏览变化仅随下一次保存记录。
 
@@ -296,7 +207,7 @@ Networks are grouped and sorted by start address/prefix. CIDRs form laminar inte
 Validation is shared. Sorted closed intervals are merged, free gaps are obtained by a linear scan, and aligned CIDRs are emitted by bit operations without address enumeration or coverage expansion. Free-space totals are exact while at most 5,000 CIDR objects are retained; gap intervals are bounded by input count plus one. Aggregated CIDRs cannot outnumber the input. Capacities remain integers. Source/frozen checks cover both planners and existing worker lifecycle protections apply.
 
 
-## V1.8 导入与展示边界
+## 导入与展示边界
 
 - ui/plan_drop_controller.py：仅拦截主窗口中的文件 URL，QTimer 结束原生拖放回调后调用 PlanController.open_path；不处理其他弹窗或普通文本拖放。
 - ui/plan_controller.py：打开与拖放共用加载、先校验、未保存决策及恢复流程；拖放额外确认未修改工作的替换；不调用 MainWindow.calculate。
@@ -347,7 +258,7 @@ Use the English examples for English captures, including comments, plan names, n
 The core uses `ipaddress.summarize_address_range` without enumerating addresses. The separate panel handles validation, result invalidation and copying. A controller protects existing list input before transfer and starts validation; calculation plans remain unchanged.
 
 
-## V1.10 文本输出模块 / Text Output Modules
+## 文本输出模块 / Text Output Modules
 
 `services/text_output.py` 对完整 UTF-8 文本执行同目录临时文件写入及 `os.replace`；失败清理临时文件。`ui/list_output_controller.py` 管理按结果状态启用的双语菜单、扩展名、覆盖确认、对话框后的快照复核和保存时报告翻译。此输出针对有界清单和报告，采用同步文本写入；主计算器大量子网导出继续使用后台流式写入。
 
@@ -366,7 +277,7 @@ The identity proxy localizes metadata without changing source paths, names, icon
 
 
 
-## V1.10 分配建议 / Allocation Suggestions
+## 分配建议 / Allocation Suggestions
 
 `core/subnet_allocation.py` 使用完整空闲闭区间：块大小 B=2^(128-prefix)，区间首个可用块边界为 ceil(start/B)*B，容量为 max(0,floor((end-first+1)/B))。总数为精确整数，建议按地址升序最多生成 5,000 个；不足请求时不返回部分清单。复杂度取决于区间数和请求数，不取决于 IPv6 地址总量。
 
@@ -377,7 +288,9 @@ The core counts aligned blocks from complete free intervals using exact integers
 
 
 
-File commits now share core/file_commit.py, passing approval-time revisions through services to workers. A01/A02/A03 changes are included without changing the version or calculator algorithms. See SAVE_CONFLICTS.md for concurrency limits. D01 remains pending compatible upstream Qt wheels; requirements remain installable.
+文件提交共用 `core/file_commit.py`，将确认时的文件版本经服务传入工作线程；并发边界见 [保存冲突保护](SAVE_CONFLICTS.md)。
+
+File commits share `core/file_commit.py`, passing confirmation-time revisions through services to workers. See [save conflict protection](SAVE_CONFLICTS.md) for concurrency limits.
 
 完整验证使用 tools/run_regression.py 输出 regression.json，含唯一运行标识、预期/实际测试数、失败与错误数及运行源码指纹。tools/verify.py 只接受完整且匹配本次运行的证据；services/release_contract.py 规定必需自检工作流。
 

@@ -4,7 +4,7 @@
 
 Open Subnet List → the third, target-shaped icon in the top row → Batch Availability. Scroll the tabs at small window sizes. The occupied baseline is a snapshot taken when this window opens; close, edit the original list and reopen to refresh it.
 
-## V1.17 Output categories
+## Output categories
 
 The category selects CIDRs for its adjacent copy/save controls. Upper report controls still output every candidate. Output contains **whole candidate networks, not their free/occupied fragments**.
 

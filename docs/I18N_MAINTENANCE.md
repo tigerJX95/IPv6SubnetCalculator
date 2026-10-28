@@ -30,6 +30,6 @@ Add marked display templates and matching TS entries (App context; Export for wo
 
 The checker compares every active TS message with QM in its context and verifies the generation record, completion, duplicate keys, format fields and residual Chinese (except the native language name). AST coverage recognizes imported text() aliases, explicit translation calls and common UI construction/setter APIs. It does not prove coverage of arbitrary dynamic Python; new wrappers and generated content require rules and UI tests. User data, parsing syntax and original licenses stay untouched. Runtime fallback handles malformed translations rather than concealing invalid source templates. Unknown external errors are not automatically machine-translated.
 
-## V1.13 整合范围 / Integration scope
+## 整合范围 / Integration scope
 
 

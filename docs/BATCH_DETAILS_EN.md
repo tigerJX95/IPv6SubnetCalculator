@@ -24,6 +24,7 @@ Changing candidate number, editing batch input or closing inspection clears old 
 | Report copy/save | Single-candidate report, original baseline conflict lines and complete ranges | Save `IPv6_NetworkAvailability.txt` |
 | CIDR category | Free or occupied fragments inside the candidate | Free: `::2/128` |
 | CIDR copy/save | Complete minimal CIDRs for that category; disabled if empty or truncated | Save `IPv6_available_CIDRs.txt` |
+| Previous / Next | Browse in one window; boundaries disabled; retain CIDR category and synchronize the batch index | Next moves item 1 to item 2 |
 | Close/Esc | Return without changing input or the baseline | Reopen with the locate icon |
 
 ![English batch candidate entry](screenshots/batch_categories_en_US_light.png)
@@ -33,3 +34,5 @@ Changing candidate number, editing batch input or closing inspection clears old 
 Details explain conflicts with the baseline, not conflicts between candidates or real deployment status. Candidate overlap counts remain in the batch report. Only one candidate is analyzed on demand; no all-candidate cross-product detail cache is built.
 
 The batch CIDR output category does not filter candidate numbers in the detail selector; all checked candidates remain available in input order.
+
+Use the Previous candidate details / Next candidate details icons at the top to browse in the same window and synchronize the batch-page index. The corresponding button is disabled at either boundary. Switching retains the free/occupied CIDR category, clears the old report and computes details for the current candidate. Duplicate candidates remain separate items, and switching during a save rejects the old output. For example, with `::3/126`, `::4/126`, `::3/126`, Next moves from item 1 to item 2 and then item 3, preserving the distinct physical lines of the duplicate entries.

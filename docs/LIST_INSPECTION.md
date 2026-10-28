@@ -4,7 +4,7 @@ V1.14 入口：**子网清单 → 顶部第三个圆形靶心查询按钮（文�
 
 ![中文版空闲容量总览](screenshots/capacity_zh_CN_light.png)
 
-## ✨ V1.14 空闲容量总览
+## ✨ 空闲容量总览
 
 - 在“子网清单”顶部查询窗口新增“空闲容量总览”页：输入父网段，一次统计父前缀至 /128 各级可分配的完整、对齐子网数量。
 - 显示空闲地址数、占用并集容量、最大可用子网，以及各前缀下无法组成完整子网的零散地址数；同等大小的最大子网取地址最小者。
@@ -12,7 +12,7 @@ V1.14 入口：**子网清单 → 顶部第三个圆形靶心查询按钮（文�
 - 支持双语报告复制及 TXT 保存，沿用覆盖确认和文件冲突保护；修改父网段立即清除结果。基于打开窗口时的清单快照，不修改原项目，关闭后重开可使用最新清单。
 - 占用清单必须全部有效且位于父网段内；空清单表示父网段全空闲。总览输入及结果不保存到规划项目 JSON，需要留存时保存报告。
 
-## ✨ V1.14 Free Capacity Overview
+## ✨ Free Capacity Overview
 
 - Added a Free Capacity Overview tab in the Subnet List lookup window. Enter a parent network to count complete, aligned available subnets at every prefix from the parent prefix through /128.
 - Shows free addresses, occupied union size, the largest available subnet and fragmented addresses that cannot form a complete subnet at each prefix. Equal-sized largest subnets use the lowest address.
@@ -20,14 +20,14 @@ V1.14 入口：**子网清单 → 顶部第三个圆形靶心查询按钮（文�
 - Copy bilingual reports or save TXT with overwrite confirmation and conflict protection. Editing the parent clears results. The list snapshot is taken when the window opens; original projects are unchanged. Reopen to use an updated list.
 - All occupied records must be valid and contained within the parent; an empty list leaves the entire parent free. Overview inputs and results are not stored in planning project JSON; save the report to retain them.
 
-## ✨ V1.13 查询与比较结果 CIDR 输出
+## ✨ 查询与比较结果 CIDR 输出
 
 - 地址归属查询支持复制及保存匹配网段 CIDR：规范化、去重，按最长前缀优先排列，保留包含项；原报告仍保留原始行号及重复记录。
 - 覆盖比较可分别选择新增、移除、共同覆盖，生成精确覆盖结果的最简 CIDR 清单，支持复制及 TXT 保存后重新导入。
 - 显示所选类别的 CIDR 条数。空结果不生成空清单；超过 5,000 条时禁用纯 CIDR 输出，完整地址范围报告仍可保存。
 - 修改输入立即清除结果；保存期间切换类别或重新计算会中止旧结果保存。沿用现有覆盖确认及保存冲突保护。
 
-## ✨ V1.13 CIDR Output for Lookup and Coverage Results
+## ✨ CIDR Output for Lookup and Coverage Results
 
 - Copy or save matching CIDRs from address lookup: normalized, deduplicated and ordered by longest prefix, retaining containing networks. Reports still preserve original line numbers and duplicate records.
 - Select added, removed or common coverage and produce its exact minimal CIDR list. Copy or save TXT for reimport into Subnet List.

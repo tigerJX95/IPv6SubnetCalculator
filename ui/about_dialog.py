@@ -22,7 +22,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QDesktopServices, QColor, QPalette, QTextCursor, QTextCharFormat, QIcon
 from PyQt6.QtWidgets import QVBoxLayout, QWidget, QApplication
 from app_info import APP_NAME, APP_VERSION, resource_path
-from services.about_content import (HELP_DOCUMENT, RELEASE_DOCUMENT, LEGAL_DOCUMENT, LICENSE_DOCUMENTS,
+from services.about_content import (HELP_DOCUMENT, RELEASE_DOCUMENT, HISTORY_DOCUMENT, LEGAL_DOCUMENT, LICENSE_DOCUMENTS,
                                     read_document, program_information, project_links)
 from ui.dialogs import AppDialog
 from ui.theme import current_colors
@@ -101,6 +101,13 @@ class OfflineBrowser(QTextBrowser):
         return None
 
     def open_link(self, url):
+        # Exact bundled routes only; arbitrary relative and local-file URLs stay blocked.
+        if self._document_path in (RELEASE_DOCUMENT, HISTORY_DOCUMENT):
+            routes = {'HISTORY.md': HISTORY_DOCUMENT, 'RELEASE_NOTES.md': RELEASE_DOCUMENT}
+            target = routes.get(url.toString())
+            if target is not None:
+                self.display_document(target)
+                return
         if url.scheme().lower() == 'https' and url.host():
             if not QDesktopServices.openUrl(url):
                 self.setToolTip(tx('无法打开系统浏览器，请复制链接后手动打开：')+url.toString())
@@ -119,7 +126,7 @@ class OfflineBrowser(QTextBrowser):
         language=QApplication.instance().language_manager.name
         if relative=='THIRD_PARTY_NOTICES.md':
             relative='docs/about/COMPONENTS_EN.md' if language=='en_US' else 'docs/about/COMPONENTS.md'
-        if language=='en_US' and relative in (HELP_DOCUMENT,RELEASE_DOCUMENT,LEGAL_DOCUMENT):
+        if language=='en_US' and relative in (HELP_DOCUMENT,RELEASE_DOCUMENT,HISTORY_DOCUMENT,LEGAL_DOCUMENT):
             relative=relative.replace('.md','_EN.md')
         try:
             text = read_document(relative)

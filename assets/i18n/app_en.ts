@@ -3494,6 +3494,14 @@ Click a link to open your default browser; a network connection is used only whe
       <source>导入将替换当前候选输入并清除检查结果，是否继续？</source>
       <translation>Import will replace the current candidate input and clear check results. Continue?</translation>
     </message>
+    <message>
+      <source>查看上一个候选详情</source>
+      <translation>Previous candidate details</translation>
+    </message>
+    <message>
+      <source>查看下一个候选详情</source>
+      <translation>Next candidate details</translation>
+    </message>
   </context>
   <context>
     <name>Export</name>

@@ -4800,6 +4800,24 @@
     },
     {
       "context": "App",
+      "source": "查看上一个候选详情",
+      "source_sha256": "52adb087ed65b2db58063abe4353710d27e8747f6c1b357c413c19614dcd348d",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "查看下一个候选详情",
+      "source_sha256": "80ce7576a2c63dc278fcbaa3abe581014002fe5431bcf62385bccd5018f80139",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "查看候选详情：冲突原始行、空闲与占用范围及 CIDR",
       "source_sha256": "8498b46e3d2cb7e22f7fddaf3cac34abd3fd81d0d8c30f9467892de34f7f6860",
       "protected_tokens": [],
