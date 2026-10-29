@@ -16,10 +16,6 @@ Examples: [Candidate Details Guide](docs/BATCH_DETAILS_EN.md).
 
 [Update History](docs/HISTORY_EN.md)
 
-![Candidate details with continuous navigation](docs/screenshots/batch_range_en_US_light.png)
-
-![English candidate overlap sources](docs/screenshots/batch_overlap_en_US_light.png)
-
 ## 📖 Overview
 
 IPv6SubnetCalculator is an offline IPv6 subnet calculator for Windows. It analyzes network ranges, divides subnets, identifies address usage, and provides Calculation, Results, Address Tools, and Subnet List tabs for subnet operations and address/network analysis.
