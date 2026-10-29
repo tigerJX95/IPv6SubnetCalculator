@@ -59,7 +59,7 @@ class BatchDetailTests(unittest.TestCase):
         for language in ('zh_CN','en_US'):
             self.app.language_manager.apply(language,persist=False)
             p.detail_index.setValue(1);d=p.open_detail()
-            d.panel.copy();self.assertEqual(self.app.clipboard().text(),display(d.panel.result.as_text()))
+            d.panel.copy();self.assertEqual(self.app.clipboard().text(),display(d.panel.full_report()))
             d.panel.category.setCurrentIndex(1);self.assertEqual(d.panel.cidr_output.as_text(),'::/127\n::3/128')
             d.panel.copy_cidrs();self.assertEqual(self.app.clipboard().text(),'::/127\n::3/128')
             with patch('ui.list_output_controller.QFileDialog.getSaveFileName',return_value=(str(self.path),'')):

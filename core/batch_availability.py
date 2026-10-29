@@ -24,8 +24,53 @@ class CandidateAvailability:
 
 
 @dataclass(frozen=True)
+class CandidateOverlap:
+    ordinal: int
+    record: object
+    intersection: object
+    relation: str
+
+
+@dataclass(frozen=True)
+class CandidateOverlapReport:
+    ordinal: int
+    matches: tuple
+
+    def as_text(self):
+        lines = [tx('候选间重叠详情'),
+                 tx('当前候选序号：{0:,}；重叠候选：{1:,} 条', self.ordinal, len(self.matches)),
+                 tx('基于本次全部候选，包含当前浏览范围之外的候选；此处不是基准清单占用，也不表示已经分配。'),
+                 tx('各条交集可能重复覆盖，重叠地址数不能直接相加。')]
+        labels = {'equal': tx('相同网段'), 'contains': tx('当前候选包含此项'),
+                  'contained': tx('此项包含当前候选')}
+        if not self.matches:
+            lines.append(tx('没有与其他候选重叠。'))
+        for match in self.matches:
+            lines.extend(['', tx('候选序号：{0:,}；原始第 {1:,} 行', match.ordinal, match.record.line),
+                          tx('输入：{0}；所属网段：{1}', match.record.original, match.record.network),
+                          tx('关系：{0}；交集 CIDR：{1}；重叠地址：{2:,}', labels[match.relation],
+                             match.intersection, match.intersection.num_addresses)])
+        return jt('\n', lines)
+
+
+@dataclass(frozen=True)
 class BatchAvailability:
     entries: tuple
+
+    def candidate_overlaps(self, ordinal):
+        """Analyze one candidate on demand, without retaining an all-pairs matrix."""
+        if type(ordinal) is not int or not 1 <= ordinal <= len(self.entries):
+            raise ValueError('Invalid candidate ordinal')
+        network = self.entries[ordinal-1].record.network
+        matches = []
+        for index, entry in enumerate(self.entries, 1):
+            other = entry.record.network
+            if index == ordinal or not network.overlaps(other):
+                continue
+            intersection = network if network.prefixlen >= other.prefixlen else other
+            relation = 'equal' if network == other else ('contains' if network.prefixlen < other.prefixlen else 'contained')
+            matches.append(CandidateOverlap(index, entry.record, intersection, relation))
+        return CandidateOverlapReport(ordinal, tuple(matches))
 
     def candidate_ordinals(self, category):
         """Original one-based positions, including duplicate candidates, in input order."""
@@ -44,6 +89,29 @@ class BatchAvailability:
         # Output whole candidates, not their free/occupied fragments. Keep first-input order.
         networks = tuple(dict.fromkeys(self.entries[i-1].record.network for i in self.candidate_ordinals(category)))
         return CidrOutput(networks, len(networks))
+
+    def range_as_text(self, category):
+        """A complete report of selected records, preserving original candidate identities."""
+        ordinals = self.candidate_ordinals(category)
+        if not ordinals:
+            raise ValueError('Cannot output an empty candidate range')
+        labels = {'all_candidates': tx('全部候选'), 'free_candidates': tx('全部空闲'),
+                  'partial_candidates': tx('部分占用'), 'occupied_candidates': tx('全部占用'),
+                  'conflicting_candidates': tx('存在占用冲突')}
+        lines = [tx('IPv6 批量候选范围报告'), tx('浏览范围：{0}', labels[category]),
+                 tx('匹配候选：{0:,} 条；原始总数：{1:,} 条', len(ordinals), len(self.entries)),
+                 tx('候选序号保持原始输入顺序；重复项和物理行号保留。'),
+                 tx('每条候选独立对照当前占用清单，不会互相预留；候选之间可能重叠，不能直接视为可同时分配。'),
+                 tx('地址数量逐条统计，重叠候选不能相加。全部空闲仅表示未被基准清单覆盖，不证明实际可部署。'),
+                 tx('重叠候选记录数基于本次全部候选，不随浏览范围重新计算。')]
+        for ordinal in ordinals:
+            entry = self.entries[ordinal-1]
+            record = entry.record
+            lines.extend(['', tx('候选序号：{0:,}；原始第 {1:,} 行', ordinal, record.line),
+                          tx('输入：{0}；所属网段：{1}；可用性：{2}', record.original, record.network, entry.status),
+                          tx('占用地址：{0:,}；空闲地址：{1:,}；重叠候选记录：{2:,}；主机位规范化：{3}',
+                             entry.occupied, entry.available, entry.overlaps, tx('是') if record.normalized else tx('否'))])
+        return jt('\n', lines)
 
     def as_text(self):
         free = sum(not e.occupied for e in self.entries)

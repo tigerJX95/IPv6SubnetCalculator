@@ -500,6 +500,15 @@
     },
     {
       "context": "App",
+      "source": "IPv6 批量候选范围报告",
+      "source_sha256": "7a76e79038c3bbfa433294f26fbfaeec4b419b99c36d2e2e77c99f86beb8a012",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "IPv6 批量网段可用性报告",
       "source_sha256": "3d1f7e64c78cb2ea7bd2e205f185a1609986d31e163cba318e2c2b7eb834c364",
       "protected_tokens": [],
@@ -1122,6 +1131,15 @@
     },
     {
       "context": "App",
+      "source": "使用本次批量检查快照；分别展示基准占用和候选间重叠，不自动预留地址。",
+      "source_sha256": "2c862434dce5fbcb7e4a390e9eb196824d9910ea92bb6cd503a01467e93269dd",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "使用本次批量检查的同一基准快照；只查看当前候选，不计算候选之间的预留。",
       "source_sha256": "4624665d135875e41944b78621230a67e1d411c4583102d131bffc38b9b477d6",
       "protected_tokens": [],
@@ -1248,8 +1266,35 @@
     },
     {
       "context": "App",
+      "source": "保存完整候选详情为 TXT：基准可用性与候选间重叠来源",
+      "source_sha256": "30df397dae16a8f3b2d29c9125caf4a93c3408a5524cc34ec629aa36bc032df7",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "保存建议 CIDR 为 TXT",
       "source_sha256": "e8950dce148496a94c360bc0a1988a2fc08a7aab9c5c9b93cf3ddd57619a5fbf",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "保存当前范围内全部匹配候选的报告为 TXT",
+      "source_sha256": "1d57b19af6cb0b90f95f1548604466857a13d9afb1c8f6abc153aacd14590d65",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "保存当前范围报告为 TXT",
+      "source_sha256": "7cd6891257704b29897289009588584622deed998fbe3ddc6c3ba6a37962b7ed",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -1530,6 +1575,15 @@
     },
     {
       "context": "App",
+      "source": "候选序号保持原始输入顺序；重复项和物理行号保留。",
+      "source_sha256": "a4da96655eeba25e21cb7bb20dc565577d06f2c4100e78b7fe09e0c4e0db412c",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "候选序号须为 1～{0:,} 的整数。",
       "source_sha256": "78a7514784f3e2ce558aee300987d258a9f0d0b1fd2f7d1b91f204005311304d",
       "protected_tokens": [],
@@ -1541,6 +1595,15 @@
       "context": "App",
       "source": "候选序号（按输入顺序）",
       "source_sha256": "16e595ba171e5a0d2a58672fd31212e67ccc73b50f92b8c8735f6c65dddad203",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "候选序号：{0:,}；原始第 {1:,} 行",
+      "source_sha256": "257405a216c218540be74eee62166ccb25885a6a3c7f45f0263ec3bb00b135ac",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -1586,6 +1649,15 @@
       "context": "App",
       "source": "候选详情浏览范围",
       "source_sha256": "f9b24cc65b470205e6a1fb6b74fe75ff55fa723f0faf5ab2e9278de8b1f6defb",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "候选间重叠详情",
+      "source_sha256": "e74d44cd606ebb943f53a4ac048a9803130b8450655f0c8c3da65fa826a220c5",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -1829,6 +1901,15 @@
     },
     {
       "context": "App",
+      "source": "关系：{0}；交集 CIDR：{1}；重叠地址：{2:,}",
+      "source_sha256": "435050bd30c2ded69e86a5e555671d21a8adce5a564552cf478d63dcedd74e1c",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "关闭",
       "source_sha256": "3fd47edce45b3603d4192f61dbf3e51162589b0951042a18d244132ac92e7bb7",
       "protected_tokens": [],
@@ -1979,6 +2060,15 @@
       "context": "App",
       "source": "匹配 {0:,} / 总计 {1:,}",
       "source_sha256": "7aaf542271f580bdb2a6b7a2fd145263bfa13329aef57a046f1ed524b8f430bf",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "匹配候选：{0:,} 条；原始总数：{1:,} 条",
+      "source_sha256": "fa965fc7a460d0186d4fa48581c3918cf66ef6299bc70c65e4d0c4e48cb17207",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -2307,6 +2397,15 @@
     },
     {
       "context": "App",
+      "source": "各条交集可能重复覆盖，重叠地址数不能直接相加。",
+      "source_sha256": "48e7e7ebf0ae399fd7f64cc3a930f05d18db947e58c950dd3fa5cf79a357ed8c",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "各行是同一空闲空间的不同划分方式，容量不能跨行相加。",
       "source_sha256": "e1bdc7fb27477a0f5d418051a379f8497eadcfbd213715982b31bdad17b138e0",
       "protected_tokens": [],
@@ -2496,6 +2595,15 @@
     },
     {
       "context": "App",
+      "source": "基于本次全部候选，包含当前浏览范围之外的候选；此处不是基准清单占用，也不表示已经分配。",
+      "source_sha256": "729199ee320dbb28aec7f86b2661de35ff2d2fa2224dec3b1e73116bf3b13e67",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "基准测试地址",
       "source_sha256": "2a56bba87e7ad6d316b06fced89f2091691dab176988bad76d385bab36c97e0e",
       "protected_tokens": [],
@@ -2658,6 +2766,15 @@
     },
     {
       "context": "App",
+      "source": "复制完整候选详情：基准可用性与候选间重叠来源",
+      "source_sha256": "6ff1ca9bb9ff4ef688a4c56635658c50ac1098039c89b6ba087688cc4e578a57",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "复制完整关系报告",
       "source_sha256": "ad9e30ccde891179393bebf5c036ee513e6d18099d4b69a1a63b624f1499ed6a",
       "protected_tokens": [],
@@ -2687,6 +2804,33 @@
       "context": "App",
       "source": "复制当前格式",
       "source_sha256": "95b1b3b223b3407bedc45eae43a0fa03afc276a0b8cb990980f38639d1edd16c",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "复制当前范围内全部匹配候选的报告",
+      "source_sha256": "226e3c21a23b3bf855a95804d96dd02232081b879e3fd7b151f25fe0858bfe14",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "复制当前范围报告",
+      "source_sha256": "2829e1177a752c85ef34b62975045848773a4c6b23d3b07357a0c47f42c463d8",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "复制或保存当前浏览范围内全部匹配候选的报告，保留原始序号、行号和重复项。",
+      "source_sha256": "772e3f83c196c107b27cf286139c7d0efb84f2440c67bb4bd42fb6a288b7bfba",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -3697,6 +3841,24 @@
     },
     {
       "context": "App",
+      "source": "当前候选包含此项",
+      "source_sha256": "8c839d989596f4e0aaf1aae1c641b9aa0778868ff0c6048783f7c99e95ec3556",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "当前候选序号：{0:,}；重叠候选：{1:,} 条",
+      "source_sha256": "5892119df7ded3d116011f75a27a24cd6dee759997a2e59376f98fdcf2820ea6",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "当前子网数量超过 Excel 容量限制，只能导出 TXT（.txt）。",
       "source_sha256": "75139e356edd4a3e8e3609ab029e423db1087d6d23ea8f2324ca773750b86fdf",
       "protected_tokens": [],
@@ -3724,6 +3886,15 @@
     },
     {
       "context": "App",
+      "source": "当前浏览范围报告",
+      "source_sha256": "db546c2134fc9b9e394988dca27a1cf46093c2e5fefd18e65afc11a9b897556a",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "当前浏览范围没有匹配的候选。",
       "source_sha256": "28e256078bd64e871f17b2ae04d3a979e3caadca2e6923f100e383273936b144",
       "protected_tokens": [],
@@ -3735,6 +3906,15 @@
       "context": "App",
       "source": "当前清单中没有包含此地址的网段。",
       "source_sha256": "456a9745bf65bc78a8cd09d84888160a6913aa79618176898c59e0892d929c15",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "当前范围报告已复制。",
+      "source_sha256": "2e695900b44c15217414987dc08f7ee3d8ccdf9eae5a380737daaa5f1db45b33",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -5189,6 +5369,15 @@
     },
     {
       "context": "App",
+      "source": "此项包含当前候选",
+      "source_sha256": "7cce2b69bbf2c36c6ac149c5e93f7d31df1f9db7e1f898ea5a247538058ead31",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "每个子网地址数",
       "source_sha256": "1af14f85df651d6495a10f264b1539311ea644b37fdfb326d040a6d51c79e15c",
       "protected_tokens": [],
@@ -5283,6 +5472,15 @@
     },
     {
       "context": "App",
+      "source": "没有与其他候选重叠。",
+      "source_sha256": "e565a1e86a27e3fd72be4c071f2e03f7e85e7437854f5213c7df802e868b2c8c",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "没有访问权限，或文件正被其他程序占用。",
       "source_sha256": "5ace51306a016ac177fedbf927c4c7e58a24d3fa0ca8b7e6b9f1270896acc7f0",
       "protected_tokens": [],
@@ -5321,6 +5519,15 @@
       "context": "App",
       "source": "浏览范围：",
       "source_sha256": "1e15dd56d59afceeb2e3569e698cc6ef229372b682a496a9e5e59cc4d1842c0b",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "浏览范围：{0}",
+      "source_sha256": "5237fad84b6414f6f97eaa3a25a8b1562e55c4a338ec9854c24862818b6bd8ab",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -5800,6 +6007,15 @@
     },
     {
       "context": "App",
+      "source": "相同网段",
+      "source_sha256": "799b9257f20d1fd6d6348b709d7cd72781e774af77244efd857c2a97d14dd3ec",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "相邻不代表一定能合并为一个 CIDR；本报告不证明地址分配权或实际可达性。",
       "source_sha256": "11e12de2fbc884617069eb2e7bb461df3aee3834043e2e73c1bef71df016233d",
       "protected_tokens": [],
@@ -6142,6 +6358,15 @@
     },
     {
       "context": "App",
+      "source": "筛选详情浏览及范围报告，保留原始候选序号和重复项；不改变完整批量报告或 CIDR 输出类别。",
+      "source_sha256": "f13f22ebedcd33201e994e279c9bac134be37322526b50e64e3946e3361c028f",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "类型",
       "source_sha256": "ba40014ff496f64e755492a5c6243cc0222a5d3e4b795ecfea7c9bed809adaab",
       "protected_tokens": [],
@@ -6468,6 +6693,24 @@
       "context": "App",
       "source": "范围 CIDR 清单已复制。",
       "source_sha256": "4f242a321f54c6dc92844611419e0284777050bd01848933a50b21626b028931",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "范围报告",
+      "source_sha256": "f1c6433ba47279e5f473317177b4ac33f06ce17ef49889ea3ebc11be5edeaa92",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "范围报告 ▾",
+      "source_sha256": "1e84e65155a6ac10568fbd7ca3ff8e330f483cf345180990f7b296969683e5ac",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -7375,6 +7618,24 @@
     },
     {
       "context": "App",
+      "source": "输入：{0}；所属网段：{1}",
+      "source_sha256": "e472967b0fb0c93a28df1ff4bd3eb45eba0ddb13368d461033c5727c66caf7bf",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "输入：{0}；所属网段：{1}；可用性：{2}",
+      "source_sha256": "ad90c3b034056c9ec40716345d390f7b46d21441796c329dc987634a9c98fc6c",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "输出 CIDR 类别",
       "source_sha256": "b6e6f57d0a4d937f78ad75b93027f62298f9497b020e7d64fe3658efd3bec0a5",
       "protected_tokens": [],
@@ -7512,6 +7773,15 @@
       "context": "App",
       "source": "部署提示：{0}",
       "source_sha256": "647451cd4c7130afc943ddd80466e501bd841a025fddcfb3ca5f065fc3221999",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "重叠候选记录数基于本次全部候选，不随浏览范围重新计算。",
+      "source_sha256": "66c4ae133ffc03b0649b19a0d14122fa86efa220996920a15d3f91329532dd6c",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,

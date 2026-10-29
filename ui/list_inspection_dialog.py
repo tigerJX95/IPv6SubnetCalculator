@@ -3,7 +3,7 @@
 """Read-only list snapshot inspection; shares existing conflict-safe text output."""
 from pathlib import Path
 from PyQt6.QtCore import Qt, QSignalBlocker
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QSpinBox
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QSpinBox, QMenu
 from core.localized_text import text as tx
 from core.ipv6_core import InputError
 from core.list_inspection import lookup_address, compare_coverage
@@ -13,7 +13,7 @@ from services.subnet_list_service import load_subnet_list
 from services.error_messages import describe_error
 from ui.standard_dialogs import QFileDialog, QMessageBox
 from core.subnet_list import validate_list_text
-from ui.localized_widgets import QDialog, QLabel, QLineEdit, QPlainTextEdit, QTextBrowser, QTabWidget, QComboBox
+from ui.localized_widgets import QDialog, QLabel, QLineEdit, QPlainTextEdit, QTextBrowser, QTabWidget, QComboBox, QToolButton, LanguageAction
 from ui.widgets import IconButton
 from ui.fonts import data_font
 from ui.input_feedback import bind_input, mark_invalid, clear_invalid
@@ -324,6 +324,46 @@ class BatchAvailabilityPanel(InspectionPanel):
                                              lambda: self.result is result)
 
 
+class BatchCandidatePanel(AvailabilityPanel):
+    """Combine baseline availability and independent candidate overlap evidence."""
+    def __init__(self, page, source, batch_result):
+        self.batch_result = batch_result
+        self.ordinal = None
+        self.overlap_result = None
+        super().__init__(page, source)
+        self.copy_button.setToolTip(tx('复制完整候选详情：基准可用性与候选间重叠来源'))
+        self.save_button.setToolTip(tx('保存完整候选详情为 TXT：基准可用性与候选间重叠来源'))
+
+    def invalidate(self):
+        self.overlap_result = None
+        super().invalidate()
+
+    def run(self):
+        if not super().run():
+            return False
+        self.overlap_result = self.batch_result.candidate_overlaps(self.ordinal)
+        self.report.setPlainText(self.full_report())
+        return True
+
+    def full_report(self):
+        if self.result is None or self.overlap_result is None:
+            return None
+        return self.result.as_text() + '\n\n' + self.overlap_result.as_text()
+
+    def copy(self):
+        report = self.full_report()
+        if report is not None:
+            self.page.clipboard.copy_text(report, tx('报告已复制。'), self)
+
+    def save(self):
+        report = self.full_report()
+        if report is None:
+            return
+        result, overlaps = self.result, self.overlap_result
+        self.page.output_controller._save('IPv6_NetworkAvailability.txt', report,
+            lambda: self.result is result and self.overlap_result is overlaps)
+
+
 class BatchCandidateDialog(QDialog):
     """One on-demand detail view; never precompute every candidate's conflicts."""
     def __init__(self, page, source, record, ordinal, parent):
@@ -335,13 +375,14 @@ class BatchCandidateDialog(QDialog):
         self.owner = parent
         self.batch_result = parent.result
         self._closed = False
+        self._range_revision = 0
         self.ordinals = self.batch_result.candidate_ordinals('all_candidates')
         self.ordinal = ordinal
         self.heading = QLabel('')
         self.heading.setWordWrap(True)
         layout.addWidget(self.heading)
-        self.panel = AvailabilityPanel(page, source)
-        self.panel.hint.setText(tx('使用本次批量检查的同一基准快照；只查看当前候选，不计算候选之间的预留。'))
+        self.panel = BatchCandidatePanel(page, source, self.batch_result)
+        self.panel.hint.setText(tx('使用本次批量检查快照；分别展示基准占用和候选间重叠，不自动预留地址。'))
         self.panel.input.setReadOnly(True)
         self.panel.run_button.hide()
         layout.addWidget(self.panel, 1)
@@ -349,7 +390,7 @@ class BatchCandidateDialog(QDialog):
         filter_row.addWidget(QLabel(tx('浏览范围：')))
         self.browse_filter = QComboBox()
         self.browse_filter.setAccessibleName(tx('候选详情浏览范围'))
-        self.browse_filter.setToolTip(tx('仅筛选详情浏览，保留原始候选序号和重复项；不改变批量报告或 CIDR 输出类别。'))
+        self.browse_filter.setToolTip(tx('筛选详情浏览及范围报告，保留原始候选序号和重复项；不改变完整批量报告或 CIDR 输出类别。'))
         for label, key in [(tx('全部候选'), 'all_candidates'),
                            (tx('全部空闲'), 'free_candidates'),
                            (tx('部分占用'), 'partial_candidates'),
@@ -357,6 +398,26 @@ class BatchCandidateDialog(QDialog):
                            (tx('存在占用冲突'), 'conflicting_candidates')]:
             self.browse_filter.addItem(label, key)
         filter_row.addWidget(self.browse_filter, 1)
+        self.range_report_button = QToolButton()
+        self.range_report_button.setText(tx('范围报告 ▾'))
+        self.range_report_button.setCursor(Qt.CursorShape.PointingHandCursor)
+        self.range_report_button.setAccessibleName(tx('当前浏览范围报告'))
+        self.range_report_button.setToolTip(tx('复制或保存当前浏览范围内全部匹配候选的报告，保留原始序号、行号和重复项。'))
+        range_menu = QMenu(self.range_report_button)
+        range_menu.setToolTipsVisible(True)
+        self.copy_range_action = LanguageAction(range_menu)
+        self.copy_range_action.setText(tx('复制当前范围报告'))
+        self.copy_range_action.setToolTip(tx('复制当前范围内全部匹配候选的报告'))
+        self.copy_range_action.triggered.connect(self.copy_range_report)
+        self.save_range_action = LanguageAction(range_menu)
+        self.save_range_action.setText(tx('保存当前范围报告为 TXT'))
+        self.save_range_action.setToolTip(tx('保存当前范围内全部匹配候选的报告为 TXT'))
+        self.save_range_action.triggered.connect(self.save_range_report)
+        range_menu.addAction(self.copy_range_action)
+        range_menu.addAction(self.save_range_action)
+        self.range_report_button.setMenu(range_menu)
+        self.range_report_button.setPopupMode(QToolButton.ToolButtonPopupMode.InstantPopup)
+        filter_row.addWidget(self.range_report_button)
         self.filter_status = QLabel('')
         filter_row.addWidget(self.filter_status)
         layout.addLayout(filter_row)
@@ -399,6 +460,7 @@ class BatchCandidateDialog(QDialog):
     def apply_browse_filter(self, *_args):
         if self._closed or self.owner.result is not self.batch_result:
             return
+        self._range_revision += 1
         self.ordinals = self.batch_result.candidate_ordinals(self.browse_filter.currentData())
         # A filter change invalidates pending saves even if the current candidate still matches.
         self.panel.invalidate()
@@ -420,6 +482,28 @@ class BatchCandidateDialog(QDialog):
     def refresh_counts(self):
         self.filter_status.setText(tx('匹配 {0:,} / 总计 {1:,}', len(self.ordinals), len(self.batch_result.entries)))
         self.count_label.setText(tx('共 {0:,} 项', len(self.ordinals)))
+        available = self.range_current()
+        self.range_report_button.setEnabled(available)
+        self.copy_range_action.setEnabled(available)
+        self.save_range_action.setEnabled(available)
+
+    def range_current(self):
+        return (not self._closed and self.owner.result is self.batch_result
+                and bool(self.ordinals) and not self.owner.page.service.busy)
+
+    def copy_range_report(self):
+        if self.range_current():
+            self.owner.page.clipboard.copy_text(self.batch_result.range_as_text(self.browse_filter.currentData()),
+                                                tx('当前范围报告已复制。'), self)
+
+    def save_range_report(self):
+        if not self.range_current():
+            return
+        category, revision = self.browse_filter.currentData(), self._range_revision
+        self.owner.page.output_controller._save('IPv6_BatchRange_'+category+'.txt',
+            self.batch_result.range_as_text(category),
+            lambda: self.range_current() and self._range_revision == revision
+            and self.browse_filter.currentData() == category)
 
     def show_candidate(self, record, ordinal):
         # Invalidate even for duplicate input, so pending saves cannot use old details.
@@ -427,6 +511,7 @@ class BatchCandidateDialog(QDialog):
         self.panel.invalidate()
         self.ordinal = ordinal
         self.heading.setText(tx('候选序号：{0:,}；原始第 {1:,} 行；所属网段：{2}', ordinal, record.line, record.network))
+        self.panel.ordinal = ordinal
         self.panel.input.setText(record.original)
         self.panel.category.setCurrentIndex(category)
         self.panel.run()
@@ -482,11 +567,13 @@ class BatchCandidateDialog(QDialog):
     def done(self, code):
         self._closed = True
         self.panel.invalidate()
+        self.refresh_counts()
         super().done(code)
 
     def closeEvent(self, event):
         self._closed = True
         self.panel.invalidate()
+        self.refresh_counts()
         super().closeEvent(event)
 
 

@@ -1,4 +1,13 @@
-## V1.21 新增操作验收 / New operation checks
+## V1.22 新增操作验收 / New operation checks
+
+
+
+1. 按四项示例选择部分占用，使用范围报告菜单复制和 TXT 保存；核对序号 1、3、重复项、原始行及精确计数。/ Copy/save the partial filter in the four-item example; verify original items 1/3, duplicates, source lines and exact counts.
+2. 保存期间切换范围、切换后切回、关闭窗口均应拒绝旧输出；同范围前后浏览允许保存，文件采用实际保存时语言。/ Filter changes, away/back and closure reject old saves; within-filter navigation stays valid and output follows save-time language.
+3. 空范围菜单禁用；中英文浅深主题和最小窗口下，确认 Report 菜单和底部导航完整。/ Empty filters disable Report; verify menu/navigation in both languages/themes at minimum size.
+4. 使用四项重叠来源示例，核对重复／包含／相邻、原始行号、交集与地址数；复制及保存完整详情包含两部分，英文模式无中文界面残留。/ Verify the four-candidate overlap example, relationships, source lines, exact intersections/counts and complete bilingual copy/save output.
+
+## 新增操作验收 / New operation checks
 
 1. 用说明中的四项候选逐个切换五种范围，核对原始序号、重复项、匹配总数及首末边界；不在范围内的跳转保留报告。/ Switch all five filters with the four documented candidates; verify indices, duplicates, counts, boundaries and rejected nonmatching jumps.
 2. 选择没有匹配项的范围，确认旧详情和输出清空；切回全部候选可恢复。保存对话框期间切换范围应拒绝旧输出。/ Empty filters clear details/output and recover on All; switching during saving rejects old output.

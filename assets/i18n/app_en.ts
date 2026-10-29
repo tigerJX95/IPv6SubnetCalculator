@@ -3570,6 +3570,126 @@ Click a link to open your default browser; a network connection is used only whe
       <source>跳转</source>
       <translation>Go</translation>
     </message>
+    <message>
+      <source>IPv6 批量候选范围报告</source>
+      <translation>IPv6 Batch Candidate Range Report</translation>
+    </message>
+    <message>
+      <source>浏览范围：{0}</source>
+      <translation>Browse filter: {0}</translation>
+    </message>
+    <message>
+      <source>匹配候选：{0:,} 条；原始总数：{1:,} 条</source>
+      <translation>Matching candidates: {0:,}; original total: {1:,}</translation>
+    </message>
+    <message>
+      <source>候选序号保持原始输入顺序；重复项和物理行号保留。</source>
+      <translation>Candidate numbers retain original input order; duplicates and physical line numbers are preserved.</translation>
+    </message>
+    <message>
+      <source>重叠候选记录数基于本次全部候选，不随浏览范围重新计算。</source>
+      <translation>Candidate overlap counts use all original candidates and are not recalculated for the browsing filter.</translation>
+    </message>
+    <message>
+      <source>候选序号：{0:,}；原始第 {1:,} 行</source>
+      <translation>Candidate number: {0:,}; original line: {1:,}</translation>
+    </message>
+    <message>
+      <source>输入：{0}；所属网段：{1}；可用性：{2}</source>
+      <translation>Input: {0}; containing network: {1}; availability: {2}</translation>
+    </message>
+    <message>
+      <source>范围报告</source>
+      <translation>Report</translation>
+    </message>
+    <message>
+      <source>当前浏览范围报告</source>
+      <translation>Current browsing range report</translation>
+    </message>
+    <message>
+      <source>复制或保存当前浏览范围内全部匹配候选的报告，保留原始序号、行号和重复项。</source>
+      <translation>Copy or save a report of all candidates matching the current browsing filter, retaining original numbers, line numbers and duplicates.</translation>
+    </message>
+    <message>
+      <source>复制当前范围报告</source>
+      <translation>Copy current range report</translation>
+    </message>
+    <message>
+      <source>复制当前范围内全部匹配候选的报告</source>
+      <translation>Copy a report of all candidates in the current browsing range</translation>
+    </message>
+    <message>
+      <source>保存当前范围报告为 TXT</source>
+      <translation>Save current range report as TXT</translation>
+    </message>
+    <message>
+      <source>保存当前范围内全部匹配候选的报告为 TXT</source>
+      <translation>Save a report of all candidates in the current browsing range as TXT</translation>
+    </message>
+    <message>
+      <source>当前范围报告已复制。</source>
+      <translation>Current range report copied.</translation>
+    </message>
+    <message>
+      <source>筛选详情浏览及范围报告，保留原始候选序号和重复项；不改变完整批量报告或 CIDR 输出类别。</source>
+      <translation>Filters detail browsing and range reports, retaining original candidate numbers and duplicates; the full batch report and CIDR output category are unaffected.</translation>
+    </message>
+    <message>
+      <source>范围报告 ▾</source>
+      <translation>Report ▾</translation>
+    </message>
+    <message>
+      <source>候选间重叠详情</source>
+      <translation>Candidate Overlap Details</translation>
+    </message>
+    <message>
+      <source>当前候选序号：{0:,}；重叠候选：{1:,} 条</source>
+      <translation>Current candidate number: {0:,}; overlapping candidates: {1:,}</translation>
+    </message>
+    <message>
+      <source>基于本次全部候选，包含当前浏览范围之外的候选；此处不是基准清单占用，也不表示已经分配。</source>
+      <translation>Uses all original candidates, including those outside the browsing filter; these are candidate overlaps, not baseline occupancy or assigned networks.</translation>
+    </message>
+    <message>
+      <source>相同网段</source>
+      <translation>Same network</translation>
+    </message>
+    <message>
+      <source>当前候选包含此项</source>
+      <translation>Current candidate contains this entry</translation>
+    </message>
+    <message>
+      <source>此项包含当前候选</source>
+      <translation>This entry contains the current candidate</translation>
+    </message>
+    <message>
+      <source>没有与其他候选重叠。</source>
+      <translation>No overlap with other candidates.</translation>
+    </message>
+    <message>
+      <source>输入：{0}；所属网段：{1}</source>
+      <translation>Input: {0}; containing network: {1}</translation>
+    </message>
+    <message>
+      <source>关系：{0}；交集 CIDR：{1}；重叠地址：{2:,}</source>
+      <translation>Relationship: {0}; intersection CIDR: {1}; overlapping addresses: {2:,}</translation>
+    </message>
+    <message>
+      <source>各条交集可能重复覆盖，重叠地址数不能直接相加。</source>
+      <translation>Intersections may cover the same addresses; overlapping address counts must not be added directly.</translation>
+    </message>
+    <message>
+      <source>复制完整候选详情：基准可用性与候选间重叠来源</source>
+      <translation>Copy complete candidate details: baseline availability and candidate overlap sources</translation>
+    </message>
+    <message>
+      <source>保存完整候选详情为 TXT：基准可用性与候选间重叠来源</source>
+      <translation>Save complete candidate details as TXT: baseline availability and candidate overlap sources</translation>
+    </message>
+    <message>
+      <source>使用本次批量检查快照；分别展示基准占用和候选间重叠，不自动预留地址。</source>
+      <translation>Uses this batch snapshot; shows baseline occupancy and candidate overlaps separately, without reserving addresses.</translation>
+    </message>
   </context>
   <context>
     <name>Export</name>

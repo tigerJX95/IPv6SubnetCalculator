@@ -1,18 +1,24 @@
 [简体中文](README.md) | **English**
 
-# 🌐 IPv6 Subnet Calculator V1.21
+# 🌐 IPv6 Subnet Calculator V1.22
 
-## V1.21 Browse Candidate Details by Status
+## V1.22 Range Reports and Candidate Overlap Details
 
-- Candidate details add a Browse filter: all candidates, entirely free, partly occupied, fully occupied or any occupied overlap, with navigation between matching candidates.
-- Retains original candidate numbers, physical source lines and duplicates. Bottom navigation and index jumps follow the filter; matched and total counts are shown.
-- Empty filters clear old details and disable output. Changing the filter restores browsing and rejects pending saves of old details.
-- The jump button adds a visible “Go” label; both languages, themes and the minimum window size are supported.
-- Home pages and About show V1.21 only, with previous releases under the Update History text link; user instructions and actual interface screenshots are updated.
+- Candidate details add a Report menu to copy or save a TXT report of every candidate matching the current browsing filter.
+- Adds candidate overlap sources: other original candidate numbers and source lines, equality/containment relationships, intersection CIDRs and exact address counts.
+- Overlap sources are computed on demand against all original candidates, including entries outside the browsing filter. Complete detail reports include them in copy/TXT output; free/occupied CIDRs still use the baseline list.
+- Reports retain original candidate numbers, physical line numbers, duplicates, input and normalized networks, availability and exact address counts. Candidate overlap counts retain the statistics for all original candidates.
+- Empty ranges disable report output. Filter changes, candidate edits or closing the window cancel pending old-report saves, including changing away and back to the same filter.
+- Navigating within the same range keeps the complete range report valid. Reports use the interface language at actual save time, with overwrite confirmation and save conflict protection.
+- Updates both languages, user instructions and actual interface screenshots. Home pages and About show only current notes; earlier releases use the Update History text link.
+
+Examples: [Candidate Details Guide](docs/BATCH_DETAILS_EN.md).
 
 [Update History](docs/HISTORY_EN.md)
 
-![Candidate details with continuous navigation](docs/screenshots/batch_filter_en_US_light.png)
+![Candidate details with continuous navigation](docs/screenshots/batch_range_en_US_light.png)
+
+![English candidate overlap sources](docs/screenshots/batch_overlap_en_US_light.png)
 
 ## 📖 Overview
 
@@ -112,7 +118,7 @@ IPv6SubnetCalculator is an offline IPv6 subnet calculator for Windows. It analyz
 
 ## 📦 Download and Usage
 
-Download `IPv6SubnetCalculator_V1.21.exe` directly from Assets on GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest). Run the downloaded executable; no additional runtime setup is required. Enter a network and target prefix, then click the calculation icon; the application switches to Results when complete.
+Download `IPv6SubnetCalculator_V1.22.exe` directly from Assets on GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest). Run the downloaded executable; no additional runtime setup is required. Enter a network and target prefix, then click the calculation icon; the application switches to Results when complete.
 
 Press F1 or use the top-bar information icon for built-in help, license texts and legal notices.
 

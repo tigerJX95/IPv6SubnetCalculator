@@ -33,6 +33,7 @@ from app_info import APP_VERSION, DEFAULT_NETWORK, resource_path
 from core.ipv6_core import calculate, InputError
 from services.export_service import ExportService
 from services.build_info import current_build_info
+from services.language_service import display
 
 
 def environment_info():
@@ -313,6 +314,11 @@ class ReleaseCheck(QObject):
         self.require(detail.panel.result.occupied == ((0, 1),), 'Batch detail baseline mismatch')
         self.require(detail.panel.cidr_output.as_text() == '::2/127', 'Batch detail free CIDRs incorrect')
         detail.last_button.click()
+        self.require([m.ordinal for m in detail.panel.overlap_result.matches] == [2],
+                     'Candidate overlap details lost the duplicate source candidate')
+        self.require(detail.panel.overlap_result.matches[0].intersection.num_addresses == 4,
+                     'Candidate overlap intersection capacity is incorrect')
+        self.checks.append('candidate_overlap_sources_exact_intersections_and_original_ordinals')
         self.require(detail.ordinal == 3 and inspection.batch_availability.detail_index.value() == 3,
                      'Batch detail last navigation did not synchronize')
         self.require(not detail.last_button.isEnabled(), 'Last candidate allowed boundary navigation')
@@ -334,6 +340,14 @@ class ReleaseCheck(QObject):
         self.require(detail.ordinal == 1 and detail.panel.result is not None,
                      'Empty detail filter did not recover')
         self.checks.append('batch_candidate_detail_filter_original_ordinals_empty_recovery')
+        detail.browse_filter.setCurrentIndex(detail.browse_filter.findData('free_candidates'))
+        detail.copy_range_action.trigger()
+        self.require(self.application.clipboard().text() == display(batch.range_as_text('free_candidates')),
+                     'Filtered range report copy did not preserve all matching records')
+        detail.browse_filter.setCurrentIndex(detail.browse_filter.findData('occupied_candidates'))
+        self.require(not detail.range_report_button.isEnabled(), 'Empty range report remained enabled')
+        detail.browse_filter.setCurrentIndex(detail.browse_filter.findData('all_candidates'))
+        self.checks.append('batch_range_report_preserves_records_and_empty_output_disabled')
         inspection.batch_availability.detail_index.setValue(2)
         self.require(detail.panel.result is None, 'Changed candidate retained stale detail')
         self.checks.append('batch_candidate_details_snapshot_conflicts_and_invalidation')

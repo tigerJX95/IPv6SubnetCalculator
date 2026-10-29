@@ -30,13 +30,15 @@ Changing candidate number, editing batch input or closing inspection clears old 
 | Total count | Counts all checked candidates, including duplicates | of 3 |
 | Browse filter | Filters details by status, retaining original indices and invalidating pending saves | Partial matches original items 1 and 3 |
 | Matched / Total | Counts original records, including duplicate candidates | Matched 2 / Total 4 |
+| Report menu | Copy/save every match in the current range; disabled when empty | Partial filter reports original items 1 and 3 |
+| Candidate overlap details | Report section lists overlap sources and exact intersections across all candidates, including outside the filter | Item 1 overlaps items 2 and 3 |
 | Close/Esc | Return without changing input or the baseline | Reopen with the locate icon |
 
 ![English batch candidate entry](screenshots/batch_categories_en_US_light.png)
 
 ![English candidate details](screenshots/batch_detail_en_US_light.png)
 
-Details explain conflicts with the baseline, not conflicts between candidates or real deployment status. Candidate overlap counts remain in the batch report. Only one candidate is analyzed on demand; no all-candidate cross-product detail cache is built.
+Details show both baseline conflicts and candidate overlap sources. Candidate overlap counts also remain in the batch report. Only one candidate is analyzed on demand; no all-candidate cross-product detail cache is built.
 
 The batch CIDR output category does not filter candidate numbers in the detail selector; the detail browsing filter is independent. Choose All candidates to browse every checked entry in input order.
 
@@ -46,7 +48,7 @@ The bottom bar uses the same icon style as Subnet Results. First/Last moves to e
 
 ## Browse candidate details by status
 
-The Browse selector below the report controls detail navigation: all candidates, entirely free, partly occupied, fully occupied or any occupied overlap (partial or full). First/Previous/Next/Last moves between matching entries while preserving original candidate numbers and duplicates. Changing the filter keeps the current candidate when it still matches; otherwise it shows the first match. Matched/Total counts candidate records; the bottom count is the number matching this filter.
+The Browse selector below the report controls detail navigation and range reports: all candidates, entirely free, partly occupied, fully occupied or any occupied overlap (partial or full). First/Previous/Next/Last moves between matching entries while preserving original candidate numbers and duplicates. Changing the filter keeps the current candidate when it still matches; otherwise it shows the first match. Matched/Total counts candidate records; the bottom count is the number matching this filter.
 
 Example: baseline `::/127` and `::3/128`; candidates in order `::3/126`, `::4/126`, `::3/126`, `::/127`. Partly occupied matches original items 1 and 3: Next moves from 1 to 3. Any occupied overlap matches 1, 3 and 4.
 
@@ -55,3 +57,27 @@ The index field takes the original candidate number. Click Go or press Enter. In
 Browsing filters do not alter the baseline, candidate input, full batch report, batch CIDR output category or internal free/occupied CIDR category. Inspection still uses the baseline snapshot from when the window opened. Reopening details defaults to All candidates.
 
 ![English candidate detail status filter](screenshots/batch_filter_en_US_light.png)
+
+## Copy and save the current range report
+
+Choose Browse at the bottom of candidate details, then use Report → Copy current range report or Save current range report as TXT. The report contains all matching candidates, with original indices, physical source lines, duplicates, input, normalized networks, status, exact occupied/free address counts and overlap counts from all original candidates.
+
+Example: baseline `::/127` and `::3/128`; candidates `::3/126`, `::4/126`, `::3/126`, `::/127`. Select Partially occupied and copy the range report. It contains original items 1 and 3, keeping both duplicate records, and shows two matches out of four original candidates. All candidates outputs all four. Comments and blank lines still count toward physical source line numbers.
+
+The range report includes every match. The existing report copy/save controls above it still operate on the current single candidate. The full batch report and batch CIDR output category remain independent. Reports use the language at copy time or actual save time; original user input is preserved. Empty filters disable the menu and never create empty files.
+
+Navigation within the same range does not invalidate saving the complete range report. Changing the filter, editing candidate input or closing details during file selection or overwrite confirmation cancels the old save. Changing away and back to the same filter also cancels it. Cancellation preserves current work; overwrite confirmation and save conflict protection apply.
+
+![English range report menu](screenshots/batch_range_menu_en_US_light.png)
+
+## Inspect candidate overlap sources
+
+Open candidate details and scroll down to Candidate Overlap Details. It lists other overlapping candidates with their original numbers, physical source lines, original input, normalized networks, equality/containment relationships, intersection CIDRs and exact address counts. The current record is excluded; other duplicate records remain separate. Adjacent disjoint networks are excluded.
+
+Example candidates: `::3/126`, `::/127`, `::3/126`, `::4/126`. Item 1 normalizes to `::/126`: it contains item 2, with intersection `::/127` and two addresses; item 3 is equal, with intersection `::/126` and four addresses. Item 4 is adjacent and is not listed. Intersections may cover the same addresses and their counts must not be added directly.
+
+Sources use all candidates from the batch, including entries outside the browsing filter. Candidate overlaps and baseline occupancy are shown separately: a candidate entirely free against the baseline can still overlap another candidate. Only the current item is analyzed on demand; no all-pairs detail matrix or candidate reservations are created.
+
+The existing detail report copy/save controls include both baseline availability and candidate overlaps. Internal free/occupied CIDR controls still output fragments relative to the baseline. The Report menu outputs the selected range’s record summaries and original overlap counts. Navigation, empty filters, candidate edits and closure clear old overlap evidence and reject stale complete-report saves.
+
+![English candidate overlap sources](screenshots/batch_overlap_en_US_light.png)
