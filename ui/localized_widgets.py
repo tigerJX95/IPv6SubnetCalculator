@@ -134,7 +134,8 @@ class QRadioButton(Localized,W.QRadioButton):
 
 class QDialog(Localized,W.QDialog):pass
 class QMainWindow(Localized,W.QMainWindow):pass
-class QToolButton(Localized,W.QToolButton):pass
+class QToolButton(Localized,W.QToolButton):
+    def setText(self,value):self._bind('setText',value)
 class QTextBrowser(Localized,W.QTextBrowser):
     def setMarkdown(self,value):
         self._localized.pop('setPlainText',None)

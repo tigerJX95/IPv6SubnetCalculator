@@ -27,7 +27,8 @@ class CandidateAvailability:
 class BatchAvailability:
     entries: tuple
 
-    def cidr_output(self, category):
+    def candidate_ordinals(self, category):
+        """Original one-based positions, including duplicate candidates, in input order."""
         selectors = {
             'free_candidates': lambda e: not e.occupied,
             'partial_candidates': lambda e: bool(e.occupied and e.available),
@@ -37,8 +38,11 @@ class BatchAvailability:
         }
         if category not in selectors:
             raise ValueError('Unknown batch availability category')
+        return tuple(i for i, entry in enumerate(self.entries, 1) if selectors[category](entry))
+
+    def cidr_output(self, category):
         # Output whole candidates, not their free/occupied fragments. Keep first-input order.
-        networks = tuple(dict.fromkeys(e.record.network for e in self.entries if selectors[category](e)))
+        networks = tuple(dict.fromkeys(self.entries[i-1].record.network for i in self.candidate_ordinals(category)))
         return CidrOutput(networks, len(networks))
 
     def as_text(self):

@@ -182,3 +182,13 @@ Only ordinary files are imported. Devices and pipes are rejected; retry after wr
 The planning JSON container is limited to 7 MiB to allow JSON escaping; its imported list still has the 1 MiB UTF-8 text limit.
 
 The bottom bar uses the same icon style as Subnet Results. First/Last moves to either boundary. Enter an index from 1 through the candidate count, then press Enter or click Go. For example, `3` opens item 3; the total count appears on the right. Invalid or out-of-range input is marked without changing the report. The bar stays below the report and does not scroll with it.
+
+## Browse candidate details by status
+
+The Browse selector below the report controls detail navigation: all candidates, entirely free, partly occupied, fully occupied or any occupied overlap (partial or full). First/Previous/Next/Last moves between matching entries while preserving original candidate numbers and duplicates. Changing the filter keeps the current candidate when it still matches; otherwise it shows the first match. Matched/Total counts candidate records; the bottom count is the number matching this filter.
+
+Example: baseline `::/127` and `::3/128`; candidates in order `::3/126`, `::4/126`, `::3/126`, `::/127`. Partly occupied matches original items 1 and 3: Next moves from 1 to 3. Any occupied overlap matches 1, 3 and 4.
+
+The index field takes the original candidate number. Click Go or press Enter. In the partial filter, `3` opens item 3; `2` is rejected without changing the report. Select All candidates to reach a nonmatching entry. An empty filter clears old input/reports and disables navigation, jumps and report/CIDR output; another filter restores browsing. A filter change rejects pending saves of old details, even when the current candidate still matches.
+
+Browsing filters do not alter the baseline, candidate input, full batch report, batch CIDR output category or internal free/occupied CIDR category. Inspection still uses the baseline snapshot from when the window opened. Reopening details defaults to All candidates.

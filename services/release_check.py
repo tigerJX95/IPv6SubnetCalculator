@@ -322,6 +322,18 @@ class ReleaseCheck(QObject):
         self.require(detail.ordinal == 2 and detail.panel.input.text() == '::4/126',
                      'Batch detail index jump failed')
         detail.first_button.click()
+        detail.browse_filter.setCurrentIndex(detail.browse_filter.findData('free_candidates'))
+        self.require(detail.ordinals == (2, 3) and detail.ordinal == 2,
+                     'Filtered details lost original candidate numbers')
+        detail.next_button.click()
+        self.require(detail.ordinal == 3, 'Filtered duplicate candidate was skipped')
+        detail.browse_filter.setCurrentIndex(detail.browse_filter.findData('occupied_candidates'))
+        self.require(detail.panel.result is None and not detail.jump_button.isEnabled(),
+                     'Empty detail filter retained old output')
+        detail.browse_filter.setCurrentIndex(detail.browse_filter.findData('all_candidates'))
+        self.require(detail.ordinal == 1 and detail.panel.result is not None,
+                     'Empty detail filter did not recover')
+        self.checks.append('batch_candidate_detail_filter_original_ordinals_empty_recovery')
         inspection.batch_availability.detail_index.setValue(2)
         self.require(detail.panel.result is None, 'Changed candidate retained stale detail')
         self.checks.append('batch_candidate_details_snapshot_conflicts_and_invalidation')

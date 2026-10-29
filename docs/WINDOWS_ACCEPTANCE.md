@@ -1,4 +1,10 @@
-## V1.20 新增操作验收 / New operation checks
+## V1.21 新增操作验收 / New operation checks
+
+1. 用说明中的四项候选逐个切换五种范围，核对原始序号、重复项、匹配总数及首末边界；不在范围内的跳转保留报告。/ Switch all five filters with the four documented candidates; verify indices, duplicates, counts, boundaries and rejected nonmatching jumps.
+2. 选择没有匹配项的范围，确认旧详情和输出清空；切回全部候选可恢复。保存对话框期间切换范围应拒绝旧输出。/ Empty filters clear details/output and recover on All; switching during saving rejects old output.
+3. 中英文浅深主题与最小窗口下，确认“跳转／Go”文字完整、范围控件可用；关于窗口只显示最新版更新，历史链接打开 V1.20。/ Verify visible Go text and filters in both languages/themes at minimum size; current notes/history show the right release.
+
+## 新增操作验收 / New operation checks
 
 1. 批量检查三项（含重复项），在详情底部通过首项、前后项、末项及序号跳转浏览，检查总数、原始行号、边界禁用和 CIDR 类别保持；无效序号保留当前报告。/ Browse three candidates including duplicates using the bottom First/Previous/Next/Last buttons and index jump; verify count, source lines, boundaries and retained CIDR category. Invalid indices retain the current report.
 2. 保存期间切换详情，确认不写入旧输出；修改候选后旧详情失效。/ Switch during saving to reject stale output; editing candidates invalidates details.

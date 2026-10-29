@@ -17,7 +17,7 @@ V1.16 adds `.github/workflows/build.yml`, named **Build missing Release EXE**. I
 ## Usage
 
 1. Commit the complete update to `main`, including the workflow, `tools/release_assets.py` and tests. The existing official-action allowlist and full-SHA requirement are compatible. No new Secrets or repository-wide read/write default are required.
-2. Tag a commit containing the workflow. Use lowercase `v1.20` for `APP_VERSION = '1.20'`; the tag must exactly match the version and its commit must already be in `main` history.
+2. Tag a commit containing the workflow. Use lowercase `v1.21` for `APP_VERSION = '1.21'`; the tag must exactly match the version and its commit must already be in `main` history.
 3. To distribute a manually built EXE, upload the complete file to the Release draft before publishing. To request cloud compilation, publish without an EXE attachment.
 4. Check **Build missing Release EXE** in Actions. After successful build/verification, refresh the Release for its EXE. SHA-256 is recorded in the run summary.
 
@@ -31,4 +31,4 @@ Uploading the workflow does not backfill historical Releases. Editing a Release 
 - First hosted Windows build and real attachment upload require validation after commit. Local tests mock the API; no real Release or attachment was created.
 
 
-V1.20 fetches only main history without fetching tags. This avoids case-variant historic tag collisions on Windows while retaining exact version and main ancestry checks. Existing tags are preserved.
+V1.21 fetches only main history without fetching tags. This avoids case-variant historic tag collisions on Windows while retaining exact version and main ancestry checks. Existing tags are preserved.

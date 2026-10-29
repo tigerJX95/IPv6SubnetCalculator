@@ -1084,6 +1084,15 @@
     },
     {
       "context": "App",
+      "source": "仅筛选详情浏览，保留原始候选序号和重复项；不改变批量报告或 CIDR 输出类别。",
+      "source_sha256": "eb1c7ba0a7c81e8ce80e9e5983e475e8a11fd019aad198d586e6dbcc75dd0a43",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "位置：",
       "source_sha256": "0871f0abbd5343419df1d2d0e88462d1daec76f4a5209dd2cf623e153fc87fb3",
       "protected_tokens": [],
@@ -1512,6 +1521,15 @@
     },
     {
       "context": "App",
+      "source": "候选序号 {0:,} 不在当前浏览范围内。",
+      "source_sha256": "53b872d9d0920aed875a60b886559f3570b59530dfe81ebbeec793fabdea3485",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "候选序号须为 1～{0:,} 的整数。",
       "source_sha256": "78a7514784f3e2ce558aee300987d258a9f0d0b1fd2f7d1b91f204005311304d",
       "protected_tokens": [],
@@ -1566,6 +1584,15 @@
     },
     {
       "context": "App",
+      "source": "候选详情浏览范围",
+      "source_sha256": "f9b24cc65b470205e6a1fb6b74fe75ff55fa723f0faf5ab2e9278de8b1f6defb",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "先在“空闲空间”计算父网段及占用清单，再按目标前缀生成建议。",
       "source_sha256": "7b1c1d24c2d9cf911c94d610ef34a9bad477cc5b09c1e1fe1176d22bee8152da",
       "protected_tokens": [],
@@ -1577,6 +1604,15 @@
       "context": "App",
       "source": "全球单播地址范围",
       "source_sha256": "ba07f2520a76aff143cb95ca7b204af8eafdbfb56e77bba1c80c8a12ecbcce91",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "全部候选",
+      "source_sha256": "aafb9063e947cbfe25b1a9d5fecbf7eef2d393a962c60d6d12c9000beea363fc",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -1934,6 +1970,15 @@
       "context": "App",
       "source": "动态链接库",
       "source_sha256": "222b92a624d3be0bd7e91c9ea439ae91c762ace864c6dd96f266ddafa78dfc66",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "匹配 {0:,} / 总计 {1:,}",
+      "source_sha256": "7aaf542271f580bdb2a6b7a2fd145263bfa13329aef57a046f1ed524b8f430bf",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -2921,6 +2966,15 @@
     },
     {
       "context": "App",
+      "source": "存在占用冲突",
+      "source_sha256": "8d25abd5789432c2a1a07d8f4ee133d4f89e8142030a50118a743cba2d9ff1d0",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "存在占用冲突的候选 CIDR",
       "source_sha256": "2d78c903261796877062be7c323f13ca2d7cf73f6ca817d5d0699dce19b0c259",
       "protected_tokens": [],
@@ -3663,6 +3717,15 @@
       "context": "App",
       "source": "当前方案有未保存的更改，是否先保存？",
       "source_sha256": "cc29936f79b38c13b43670ff5172aa18cd278876bfd370dacda052ea06338365",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "当前浏览范围没有匹配的候选。",
+      "source_sha256": "28e256078bd64e871f17b2ae04d3a979e3caadca2e6923f100e383273936b144",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -5249,6 +5312,15 @@
       "context": "App",
       "source": "浅色",
       "source_sha256": "aa0819dfc4d8d78280b8c7605b008bfc9df42b585f9106feaa3c8d5bdfda711e",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "浏览范围：",
+      "source_sha256": "1e15dd56d59afceeb2e3569e698cc6ef229372b682a496a9e5e59cc4d1842c0b",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -7096,6 +7168,15 @@
     },
     {
       "context": "App",
+      "source": "跳转",
+      "source_sha256": "afd0b9482dfa57f02c150f3d300fa7414bed56d672da00feef6b49e689419374",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "跳转到指定候选（Enter）",
       "source_sha256": "bd2f9a8b77858777eebfbc82fc2d7dd862a6cb794ecc27a69d40b96bd416b173",
       "protected_tokens": [],
@@ -7179,6 +7260,15 @@
       "context": "App",
       "source": "输入准备分配的 IPv6 CIDR，检查与清单的冲突及候选内空闲部分。",
       "source_sha256": "b893e1a5ab64d140f785a5aa750faf46b3cd6bf40672c368677d13ba5bb549ea",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "输入原始候选序号后按 Enter 或点击跳转；候选须在当前浏览范围内。",
+      "source_sha256": "5b2f7edf1da5654f93cc932ef53f5927485861c1e3766568c317f59722e4af46",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,

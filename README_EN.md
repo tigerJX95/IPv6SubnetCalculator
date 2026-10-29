@@ -1,18 +1,18 @@
 [简体中文](README.md) | **English**
 
-# 🌐 IPv6 Subnet Calculator V1.20
+# 🌐 IPv6 Subnet Calculator V1.21
 
-## V1.20 Continuous Candidate Details and Documentation Cleanup
+## V1.21 Browse Candidate Details by Status
 
-- Batch candidate details use a fixed bottom navigation bar matching Subnet Results: first, previous, next, last, index jump and total count, synchronized with the batch-page candidate number.
-- Retains duplicate candidates, physical line numbers, the baseline snapshot and the selected internal CIDR category; boundary buttons are disabled.
-- Switching details clears old results and rejects pending saves of the previous candidate, without changing the baseline list or batch results.
-- Home pages and About show only the current release. Earlier releases move to Update History, with offline history/return links in About.
-- User instructions remain separate from release notes; both languages and matching actual interface screenshots are updated.
+- Candidate details add a Browse filter: all candidates, entirely free, partly occupied, fully occupied or any occupied overlap, with navigation between matching candidates.
+- Retains original candidate numbers, physical source lines and duplicates. Bottom navigation and index jumps follow the filter; matched and total counts are shown.
+- Empty filters clear old details and disable output. Changing the filter restores browsing and rejects pending saves of old details.
+- The jump button adds a visible “Go” label; both languages, themes and the minimum window size are supported.
+- Home pages and About show V1.21 only, with previous releases under the Update History text link; user instructions and actual interface screenshots are updated.
 
 [Update History](docs/HISTORY_EN.md)
 
-![Candidate details with continuous navigation](docs/screenshots/batch_detail_en_US_light.png)
+![Candidate details with continuous navigation](docs/screenshots/batch_filter_en_US_light.png)
 
 ## 📖 Overview
 
@@ -112,7 +112,7 @@ IPv6SubnetCalculator is an offline IPv6 subnet calculator for Windows. It analyz
 
 ## 📦 Download and Usage
 
-Download `IPv6SubnetCalculator_V1.20.exe` directly from Assets on GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest). Run the downloaded executable; no additional runtime setup is required. Enter a network and target prefix, then click the calculation icon; the application switches to Results when complete.
+Download `IPv6SubnetCalculator_V1.21.exe` directly from Assets on GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest). Run the downloaded executable; no additional runtime setup is required. Enter a network and target prefix, then click the calculation icon; the application switches to Results when complete.
 
 Press F1 or use the top-bar information icon for built-in help, license texts and legal notices.
 

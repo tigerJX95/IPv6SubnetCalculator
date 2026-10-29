@@ -84,7 +84,7 @@ jobs:
           python -m unittest tests.test_i18n tests.test_translation_catalog
           tests.test_i18n_contracts tests.test_i18n_gate tests.test_document_images
           tests.test_inspection_output tests.test_subnet_capacity
-          tests.test_network_availability tests.test_batch_availability tests.test_batch_categories tests.test_batch_details tests.test_batch_import tests.test_import_security tests.test_tooltip_security tests.test_about_links tests.test_about_presentation tests.test_runtime_components
+          tests.test_network_availability tests.test_batch_availability tests.test_batch_categories tests.test_batch_details tests.test_batch_detail_filter tests.test_batch_import tests.test_import_security tests.test_tooltip_security tests.test_about_links tests.test_about_presentation tests.test_runtime_components
 
   required-i18n-gate:
     name: i18n required gate

@@ -1,20 +1,20 @@
 # 开发说明 / Development Notes
 
-## V1.20 候选详情连续浏览与文档整理
+## V1.21 候选详情按状态筛选
 
-- 批量候选详情采用与“子网结果”一致的底部固定导航栏，提供首项、上一项、下一项、末项、序号跳转与总数；自动同步批量页候选序号。
-- 保留重复候选及原始行号，沿用同一基准快照与所选内部 CIDR 类别；首末项禁用越界按钮。
-- 切换详情立即清除旧结果，保存期间切换候选时拒绝旧输出；不修改基准清单或批量检查结果。
-- 首页与关于窗口仅展示当前版本更新，旧版本归入“历史更新”；关于窗口的历史与返回链接均可离线使用。
-- 使用说明与更新日志分开维护，同步中英文文档及对应语言的实际界面截图。
+- 候选详情新增“浏览范围”：全部候选、全部空闲、部分占用、全部占用、存在占用冲突，支持在匹配候选之间连续浏览。
+- 保留原始候选序号、物理行号和重复项，底部导航及序号跳转均遵循所选范围；显示匹配数与总数。
+- 无匹配项时清空旧详情并禁用输出，切换范围后可恢复浏览；范围切换期间拒绝保存旧详情。
+- 跳转按钮增加“跳转”文字，英文显示“Go”；中英文、浅深主题及最小窗口同步适配。
+- 首页及关于窗口只展示 V1.21，旧版收入“历史更新”文字链接；同步使用说明和实际界面截图。
 
-## V1.20 Continuous Candidate Details and Documentation Cleanup
+## V1.21 Browse Candidate Details by Status
 
-- Batch candidate details use a fixed bottom navigation bar matching Subnet Results: first, previous, next, last, index jump and total count, synchronized with the batch-page candidate number.
-- Retains duplicate candidates, physical line numbers, the baseline snapshot and the selected internal CIDR category; boundary buttons are disabled.
-- Switching details clears old results and rejects pending saves of the previous candidate, without changing the baseline list or batch results.
-- Home pages and About show only the current release. Earlier releases move to Update History, with offline history/return links in About.
-- User instructions remain separate from release notes; both languages and matching actual interface screenshots are updated.
+- Candidate details add a Browse filter: all candidates, entirely free, partly occupied, fully occupied or any occupied overlap, with navigation between matching candidates.
+- Retains original candidate numbers, physical source lines and duplicates. Bottom navigation and index jumps follow the filter; matched and total counts are shown.
+- Empty filters clear old details and disable output. Changing the filter restores browsing and rejects pending saves of old details.
+- The jump button adds a visible “Go” label; both languages, themes and the minimum window size are supported.
+- Home pages and About show V1.21 only, with previous releases under the Update History text link; user instructions and actual interface screenshots are updated.
 
 [历史更新](HISTORY.md) · [Update History](HISTORY_EN.md) · [开发历史 / Development history](DEVELOPMENT_HISTORY.md)
 
@@ -29,13 +29,13 @@ python -m pip install -r requirements.txt
 python main.py
 ```
 
-Windows 下运行 `build.cmd`，会安装固定版本的界面依赖和 PyInstaller，生成 `dist/IPv6SubnetCalculator_V1.20.exe`。构建需要联网下载依赖；生成后的程序离线运行，不要求目标电脑安装 Python。EXE 的架构取决于所用 Python 的架构，建议使用 Windows x64 Python。
+Windows 下运行 `build.cmd`，会安装固定版本的界面依赖和 PyInstaller，生成 `dist/IPv6SubnetCalculator_V1.21.exe`。构建需要联网下载依赖；生成后的程序离线运行，不要求目标电脑安装 Python。EXE 的架构取决于所用 Python 的架构，建议使用 Windows x64 Python。
 
-On Windows, `build.cmd` installs the pinned interface dependencies and PyInstaller, then creates `dist/IPv6SubnetCalculator_V1.20.exe`. Building requires internet access to download dependencies. The resulting application works offline without Python on the target computer. Its architecture follows the Python interpreter used; Windows x64 Python is recommended.
+On Windows, `build.cmd` installs the pinned interface dependencies and PyInstaller, then creates `dist/IPv6SubnetCalculator_V1.21.exe`. Building requires internet access to download dependencies. The resulting application works offline without Python on the target computer. Its architecture follows the Python interpreter used; Windows x64 Python is recommended.
 
-可选运行 `python tools/package_release.py` 生成 `dist/IPv6SubnetCalculator_V1.20_Windows.zip`，包含 EXE、项目 `LICENSE`／`NOTICE` 及第三方许可文件。Windows 用户默认直接下载 EXE；ZIP 仅为可选归档，源码包单独提供。发布前运行 `verify.cmd` 检查本次 EXE。
+可选运行 `python tools/package_release.py` 生成 `dist/IPv6SubnetCalculator_V1.21_Windows.zip`，包含 EXE、项目 `LICENSE`／`NOTICE` 及第三方许可文件。Windows 用户默认直接下载 EXE；ZIP 仅为可选归档，源码包单独提供。发布前运行 `verify.cmd` 检查本次 EXE。
 
-Optionally run `python tools/package_release.py` to create `dist/IPv6SubnetCalculator_V1.20_Windows.zip`, containing the EXE, project LICENSE/NOTICE, and third-party license files. Publish the EXE as the default Windows download; the ZIP is optional and source is provided separately. Run `verify.cmd` before publishing to check the executable from this build.
+Optionally run `python tools/package_release.py` to create `dist/IPv6SubnetCalculator_V1.21_Windows.zip`, containing the EXE, project LICENSE/NOTICE, and third-party license files. Publish the EXE as the default Windows download; the ZIP is optional and source is provided separately. Run `verify.cmd` before publishing to check the executable from this build.
 
 ## 模块职责 / Module Responsibilities
 
@@ -104,9 +104,9 @@ Widget colors come from one stylesheet, without mixing in global `setPalette`. C
 
 Project-authored content uses `GPL-3.0-or-later`. The root `LICENSE` contains the unmodified GPLv3 text; `NOTICE` identifies the versions, scope, and lack of warranty. Third-party license files are retained separately.
 
-`build.cmd` 会将项目与第三方许可嵌入程序，并在 `dist/IPv6SubnetCalculator_V1.20_Licenses/` 输出可直接阅读的副本。该目录可作为独立许可附件保留；EXE 已嵌入许可文件。发布时提供与 EXE 对应版本的完整源码及构建材料（包括 `build.cmd`、`requirements.txt`、资源和开发说明）。源码可放在同一 Release 的源码附件中；确保该 Release 对应正确的提交和标签，不要仅链接到持续变化的主分支。
+`build.cmd` 会将项目与第三方许可嵌入程序，并在 `dist/IPv6SubnetCalculator_V1.21_Licenses/` 输出可直接阅读的副本。该目录可作为独立许可附件保留；EXE 已嵌入许可文件。发布时提供与 EXE 对应版本的完整源码及构建材料（包括 `build.cmd`、`requirements.txt`、资源和开发说明）。源码可放在同一 Release 的源码附件中；确保该 Release 对应正确的提交和标签，不要仅链接到持续变化的主分支。
 
-`build.cmd` embeds project and third-party license files in the application and also writes readable copies to `dist/IPv6SubnetCalculator_V1.20_Licenses/`. Retain that folder as an optional standalone license attachment; licenses are also embedded in the EXE. Provide the complete matching application source and build materials, including `build.cmd`, `requirements.txt`, assets, and these instructions. A source archive can accompany the same Release; use the matching commit and tag rather than linking only to a changing main branch.
+`build.cmd` embeds project and third-party license files in the application and also writes readable copies to `dist/IPv6SubnetCalculator_V1.21_Licenses/`. Retain that folder as an optional standalone license attachment; licenses are also embedded in the EXE. Provide the complete matching application source and build materials, including `build.cmd`, `requirements.txt`, assets, and these instructions. A source archive can accompany the same Release; use the matching commit and tag rather than linking only to a changing main branch.
 
 程序包含的第三方组件仍须按各自许可履行源码、版权和再分发义务。完整源码的提供范围包括适用许可证要求的依赖源码；仅附上项目的 Python 文件或上游主页链接并不自动满足所有第三方二进制分发条件。组件版本及获取入口见 `THIRD_PARTY_NOTICES.md`，发布时应保留所用版本的依赖源码及构建信息。
 
@@ -127,7 +127,7 @@ python tools/verify.py --report-dir verification
 指定打包程序可运行： / To include a packaged application:
 
 ```console
-python tools/verify.py --exe dist/IPv6SubnetCalculator_V1.20.exe --report-dir verification
+python tools/verify.py --exe dist/IPv6SubnetCalculator_V1.21.exe --report-dir verification
 ```
 
 `summary.json` 保存环境、逐阶段结果及性能数据；`SUMMARY.md` 为简要结果，`tests.log` 保存回归日志；`source.json` 和 `executable.json` 分别记录源码与打包程序检查。源码检查通过时，未提供的 EXE 仍标记为 `not_run`。只有在 Windows 上执行且 EXE 检查通过后，`windows_automated_checks` 才标记为通过；人工验证始终独立登记，见 [Windows 验证](WINDOWS_ACCEPTANCE.md)。
@@ -303,3 +303,9 @@ The regression runner emits structured counts, failures/errors, a run identifier
 
 Release publication checks whether an EXE attachment exists before deciding to build. Manual runs retain output in Actions only. See the [Chinese guide](RELEASE_BUILD.md) or [English guide](RELEASE_BUILD_EN.md).
 
+
+## 候选详情筛选 / Candidate detail filtering
+
+`BatchAvailability.candidate_ordinals()` 返回原始 1 起始序号，包含重复项；CIDR 输出复用相同状态条件，再按网段去重。详情只分析当前项，筛选不预计算交叉冲突明细。切换范围重新生成当前详情对象，保存身份校验可拒绝旧输出；空范围保留筛选入口以便恢复。
+
+`candidate_ordinals()` returns original one-based indices including duplicates. CIDR output uses the same status conditions before network deduplication. Details are computed only for the current candidate. Filter changes replace result identity to reject stale saves; empty filters keep the selector available for recovery.

@@ -17,7 +17,7 @@ V1.16 补充 `.github/workflows/build.yml`，工作流名为 **Build missing Rel
 ## 使用步骤
 
 1. 将本次完整源码提交到 `main`，包括工作流、`tools/release_assets.py` 和配套测试。现有官方 Actions 允许列表及完整 SHA 限制兼容本工作流，无需新增 Secrets，也无需把仓库默认权限改成读写。
-2. 创建指向这次提交的标签，例如当前版本必须使用小写 `v1.20`，与 `app_info.py` 中 `APP_VERSION = '1.20'` 完全对应。标签提交必须已包含在 `main` 的历史中。标签所指代码也必须含有新工作流。
+2. 创建指向这次提交的标签，例如当前版本必须使用小写 `v1.21`，与 `app_info.py` 中 `APP_VERSION = '1.21'` 完全对应。标签提交必须已包含在 `main` 的历史中。标签所指代码也必须含有新工作流。
 3. 如果自己已经构建好 EXE，先在 Release 草稿中上传完整 EXE，再点击发布；工作流会跳过。若希望云端构建，发布时不要附加 EXE。
 4. 在 Actions 查看 **Build missing Release EXE**。构建结束且验证通过后，刷新 Release 查看 EXE 附件；可在运行摘要查看 SHA-256。
 
@@ -31,4 +31,4 @@ V1.16 补充 `.github/workflows/build.yml`，工作流名为 **Build missing Rel
 - 首次云端 Windows 构建与真实附件上传仍需提交后运行验证；本地测试使用模拟 API，未创建真实 Release 或上传附件。
 
 
-V1.20 只按需抓取 main 历史，不拉取标签，避免 Windows 上历史标签大小写冲突；保留严格版本和 main 祖先检查，不修改已有标签。
+V1.21 只按需抓取 main 历史，不拉取标签，避免 Windows 上历史标签大小写冲突；保留严格版本和 main 祖先检查，不修改已有标签。

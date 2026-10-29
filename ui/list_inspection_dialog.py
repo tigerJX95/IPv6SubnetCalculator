@@ -334,6 +334,8 @@ class BatchCandidateDialog(QDialog):
         layout = QVBoxLayout(self)
         self.owner = parent
         self.batch_result = parent.result
+        self._closed = False
+        self.ordinals = self.batch_result.candidate_ordinals('all_candidates')
         self.ordinal = ordinal
         self.heading = QLabel('')
         self.heading.setWordWrap(True)
@@ -343,6 +345,21 @@ class BatchCandidateDialog(QDialog):
         self.panel.input.setReadOnly(True)
         self.panel.run_button.hide()
         layout.addWidget(self.panel, 1)
+        filter_row = QHBoxLayout()
+        filter_row.addWidget(QLabel(tx('浏览范围：')))
+        self.browse_filter = QComboBox()
+        self.browse_filter.setAccessibleName(tx('候选详情浏览范围'))
+        self.browse_filter.setToolTip(tx('仅筛选详情浏览，保留原始候选序号和重复项；不改变批量报告或 CIDR 输出类别。'))
+        for label, key in [(tx('全部候选'), 'all_candidates'),
+                           (tx('全部空闲'), 'free_candidates'),
+                           (tx('部分占用'), 'partial_candidates'),
+                           (tx('全部占用'), 'occupied_candidates'),
+                           (tx('存在占用冲突'), 'conflicting_candidates')]:
+            self.browse_filter.addItem(label, key)
+        filter_row.addWidget(self.browse_filter, 1)
+        self.filter_status = QLabel('')
+        filter_row.addWidget(self.filter_status)
+        layout.addLayout(filter_row)
         navigation = QHBoxLayout()
         navigation.setSpacing(7)
         self.first_button = IconButton('first_small', tx('查看第一个候选详情'))
@@ -359,21 +376,50 @@ class BatchCandidateDialog(QDialog):
         self.index_input.setMinimumWidth(65)
         self.index_input.setMaximumWidth(120)
         self.index_input.setAccessibleName(tx('查看详情的候选序号'))
-        self.index_input.setToolTip(tx('输入候选序号后按 Enter 或点击跳转按钮。'))
+        self.index_input.setToolTip(tx('输入原始候选序号后按 Enter 或点击跳转；候选须在当前浏览范围内。'))
         navigation.addWidget(self.index_input, 1)
         self.jump_button = IconButton('jump_small', tx('跳转到指定候选（Enter）'))
+        self.jump_button.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
+        self.jump_button.setText(tx('跳转'))
+        self.jump_button.setFixedWidth(80)
         navigation.addWidget(self.jump_button)
         navigation.addStretch()
         self.count_label = QLabel(tx('共 {0:,} 项', len(self.batch_result.entries)))
         navigation.addWidget(self.count_label)
         layout.addLayout(navigation)
-        self.first_button.clicked.connect(lambda: self.go_to(1))
+        self.first_button.clicked.connect(lambda: self.go_to(self.ordinals[0]) if self.ordinals else None)
         self.previous_button.clicked.connect(lambda: self.navigate(-1))
         self.next_button.clicked.connect(lambda: self.navigate(1))
-        self.last_button.clicked.connect(lambda: self.go_to(len(self.batch_result.entries)))
+        self.last_button.clicked.connect(lambda: self.go_to(self.ordinals[-1]) if self.ordinals else None)
         self.jump_button.clicked.connect(self.jump)
         self.index_input.returnPressed.connect(self.jump)
+        self.browse_filter.currentIndexChanged.connect(self.apply_browse_filter)
         self.show_candidate(record, ordinal)
+
+    def apply_browse_filter(self, *_args):
+        if self._closed or self.owner.result is not self.batch_result:
+            return
+        self.ordinals = self.batch_result.candidate_ordinals(self.browse_filter.currentData())
+        # A filter change invalidates pending saves even if the current candidate still matches.
+        self.panel.invalidate()
+        if self.ordinals:
+            ordinal = self.ordinal if self.ordinal in self.ordinals else self.ordinals[0]
+            with QSignalBlocker(self.owner.detail_index):
+                self.owner.detail_index.setValue(ordinal)
+            self.show_candidate(self.batch_result.entries[ordinal-1].record, ordinal)
+        else:
+            self.ordinal = None
+            self.panel.input.clear()
+            self.heading.setText(tx('当前浏览范围没有匹配的候选。'))
+            self.index_input.clear()
+            for control in (self.first_button, self.previous_button, self.next_button, self.last_button,
+                            self.index_input, self.jump_button):
+                control.setEnabled(False)
+            self.refresh_counts()
+
+    def refresh_counts(self):
+        self.filter_status.setText(tx('匹配 {0:,} / 总计 {1:,}', len(self.ordinals), len(self.batch_result.entries)))
+        self.count_label.setText(tx('共 {0:,} 项', len(self.ordinals)))
 
     def show_candidate(self, record, ordinal):
         # Invalidate even for duplicate input, so pending saves cannot use old details.
@@ -386,13 +432,21 @@ class BatchCandidateDialog(QDialog):
         self.panel.run()
         clear_invalid(self.index_input)
         self.index_input.setText(str(ordinal))
-        self.first_button.setEnabled(ordinal > 1)
-        self.previous_button.setEnabled(ordinal > 1)
-        self.next_button.setEnabled(ordinal < len(self.batch_result.entries))
-        self.last_button.setEnabled(ordinal < len(self.batch_result.entries))
+        position = self.ordinals.index(ordinal)
+        self.first_button.setEnabled(position > 0)
+        self.previous_button.setEnabled(position > 0)
+        self.next_button.setEnabled(position < len(self.ordinals)-1)
+        self.last_button.setEnabled(position < len(self.ordinals)-1)
+        self.index_input.setEnabled(True)
+        self.jump_button.setEnabled(True)
+        self.refresh_counts()
 
     def navigate(self, offset):
-        self.go_to(self.ordinal + offset)
+        if self.ordinal not in self.ordinals:
+            return
+        position = self.ordinals.index(self.ordinal) + offset
+        if 0 <= position < len(self.ordinals):
+            self.go_to(self.ordinals[position])
 
     def jump(self):
         total = len(self.batch_result.entries)
@@ -405,12 +459,17 @@ class BatchCandidateDialog(QDialog):
             self.index_input.setFocus()
             self.index_input.selectAll()
             return
+        if ordinal not in self.ordinals:
+            mark_invalid(self.index_input, tx('候选序号 {0:,} 不在当前浏览范围内。', ordinal))
+            self.index_input.setFocus()
+            self.index_input.selectAll()
+            return
         self.go_to(ordinal)
 
     def go_to(self, ordinal):
         if self.owner.result is not self.batch_result or self.panel.result is None:
             return
-        if not 1 <= ordinal <= len(self.batch_result.entries):
+        if ordinal not in self.ordinals:
             return
         if ordinal == self.ordinal:
             clear_invalid(self.index_input)
@@ -421,10 +480,12 @@ class BatchCandidateDialog(QDialog):
         self.show_candidate(self.batch_result.entries[ordinal-1].record, ordinal)
 
     def done(self, code):
+        self._closed = True
         self.panel.invalidate()
         super().done(code)
 
     def closeEvent(self, event):
+        self._closed = True
         self.panel.invalidate()
         super().closeEvent(event)
 

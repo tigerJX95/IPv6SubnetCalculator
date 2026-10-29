@@ -3530,6 +3530,46 @@ Click a link to open your default browser; a network connection is used only whe
       <source>候选序号须为 1～{0:,} 的整数。</source>
       <translation>Candidate number must be an integer from 1 to {0:,}.</translation>
     </message>
+    <message>
+      <source>浏览范围：</source>
+      <translation>Browse:</translation>
+    </message>
+    <message>
+      <source>候选详情浏览范围</source>
+      <translation>Candidate detail browsing filter</translation>
+    </message>
+    <message>
+      <source>仅筛选详情浏览，保留原始候选序号和重复项；不改变批量报告或 CIDR 输出类别。</source>
+      <translation>Filters detail browsing only, retaining original candidate numbers and duplicates; the batch report and CIDR output category are unaffected.</translation>
+    </message>
+    <message>
+      <source>全部候选</source>
+      <translation>All candidates</translation>
+    </message>
+    <message>
+      <source>存在占用冲突</source>
+      <translation>Any occupied overlap</translation>
+    </message>
+    <message>
+      <source>输入原始候选序号后按 Enter 或点击跳转；候选须在当前浏览范围内。</source>
+      <translation>Enter an original candidate number and press Enter or click Go; it must match the current browsing filter.</translation>
+    </message>
+    <message>
+      <source>当前浏览范围没有匹配的候选。</source>
+      <translation>No candidates match the current browsing filter.</translation>
+    </message>
+    <message>
+      <source>匹配 {0:,} / 总计 {1:,}</source>
+      <translation>Matched {0:,} / Total {1:,}</translation>
+    </message>
+    <message>
+      <source>候选序号 {0:,} 不在当前浏览范围内。</source>
+      <translation>Candidate {0:,} does not match the current browsing filter.</translation>
+    </message>
+    <message>
+      <source>跳转</source>
+      <translation>Go</translation>
+    </message>
   </context>
   <context>
     <name>Export</name>
