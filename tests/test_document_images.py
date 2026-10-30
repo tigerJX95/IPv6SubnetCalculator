@@ -18,8 +18,8 @@ class DocumentImageTests(unittest.TestCase):
             content=language.encode();(self.root/name).write_bytes(content)
             self.images[name]=dict(language=language,sha256=hashlib.sha256(content).hexdigest())
         self.catalog()
-        (self.root/'README.md').write_text('![中文](docs/screenshots/example_zh_CN_light.png)',encoding='utf-8')
-        (self.root/'README_EN.md').write_text('![English](docs/screenshots/example_en_US_light.png)',encoding='utf-8')
+        (self.root/'README.md').write_text('## 📸 中文版运行截图\n\n![中文](docs/screenshots/example_zh_CN_light.png)',encoding='utf-8')
+        (self.root/'README_EN.md').write_text('## 📸 Screenshots\n\n![English](docs/screenshots/example_en_US_light.png)',encoding='utf-8')
 
     def catalog(self):
         (self.root/'docs/screenshots/catalog.json').write_text(json.dumps(dict(schema=1,images=self.images)),encoding='utf-8')
@@ -27,6 +27,14 @@ class DocumentImageTests(unittest.TestCase):
     def test_matching_languages_pass_and_real_project_passes(self):
         self.assertEqual(check_document_images(self.root)['status'],'passed')
         self.assertEqual(check_document_images()['status'],'passed')
+
+    def test_top_screenshots_rejected_in_both_readmes(self):
+        for name,language in [('README.md','zh_CN'),('README_EN.md','en_US')]:
+            path=self.root/name
+            original=path.read_text(encoding='utf-8')
+            path.write_text(f'# Current version\n\n![duplicate](docs/screenshots/example_{language}_light.png)\n\n'+original,encoding='utf-8')
+            self.assertIn(name+': keep top sections text-only',str(check_document_images(self.root)['errors']))
+            path.write_text(original,encoding='utf-8')
 
     def test_english_image_in_chinese_document_rejected(self):
         (self.root/'README.md').write_text('![bad](docs/screenshots/example_en_US_light.png)',encoding='utf-8')

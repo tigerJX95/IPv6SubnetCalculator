@@ -27,7 +27,13 @@ def check_document_images(root=ROOT):
         paths.extend((root/folder).rglob('*.md'))
     for doc in sorted(paths):
         expected = 'en_US' if doc.stem.endswith('_EN') else 'zh_CN'
-        for target in IMAGE.findall(doc.read_text(encoding='utf-8')):
+        body = doc.read_text(encoding='utf-8')
+        if doc.parent == root and doc.name in ('README.md', 'README_EN.md'):
+            gallery = re.search(r'^## 📸 .+$', body, re.MULTILINE)
+            top = body[:gallery.start()] if gallery else body
+            if IMAGE.search(top):
+                errors.append(f'{doc.name}: keep top sections text-only; place images in the software screenshot section')
+        for target in IMAGE.findall(body):
             count += 1
             image_path = (doc.parent/target).resolve()
             try:

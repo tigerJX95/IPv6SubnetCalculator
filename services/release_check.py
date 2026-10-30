@@ -179,6 +179,25 @@ class ReleaseCheck(QObject):
         tools.analyze()
         self.require(tools.relation.kind == 'a_contains_b', '包含方向不正确')
         self.checks.append('address_formats_and_network_relations')
+        reverse = tools.reverse_dns_panel
+        reverse.inputs['address'].setText('2001:db8::1')
+        self.require(reverse.run(), 'Reverse DNS conversion failed')
+        name = reverse.result.name
+        reverse.inputs['address'].setText(name.upper()+'.')
+        self.require(reverse.result is None and reverse.run()
+                     and str(reverse.result.address) == '2001:db8::1', 'Reverse DNS round trip failed')
+        reverse.inputs['address'].setText('*.ip6.arpa')
+        self.require(not reverse.run() and not reverse.copy_result_action.isEnabled(), 'Invalid reverse zone retained output')
+        self.checks.append('reverse_dns_roundtrip_and_input_invalidation')
+        offset = tools.offset_panel
+        offset.inputs['address'].setText('::1')
+        offset.inputs['offset'].setText('1')
+        offset.inputs['network'].setText('::/126')
+        self.require(offset.run() and str(offset.result.address) == '::2', 'Address offset calculation failed')
+        offset.inputs['offset'].setText('3')
+        self.require(offset.result is None and not offset.run()
+                     and not offset.copy_result_action.isEnabled(), 'Network boundary allowed stale offset')
+        self.checks.append('address_offset_exact_math_network_bounds_and_invalidation')
         from services.plan_storage import save_plan, load_plan
         calculation.target_input.setText('64')
         plan = self.window.plan_controller.snapshot()
@@ -348,6 +367,26 @@ class ReleaseCheck(QObject):
         self.require(not detail.range_report_button.isEnabled(), 'Empty range report remained enabled')
         detail.browse_filter.setCurrentIndex(detail.browse_filter.findData('all_candidates'))
         self.checks.append('batch_range_report_preserves_records_and_empty_output_disabled')
+        import csv
+        import io
+        csv_rows = list(csv.reader(io.StringIO(batch.range_as_csv('free_candidates', display).lstrip('\ufeff'))))
+        self.require(len(csv_rows) == 3 and [row[0] for row in csv_rows[1:]] == ['2', '3']
+                     and all(row[6] == '4' for row in csv_rows[1:]), 'CSV changed exact candidate records')
+        detail.browse_filter.setCurrentIndex(detail.browse_filter.findData('occupied_candidates'))
+        self.require(not detail.save_range_csv_action.isEnabled(), 'Empty range CSV remained enabled')
+        detail.browse_filter.setCurrentIndex(detail.browse_filter.findData('all_candidates'))
+        self.checks.append('batch_csv_exact_values_localized_rows_and_empty_output')
+        import zipfile
+        from core.batch_availability import check_batch_availability
+        xlsx = check_batch_availability('', '::/0').range_as_xlsx('all_candidates', display)
+        with zipfile.ZipFile(io.BytesIO(xlsx)) as workbook:
+            xml = workbook.read('xl/worksheets/sheet1.xml').decode('utf-8')
+        self.require('r="G2" s="2" t="inlineStr"' in xml and str(2**128) in xml
+                     and '<autoFilter ref="A1:I2"' in xml, 'Excel lost exact count cells or filtering')
+        detail.browse_filter.setCurrentIndex(detail.browse_filter.findData('occupied_candidates'))
+        self.require(not detail.save_range_xlsx_action.isEnabled(), 'Empty range Excel remained enabled')
+        detail.browse_filter.setCurrentIndex(detail.browse_filter.findData('all_candidates'))
+        self.checks.append('batch_excel_exact_text_counts_and_empty_output')
         inspection.batch_availability.detail_index.setValue(2)
         self.require(detail.panel.result is None, 'Changed candidate retained stale detail')
         self.checks.append('batch_candidate_details_snapshot_conflicts_and_invalidation')

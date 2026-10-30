@@ -25,6 +25,7 @@ from core.ipv6_core import InputError
 from core.address_conversion import convert_address
 from core.network_relations import analyze_networks
 from ui.address_range_panel import AddressRangePanel
+from ui.address_utility_panel import AddressUtilityPanel
 from ui.input_feedback import bind_input, mark_invalid, clear_invalid
 from ui.fonts import data_font
 from ui.widgets import IconButton, value_label
@@ -142,6 +143,11 @@ class AddressToolsPage(QWidget):
         self.range_panel=AddressRangePanel(clipboard)
         self.range_panel.feedback.connect(self.feedback)
         body.addWidget(self.range_panel)
+        self.reverse_dns_panel = AddressUtilityPanel(clipboard)
+        self.offset_panel = AddressUtilityPanel(clipboard, offset=True)
+        for panel in (self.reverse_dns_panel, self.offset_panel):
+            panel.feedback.connect(self.feedback)
+            body.addWidget(panel)
         body.addStretch()
 
         self.address_input.textChanged.connect(self._clear_formats)

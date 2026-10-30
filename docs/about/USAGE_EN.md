@@ -212,3 +212,57 @@ Example candidates: `::3/126`, `::/127`, `::3/126`, `::4/126`. Item 1 normalizes
 Sources use all candidates from the batch, including entries outside the browsing filter. Candidate overlaps and baseline occupancy are shown separately: a candidate entirely free against the baseline can still overlap another candidate. Only the current item is analyzed on demand; no all-pairs detail matrix or candidate reservations are created.
 
 The existing detail report copy/save controls include both baseline availability and candidate overlaps. Internal free/occupied CIDR controls still output fragments relative to the baseline. The Report menu outputs the selected range’s record summaries and original overlap counts. Navigation, empty filters, candidate edits and closure clear old overlap evidence and reject stale complete-report saves.
+
+## Export the Current Range as CSV
+
+After a batch candidate check in Subnet List → Query → Batch Candidates, open candidate details, choose Browse, then Report → Save current range as CSV. The default filename is `IPv6_BatchRange_<category>.csv`. A missing extension is completed with `.csv`; other extensions are rejected. Empty ranges disable output.
+
+Each candidate becomes one data record. Columns are: candidate index, original line, original input, normalized network, availability, occupied addresses, free addresses, overlapping candidate records (all candidates), and host bits normalized. Indices start at 1; physical lines include comments and blank lines. Input order and duplicates are retained. Overlap counts still refer to all candidates, including those outside the filter. No summary row is added.
+
+For example, use baseline `::/127` and `::3/128`, with candidates `::3/126`, `::4/126`, `::3/126`, `::/127`. Exporting the partly occupied range produces original candidates 1 and 3. Both have normalized network `::/126`, occupied count 3, free count 1, overlap-record count 2 and host normalization Yes. Comments or blank lines before them increase their original line numbers.
+
+Files use UTF-8 with BOM, standard CSV quotes, comma separators and CRLF line endings. Headers, statuses and Yes/No use the language at actual save time; original input stays unchanged. Counts are full decimal digits. **CSV quoting does not force Excel to treat cells as text**: use Data → From Text/CSV and set occupied/free address-count columns to Text before loading. For example, `::/0` against an empty baseline has `340282366920938463463374607431768211456` free addresses. Double-clicking the CSV can let Excel round large numbers automatically. Candidate address counts may overlap and cannot be added as an allocatable total.
+
+Overwrite confirmation and save conflict protection apply. Changing the filter, including away and back, editing candidates or closing details during file selection or confirmation stops pending output. Navigation inside the same range remains valid. TXT reports, CIDR output and list content remain separate.
+
+## Export the Current Range as Excel (XLSX)
+
+In candidate details, choose Browse, then Report → Save current range as Excel (XLSX). The default filename is `IPv6_BatchRange_<category>.xlsx`; a missing extension is completed with `.xlsx`, and other extensions are rejected. Empty ranges disable output.
+
+Excel contains the same nine columns and all matching records as CSV, retaining input order, original candidate numbers, physical lines and duplicates. The worksheet name, headers, statuses and Yes/No follow the language at actual save time. The first row is frozen; headers have filters, with readable widths and wrapped text.
+
+Occupied/free address-count columns are explicitly text cells. **Opening XLSX directly preserves complete integers without the text-import setup required for CSV.** Original indices, source lines and overlap-record counts are sortable numeric cells; IPv6 and original input are text. There are no address-count sum formulas: overlapping candidate counts cannot be added as an allocatable total.
+
+For example, check `::/0` against an empty baseline and export All candidates. The free-count cell retains `340282366920938463463374607431768211456`. The earlier partly occupied example exports only original candidates 1 and 3, including both duplicates. As with CSV/TXT, cancellation, filter changes (including away and back), candidate edits or closing stop pending old output. Overwrite confirmation applies, and changes by another program preserve that program's content.
+
+Scroll down in Address Tools to find IPv6 and Reverse DNS Conversion and IPv6 Address Offset. Tools work independently and do not modify calculation plans, lists, network settings or DNS records. Press Enter in any input or click its calculation icon.
+
+## IPv6 and Reverse DNS Conversion
+
+| Setting / action | Meaning | Example |
+|---|---|---|
+| IPv6 or reverse DNS name | One IPv6 address or a complete ip6.arpa name with 32 single hexadecimal labels | `2001:db8::1` |
+| Calculate / Enter | Detect the conversion direction and show a normalized address and name | Paste the name to recover the address |
+| Right-click → Copy reverse DNS name | Copy the normalized lowercase name without a trailing root dot | Check a PTR owner name |
+| Right-click → Copy IPv6 address | Copy only the corresponding address | `2001:db8::1` |
+| Right-click → Copy complete tool report | Copy the address, name and operating boundaries | Keep a planning record |
+
+For example, `::1` produces `1.` followed by 31 instances of `0.` and then `ip6.arpa`. Pasting the complete name back restores `::1`. Uppercase labels and a single trailing root dot are accepted. Reverse zones, wildcards, URLs, IPv4 addresses and scoped addresses containing `%` are rejected. Mapped IPv6 addresses use all 128 bits. See [RFC 3596 §2.5](https://www.rfc-editor.org/rfc/rfc3596.html#section-2.5).
+
+This converts addresses and names only. It does not look up hostnames, contact DNS, verify PTR existence or create records. Editing clears the previous report and disables result copying; correct invalid input and convert again.
+
+
+## IPv6 Address Offset
+
+| Setting / action | Meaning | Example |
+|---|---|---|
+| Starting address | A single IPv6 address without CIDR or a scope identifier | `2001:db8::10` |
+| Offset | Decimal integer, optional `+` or `-`, at most 39 digits; no hexadecimal, fractions or exponent notation | `16`, `-1`, `0` |
+| Restricted network (optional) | Blank allows all IPv6 space; a CIDR requires both input and output inside it. Host bits are normalized | `2001:db8::/64` |
+| Calculate / Enter | Use exact 128-bit arithmetic; restricted results also show distances from the first and last network addresses | `::ffff + 1` → `::1:0` |
+| Right-click → Copy result address | Copy only the resulting IPv6 address | `2001:db8::20` |
+| Right-click → Copy complete tool report | Include input, decimal offset, result and optional network/distances | Keep the planning calculation |
+
+The default `2001:db8::10` plus decimal `16` gives `2001:db8::20`. An offset of `-1` gives `2001:db8::f`; zero keeps the same address. Within `::/126`, `::1 + 1` gives `::2`, two addresses from the start and one from the end. `::3 + 1` is rejected as outside that network. `:: - 1` and the maximum IPv6 address plus 1 are rejected without wrapping.
+
+Editing clears old results and disables copying until recalculation. Reports follow the interface language; switching language preserves input and results. Mathematical results do not prove allocation or deployment suitability. Both tools support light/dark themes and remain reachable by scrolling when the page exceeds the window.

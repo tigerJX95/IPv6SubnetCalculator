@@ -3,6 +3,8 @@
 """Independent candidate checks against one occupied union, without address enumeration."""
 from bisect import bisect_left, bisect_right
 from dataclasses import dataclass
+import csv
+from io import StringIO
 from core.localized_text import text as tx, join_text as jt
 from core.subnet_planning import _records, _union
 from core.list_inspection import CidrOutput
@@ -112,6 +114,37 @@ class BatchAvailability:
                           tx('占用地址：{0:,}；空闲地址：{1:,}；重叠候选记录：{2:,}；主机位规范化：{3}',
                              entry.occupied, entry.available, entry.overlaps, tx('是') if record.normalized else tx('否'))])
         return jt('\n', lines)
+
+    def range_table(self, category, render=str):
+        """Shared localized records for CSV and Excel, preserving exact integer objects."""
+        ordinals = self.candidate_ordinals(category)
+        if not ordinals:
+            raise ValueError('Cannot output an empty candidate range')
+        headers = tuple(render(label) for label in (
+            tx('候选序号'), tx('原始行号'), tx('原始输入'), tx('规范化网段'), tx('可用性'),
+            tx('占用地址数'), tx('空闲地址数'), tx('重叠候选记录数（全部候选）'), tx('主机位规范化')))
+        rows = []
+        for ordinal in ordinals:
+            entry = self.entries[ordinal-1]
+            record = entry.record
+            rows.append((ordinal, record.line, record.original, str(record.network), render(entry.status),
+                         entry.occupied, entry.available, entry.overlaps,
+                         render(tx('是') if record.normalized else tx('否'))))
+        return headers, tuple(rows)
+
+    def range_as_csv(self, category, render=str):
+        """UTF-8 BOM CSV; render labels before CSV quoting, keep exact decimal values."""
+        headers, rows = self.range_table(category, render)
+        stream = StringIO(newline='')
+        writer = csv.writer(stream, quoting=csv.QUOTE_ALL)
+        writer.writerow(headers)
+        writer.writerows(rows)
+        return '\ufeff'+stream.getvalue()
+
+    def range_as_xlsx(self, category, render=str):
+        from core.candidate_xlsx import candidate_workbook
+        headers, rows = self.range_table(category, render)
+        return candidate_workbook(headers, rows, render(tx('候选范围')))
 
     def as_text(self):
         free = sum(not e.occupied for e in self.entries)

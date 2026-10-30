@@ -23,9 +23,12 @@ from pathlib import Path
 
 
 def save_text_atomic(destination, text, *, expected=None):
+    return save_bytes_atomic(destination,text.encode('utf-8'),expected=expected)
+
+
+def save_bytes_atomic(destination, data, *, expected=None):
     path=Path(destination)
     expected=expected if expected is not None else capture_file(path)
-    data=text.encode('utf-8')
     fd,temporary=tempfile.mkstemp(prefix='.ipv6-text-',suffix='.tmp',dir=str(expected.path.parent))
     try:
         with os.fdopen(fd,'wb') as stream:

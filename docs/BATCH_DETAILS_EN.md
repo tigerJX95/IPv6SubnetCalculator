@@ -81,3 +81,27 @@ Sources use all candidates from the batch, including entries outside the browsin
 The existing detail report copy/save controls include both baseline availability and candidate overlaps. Internal free/occupied CIDR controls still output fragments relative to the baseline. The Report menu outputs the selected range’s record summaries and original overlap counts. Navigation, empty filters, candidate edits and closure clear old overlap evidence and reject stale complete-report saves.
 
 ![English candidate overlap sources](screenshots/batch_overlap_en_US_light.png)
+
+## Export the Current Range as CSV
+
+After a batch candidate check in Subnet List → Query → Batch Candidates, open candidate details, choose Browse, then Report → Save current range as CSV. The default filename is `IPv6_BatchRange_<category>.csv`. A missing extension is completed with `.csv`; other extensions are rejected. Empty ranges disable output.
+
+Each candidate becomes one data record. Columns are: candidate index, original line, original input, normalized network, availability, occupied addresses, free addresses, overlapping candidate records (all candidates), and host bits normalized. Indices start at 1; physical lines include comments and blank lines. Input order and duplicates are retained. Overlap counts still refer to all candidates, including those outside the filter. No summary row is added.
+
+For example, use baseline `::/127` and `::3/128`, with candidates `::3/126`, `::4/126`, `::3/126`, `::/127`. Exporting the partly occupied range produces original candidates 1 and 3. Both have normalized network `::/126`, occupied count 3, free count 1, overlap-record count 2 and host normalization Yes. Comments or blank lines before them increase their original line numbers.
+
+Files use UTF-8 with BOM, standard CSV quotes, comma separators and CRLF line endings. Headers, statuses and Yes/No use the language at actual save time; original input stays unchanged. Counts are full decimal digits. **CSV quoting does not force Excel to treat cells as text**: use Data → From Text/CSV and set occupied/free address-count columns to Text before loading. For example, `::/0` against an empty baseline has `340282366920938463463374607431768211456` free addresses. Double-clicking the CSV can let Excel round large numbers automatically. Candidate address counts may overlap and cannot be added as an allocatable total.
+
+Overwrite confirmation and save conflict protection apply. Changing the filter, including away and back, editing candidates or closing details during file selection or confirmation stops pending output. Navigation inside the same range remains valid. TXT reports, CIDR output and list content remain separate.
+
+[CSV example](../examples/batch_range_en_US.csv)
+
+## Export the Current Range as Excel (XLSX)
+
+In candidate details, choose Browse, then Report → Save current range as Excel (XLSX). The default filename is `IPv6_BatchRange_<category>.xlsx`; a missing extension is completed with `.xlsx`, and other extensions are rejected. Empty ranges disable output.
+
+Excel contains the same nine columns and all matching records as CSV, retaining input order, original candidate numbers, physical lines and duplicates. The worksheet name, headers, statuses and Yes/No follow the language at actual save time. The first row is frozen; headers have filters, with readable widths and wrapped text.
+
+Occupied/free address-count columns are explicitly text cells. **Opening XLSX directly preserves complete integers without the text-import setup required for CSV.** Original indices, source lines and overlap-record counts are sortable numeric cells; IPv6 and original input are text. There are no address-count sum formulas: overlapping candidate counts cannot be added as an allocatable total.
+
+For example, check `::/0` against an empty baseline and export All candidates. The free-count cell retains `340282366920938463463374607431768211456`. The earlier partly occupied example exports only original candidates 1 and 3, including both duplicates. As with CSV/TXT, cancellation, filter changes (including away and back), candidate edits or closing stop pending old output. Overwrite confirmation applies, and changes by another program preserve that program's content.

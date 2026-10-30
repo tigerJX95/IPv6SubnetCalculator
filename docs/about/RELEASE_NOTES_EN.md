@@ -1,13 +1,14 @@
 # Release Notes
 
-## V1.22 Range Reports and Candidate Overlap Details
+## V1.23 Address Utilities and Candidate Range Export
 
-- Candidate details add a Report menu to copy or save a TXT report of every candidate matching the current browsing filter.
-- Adds candidate overlap sources: other original candidate numbers and source lines, equality/containment relationships, intersection CIDRs and exact address counts.
-- Overlap sources are computed on demand against all original candidates, including entries outside the browsing filter. Complete detail reports include them in copy/TXT output; free/occupied CIDRs still use the baseline list.
-- Reports retain original candidate numbers, physical line numbers, duplicates, input and normalized networks, availability and exact address counts. Candidate overlap counts retain the statistics for all original candidates.
-- Empty ranges disable report output. Filter changes, candidate edits or closing the window cancel pending old-report saves, including changing away and back to the same filter.
-- Navigating within the same range keeps the complete range report valid. Reports use the interface language at actual save time, with overwrite confirmation and save conflict protection.
-- Updates both languages, user instructions and actual interface screenshots. Home pages and About show only current notes; earlier releases use the Update History text link.
+- Adds bidirectional conversion between IPv6 addresses and complete ip6.arpa names, accepting uppercase and a trailing root dot, with context-menu copying of names, addresses and reports. No DNS queries are made.
+- Adds signed decimal IPv6 address offsets with carry/borrow across groups and an optional CIDR restriction. Results outside IPv6 space or the restricted network are rejected without wrapping.
+- Adds Excel (XLSX) export using the same filtered records as CSV. Address counts are explicit text cells for exact large integers on direct opening, with frozen headers, column filters and readable widths.
+- The candidate detail Report menu adds “Save current range as CSV” for every record matching the browsing filter.
+- CSV retains original candidate numbers, physical lines, duplicates, input, normalized networks, availability, exact occupied/free counts, overlap counts across all candidates and host-bit normalization flags.
+- Uses UTF-8 with BOM, standard CSV quoting and line endings. Headers and statuses follow the interface language at actual save time. Counts use full decimal digits; import count columns as Text in Excel.
+- Empty ranges disable CSV output. Filter changes, candidate edits or closing the window cancel pending old output, with overwrite confirmation and save conflict protection.
+- Both home pages keep top sections text-only and place screenshots in the middle software gallery. Document checks reject top images; earlier notes use the Update History text link.
 
 [Update History](HISTORY.md)

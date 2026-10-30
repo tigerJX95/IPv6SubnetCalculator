@@ -413,8 +413,19 @@ class BatchCandidateDialog(QDialog):
         self.save_range_action.setText(tx('保存当前范围报告为 TXT'))
         self.save_range_action.setToolTip(tx('保存当前范围内全部匹配候选的报告为 TXT'))
         self.save_range_action.triggered.connect(self.save_range_report)
+        self.save_range_csv_action = LanguageAction(range_menu)
+        self.save_range_csv_action.setText(tx('保存当前范围为 CSV'))
+        self.save_range_csv_action.setToolTip(tx('导出全部匹配记录；Excel 导入时将地址数量列设为文本，以保留大整数精度。'))
+        self.save_range_csv_action.triggered.connect(self.save_range_csv)
+        self.save_range_xlsx_action = LanguageAction(range_menu)
+        self.save_range_xlsx_action.setText(tx('保存当前范围为 Excel（XLSX）'))
+        self.save_range_xlsx_action.setToolTip(tx('导出全部匹配记录；地址数量保存为文本，直接打开 Excel 也保留完整精度。'))
+        self.save_range_xlsx_action.triggered.connect(self.save_range_xlsx)
+        range_menu.addAction(self.save_range_xlsx_action)
+        range_menu.addSeparator()
         range_menu.addAction(self.copy_range_action)
         range_menu.addAction(self.save_range_action)
+        range_menu.addAction(self.save_range_csv_action)
         self.range_report_button.setMenu(range_menu)
         self.range_report_button.setPopupMode(QToolButton.ToolButtonPopupMode.InstantPopup)
         filter_row.addWidget(self.range_report_button)
@@ -486,6 +497,8 @@ class BatchCandidateDialog(QDialog):
         self.range_report_button.setEnabled(available)
         self.copy_range_action.setEnabled(available)
         self.save_range_action.setEnabled(available)
+        self.save_range_csv_action.setEnabled(available)
+        self.save_range_xlsx_action.setEnabled(available)
 
     def range_current(self):
         return (not self._closed and self.owner.result is self.batch_result
@@ -504,6 +517,24 @@ class BatchCandidateDialog(QDialog):
             self.batch_result.range_as_text(category),
             lambda: self.range_current() and self._range_revision == revision
             and self.browse_filter.currentData() == category)
+
+    def save_range_csv(self):
+        if not self.range_current():
+            return
+        category, revision = self.browse_filter.currentData(), self._range_revision
+        self.owner.page.output_controller._save('IPv6_BatchRange_'+category+'.csv',
+            lambda: self.batch_result.range_as_csv(category, display),
+            lambda: self.range_current() and self._range_revision == revision
+            and self.browse_filter.currentData() == category, extension='.csv')
+
+    def save_range_xlsx(self):
+        if not self.range_current():
+            return
+        category, revision = self.browse_filter.currentData(), self._range_revision
+        self.owner.page.output_controller._save('IPv6_BatchRange_'+category+'.xlsx',
+            lambda: self.batch_result.range_as_xlsx(category, display),
+            lambda: self.range_current() and self._range_revision == revision
+            and self.browse_filter.currentData() == category, extension='.xlsx')
 
     def show_candidate(self, record, ordinal):
         # Invalidate even for duplicate input, so pending saves cannot use old details.

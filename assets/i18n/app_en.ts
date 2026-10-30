@@ -3690,6 +3690,206 @@ Click a link to open your default browser; a network connection is used only whe
       <source>使用本次批量检查快照；分别展示基准占用和候选间重叠，不自动预留地址。</source>
       <translation>Uses this batch snapshot; shows baseline occupancy and candidate overlaps separately, without reserving addresses.</translation>
     </message>
+    <message>
+      <source>候选序号</source>
+      <translation>Candidate index</translation>
+    </message>
+    <message>
+      <source>规范化网段</source>
+      <translation>Normalized network</translation>
+    </message>
+    <message>
+      <source>可用性</source>
+      <translation>Availability</translation>
+    </message>
+    <message>
+      <source>占用地址数</source>
+      <translation>Occupied addresses</translation>
+    </message>
+    <message>
+      <source>空闲地址数</source>
+      <translation>Free addresses</translation>
+    </message>
+    <message>
+      <source>重叠候选记录数（全部候选）</source>
+      <translation>Overlapping candidate records (all candidates)</translation>
+    </message>
+    <message>
+      <source>主机位规范化</source>
+      <translation>Host bits normalized</translation>
+    </message>
+    <message>
+      <source>CSV 文件 (*.csv)</source>
+      <translation>CSV files (*.csv)</translation>
+    </message>
+    <message>
+      <source>请使用 .csv 扩展名保存 CSV 文件。</source>
+      <translation>Please use the .csv extension to save CSV files.</translation>
+    </message>
+    <message>
+      <source>保存当前范围为 CSV</source>
+      <translation>Save current range as CSV</translation>
+    </message>
+    <message>
+      <source>导出全部匹配记录；Excel 导入时将地址数量列设为文本，以保留大整数精度。</source>
+      <translation>Export all matching records; import address-count columns as Text in Excel to preserve large integers.</translation>
+    </message>
+    <message>
+      <source>候选范围</source>
+      <translation>Candidate Range</translation>
+    </message>
+    <message>
+      <source>保存当前范围为 Excel（XLSX）</source>
+      <translation>Save current range as Excel (XLSX)</translation>
+    </message>
+    <message>
+      <source>导出全部匹配记录；地址数量保存为文本，直接打开 Excel 也保留完整精度。</source>
+      <translation>Export all matching records; address counts are text cells, preserving exact values when opened in Excel.</translation>
+    </message>
+    <message>
+      <source>Excel 文件 (*.xlsx)</source>
+      <translation>Excel files (*.xlsx)</translation>
+    </message>
+    <message>
+      <source>保存候选范围为 Excel</source>
+      <translation>Save Candidate Range as Excel</translation>
+    </message>
+    <message>
+      <source>请使用 .xlsx 扩展名保存 Excel 文件。</source>
+      <translation>Please use the .xlsx extension to save Excel files.</translation>
+    </message>
+    <message>
+      <source>保存 Excel 失败：</source>
+      <translation>Failed to save Excel: </translation>
+    </message>
+    <message>
+      <source>Excel 已保存：{0}</source>
+      <translation>Excel saved: {0}</translation>
+    </message>
+    <message>
+      <source>IPv6 地址偏移计算</source>
+      <translation>IPv6 Address Offset</translation>
+    </message>
+    <message>
+      <source>偏移量（十进制）：{0}</source>
+      <translation>Offset (decimal): {0}</translation>
+    </message>
+    <message>
+      <source>结果地址：{0}</source>
+      <translation>Result address: {0}</translation>
+    </message>
+    <message>
+      <source>仅进行地址数学运算，不代表地址已分配或可部署。</source>
+      <translation>Address arithmetic only; it does not establish allocation or deployment suitability.</translation>
+    </message>
+    <message>
+      <source>偏移量须为带可选正负号的十进制整数，最多 39 位数字。</source>
+      <translation>Enter a decimal integer with an optional sign and at most 39 digits.</translation>
+    </message>
+    <message>
+      <source>偏移结果超出 IPv6 地址范围，不会回绕到另一端。</source>
+      <translation>The result is outside the IPv6 address space; it will not wrap around.</translation>
+    </message>
+    <message>
+      <source>IPv6 与反向 DNS 互转</source>
+      <translation>IPv6 and Reverse DNS Conversion</translation>
+    </message>
+    <message>
+      <source>IPv6 地址：{0}</source>
+      <translation>IPv6 address: {0}</translation>
+    </message>
+    <message>
+      <source>反向 DNS 名称：{0}</source>
+      <translation>Reverse DNS name: {0}</translation>
+    </message>
+    <message>
+      <source>仅转换名称，不进行 DNS 查询或检查 PTR 记录。</source>
+      <translation>Converts names only; no DNS queries or PTR record checks are performed.</translation>
+    </message>
+    <message>
+      <source>请输入 IPv6 地址，或包含完整 32 位十六进制标签的 ip6.arpa 名称。</source>
+      <translation>Enter an IPv6 address or a complete ip6.arpa name with 32 hexadecimal labels.</translation>
+    </message>
+    <message>
+      <source>起始地址不在限定网段内。</source>
+      <translation>The starting address is outside the restricted network.</translation>
+    </message>
+    <message>
+      <source>偏移结果超出限定网段。</source>
+      <translation>The resulting address is outside the restricted network.</translation>
+    </message>
+    <message>
+      <source>限定网段：{0}</source>
+      <translation>Restricted network: {0}</translation>
+    </message>
+    <message>
+      <source>距网段起始地址：{0}；距结束地址：{1}</source>
+      <translation>Distance from network start: {0}; distance to network end: {1}</translation>
+    </message>
+    <message>
+      <source>复制 IPv6 地址</source>
+      <translation>Copy IPv6 address</translation>
+    </message>
+    <message>
+      <source>复制完整工具报告</source>
+      <translation>Copy complete tool report</translation>
+    </message>
+    <message>
+      <source>地址工具处理完成。</source>
+      <translation>Address tool completed.</translation>
+    </message>
+    <message>
+      <source>计算地址偏移（Enter）</source>
+      <translation>Calculate address offset (Enter)</translation>
+    </message>
+    <message>
+      <source>转换反向 DNS 名称（Enter）</source>
+      <translation>Convert reverse DNS name (Enter)</translation>
+    </message>
+    <message>
+      <source>偏移超出 IPv6 空间或限定网段时拒绝计算，不循环回绕。</source>
+      <translation>Results outside IPv6 space or the restricted network are rejected without wrapping.</translation>
+    </message>
+    <message>
+      <source>仅支持单个地址的完整 32 标签名称，不支持反向区域或通配符；不进行 DNS 查询。</source>
+      <translation>Accepts a complete 32-label name for one address, not reverse zones or wildcards; no DNS queries.</translation>
+    </message>
+    <message>
+      <source>复制结果地址</source>
+      <translation>Copy result address</translation>
+    </message>
+    <message>
+      <source>复制反向 DNS 名称</source>
+      <translation>Copy reverse DNS name</translation>
+    </message>
+    <message>
+      <source>地址工具结果已复制。</source>
+      <translation>Address tool result copied.</translation>
+    </message>
+    <message>
+      <source>IPv6 或反向 DNS 名称</source>
+      <translation>IPv6 or reverse DNS name</translation>
+    </message>
+    <message>
+      <source>输入 IPv6 地址或完整 ip6.arpa 名称；允许大写和末尾根点，不查询 DNS。</source>
+      <translation>Enter an IPv6 address or complete ip6.arpa name; uppercase and a trailing root dot are accepted. No DNS lookup.</translation>
+    </message>
+    <message>
+      <source>偏移量</source>
+      <translation>Offset</translation>
+    </message>
+    <message>
+      <source>十进制正负整数；例如 16、-1 或 0，不支持十六进制。</source>
+      <translation>Signed decimal integer, such as 16, -1 or 0; hexadecimal is not supported.</translation>
+    </message>
+    <message>
+      <source>限定网段（可选）</source>
+      <translation>Restricted network (optional)</translation>
+    </message>
+    <message>
+      <source>留空允许整个 IPv6 空间；填写 CIDR 后，起始和结果地址都须在该网段内。</source>
+      <translation>Leave blank for the entire IPv6 space; if a CIDR is set, both starting and resulting addresses must be inside it.</translation>
+    </message>
   </context>
   <context>
     <name>Export</name>

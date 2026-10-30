@@ -1,24 +1,26 @@
 # 开发说明 / Development Notes
 
-## V1.22 范围报告与候选重叠详情
+## V1.23 地址工具增强与候选范围导出
 
-- 候选详情新增“范围报告”菜单，可复制或保存当前浏览范围内全部匹配候选的 TXT 报告。
-- 新增候选间重叠来源详情：列出与当前候选重叠的其他候选序号、原始行号、相同／包含关系、交集 CIDR 及精确地址数。
-- 重叠来源按需对照本次全部候选，包含浏览范围之外的项；详情报告复制和 TXT 保存一并输出，空闲／占用 CIDR 仍按基准清单计算。
-- 报告保留原始候选序号、物理行号、重复项、输入与规范化网段、可用性和精确地址数量；候选间重叠条数沿用本次全部候选的统计。
-- 无匹配项时禁用范围报告输出；切换范围、修改候选或关闭窗口会中止旧报告保存，切换后再切回同一范围也不会继续旧保存。
-- 在同一范围内前后浏览不影响整份范围报告保存；报告使用实际保存时的界面语言，沿用覆盖确认及保存冲突保护。
-- 同步中英文菜单、使用说明和实际界面截图；首页与关于窗口仅展示最新版更新，旧版通过“历史更新”文字链接查看。
+- 新增 IPv6／完整 ip6.arpa 名称双向转换，支持大小写与末尾根点，提供名称、地址和完整报告右键复制；全程离线，不查询 DNS。
+- 新增 IPv6 地址偏移计算，支持正负十进制整数、跨组进位／借位，以及可选 CIDR 范围限制；超出 IPv6 空间或限定网段时拒绝计算，不回绕。
+- 新增 Excel（XLSX）导出，与 CSV 使用相同筛选记录；地址数量列明确保存为文本，直接打开也保留完整大整数，提供冻结表头、列筛选和列宽设置。
+- 候选详情“范围报告”新增“保存当前范围为 CSV”，导出当前筛选范围的全部匹配记录。
+- CSV 保留原始候选序号、物理行号、重复项、输入、规范化网段、状态、精确占用／空闲数量、全部候选中的重叠记录数及主机位规范化标记。
+- 采用带 BOM 的 UTF-8、标准 CSV 引号和换行，表头与状态使用实际保存时的界面语言；地址数量以完整十进制保存，Excel 导入时请将数量列设为文本。
+- 空范围禁用 CSV 输出；保存期间切换筛选范围、改动候选或关闭窗口会中止旧输出，保留覆盖确认及保存冲突保护。
+- 中英文首页顶部保持纯文字，截图集中于中部软件截图区；文档检查新增顶部图片拦截，旧版更新通过“历史更新”文字链接查看。
 
-## V1.22 Range Reports and Candidate Overlap Details
+## V1.23 Address Utilities and Candidate Range Export
 
-- Candidate details add a Report menu to copy or save a TXT report of every candidate matching the current browsing filter.
-- Adds candidate overlap sources: other original candidate numbers and source lines, equality/containment relationships, intersection CIDRs and exact address counts.
-- Overlap sources are computed on demand against all original candidates, including entries outside the browsing filter. Complete detail reports include them in copy/TXT output; free/occupied CIDRs still use the baseline list.
-- Reports retain original candidate numbers, physical line numbers, duplicates, input and normalized networks, availability and exact address counts. Candidate overlap counts retain the statistics for all original candidates.
-- Empty ranges disable report output. Filter changes, candidate edits or closing the window cancel pending old-report saves, including changing away and back to the same filter.
-- Navigating within the same range keeps the complete range report valid. Reports use the interface language at actual save time, with overwrite confirmation and save conflict protection.
-- Updates both languages, user instructions and actual interface screenshots. Home pages and About show only current notes; earlier releases use the Update History text link.
+- Adds bidirectional conversion between IPv6 addresses and complete ip6.arpa names, accepting uppercase and a trailing root dot, with context-menu copying of names, addresses and reports. No DNS queries are made.
+- Adds signed decimal IPv6 address offsets with carry/borrow across groups and an optional CIDR restriction. Results outside IPv6 space or the restricted network are rejected without wrapping.
+- Adds Excel (XLSX) export using the same filtered records as CSV. Address counts are explicit text cells for exact large integers on direct opening, with frozen headers, column filters and readable widths.
+- The candidate detail Report menu adds “Save current range as CSV” for every record matching the browsing filter.
+- CSV retains original candidate numbers, physical lines, duplicates, input, normalized networks, availability, exact occupied/free counts, overlap counts across all candidates and host-bit normalization flags.
+- Uses UTF-8 with BOM, standard CSV quoting and line endings. Headers and statuses follow the interface language at actual save time. Counts use full decimal digits; import count columns as Text in Excel.
+- Empty ranges disable CSV output. Filter changes, candidate edits or closing the window cancel pending old output, with overwrite confirmation and save conflict protection.
+- Both home pages keep top sections text-only and place screenshots in the middle software gallery. Document checks reject top images; earlier notes use the Update History text link.
 
 [历史更新](HISTORY.md) · [Update History](HISTORY_EN.md) · [开发历史 / Development history](DEVELOPMENT_HISTORY.md)
 
@@ -33,13 +35,13 @@ python -m pip install -r requirements.txt
 python main.py
 ```
 
-Windows 下运行 `build.cmd`，会安装固定版本的界面依赖和 PyInstaller，生成 `dist/IPv6SubnetCalculator_V1.22.exe`。构建需要联网下载依赖；生成后的程序离线运行，不要求目标电脑安装 Python。EXE 的架构取决于所用 Python 的架构，建议使用 Windows x64 Python。
+Windows 下运行 `build.cmd`，会安装固定版本的界面依赖和 PyInstaller，生成 `dist/IPv6SubnetCalculator_V1.23.exe`。构建需要联网下载依赖；生成后的程序离线运行，不要求目标电脑安装 Python。EXE 的架构取决于所用 Python 的架构，建议使用 Windows x64 Python。
 
-On Windows, `build.cmd` installs the pinned interface dependencies and PyInstaller, then creates `dist/IPv6SubnetCalculator_V1.22.exe`. Building requires internet access to download dependencies. The resulting application works offline without Python on the target computer. Its architecture follows the Python interpreter used; Windows x64 Python is recommended.
+On Windows, `build.cmd` installs the pinned interface dependencies and PyInstaller, then creates `dist/IPv6SubnetCalculator_V1.23.exe`. Building requires internet access to download dependencies. The resulting application works offline without Python on the target computer. Its architecture follows the Python interpreter used; Windows x64 Python is recommended.
 
-可选运行 `python tools/package_release.py` 生成 `dist/IPv6SubnetCalculator_V1.22_Windows.zip`，包含 EXE、项目 `LICENSE`／`NOTICE` 及第三方许可文件。Windows 用户默认直接下载 EXE；ZIP 仅为可选归档，源码包单独提供。发布前运行 `verify.cmd` 检查本次 EXE。
+可选运行 `python tools/package_release.py` 生成 `dist/IPv6SubnetCalculator_V1.23_Windows.zip`，包含 EXE、项目 `LICENSE`／`NOTICE` 及第三方许可文件。Windows 用户默认直接下载 EXE；ZIP 仅为可选归档，源码包单独提供。发布前运行 `verify.cmd` 检查本次 EXE。
 
-Optionally run `python tools/package_release.py` to create `dist/IPv6SubnetCalculator_V1.22_Windows.zip`, containing the EXE, project LICENSE/NOTICE, and third-party license files. Publish the EXE as the default Windows download; the ZIP is optional and source is provided separately. Run `verify.cmd` before publishing to check the executable from this build.
+Optionally run `python tools/package_release.py` to create `dist/IPv6SubnetCalculator_V1.23_Windows.zip`, containing the EXE, project LICENSE/NOTICE, and third-party license files. Publish the EXE as the default Windows download; the ZIP is optional and source is provided separately. Run `verify.cmd` before publishing to check the executable from this build.
 
 ## 模块职责 / Module Responsibilities
 
@@ -108,9 +110,9 @@ Widget colors come from one stylesheet, without mixing in global `setPalette`. C
 
 Project-authored content uses `GPL-3.0-or-later`. The root `LICENSE` contains the unmodified GPLv3 text; `NOTICE` identifies the versions, scope, and lack of warranty. Third-party license files are retained separately.
 
-`build.cmd` 会将项目与第三方许可嵌入程序，并在 `dist/IPv6SubnetCalculator_V1.22_Licenses/` 输出可直接阅读的副本。该目录可作为独立许可附件保留；EXE 已嵌入许可文件。发布时提供与 EXE 对应版本的完整源码及构建材料（包括 `build.cmd`、`requirements.txt`、资源和开发说明）。源码可放在同一 Release 的源码附件中；确保该 Release 对应正确的提交和标签，不要仅链接到持续变化的主分支。
+`build.cmd` 会将项目与第三方许可嵌入程序，并在 `dist/IPv6SubnetCalculator_V1.23_Licenses/` 输出可直接阅读的副本。该目录可作为独立许可附件保留；EXE 已嵌入许可文件。发布时提供与 EXE 对应版本的完整源码及构建材料（包括 `build.cmd`、`requirements.txt`、资源和开发说明）。源码可放在同一 Release 的源码附件中；确保该 Release 对应正确的提交和标签，不要仅链接到持续变化的主分支。
 
-`build.cmd` embeds project and third-party license files in the application and also writes readable copies to `dist/IPv6SubnetCalculator_V1.22_Licenses/`. Retain that folder as an optional standalone license attachment; licenses are also embedded in the EXE. Provide the complete matching application source and build materials, including `build.cmd`, `requirements.txt`, assets, and these instructions. A source archive can accompany the same Release; use the matching commit and tag rather than linking only to a changing main branch.
+`build.cmd` embeds project and third-party license files in the application and also writes readable copies to `dist/IPv6SubnetCalculator_V1.23_Licenses/`. Retain that folder as an optional standalone license attachment; licenses are also embedded in the EXE. Provide the complete matching application source and build materials, including `build.cmd`, `requirements.txt`, assets, and these instructions. A source archive can accompany the same Release; use the matching commit and tag rather than linking only to a changing main branch.
 
 程序包含的第三方组件仍须按各自许可履行源码、版权和再分发义务。完整源码的提供范围包括适用许可证要求的依赖源码；仅附上项目的 Python 文件或上游主页链接并不自动满足所有第三方二进制分发条件。组件版本及获取入口见 `THIRD_PARTY_NOTICES.md`，发布时应保留所用版本的依赖源码及构建信息。
 
@@ -131,7 +133,7 @@ python tools/verify.py --report-dir verification
 指定打包程序可运行： / To include a packaged application:
 
 ```console
-python tools/verify.py --exe dist/IPv6SubnetCalculator_V1.22.exe --report-dir verification
+python tools/verify.py --exe dist/IPv6SubnetCalculator_V1.23.exe --report-dir verification
 ```
 
 `summary.json` 保存环境、逐阶段结果及性能数据；`SUMMARY.md` 为简要结果，`tests.log` 保存回归日志；`source.json` 和 `executable.json` 分别记录源码与打包程序检查。源码检查通过时，未提供的 EXE 仍标记为 `not_run`。只有在 Windows 上执行且 EXE 检查通过后，`windows_automated_checks` 才标记为通过；人工验证始终独立登记，见 [Windows 验证](WINDOWS_ACCEPTANCE.md)。
@@ -325,3 +327,26 @@ Release publication checks whether an EXE attachment exists before deciding to b
 `candidate_overlaps()` 只扫描当前项与其余候选，以 IPv6 网络边界判断相交。CIDR 相交时取较长前缀为精确交集，排除自身但保留其他重复记录；返回原始序号，不按浏览筛选缩小来源。`BatchCandidatePanel` 分开保留基准与候选重叠结果，完整报告保存同时核对两者身份，CIDR 输出不改变。
 
 `candidate_overlaps()` scans the current candidate against the others using network boundaries. For overlapping CIDRs the longer prefix is the exact intersection. Self is excluded and other duplicates are retained, regardless of the browsing filter. The detail panel keeps baseline and candidate-overlap results separately and checks both identities for complete report saves.
+
+
+## CSV 序列化与保存 / CSV Serialization and Saving
+
+`BatchAvailability.range_as_csv(category, render)` 复用原始候选筛选，按记录输出完整十进制数量，不调用逐候选重叠来源分析。先翻译表头／状态再由标准库 `csv.writer` 转义，加入 UTF-8 BOM；UI 传入 `display`。`ListOutputController._save()` 默认保留 TXT，CSV 调用指定 `.csv`，使用回调在文件选择／覆盖确认后才生成内容，沿用范围修订号与文件快照保护。CSV 没有列类型，Excel 应将地址数量按文本导入。
+
+`BatchAvailability.range_as_csv(category, render)` reuses original-record filtering, writes full decimal counts and does not invoke per-candidate overlap-source analysis. Headers/statuses are translated before standard-library CSV quoting, with a UTF-8 BOM; the UI supplies `display`. `ListOutputController._save()` retains TXT defaults; CSV selects `.csv` and a callback that generates content after file selection/overwrite confirmation, guarded by the filter revision and file snapshot. CSV has no column types: import address counts as Text in Excel.
+
+首页截图位于 `## 📸` 软件截图区。`tools/check_doc_images.py` 同时检查中英文图片归属、内容摘要及首页顶部不得出现图片；功能图应在中部软件截图区或对应操作说明引用。
+
+Home-page images belong in the `## 📸` software gallery. `tools/check_doc_images.py` checks image language, hashes and the text-only top layout. Feature screenshots belong in the middle gallery or their operating guide.
+
+
+Excel 使用 `core/candidate_xlsx.py` 以标准库写出 OOXML，不增加运行依赖。CSV 与 XLSX 共用 `range_table()`；地址数量单元格为 `inlineStr`，序号／行号／重叠条数为有限数值。文本只写文本单元格，不生成公式或外部链接。`save_bytes_atomic()` 与原 TXT／CSV 路径共用临时文件提交和冲突保护。
+
+Excel uses standard-library OOXML generation in `core/candidate_xlsx.py`, with no additional runtime dependencies. CSV and XLSX share `range_table()`. Address counts use `inlineStr` cells; indices, source lines and overlap counts are bounded numeric cells. Text remains text; no formulas or external links are generated. `save_bytes_atomic()` shares temporary-file commit and conflict protection with TXT/CSV.
+
+
+## 新增地址工具 / Additional Address Tools
+
+`core/address_utilities.py` 实现完整 32 标签 ip6.arpa 双向转换和有界地址偏移。使用标准库 IPv6 整数，不枚举地址、不查询网络。`ui/address_utility_panel.py` 维护独立结果、输入错误定位、实时语言展示和右键复制；任意输入变化即清除旧结果。测试覆盖 RFC 示例、随机往返、映射地址、零值、上下界、进位／借位、可选网段及最小窗口滚动。
+
+`core/address_utilities.py` implements complete 32-label ip6.arpa conversion and bounded address offsets using standard-library IPv6 integers, without address enumeration or network queries. `ui/address_utility_panel.py` owns independent results, field errors, live language rendering and context-menu copying; every input edit invalidates old output. Tests cover the RFC example, randomized round trips, mapped addresses, zero, both boundaries, carry/borrow, optional CIDRs and scrolling at the minimum window size.

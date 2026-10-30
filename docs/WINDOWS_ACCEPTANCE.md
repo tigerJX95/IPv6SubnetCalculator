@@ -1,3 +1,12 @@
+## V1.23 新增操作验收 / New operation checks
+
+- 在地址工具滚动到底部，分别验证完整 ip6.arpa 双向转换及正负地址偏移；检查越界拒绝、可选网段、右键复制、切换语言与最小窗口滚动。 / Scroll to the new address tools and verify reverse DNS round trips, signed offsets, bounds, optional CIDRs, context-menu copying, language switching and minimum-size scrolling.
+- 导出 Excel（XLSX）并直接打开：九列与 CSV 相同，原始序号和重复记录保留；`/0` 的地址数量为完整文本，表头冻结、筛选和列宽可用。中英文菜单、表头及工作表名分别核对。 / Export and directly open XLSX: compare nine columns to CSV, retain original indices/duplicates, verify complete `/0` counts as text, frozen headers, filters and widths; check both languages.
+- 在中英文界面分别导出“部分占用”范围 CSV，验证原始第 1、3 项和重复记录保留；UTF-8 BOM 正确，中文不乱码。 / Export the partly occupied range in both languages; check original indices 1 and 3, duplicates and UTF-8 BOM.
+- 在 Excel 使用“数据 → 从文本/CSV”导入，将地址数量列设置为文本，验证 `/0` 的 `340282366920938463463374607431768211456` 完整保留。 / Import using Data → From Text/CSV, set count columns to Text, and verify the complete `/0` count.
+- 文件选择／覆盖确认期间切换语言，确认 CSV 标签使用最终语言；同一范围内导航仍可保存。 / Change language during file selection or confirmation; verify final-language labels and navigation within one range.
+- 切换范围后再切回、编辑候选或关闭窗口应中止旧保存；取消、扩展名错误和外部文件修改应保留原内容。 / Changing away and back, editing candidates or closing must stop pending saves; cancellation, invalid extensions and external file changes preserve original content.
+
 ## V1.22 新增操作验收 / New operation checks
 
 
