@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "version": "1.23",
+  "version": "1.24",
   "images": {
     "docs/screenshots/calculation_zh_CN_light.png": {
       "language": "zh_CN",
@@ -12,7 +12,7 @@
     },
     "docs/screenshots/tools_zh_CN_light.png": {
       "language": "zh_CN",
-      "sha256": "f7a018b85c1506b1a22db9196b0b3d9acb9f3e3836dff1476e68566435ebd43b"
+      "sha256": "8cb851ae8e8814c15f3032d2eb08e8c18b872634bb99949226b676c32d4df6c6"
     },
     "docs/screenshots/query_entry_zh_CN_light.png": {
       "language": "zh_CN",
@@ -48,7 +48,7 @@
     },
     "docs/screenshots/tools_en_US_light.png": {
       "language": "en_US",
-      "sha256": "5170aad77823d95f85e4a015436c17aac518a8a08c71af38775790b39653bd8f"
+      "sha256": "aead2ae38de729c373e70eebbc266236678c43235de1a8eaefcf4ab24e94e67e"
     },
     "docs/screenshots/query_entry_en_US_light.png": {
       "language": "en_US",
@@ -76,7 +76,7 @@
     },
     "docs/screenshots/about_zh_CN_light.png": {
       "language": "zh_CN",
-      "sha256": "dab4b638002a71ce48a0eaa609ac59d52b8d95e4bad70ad418af2e190c3255e2"
+      "sha256": "bdab938363f6ccc99254a0bb97c4b3c8324ca69f431ef21552aea087c8788725"
     },
     "docs/screenshots/batch_availability_zh_CN_light.png": {
       "language": "zh_CN",
@@ -84,7 +84,7 @@
     },
     "docs/screenshots/about_zh_CN_dark.png": {
       "language": "zh_CN",
-      "sha256": "44dbd5a854033e21b20032e1b3e82c63a49538394ca2be2d4605ec0345716748"
+      "sha256": "96a4c69a3363e009ef811bf27955b1f4b58a785a2f400c140d5e12323aec43b5"
     },
     "docs/screenshots/batch_availability_zh_CN_dark.png": {
       "language": "zh_CN",
@@ -92,7 +92,7 @@
     },
     "docs/screenshots/about_en_US_light.png": {
       "language": "en_US",
-      "sha256": "431214bd9e0a94e10b23f284abc384fc02dbb51bdf25f2a25b43c2afa589f352"
+      "sha256": "d6f4d05865f8d199e262eddb4191f31b98a606aacc9f6e8941ac1870a999811e"
     },
     "docs/screenshots/batch_availability_en_US_light.png": {
       "language": "en_US",
@@ -100,7 +100,7 @@
     },
     "docs/screenshots/about_en_US_dark.png": {
       "language": "en_US",
-      "sha256": "2824d6004c8e881c5b72d596443da9c7e53e3b341cd6a5a805d5a06f26181d7b"
+      "sha256": "719a9367176e02151d7908ebd4c749e63ea7848bd36c90d9a0eacfed5b6764bf"
     },
     "docs/screenshots/batch_availability_en_US_dark.png": {
       "language": "en_US",
@@ -108,23 +108,23 @@
     },
     "docs/screenshots/batch_categories_zh_CN_light.png": {
       "language": "zh_CN",
-      "sha256": "ab53b07cda8941234b6a172072954fe4551c6164c1a6dd31f0d0504b734b0a41"
+      "sha256": "c8996ff5c3d919065d2dead8545986f404be384be3dd3f3bf58654dc553d31f7"
     },
     "docs/screenshots/batch_categories_zh_CN_dark.png": {
       "language": "zh_CN",
-      "sha256": "c3cb86a38c9386db07815fc2630e63c68d7f4033174a8250b5108eda3f4e232b"
+      "sha256": "4e40fd27d5ace1d847b0c235d792024c7072fb1927322a665fb85a68ec3f09eb"
     },
     "docs/screenshots/batch_categories_en_US_light.png": {
       "language": "en_US",
-      "sha256": "b89db1d56910faffbd37334125f03bf0ef432bf280a47d0ebabf1ed35e3774c1"
+      "sha256": "b2540c2e2074184653831ddc138d12862ff5a4df6ed510c73dd195debd288a90"
     },
     "docs/screenshots/batch_categories_en_US_dark.png": {
       "language": "en_US",
-      "sha256": "c6b6a7e5149c13b55c6ffc4c83dc1a912bbeb3704b1ffb0b8cc07e3d1a9abc05"
+      "sha256": "7548791485d9ff600e84153a16bcba525eb94bb8291e2d496473b9ae5a8b99a7"
     },
     "docs/screenshots/about_usage_zh_CN_light.png": {
       "language": "zh_CN",
-      "sha256": "6796753f9610af717c04ac7ca32ec053a4f2dbe3f3f8aef4de42723159c9ee57"
+      "sha256": "91536b96375d5bdd63df046ebc1b57c0e692105d61c657dc0ff629a71bf07042"
     },
     "docs/screenshots/about_release_zh_CN_light.png": {
       "language": "zh_CN",
@@ -132,11 +132,11 @@
     },
     "docs/screenshots/about_legal_zh_CN_light.png": {
       "language": "zh_CN",
-      "sha256": "75d1935bc99923bd30184bd8cc1c322d8f1b06e06a80c9190c6ca225bbde5dc3"
+      "sha256": "77562b164432a014a4552286f62ac499a7aaaaf5d694223d42ba1cb57bf0b81b"
     },
     "docs/screenshots/about_usage_zh_CN_dark.png": {
       "language": "zh_CN",
-      "sha256": "c85a390f3c15d3dcd48d14cddc31f2e0eb8a5ec63300298f56e95bfdca61a068"
+      "sha256": "214a2aa57b0d83f734ea69f5ad3032d433d315d9581343e632a2087ed9c2adfd"
     },
     "docs/screenshots/about_release_zh_CN_dark.png": {
       "language": "zh_CN",
@@ -144,11 +144,11 @@
     },
     "docs/screenshots/about_legal_zh_CN_dark.png": {
       "language": "zh_CN",
-      "sha256": "a53a11b2059f46959eeaf70cfbffa9e895f2e10994ceb7f9df3be28c8315098a"
+      "sha256": "acc837a0f594e69716952ef1376dffe9cff9b5b835c993d415e55b219727010d"
     },
     "docs/screenshots/about_usage_en_US_light.png": {
       "language": "en_US",
-      "sha256": "5e46f1d186abc83e01d7354ff9a9c1b921de70b4d49f5110aa9a03b61783cd8d"
+      "sha256": "541a928af729a2b844d06fe2304df3a9034e80f5782fbcaec2d18b9decf14f16"
     },
     "docs/screenshots/about_release_en_US_light.png": {
       "language": "en_US",
@@ -156,11 +156,11 @@
     },
     "docs/screenshots/about_legal_en_US_light.png": {
       "language": "en_US",
-      "sha256": "cbca8dc0c1be64b0a952bbee08772204b0dfe93f88f2ce48a6b5345e6fe26fad"
+      "sha256": "0a960328360a00f6bb21040f1709aad4e1cafa4e5fea564ea87f97046fa5fabd"
     },
     "docs/screenshots/about_usage_en_US_dark.png": {
       "language": "en_US",
-      "sha256": "8f155a2e8a032cce9e0d7c6b6e114b510d4211803f2827250bd90fb12316c4be"
+      "sha256": "26eef8ec059c1279c8b96ab34994d8da6ffeb4a41c7beabb95bad7daedf6f57e"
     },
     "docs/screenshots/about_release_en_US_dark.png": {
       "language": "en_US",
@@ -168,31 +168,31 @@
     },
     "docs/screenshots/about_legal_en_US_dark.png": {
       "language": "en_US",
-      "sha256": "a11f996fa85d6acb33450a7d74f47b84c785c79abb5054ded329ec0c0268e707"
+      "sha256": "f8de6769e14a74dff0567487d5d9dc20d69262cd1dae3d39f07cf9e17702de23"
     },
     "docs/screenshots/tools_zh_CN_dark.png": {
       "language": "zh_CN",
-      "sha256": "48ee77a4d05f8c2597912c29e5c3312b0410d7b44d2644727146e64d5ffb91f5"
+      "sha256": "6625d7fb087f4ee35a0b9ffb5c6dea1f6f4371c1175b51653b563be59348ef38"
     },
     "docs/screenshots/tools_en_US_dark.png": {
       "language": "en_US",
-      "sha256": "b354baf2f29b00e379472724f75ac4e2029a4eeff61b217874b83a80bbd7c823"
+      "sha256": "fa59faf668dc4f7384e085bc900c0bc2176406d6db47d4e21f58d76c267a8ecb"
     },
     "docs/screenshots/batch_detail_zh_CN_light.png": {
       "language": "zh_CN",
-      "sha256": "b1f76dd836b6ecd6a1532394494ffdaa2fa66a7ccab2674fb7f1079601d0d5d8"
+      "sha256": "3db94811649928c91a7522dc7fab50c96fcc007de9c60ce2f9bd6a4c9d566b3e"
     },
     "docs/screenshots/batch_detail_zh_CN_dark.png": {
       "language": "zh_CN",
-      "sha256": "9af328a47f51fb8ecd02447454020192cc48be1f0c449084102a25ad33a29ea3"
+      "sha256": "43a5a893092f4de41d7ab069b8fef9b56197137ad6755486634d2b5475c7e8e2"
     },
     "docs/screenshots/batch_detail_en_US_light.png": {
       "language": "en_US",
-      "sha256": "6cc8a6a5903c40bde96cfca851fb9dbeebfa52bfccf3e1788e2dcdf74767674b"
+      "sha256": "9273f2da3e1f7c176cf9fe441c42b7a12e1d9fa0ed8fbe63747a023b62253bb2"
     },
     "docs/screenshots/batch_detail_en_US_dark.png": {
       "language": "en_US",
-      "sha256": "3d6f29666cfce62c57e7fd16c061ca02703bb4dfb97654aca16ba7c29dcf0f9f"
+      "sha256": "16557fe2cd12d3d7b249df25dff66f2f99f0ae43770e39d2db544b1b9140bb2c"
     },
     "docs/screenshots/batch_import_zh_CN_light.png": {
       "language": "zh_CN",
@@ -228,71 +228,71 @@
     },
     "docs/screenshots/batch_filter_zh_CN_light.png": {
       "language": "zh_CN",
-      "sha256": "d6fbc62dd7f1262a38e117dec7e884d49b15e36cf3063b24e6e10d1ed18ce8b4"
+      "sha256": "27d6119750a6712b3a9b7d0ed6887cb0fa1f6f87ad181cc12fd1d8f448c256fb"
     },
     "docs/screenshots/batch_filter_zh_CN_dark.png": {
       "language": "zh_CN",
-      "sha256": "7e938454c7ed901d155c13f6671251f97f9de0bfc11df8d6ba3af81a6f34005d"
+      "sha256": "33b2718084d8678a4f9d69395b5a95b7ad9a472ae302a7283fd233a31c53c922"
     },
     "docs/screenshots/batch_filter_en_US_light.png": {
       "language": "en_US",
-      "sha256": "ad34ac4bd0d005327efa4f4416d203ef4d209daa20fba109b211cc0f3a30daec"
+      "sha256": "57ed011ee5f777b5d3a1dcae3dd55fad4bfbcc873aa0548503aa4f0317ae0d49"
     },
     "docs/screenshots/batch_filter_en_US_dark.png": {
       "language": "en_US",
-      "sha256": "6f4b10254b103dedbd112cd6c48f13915624676aac5112e0a5142d34dfa57977"
+      "sha256": "18ed866fc9ecce98ad9dc73f54747e6082de0c1b59713c5f7b18139654855258"
     },
     "docs/screenshots/batch_range_zh_CN_light.png": {
       "language": "zh_CN",
-      "sha256": "b64bf5da6338972564cd84403037d0a76d5cc98c0d65b7d8bcd9bc1dd7f1139a"
+      "sha256": "1aadf0ce5771cb92420b33c72228cb406d752217d7f1faeed0045a0201f7b515"
     },
     "docs/screenshots/batch_range_menu_zh_CN_light.png": {
       "language": "zh_CN",
-      "sha256": "43e1c7b476e152babfb24cdd152a60f3a703ab5ad6a98d6ffc3f5a86d3cc886c"
+      "sha256": "7851b4346df263445a6af24ebadf3086636e7b8772a40ac0b8f94b1dd5fcc370"
     },
     "docs/screenshots/batch_range_zh_CN_dark.png": {
       "language": "zh_CN",
-      "sha256": "c63f0e7366a1bd406a84309d2c6a6da278d67c4d3339d4cc9416f2ff6ba14fcc"
+      "sha256": "02f83aeacabbe26eadd2772a225ca0a87f0ba7a52c468812acba3e226714b4eb"
     },
     "docs/screenshots/batch_range_menu_zh_CN_dark.png": {
       "language": "zh_CN",
-      "sha256": "673901eccceef57b3efc25047858806976df6ca950353213c80c52e68f86e0c0"
+      "sha256": "26936b2e1eed84f3e677a94ea4cfcfd298f11d46270b11c7309cde13d9936876"
     },
     "docs/screenshots/batch_range_en_US_light.png": {
       "language": "en_US",
-      "sha256": "12dabdf433022863ca9e9e17accf0ddd381025c4087ddb5bed1b8e20feb66ca2"
+      "sha256": "0e35b2026cc4982d1be0014a593271c014530501a5e5077b2a1ec1382cddf255"
     },
     "docs/screenshots/batch_range_menu_en_US_light.png": {
       "language": "en_US",
-      "sha256": "98e382af95aba7af9db090e56b7e3b53bb1943dd08405b8e4c8d161fd1dbb5f7"
+      "sha256": "d89d1c05f37ff36bd7336c422b7ff8a8a65db29b71f5c0ae5b67ef1ec2f69d7c"
     },
     "docs/screenshots/batch_range_en_US_dark.png": {
       "language": "en_US",
-      "sha256": "03f70d7b00885daee9cb432a546709808caeea120a86a94ccf68f979125927e8"
+      "sha256": "552eff36b0ccd4ce658124e0b53572e554bf2871030ed0980a92dd5a514a0e63"
     },
     "docs/screenshots/batch_range_menu_en_US_dark.png": {
       "language": "en_US",
-      "sha256": "cc14460e52c78e34c43ba35d2032a69e7dd90c07358fe9fde533fe17b6ca1b77"
+      "sha256": "3e09d792d189594046a165693c1125475e60882cfe91d373c7a0107545c0dbc8"
     },
     "docs/screenshots/batch_overlap_zh_CN_light.png": {
       "language": "zh_CN",
-      "sha256": "70d59f67012bb1438b88d6f49993404c46bd9630a381b4face0668513ec1c947"
+      "sha256": "75961e9818992053bcad1c0934f7a616b8a3f8356fe4c249be8bd64f01de6da6"
     },
     "docs/screenshots/batch_overlap_zh_CN_dark.png": {
       "language": "zh_CN",
-      "sha256": "f216e64c1631e3e3ab73b352e1a9ea0b95b404c96359e275d7928af3ea16d1d0"
+      "sha256": "53750a9ae686912f60a2a13fdf941c032dbcb2e8bb26295d7b278d04e3c23eec"
     },
     "docs/screenshots/batch_overlap_en_US_light.png": {
       "language": "en_US",
-      "sha256": "5dc1b8901678a6735357e7fd491179196671a59d35c1098a607b51bf42cbc4f4"
+      "sha256": "ef59c3e38a5d561fc5b7d8be93cf05332209a7a819eab813b13af68014ddf5dc"
     },
     "docs/screenshots/batch_overlap_en_US_dark.png": {
       "language": "en_US",
-      "sha256": "2b2af24cac949f56080047f6a7753fca7fe7fed4e9df45ad5b6b0bf96c368aec"
+      "sha256": "502fa8d28fa6ae4483a01f1fac89b78f9792d7296f27e0f2dd42011a2c3817d2"
     },
     "docs/screenshots/results_zh_CN_light.png": {
       "language": "zh_CN",
-      "sha256": "1cea8bcfea9a09399001ea2eec10df3acdd56d21c1ac93eaf267ac74d480a25e"
+      "sha256": "5197263691eeb52f64e6396320ef593a6cb4f29526ed203007ba644ed61bb051"
     },
     "docs/screenshots/calculation_zh_CN_dark.png": {
       "language": "zh_CN",
@@ -300,7 +300,7 @@
     },
     "docs/screenshots/results_en_US_light.png": {
       "language": "en_US",
-      "sha256": "3d11fd06b4c6767285e8757ededbaf5e984f4e3f81481d6e7ad2b33a19007905"
+      "sha256": "caf16c2590b6a71b8dce500f09403f375f2be9b0378f2811c88888e18f8c4e03"
     },
     "docs/screenshots/calculation_en_US_dark.png": {
       "language": "en_US",
@@ -337,6 +337,22 @@
     "docs/screenshots/address_offset_en_US_dark.png": {
       "language": "en_US",
       "sha256": "40a88be971f72a9973c43e0ef1e361d4b2de7f524088cdcd5324cae35e25b0c1"
+    },
+    "docs/screenshots/batch_search_zh_CN_light.png": {
+      "language": "zh_CN",
+      "sha256": "3de2345e0cb81413288639361751d8b94d60a3d13d2c3bd9b74d62d59bfb7ca1"
+    },
+    "docs/screenshots/batch_search_zh_CN_dark.png": {
+      "language": "zh_CN",
+      "sha256": "19854dd7c66953503876acea9282d711f02d8947d3f36b09ce56ea80e49af408"
+    },
+    "docs/screenshots/batch_search_en_US_light.png": {
+      "language": "en_US",
+      "sha256": "693efbcb88735a70b68ea3a0a3b6112f6112c8bdddb63f6fd70a45fcd79e294e"
+    },
+    "docs/screenshots/batch_search_en_US_dark.png": {
+      "language": "en_US",
+      "sha256": "39c2d6130cae170a4001cc129b406937636306e015b3f6d50166a3c72919e5f3"
     }
   }
 }

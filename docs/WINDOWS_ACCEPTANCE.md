@@ -1,3 +1,10 @@
+## V1.24 新增操作验收 / New operation checks
+
+- 验证“全部空闲＋有候选重叠＋关键词”交集、原始序号跳转、空结果和一键重置。 / Verify availability/overlap/keyword intersections, original-index jumps, empty results and reset.
+- 连续输入时旧报告与导出立即禁用，停止后更新；Enter 立即更新，关闭后不恢复旧窗口。 / Edits immediately disable old output; idle/Enter apply, and closing prevents delayed restoration.
+- TXT／CSV／Excel 使用同一匹配记录；保存期间改动搜索／筛选再改回也应中止旧保存。 / All output formats use identical matching records; changing filters away and back cancels pending saves.
+- 核对中英文、浅深主题及最小窗口布局，确认重叠来源仍可包含筛选范围之外的候选。 / Check both languages/themes and minimum size; overlap details may still list sources outside the filter.
+
 ## V1.23 新增操作验收 / New operation checks
 
 - 在地址工具滚动到底部，分别验证完整 ip6.arpa 双向转换及正负地址偏移；检查越界拒绝、可选网段、右键复制、切换语言与最小窗口滚动。 / Scroll to the new address tools and verify reverse DNS round trips, signed offsets, bounds, optional CIDRs, context-menu copying, language switching and minimum-size scrolling.

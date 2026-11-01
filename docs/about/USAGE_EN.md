@@ -266,3 +266,23 @@ This converts addresses and names only. It does not look up hostnames, contact D
 The default `2001:db8::10` plus decimal `16` gives `2001:db8::20`. An offset of `-1` gives `2001:db8::f`; zero keeps the same address. Within `::/126`, `::1 + 1` gives `::2`, two addresses from the start and one from the end. `::3 + 1` is rejected as outside that network. `:: - 1` and the maximum IPv6 address plus 1 are rejected without wrapping.
 
 Editing clears old results and disables copying until recalculation. Reports follow the interface language; switching language preserves input and results. Mathematical results do not prove allocation or deployment suitability. Both tools support light/dark themes and remain reachable by scrolling when the page exceeds the window.
+
+## Combined Filters, Keyword Search and Reset
+
+The bottom of candidate details adds a Candidate overlap selector, keyword input and reset icon. Reports scroll above these controls; navigation stays at the bottom. The three conditions intersect without changing candidate input, the baseline list or the complete batch report.
+
+| Setting / action | Meaning | Example |
+|---|---|---|
+| Browse | Filter availability against the baseline | Entirely free |
+| Candidate overlap | Any / has candidate overlap / no candidate overlap, based on all original candidates rather than the filtered subset | Entirely free + has candidate overlap |
+| Keyword | Case-insensitive literal substring match against original input or normalized CIDR; trims outer whitespace, at most 200 characters | `2001:DB8::1`, `/128` |
+| Enter | Apply immediately; search also updates about 250 ms after typing stops | Edit then press Enter |
+| Reset icon | Restore all candidates, any overlap and an empty keyword | Recover from no matches |
+| Navigation and index jump | Browse only the intersection, retaining original indices; unmatched indices show an error | Next moves from original 4 to 6 |
+| Range output | TXT copy/save, CSV and Excel use the same matching records | Export only original 4 and 6 |
+
+For example, use baseline `::/128` and candidates `::1/126`, `::4/126`, `::1/126`, `2001:DB8::1/128`, `2001:db8::2/128`, `2001:db8::1/128`. Choose Entirely free + Has candidate overlap and search `2001:db8::1`: original candidates 4 and 6 match. Both are free against the baseline but duplicate each other, so they are not separate simultaneous allocations. Entirely free + No candidate overlap instead matches 2 and 5. Duplicates retain physical source lines; overlap counts still use all six candidates.
+
+The keyword is a literal substring, **not an address-membership query or regular expression**. For example, `::/126` matches a normalized `::/126` network, but expanded and compressed spellings do not necessarily produce the same text matches. Use the separate address-membership query for containment. All candidates removes only the status restriction; use reset to clear every condition.
+
+Every keyword edit immediately clears old details and temporarily disables navigation, single-candidate copying and range output until application completes. Empty results disable output. Search, overlap or status changes during file selection/overwrite confirmation stop pending saves even if the original value is restored. Closing stops pending search. Language changes preserve the keyword and filters. TXT reports include overlap/search conditions; CSV/Excel retain their nine columns and contain only matching records.

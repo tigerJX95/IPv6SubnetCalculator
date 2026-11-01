@@ -74,7 +74,7 @@ class BatchAvailability:
             matches.append(CandidateOverlap(index, entry.record, intersection, relation))
         return CandidateOverlapReport(ordinal, tuple(matches))
 
-    def candidate_ordinals(self, category):
+    def candidate_ordinals(self, category, *, overlap='all', query=''):
         """Original one-based positions, including duplicate candidates, in input order."""
         selectors = {
             'free_candidates': lambda e: not e.occupied,
@@ -85,16 +85,25 @@ class BatchAvailability:
         }
         if category not in selectors:
             raise ValueError('Unknown batch availability category')
-        return tuple(i for i, entry in enumerate(self.entries, 1) if selectors[category](entry))
+        if overlap not in ('all', 'with_overlap', 'without_overlap'):
+            raise ValueError('Unknown candidate overlap filter')
+        if not isinstance(query, str) or len(query) > 200:
+            raise ValueError('Invalid candidate search text')
+        needle = query.strip().casefold()
+        return tuple(i for i, entry in enumerate(self.entries, 1)
+                     if selectors[category](entry)
+                     and (overlap == 'all' or bool(entry.overlaps) == (overlap == 'with_overlap'))
+                     and (not needle or needle in entry.record.original.casefold()
+                          or needle in str(entry.record.network).casefold()))
 
     def cidr_output(self, category):
         # Output whole candidates, not their free/occupied fragments. Keep first-input order.
         networks = tuple(dict.fromkeys(self.entries[i-1].record.network for i in self.candidate_ordinals(category)))
         return CidrOutput(networks, len(networks))
 
-    def range_as_text(self, category):
+    def range_as_text(self, category, **filters):
         """A complete report of selected records, preserving original candidate identities."""
-        ordinals = self.candidate_ordinals(category)
+        ordinals = self.candidate_ordinals(category, **filters)
         if not ordinals:
             raise ValueError('Cannot output an empty candidate range')
         labels = {'all_candidates': tx('全部候选'), 'free_candidates': tx('全部空闲'),
@@ -106,6 +115,11 @@ class BatchAvailability:
                  tx('每条候选独立对照当前占用清单，不会互相预留；候选之间可能重叠，不能直接视为可同时分配。'),
                  tx('地址数量逐条统计，重叠候选不能相加。全部空闲仅表示未被基准清单覆盖，不证明实际可部署。'),
                  tx('重叠候选记录数基于本次全部候选，不随浏览范围重新计算。')]
+        overlap = filters.get('overlap', 'all')
+        if overlap != 'all':
+            lines.append(tx('候选间重叠筛选：{0}', tx('有候选重叠') if overlap == 'with_overlap' else tx('无候选重叠')))
+        if filters.get('query', '').strip():
+            lines.append(tx('搜索关键词：{0}', filters['query'].strip()))
         for ordinal in ordinals:
             entry = self.entries[ordinal-1]
             record = entry.record
@@ -115,9 +129,9 @@ class BatchAvailability:
                              entry.occupied, entry.available, entry.overlaps, tx('是') if record.normalized else tx('否'))])
         return jt('\n', lines)
 
-    def range_table(self, category, render=str):
+    def range_table(self, category, render=str, **filters):
         """Shared localized records for CSV and Excel, preserving exact integer objects."""
-        ordinals = self.candidate_ordinals(category)
+        ordinals = self.candidate_ordinals(category, **filters)
         if not ordinals:
             raise ValueError('Cannot output an empty candidate range')
         headers = tuple(render(label) for label in (
@@ -132,18 +146,18 @@ class BatchAvailability:
                          render(tx('是') if record.normalized else tx('否'))))
         return headers, tuple(rows)
 
-    def range_as_csv(self, category, render=str):
+    def range_as_csv(self, category, render=str, **filters):
         """UTF-8 BOM CSV; render labels before CSV quoting, keep exact decimal values."""
-        headers, rows = self.range_table(category, render)
+        headers, rows = self.range_table(category, render, **filters)
         stream = StringIO(newline='')
         writer = csv.writer(stream, quoting=csv.QUOTE_ALL)
         writer.writerow(headers)
         writer.writerows(rows)
         return '\ufeff'+stream.getvalue()
 
-    def range_as_xlsx(self, category, render=str):
+    def range_as_xlsx(self, category, render=str, **filters):
         from core.candidate_xlsx import candidate_workbook
-        headers, rows = self.range_table(category, render)
+        headers, rows = self.range_table(category, render, **filters)
         return candidate_workbook(headers, rows, render(tx('候选范围')))
 
     def as_text(self):

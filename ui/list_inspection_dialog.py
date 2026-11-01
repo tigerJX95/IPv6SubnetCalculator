@@ -2,7 +2,7 @@
 # Copyright (C) 2026 IPv6SubnetCalculator contributors
 """Read-only list snapshot inspection; shares existing conflict-safe text output."""
 from pathlib import Path
-from PyQt6.QtCore import Qt, QSignalBlocker
+from PyQt6.QtCore import Qt, QSignalBlocker, QTimer
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QSpinBox, QMenu
 from core.localized_text import text as tx
 from core.ipv6_core import InputError
@@ -432,6 +432,28 @@ class BatchCandidateDialog(QDialog):
         self.filter_status = QLabel('')
         filter_row.addWidget(self.filter_status)
         layout.addLayout(filter_row)
+        extra_filters = QHBoxLayout()
+        extra_filters.addWidget(QLabel(tx('候选间重叠：')))
+        self.overlap_filter = QComboBox()
+        self.overlap_filter.setAccessibleName(tx('候选间重叠筛选'))
+        self.overlap_filter.setToolTip(tx('按本次全部候选中的重叠记录筛选，与基准占用状态组合使用。'))
+        for label, key in [(tx('不限重叠'), 'all'), (tx('有候选重叠'), 'with_overlap'),
+                           (tx('无候选重叠'), 'without_overlap')]:
+            self.overlap_filter.addItem(label, key)
+        extra_filters.addWidget(self.overlap_filter)
+        self.search_input = QLineEdit()
+        self.search_input.setMaxLength(200)
+        self.search_input.setAccessibleName(tx('候选关键词搜索'))
+        self.search_input.setPlaceholderText(tx('搜索原始输入或规范化 CIDR'))
+        self.search_input.setToolTip(tx('不区分大小写的文本包含搜索；与两个筛选项取交集。停止输入后更新，Enter 立即应用。'))
+        extra_filters.addWidget(self.search_input, 1)
+        self.reset_filters_button = IconButton('clear_highlight_small', tx('重置详情筛选，恢复全部候选'))
+        extra_filters.addWidget(self.reset_filters_button)
+        layout.addLayout(extra_filters)
+        self.search_timer = QTimer(self)
+        self.search_timer.setSingleShot(True)
+        self.search_timer.setInterval(250)
+        self.search_timer.timeout.connect(self.apply_browse_filter)
         navigation = QHBoxLayout()
         navigation.setSpacing(7)
         self.first_button = IconButton('first_small', tx('查看第一个候选详情'))
@@ -466,13 +488,43 @@ class BatchCandidateDialog(QDialog):
         self.jump_button.clicked.connect(self.jump)
         self.index_input.returnPressed.connect(self.jump)
         self.browse_filter.currentIndexChanged.connect(self.apply_browse_filter)
+        self.overlap_filter.currentIndexChanged.connect(self.apply_browse_filter)
+        self.search_input.textChanged.connect(self.schedule_search)
+        self.search_input.returnPressed.connect(self.apply_browse_filter)
+        self.reset_filters_button.clicked.connect(self.reset_filters)
         self.show_candidate(record, ordinal)
+
+    def selection_filters(self):
+        return dict(overlap=self.overlap_filter.currentData(), query=self.search_input.text())
+
+    def schedule_search(self, *_args):
+        if self._closed or self.owner.result is not self.batch_result:
+            return
+        # Invalidate immediately, including edits that are undone before the timer fires.
+        self._range_revision += 1
+        self.panel.invalidate()
+        self.search_timer.start()
+        for control in (self.first_button, self.previous_button, self.next_button, self.last_button,
+                        self.index_input, self.jump_button):
+            control.setEnabled(False)
+        self.refresh_counts()
+        self.filter_status.setText(tx('等待搜索…'))
+
+    def reset_filters(self):
+        if self._closed or self.owner.result is not self.batch_result:
+            return
+        with QSignalBlocker(self.browse_filter), QSignalBlocker(self.overlap_filter), QSignalBlocker(self.search_input):
+            self.browse_filter.setCurrentIndex(0)
+            self.overlap_filter.setCurrentIndex(0)
+            self.search_input.clear()
+        self.apply_browse_filter()
 
     def apply_browse_filter(self, *_args):
         if self._closed or self.owner.result is not self.batch_result:
             return
+        self.search_timer.stop()
         self._range_revision += 1
-        self.ordinals = self.batch_result.candidate_ordinals(self.browse_filter.currentData())
+        self.ordinals = self.batch_result.candidate_ordinals(self.browse_filter.currentData(), **self.selection_filters())
         # A filter change invalidates pending saves even if the current candidate still matches.
         self.panel.invalidate()
         if self.ordinals:
@@ -502,19 +554,20 @@ class BatchCandidateDialog(QDialog):
 
     def range_current(self):
         return (not self._closed and self.owner.result is self.batch_result
-                and bool(self.ordinals) and not self.owner.page.service.busy)
+                and bool(self.ordinals) and not self.search_timer.isActive() and not self.owner.page.service.busy)
 
     def copy_range_report(self):
         if self.range_current():
-            self.owner.page.clipboard.copy_text(self.batch_result.range_as_text(self.browse_filter.currentData()),
+            self.owner.page.clipboard.copy_text(self.batch_result.range_as_text(self.browse_filter.currentData(), **self.selection_filters()),
                                                 tx('当前范围报告已复制。'), self)
 
     def save_range_report(self):
         if not self.range_current():
             return
         category, revision = self.browse_filter.currentData(), self._range_revision
+        filters = self.selection_filters()
         self.owner.page.output_controller._save('IPv6_BatchRange_'+category+'.txt',
-            self.batch_result.range_as_text(category),
+            self.batch_result.range_as_text(category, **filters),
             lambda: self.range_current() and self._range_revision == revision
             and self.browse_filter.currentData() == category)
 
@@ -522,8 +575,9 @@ class BatchCandidateDialog(QDialog):
         if not self.range_current():
             return
         category, revision = self.browse_filter.currentData(), self._range_revision
+        filters = self.selection_filters()
         self.owner.page.output_controller._save('IPv6_BatchRange_'+category+'.csv',
-            lambda: self.batch_result.range_as_csv(category, display),
+            lambda: self.batch_result.range_as_csv(category, display, **filters),
             lambda: self.range_current() and self._range_revision == revision
             and self.browse_filter.currentData() == category, extension='.csv')
 
@@ -531,8 +585,9 @@ class BatchCandidateDialog(QDialog):
         if not self.range_current():
             return
         category, revision = self.browse_filter.currentData(), self._range_revision
+        filters = self.selection_filters()
         self.owner.page.output_controller._save('IPv6_BatchRange_'+category+'.xlsx',
-            lambda: self.batch_result.range_as_xlsx(category, display),
+            lambda: self.batch_result.range_as_xlsx(category, display, **filters),
             lambda: self.range_current() and self._range_revision == revision
             and self.browse_filter.currentData() == category, extension='.xlsx')
 
@@ -565,6 +620,8 @@ class BatchCandidateDialog(QDialog):
             self.go_to(self.ordinals[position])
 
     def jump(self):
+        if not self.range_current():
+            return
         total = len(self.batch_result.entries)
         try:
             ordinal = int(self.index_input.text().strip())
@@ -583,7 +640,7 @@ class BatchCandidateDialog(QDialog):
         self.go_to(ordinal)
 
     def go_to(self, ordinal):
-        if self.owner.result is not self.batch_result or self.panel.result is None:
+        if not self.range_current() or self.panel.result is None:
             return
         if ordinal not in self.ordinals:
             return
@@ -597,12 +654,14 @@ class BatchCandidateDialog(QDialog):
 
     def done(self, code):
         self._closed = True
+        self.search_timer.stop()
         self.panel.invalidate()
         self.refresh_counts()
         super().done(code)
 
     def closeEvent(self, event):
         self._closed = True
+        self.search_timer.stop()
         self.panel.invalidate()
         self.refresh_counts()
         super().closeEvent(event)

@@ -1011,6 +1011,15 @@
     },
     {
       "context": "App",
+      "source": "不区分大小写的文本包含搜索；与两个筛选项取交集。停止输入后更新，Enter 立即应用。",
+      "source_sha256": "ef15859dd7dc266326f4bf3a940f4b0bf5ade153c623da72b16d02a9eb2a4005",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "不可作为普通网络接口或终端地址分配；仅用于协议规定的特殊场景。",
       "source_sha256": "d9f5c343437f18f8f9186f47be0c51fedc1d982ccc58bbd7ad43226fdc7ab1e3",
       "protected_tokens": [],
@@ -1022,6 +1031,15 @@
       "context": "App",
       "source": "不支持的导出格式",
       "source_sha256": "613249d19efd3acf507a0c6067c52f95706a4a6f773af3a92e9427dc913da91e",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "不限重叠",
+      "source_sha256": "ceb73570b576f0cbf21add8c2f359be9887a90410e9a34e66880e424e64d4123",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -1646,6 +1664,15 @@
     },
     {
       "context": "App",
+      "source": "候选关键词搜索",
+      "source_sha256": "45b8a5d9e390aedb96fb6dc298ca4292078dfee9a714e266bc4384f32b9d7375",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "候选内占用 CIDR",
       "source_sha256": "1e2b3349961578110aca8d5f1aa21869ee195cb0036e01f6fd758e5af8263b25",
       "protected_tokens": [],
@@ -1817,8 +1844,35 @@
     },
     {
       "context": "App",
+      "source": "候选间重叠筛选",
+      "source_sha256": "d0e02ad1d48e389d57b888b0cadceb594f6ffdd54005f77e47f2e91d1f617283",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "候选间重叠筛选：{0}",
+      "source_sha256": "20118535b62c5bb80dd2a029b216cd9c4eae4633e8e812d7593d983b4d0e3feb",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "候选间重叠详情",
       "source_sha256": "e74d44cd606ebb943f53a4ac048a9803130b8450655f0c8c3da65fa826a220c5",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "候选间重叠：",
+      "source_sha256": "4282f1bc1f45598d4704f104ebd33da8d232a3384b98b0f8d0c833795f95a34f",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -4575,6 +4629,33 @@
     },
     {
       "context": "App",
+      "source": "按本次全部候选中的重叠记录筛选，与基准占用状态组合使用。",
+      "source_sha256": "4a071f8ba69801d586dcfa3612ef6e719ec381159a6b4f67296db7dfe4ebb266",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "搜索关键词：{0}",
+      "source_sha256": "34328e49ba7cc09507651e19ba7a8ce1e83671b7545bb0e8362d414e876aa607",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "搜索原始输入或规范化 CIDR",
+      "source_sha256": "398d282d6faa90019918f1d4d6a4aa3d1e8632a0d70af587b94a293793b52c34",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "整个 ULA 范围适用于内部网络用途；其中 fd00::/8 可按 RFC 4193 生成本地前缀，fc00::/8 尚无通用本地自行分配机制；不作为普通公网地址路由。",
       "source_sha256": "ca813af7e64d0b226e03e557b6f0731d3380cae718a10e153b7a1d22df74aa26",
       "protected_tokens": [],
@@ -5024,6 +5105,15 @@
     },
     {
       "context": "App",
+      "source": "无候选重叠",
+      "source_sha256": "3f29440cfe9a241e2347a97b7527405f6b02d4d80f3a57c6e7c459ceb3d3552c",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "无法加载中文对话框资源，请重新安装完整程序。",
       "source_sha256": "a7f857b0d940acce3e3e0f99a1ba594747a72ccb5c52eb91f395c0a7cb668c07",
       "protected_tokens": [],
@@ -5206,6 +5296,15 @@
       "context": "App",
       "source": "最简空闲 CIDR：{0:,} 条；明细显示 {1:,} 条",
       "source_sha256": "51c45e17148a76b6bab6dfed492f2889c3dd1d18a741ee8673e043d397efee7c",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "有候选重叠",
+      "source_sha256": "9bd0c29d8a5845af91b735eb2ff285bb6266771ae91b3d1f3d5afa6ed696e3d7",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -6692,6 +6791,15 @@
       "context": "App",
       "source": "等价 CIDR 整理完成。",
       "source_sha256": "4573c2475d8e6efd6664c29e94325f92791b7b32be7869150b7834c8a4cba7d0",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "等待搜索…",
+      "source_sha256": "5ecd560983e981a58ca8f98e4c44679d4eb3a507ba014ccd1c902c4fecdea89e",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -8276,6 +8384,15 @@
       "context": "App",
       "source": "重复网段",
       "source_sha256": "52c5ed02ce7c769ee0da02d969f228f1dd427d6d859734063ff922e949dc177d",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "重置详情筛选，恢复全部候选",
+      "source_sha256": "5680e88f0da57e65438308995066eab93e8f1f0acbeb7620b23b8d02037c37c9",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,

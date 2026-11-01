@@ -1,19 +1,17 @@
 [简体中文](README.md) | **English**
 
-# 🌐 IPv6 Subnet Calculator V1.23
+# 🌐 IPv6 Subnet Calculator V1.24
 
-## V1.23 Address Utilities and Candidate Range Export
+## V1.24 Combined Candidate Filters and Keyword Search
 
-- Adds bidirectional conversion between IPv6 addresses and complete ip6.arpa names, accepting uppercase and a trailing root dot, with context-menu copying of names, addresses and reports. No DNS queries are made.
-- Adds signed decimal IPv6 address offsets with carry/borrow across groups and an optional CIDR restriction. Results outside IPv6 space or the restricted network are rejected without wrapping.
-- Adds Excel (XLSX) export using the same filtered records as CSV. Address counts are explicit text cells for exact large integers on direct opening, with frozen headers, column filters and readable widths.
-- The candidate detail Report menu adds “Save current range as CSV” for every record matching the browsing filter.
-- CSV retains original candidate numbers, physical lines, duplicates, input, normalized networks, availability, exact occupied/free counts, overlap counts across all candidates and host-bit normalization flags.
-- Uses UTF-8 with BOM, standard CSV quoting and line endings. Headers and statuses follow the interface language at actual save time. Counts use full decimal digits; import count columns as Text in Excel.
-- Empty ranges disable CSV output. Filter changes, candidate edits or closing the window cancel pending old output, with overwrite confirmation and save conflict protection.
-- Both home pages keep top sections text-only and place screenshots in the middle software gallery. Document checks reject top images; earlier notes use the Update History text link.
+- Candidate details add overlap filters: any, has candidate overlap or no candidate overlap. Combine them with baseline availability to find candidates that are free against the baseline but overlap each other.
+- Adds case-insensitive literal substring search over original input and normalized CIDRs, intersected with availability and overlap filters while retaining original indices, physical lines and duplicates.
+- Search updates after typing stops; Enter applies immediately. Bottom navigation, original-index jumps and TXT/CSV/Excel range output follow the same matching records.
+- Edits immediately clear old details and disable old output. Changing search or overlap conditions cancels pending old saves even if the original value is restored.
+- One-click reset restores all statuses, any overlap and an empty search. Empty results recover when conditions change or reset.
+- Updates both languages, actual interface screenshots and offline help. Current pages show V1.24 only; Earlier releases move to the Update History text link.
 
-Examples: [Reverse DNS and Address Offsets](docs/ADDRESS_UTILITIES_EN.md) and [Candidate Details Guide](docs/BATCH_DETAILS_EN.md).
+Examples: [Candidate Details Guide](docs/BATCH_DETAILS_EN.md).
 
 [Update History](docs/HISTORY_EN.md)
 
@@ -122,9 +120,11 @@ Existing files require overwrite confirmation. If another program changes the de
 
 ![IPv6 address offsets](docs/screenshots/address_offset_en_US_light.png)
 
+![Combined candidate filters and search](docs/screenshots/batch_search_en_US_light.png)
+
 ## 📦 Download and Usage
 
-Download `IPv6SubnetCalculator_V1.23.exe` directly from Assets on GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest). Run the downloaded executable; no additional runtime setup is required. Enter a network and target prefix, then click the calculation icon; the application switches to Results when complete.
+Download `IPv6SubnetCalculator_V1.24.exe` directly from Assets on GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest). Run the downloaded executable; no additional runtime setup is required. Enter a network and target prefix, then click the calculation icon; the application switches to Results when complete.
 
 Press F1 or use the top-bar information icon for built-in help, license texts and legal notices.
 

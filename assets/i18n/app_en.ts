@@ -3890,6 +3890,58 @@ Click a link to open your default browser; a network connection is used only whe
       <source>留空允许整个 IPv6 空间；填写 CIDR 后，起始和结果地址都须在该网段内。</source>
       <translation>Leave blank for the entire IPv6 space; if a CIDR is set, both starting and resulting addresses must be inside it.</translation>
     </message>
+    <message>
+      <source>候选间重叠：</source>
+      <translation>Candidate overlap:</translation>
+    </message>
+    <message>
+      <source>候选间重叠筛选</source>
+      <translation>Candidate overlap filter</translation>
+    </message>
+    <message>
+      <source>按本次全部候选中的重叠记录筛选，与基准占用状态组合使用。</source>
+      <translation>Filter overlaps against all original candidates, combined with baseline availability.</translation>
+    </message>
+    <message>
+      <source>不限重叠</source>
+      <translation>Any overlap</translation>
+    </message>
+    <message>
+      <source>有候选重叠</source>
+      <translation>Has candidate overlap</translation>
+    </message>
+    <message>
+      <source>无候选重叠</source>
+      <translation>No candidate overlap</translation>
+    </message>
+    <message>
+      <source>候选关键词搜索</source>
+      <translation>Candidate keyword search</translation>
+    </message>
+    <message>
+      <source>搜索原始输入或规范化 CIDR</source>
+      <translation>Search original input or normalized CIDR</translation>
+    </message>
+    <message>
+      <source>不区分大小写的文本包含搜索；与两个筛选项取交集。停止输入后更新，Enter 立即应用。</source>
+      <translation>Case-insensitive literal substring search combined with both filters. Updates after typing stops; Enter applies immediately.</translation>
+    </message>
+    <message>
+      <source>重置详情筛选，恢复全部候选</source>
+      <translation>Reset detail filters to all candidates</translation>
+    </message>
+    <message>
+      <source>等待搜索…</source>
+      <translation>Waiting for search…</translation>
+    </message>
+    <message>
+      <source>候选间重叠筛选：{0}</source>
+      <translation>Candidate overlap filter: {0}</translation>
+    </message>
+    <message>
+      <source>搜索关键词：{0}</source>
+      <translation>Search keyword: {0}</translation>
+    </message>
   </context>
   <context>
     <name>Export</name>
