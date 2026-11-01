@@ -4,6 +4,7 @@
 
 ## V1.24 Combined Candidate Filters and Keyword Search
 
+- Fixes the candidate report being squeezed by filters at the minimum Windows window size. Reserves readable report height and lets the minimum window adapt to native fonts and layout.
 - Candidate details add overlap filters: any, has candidate overlap or no candidate overlap. Combine them with baseline availability to find candidates that are free against the baseline but overlap each other.
 - Adds case-insensitive literal substring search over original input and normalized CIDRs, intersected with availability and overlap filters while retaining original indices, physical lines and duplicates.
 - Search updates after typing stops; Enter applies immediately. Bottom navigation, original-index jumps and TXT/CSV/Excel range output follow the same matching records.

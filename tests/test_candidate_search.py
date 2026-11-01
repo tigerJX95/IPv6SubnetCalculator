@@ -140,3 +140,26 @@ class CandidateSearchUiTests(unittest.TestCase):
                 self.assertGreater(d.panel.report.height(),40)
                 for control in (d.overlap_filter,d.search_input,d.reset_filters_button):
                     self.assertTrue(control.isVisible());self.assertLessEqual(control.geometry().right(),d.width())
+
+    def test_minimum_report_space_survives_larger_native_font_metrics(self):
+        from PyQt6.QtGui import QFont
+        p,d=self.prepare()
+        self.choose(d,'free_candidates');self.overlap(d,'with_overlap');self.search(d,'2001:DB8::1')
+        snapshot=d.panel.result
+        for language in ('zh_CN','en_US'):
+            self.app.language_manager.apply(language,persist=False)
+            for theme in ('light','dark'):
+                self.app.theme_manager.apply(theme,persist=False)
+                for points in (12,14,16):
+                    font=QFont(d.font());font.setPointSize(points);d.setFont(font)
+                    # Exercise platform-dependent label wrapping and larger layout margins.
+                    d.layout().setSpacing(10);d.resize(600,460);QApplication.processEvents()
+                    self.assertGreaterEqual(d.panel.report.height(),120)
+                    self.assertGreaterEqual(d.panel.report.height(),d.panel.report.minimumHeight())
+                    self.assertGreaterEqual(d.height(),d.layout().minimumSize().height())
+                    for control in (d.browse_filter,d.overlap_filter,d.search_input,d.reset_filters_button,
+                                    d.first_button,d.last_button,d.index_input,d.jump_button,d.count_label):
+                        self.assertTrue(control.isVisible())
+                        self.assertLessEqual(control.geometry().bottom(),d.height())
+                        self.assertLessEqual(control.geometry().right(),d.width())
+                    self.assertIs(d.panel.result,snapshot);self.assertEqual(d.ordinals,(4,6))

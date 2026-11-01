@@ -2,6 +2,7 @@
 
 ## V1.24 候选组合筛选与关键词搜索
 
+- 修复 Windows 最小窗口下报告区被筛选行挤压的问题，为报告保留最小阅读高度，并根据字体及布局自动调整窗口最小尺寸。
 - 候选详情新增重叠筛选：不限重叠、有候选重叠、无候选重叠，可与基准占用状态组合，识别对基准空闲但候选间冲突的网段。
 - 新增关键词搜索，按原始输入和规范化 CIDR 做不区分大小写的文本包含匹配，与状态、重叠筛选取交集，保留原始序号、物理行号和重复项。
 - 搜索在停止输入后更新，Enter 立即应用；底部导航、序号跳转及 TXT／CSV／Excel 范围输出统一遵循匹配结果。
@@ -13,6 +14,7 @@
 
 ## V1.24 Combined Candidate Filters and Keyword Search
 
+- Fixes the candidate report being squeezed by filters at the minimum Windows window size. Reserves readable report height and lets the minimum window adapt to native fonts and layout.
 - Candidate details add overlap filters: any, has candidate overlap or no candidate overlap. Combine them with baseline availability to find candidates that are free against the baseline but overlap each other.
 - Adds case-insensitive literal substring search over original input and normalized CIDRs, intersected with availability and overlap filters while retaining original indices, physical lines and duplicates.
 - Search updates after typing stops; Enter applies immediately. Bottom navigation, original-index jumps and TXT/CSV/Excel range output follow the same matching records.

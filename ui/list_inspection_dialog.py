@@ -3,7 +3,7 @@
 """Read-only list snapshot inspection; shares existing conflict-safe text output."""
 from pathlib import Path
 from PyQt6.QtCore import Qt, QSignalBlocker, QTimer
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QSpinBox, QMenu
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QSpinBox, QMenu, QLayout
 from core.localized_text import text as tx
 from core.ipv6_core import InputError
 from core.list_inspection import lookup_address, compare_coverage
@@ -372,6 +372,9 @@ class BatchCandidateDialog(QDialog):
         self.resize(820, 640)
         self.setMinimumSize(600, 460)
         layout = QVBoxLayout(self)
+        # Native fonts/style margins can need more room than the nominal 460px.
+        # Let Qt grow the minimum window with its contents instead of crushing the report.
+        layout.setSizeConstraint(QLayout.SizeConstraint.SetMinimumSize)
         self.owner = parent
         self.batch_result = parent.result
         self._closed = False
@@ -382,6 +385,7 @@ class BatchCandidateDialog(QDialog):
         self.heading.setWordWrap(True)
         layout.addWidget(self.heading)
         self.panel = BatchCandidatePanel(page, source, self.batch_result)
+        self.panel.report.setMinimumHeight(max(120, 5*self.panel.report.fontMetrics().lineSpacing()))
         self.panel.hint.setText(tx('使用本次批量检查快照；分别展示基准占用和候选间重叠，不自动预留地址。'))
         self.panel.input.setReadOnly(True)
         self.panel.run_button.hide()

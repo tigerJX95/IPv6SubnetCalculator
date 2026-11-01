@@ -402,6 +402,11 @@ class ReleaseCheck(QObject):
         self.require(detail.ordinals == (1, 2, 3) and not detail.search_timer.isActive(),
                      'Reset did not restore all original candidates')
         self.checks.append('candidate_keyword_debounce_reset_and_output_invalidation')
+        detail.resize(600, 460)
+        self.application.processEvents()
+        self.require(detail.panel.report.height() >= 120,
+                     'Candidate details lost minimum report reading space')
+        self.checks.append('candidate_detail_native_minimum_report_space')
         detail.first_button.click()
         inspection.batch_availability.detail_index.setValue(2)
         self.require(detail.panel.result is None, 'Changed candidate retained stale detail')
