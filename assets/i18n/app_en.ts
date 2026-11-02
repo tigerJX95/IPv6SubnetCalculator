@@ -3942,6 +3942,78 @@ Click a link to open your default browser; a network connection is used only whe
       <source>搜索关键词：{0}</source>
       <translation>Search keyword: {0}</translation>
     </message>
+    <message>
+      <source>文本包含</source>
+      <translation>Text contains</translation>
+    </message>
+    <message>
+      <source>包含地址</source>
+      <translation>Contains address</translation>
+    </message>
+    <message>
+      <source>网段重叠</source>
+      <translation>Network overlap</translation>
+    </message>
+    <message>
+      <source>搜索地址无效：</source>
+      <translation>Invalid search address: </translation>
+    </message>
+    <message>
+      <source>搜索网段无效：</source>
+      <translation>Invalid search network: </translation>
+    </message>
+    <message>
+      <source>搜索方式：{0}</source>
+      <translation>Search mode: {0}</translation>
+    </message>
+    <message>
+      <source>复制当前范围 CIDR</source>
+      <translation>Copy current range CIDRs</translation>
+    </message>
+    <message>
+      <source>复制匹配候选的规范化 CIDR，去重并保留首次顺序；不合并包含或相邻网段。</source>
+      <translation>Copy matching normalized CIDRs, deduplicated in first-input order; contained or adjacent networks are not merged.</translation>
+    </message>
+    <message>
+      <source>保存当前范围 CIDR 为 TXT</source>
+      <translation>Save current range CIDRs as TXT</translation>
+    </message>
+    <message>
+      <source>保存匹配候选的规范化去重 CIDR，可重新导入清单检查。</source>
+      <translation>Save matching normalized unique CIDRs for reimport into Subnet List.</translation>
+    </message>
+    <message>
+      <source>候选搜索方式</source>
+      <translation>Candidate search mode</translation>
+    </message>
+    <message>
+      <source>文本包含按字符匹配；包含地址查找覆盖该地址的候选；网段重叠查找与该 CIDR 相交的候选。</source>
+      <translation>Text matches characters; Contains address finds covering candidates; Network overlap finds candidates intersecting the CIDR.</translation>
+    </message>
+    <message>
+      <source>候选查找条件</source>
+      <translation>Candidate search query</translation>
+    </message>
+    <message>
+      <source>输入 IPv6 地址</source>
+      <translation>Enter IPv6 address</translation>
+    </message>
+    <message>
+      <source>输入 IPv6 CIDR</source>
+      <translation>Enter IPv6 CIDR</translation>
+    </message>
+    <message>
+      <source>文本包含不区分大小写；地址／网段模式按 IPv6 关系查找。空条件不限制结果，Enter 立即应用。</source>
+      <translation>Text matching ignores case; address/network modes use IPv6 relationships. An empty query adds no restriction. Enter applies immediately.</translation>
+    </message>
+    <message>
+      <source>搜索条件无效：</source>
+      <translation>Invalid search query: </translation>
+    </message>
+    <message>
+      <source>当前范围 CIDR 已复制。</source>
+      <translation>Current range CIDRs copied.</translation>
+    </message>
   </context>
   <context>
     <name>Export</name>

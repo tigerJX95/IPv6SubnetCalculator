@@ -1382,6 +1382,15 @@
     },
     {
       "context": "App",
+      "source": "保存匹配候选的规范化去重 CIDR，可重新导入清单检查。",
+      "source_sha256": "f3d7c514e264c8ce45675559510e568fc9bab5877693fa2c2f7a6b2882991c9f",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "保存原始输入、有效 CIDR 或检查报告为 TXT",
       "source_sha256": "7c17cae77f8015db21ac03403d3a50cfb728ca2c64518621f36ead8bec344ddc",
       "protected_tokens": [],
@@ -1420,6 +1429,15 @@
       "context": "App",
       "source": "保存建议 CIDR 为 TXT",
       "source_sha256": "e8950dce148496a94c360bc0a1988a2fc08a7aab9c5c9b93cf3ddd57619a5fbf",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "保存当前范围 CIDR 为 TXT",
+      "source_sha256": "9bab0c22b219c678dcee0c6afd010ddc78086a1c7a926c30dbd114780f116b8e",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -1792,6 +1810,24 @@
       "context": "App",
       "source": "候选序号：{0:,}；原始第 {1:,} 行；所属网段：{2}",
       "source_sha256": "41b6a76acd9b2c8bb3ca8576feb33307e498b6184416457db5722f6e772b194e",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "候选搜索方式",
+      "source_sha256": "6781be5a69367f201e32bd286264e3f020bb49b1ec48ed5d917d455705e72228",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "候选查找条件",
+      "source_sha256": "e0d8fc818f315f04855345fd283232257a5da46c425c361a19dc7266ce216316",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -2320,6 +2356,15 @@
       "context": "App",
       "source": "动态链接库",
       "source_sha256": "222b92a624d3be0bd7e91c9ea439ae91c762ace864c6dd96f266ddafa78dfc66",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "包含地址",
+      "source_sha256": "417722b0b5ca6ad633d23d003cf74fa58f9c5368135c81ae3389c18ab45e3f2b",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -3062,6 +3107,15 @@
     },
     {
       "context": "App",
+      "source": "复制匹配候选的规范化 CIDR，去重并保留首次顺序；不合并包含或相邻网段。",
+      "source_sha256": "be486e04d58cb7fe157eb53381fcc21f52e6dd6f653b408c26cbc57829adf89e",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "复制反向 DNS 名称",
       "source_sha256": "2b75c987f26ebbb278e5a96a9c9994cde9d9c0b1454bb5df2ee1bece7a7b4ca8",
       "protected_tokens": [],
@@ -3154,6 +3208,15 @@
       "context": "App",
       "source": "复制当前格式",
       "source_sha256": "95b1b3b223b3407bedc45eae43a0fa03afc276a0b8cb990980f38639d1edd16c",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "复制当前范围 CIDR",
+      "source_sha256": "1cbf03037fa93fb0c607135a324dd15bdd161904721c510bbe7148d58c787474",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -4290,6 +4353,15 @@
     },
     {
       "context": "App",
+      "source": "当前范围 CIDR 已复制。",
+      "source_sha256": "40f89ad7840f8a655c81230abf8d6c6a70053bb3f92593c366d254018ee426ff",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "当前范围报告已复制。",
       "source_sha256": "2e695900b44c15217414987dc08f7ee3d8ccdf9eae5a380737daaa5f1db45b33",
       "protected_tokens": [],
@@ -4656,6 +4728,42 @@
     },
     {
       "context": "App",
+      "source": "搜索地址无效：",
+      "source_sha256": "96fb19fd24826a6204e9194b207278c836c8c07cc86b973f88ddcedd67075431",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "搜索方式：{0}",
+      "source_sha256": "a614d538ffa05e10d768e2eda967d502c13a9b15e3979a2b8b9c7323984de176",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "搜索条件无效：",
+      "source_sha256": "d734461d6e22bf18d412e894e7a2f2bd182b10421edc6663e21b4c98a7890d29",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "搜索网段无效：",
+      "source_sha256": "1ae0579ec440f3b8a87fc540e38ae535d3f0dbf2d6dbca9e4a781949d1605da4",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "整个 ULA 范围适用于内部网络用途；其中 fd00::/8 可按 RFC 4193 生成本地前缀，fc00::/8 尚无通用本地自行分配机制；不作为普通公网地址路由。",
       "source_sha256": "ca813af7e64d0b226e03e557b6f0731d3380cae718a10e153b7a1d22df74aa26",
       "protected_tokens": [],
@@ -4784,6 +4892,33 @@
       "context": "App",
       "source": "文件类型：",
       "source_sha256": "d1898e258d5d922f04ba7620b9686bc1b09b0e3da77330b0b1fdcff28ab84d8d",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "文本包含",
+      "source_sha256": "c7905cc8e3d9bde30bf6cb480bd79897d1a210fdae079286eaf6058e47fa88d5",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "文本包含不区分大小写；地址／网段模式按 IPv6 关系查找。空条件不限制结果，Enter 立即应用。",
+      "source_sha256": "b80c2ec134c33ce97f9551cce99ca90cfe3737b0ac34305f38eda8634a19ac36",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "文本包含按字符匹配；包含地址查找覆盖该地址的候选；网段重叠查找与该 CIDR 相交的候选。",
+      "source_sha256": "6a574f57d32e1e7f696badad40b1167e49d4d78a05f08472fc3ac97cface8fc8",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -7059,6 +7194,15 @@
     },
     {
       "context": "App",
+      "source": "网段重叠",
+      "source_sha256": "ec68ab8b8b9086cf7e61d7a5fc6de8a1b257a6f262f632234ca97fa9e3b57612",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "网络地址",
       "source_sha256": "074939b7a33fdeec0089218025399cb6088e2a6cbb3a7847037dd08818a444f4",
       "protected_tokens": [],
@@ -7979,6 +8123,24 @@
       "context": "App",
       "source": "输入 0～128 的目标前缀，不需要 /，且不得小于原网络前缀。",
       "source_sha256": "1f3edab4eb9082f591ecf5d7c96bc2b67fcc6d71ec032a7a5d602d58610171b3",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "输入 IPv6 CIDR",
+      "source_sha256": "721e0270a23175b1d1b9c3aa247a3380d5c5d01d0ea965eb8409815e297805c0",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "输入 IPv6 地址",
+      "source_sha256": "87ae7a1ea1e66e19bd2e55f1e36f58f1b794dde20869f0a5b86ad8671a4e1b7c",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,

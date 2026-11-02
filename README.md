@@ -1,16 +1,15 @@
 **简体中文** | [English](README_EN.md)
 
-# 🌐 IPv6 子网计算器 V1.24
+# 🌐 IPv6 子网计算器 V1.25
 
-## V1.24 候选组合筛选与关键词搜索
+## V1.25 候选语义查找与 CIDR 输出
 
-- 修复 Windows 最小窗口下报告区被筛选行挤压的问题，为报告保留最小阅读高度，并根据字体及布局自动调整窗口最小尺寸。
-- 候选详情新增重叠筛选：不限重叠、有候选重叠、无候选重叠，可与基准占用状态组合，识别对基准空闲但候选间冲突的网段。
-- 新增关键词搜索，按原始输入和规范化 CIDR 做不区分大小写的文本包含匹配，与状态、重叠筛选取交集，保留原始序号、物理行号和重复项。
-- 搜索在停止输入后更新，Enter 立即应用；底部导航、序号跳转及 TXT／CSV／Excel 范围输出统一遵循匹配结果。
-- 输入改变立即清除旧详情并禁用旧输出；搜索或重叠条件改动后，即使改回原值，也会中止已打开的旧保存操作。
-- 新增一键重置，恢复全部状态、全部重叠情况及空关键词；空结果可通过修改条件或重置恢复。
-- 更新中英文说明、实际界面截图与离线帮助；当前页仅展示 V1.24，旧版收入“历史更新”文字链接。
+- 候选详情新增搜索方式：文本包含、包含地址、网段重叠；地址／CIDR 按 IPv6 关系查找，不受压缩或展开写法影响，网段主机位自动规范化。
+- 查找结果继续与基准占用状态和候选间重叠筛选取交集，保留原始序号与重复项，导航及 TXT／CSV／Excel 输出统一遵循结果。
+- 范围报告菜单新增复制／保存筛选后的 CIDR 清单：输出整条规范化候选网段，去重并保留首次顺序，不合并包含或相邻网段。
+- 非法地址／CIDR 会在查找框提示并禁用旧输出；输入、模式或筛选条件变化（含改回）会中止已打开的旧保存，重置恢复文本模式。
+- 延续 Windows 报告区最小阅读高度和字体自适应布局，更新中英文帮助、实际截图与最新版本展示。
+- 保留 Issue 模板配置，源码打包检查确保包含 `.github/ISSUE_TEMPLATE/config.yml`。
 
 操作示例见[候选详情说明](docs/BATCH_DETAILS.md)。
 
@@ -119,9 +118,11 @@ IPv6SubnetCalculator 是一款适用于 Windows 的离线 IPv6 子网计算工�
 
 ![候选组合筛选与搜索](docs/screenshots/batch_search_zh_CN_light.png)
 
+![按地址归属查找候选](docs/screenshots/batch_address_search_zh_CN_light.png)
+
 ## 📦 下载与使用
 
-从 GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest) 的 Assets 中直接下载 `IPv6SubnetCalculator_V1.24.exe`，下载后即可运行，无需另行配置运行环境。输入 IPv6 网络地址与目标前缀，点击计算图标；完成后自动切换到结果页。
+从 GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest) 的 Assets 中直接下载 `IPv6SubnetCalculator_V1.25.exe`，下载后即可运行，无需另行配置运行环境。输入 IPv6 网络地址与目标前缀，点击计算图标；完成后自动切换到结果页。
 
 按 F1 或点击顶部“ⓘ”可查看内置帮助、许可原文与法律责任说明。
 

@@ -8,6 +8,7 @@ from io import StringIO
 from core.localized_text import text as tx, join_text as jt
 from core.subnet_planning import _records, _union
 from core.list_inspection import CidrOutput
+from core.ipv6_core import InputError, validate_ipv6_address, calculate
 
 
 @dataclass(frozen=True)
@@ -74,7 +75,7 @@ class BatchAvailability:
             matches.append(CandidateOverlap(index, entry.record, intersection, relation))
         return CandidateOverlapReport(ordinal, tuple(matches))
 
-    def candidate_ordinals(self, category, *, overlap='all', query=''):
+    def candidate_ordinals(self, category, *, overlap='all', query='', query_mode='text'):
         """Original one-based positions, including duplicate candidates, in input order."""
         selectors = {
             'free_candidates': lambda e: not e.occupied,
@@ -89,16 +90,37 @@ class BatchAvailability:
             raise ValueError('Unknown candidate overlap filter')
         if not isinstance(query, str) or len(query) > 200:
             raise ValueError('Invalid candidate search text')
+        if query_mode not in ('text', 'address', 'network'):
+            raise ValueError('Unknown candidate query mode')
         needle = query.strip().casefold()
+        address, network = None, None
+        if needle and query_mode == 'address':
+            try:
+                address = validate_ipv6_address(query)
+            except InputError as exc:
+                raise InputError(tx('搜索地址无效：')+exc.args[0]) from exc
+        if needle and query_mode == 'network':
+            try:
+                network = calculate(query, '128', preview_limit=0).network
+            except InputError as exc:
+                raise InputError(tx('搜索网段无效：')+exc.args[0]) from exc
+
+        def matches(entry):
+            if not needle:
+                return True
+            if address is not None:
+                return address in entry.record.network
+            if network is not None:
+                return network.overlaps(entry.record.network)
+            return needle in entry.record.original.casefold() or needle in str(entry.record.network).casefold()
         return tuple(i for i, entry in enumerate(self.entries, 1)
                      if selectors[category](entry)
                      and (overlap == 'all' or bool(entry.overlaps) == (overlap == 'with_overlap'))
-                     and (not needle or needle in entry.record.original.casefold()
-                          or needle in str(entry.record.network).casefold()))
+                     and matches(entry))
 
-    def cidr_output(self, category):
+    def cidr_output(self, category, **filters):
         # Output whole candidates, not their free/occupied fragments. Keep first-input order.
-        networks = tuple(dict.fromkeys(self.entries[i-1].record.network for i in self.candidate_ordinals(category)))
+        networks = tuple(dict.fromkeys(self.entries[i-1].record.network for i in self.candidate_ordinals(category, **filters)))
         return CidrOutput(networks, len(networks))
 
     def range_as_text(self, category, **filters):
@@ -119,6 +141,9 @@ class BatchAvailability:
         if overlap != 'all':
             lines.append(tx('候选间重叠筛选：{0}', tx('有候选重叠') if overlap == 'with_overlap' else tx('无候选重叠')))
         if filters.get('query', '').strip():
+            modes = {'text': tx('文本包含'), 'address': tx('包含地址'), 'network': tx('网段重叠')}
+            if filters.get('query_mode', 'text') != 'text':
+                lines.append(tx('搜索方式：{0}', modes[filters['query_mode']]))
             lines.append(tx('搜索关键词：{0}', filters['query'].strip()))
         for ordinal in ordinals:
             entry = self.entries[ordinal-1]

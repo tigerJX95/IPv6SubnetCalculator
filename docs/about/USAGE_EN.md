@@ -283,6 +283,33 @@ The bottom of candidate details adds a Candidate overlap selector, keyword input
 
 For example, use baseline `::/128` and candidates `::1/126`, `::4/126`, `::1/126`, `2001:DB8::1/128`, `2001:db8::2/128`, `2001:db8::1/128`. Choose Entirely free + Has candidate overlap and search `2001:db8::1`: original candidates 4 and 6 match. Both are free against the baseline but duplicate each other, so they are not separate simultaneous allocations. Entirely free + No candidate overlap instead matches 2 and 5. Duplicates retain physical source lines; overlap counts still use all six candidates.
 
-The keyword is a literal substring, **not an address-membership query or regular expression**. For example, `::/126` matches a normalized `::/126` network, but expanded and compressed spellings do not necessarily produce the same text matches. Use the separate address-membership query for containment. All candidates removes only the status restriction; use reset to clear every condition.
+Text contains uses literal substrings; select Contains address or Network overlap for IPv6 relationship queries. For example, `::/126` matches a normalized `::/126` network, but expanded and compressed spellings do not necessarily produce the same text matches. The separate address-membership query searches the baseline; Contains address in details searches this batch. All candidates removes only the status restriction; use reset to clear every condition.
 
 Every keyword edit immediately clears old details and temporarily disables navigation, single-candidate copying and range output until application completes. Empty results disable output. Search, overlap or status changes during file selection/overwrite confirmation stop pending saves even if the original value is restored. Closing stops pending search. Language changes preserve the keyword and filters. TXT reports include overlap/search conditions; CSV/Excel retain their nine columns and contain only matching records.
+
+## Find Candidates by Address Membership or CIDR Overlap
+
+Choose a search mode in candidate details and enter the query beside it. Availability, candidate overlap and the query intersect. Results update after typing stops; Enter applies immediately.
+
+| Mode / action | Meaning and limits | Example |
+|---|---|---|
+| Text contains (default) | Case-insensitive literal substring in original input or normalized CIDR; no regex | `/126` |
+| Contains address | One IPv6 address; find every candidate covering it. Accepts compressed/expanded and mapped IPv6; rejects CIDR, IPv4 and scoped addresses | `::2` matches input `::1/126`, normalized to `::/126` |
+| Network overlap | One IPv6 CIDR; equality and either containment direction match, adjacency does not. Host bits are normalized | `::7/127` normalizes to `::6/127`, matching `::4/126` but not adjacent `::/126` |
+| Empty query | Adds no restriction; the other two filters still apply | Clear the query to browse the chosen status |
+| Invalid query | Clears old details, marks the input and disables navigation/output; correct and apply to recover | Address mode rejects `::/64` |
+| Reset | Restores all candidates, any overlap, Text contains and an empty query | Click the reset icon |
+
+For example, use baseline `::/128` with candidates `::1/126`, `::4/126`, `::1/126`. Contains address with `0:0:0:0:0:0:0:2` matches original candidates 1 and 3, even though that spelling is not a substring of their normalized networks. Network overlap with `::4/127` matches only 2. Original lines and duplicates remain. Queries search this batch's candidates; the separate address-membership query continues to search the baseline list.
+
+Changing mode preserves the input and reports a type mismatch if needed. Changing mode/query cancels pending old output even if restored. Language changes preserve the mode/query. Each address/CIDR is parsed once and existing network relationships are reused, without network queries or address enumeration.
+
+## Copy or Save Current Range CIDRs
+
+Choose Report → Copy current range CIDRs or Save current range CIDRs as TXT. The default filename is `IPv6_BatchRange_<category>_CIDRs.txt`, with one normalized IPv6 CIDR per line for reimport into Subnet List.
+
+These are **complete matching candidate networks**, not the current candidate's internal free/occupied fragments. Equal networks are deduplicated in first-input order; contained networks remain and adjacent networks are not merged. Use the range report or CSV/Excel for original indices, physical lines and duplicate records.
+
+In the preceding `::2` example, records 1 and 3 both normalize to `::/126`, so CIDR output contains only that line. If both `::/0` and `::/126` match, both remain; output does not collapse them to `::/0`. Availability/overlap filters do not reserve addresses, and copying does not edit the baseline.
+
+Empty results, invalid queries, pending searches and closed windows disable output. TXT saving retains overwrite confirmation and conflict protection; query/mode changes cancel old saves.

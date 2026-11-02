@@ -1,3 +1,10 @@
+## V1.25 新增操作验收 / New operation checks
+
+- 对压缩／展开写法执行地址归属查找，验证重复候选和原始序号保留；CIDR 重叠须包含包含关系、排除相邻。 / Verify address queries across spellings, duplicate/original identities, containment matches and excluded adjacency.
+- 非法 IPv6、IPv4、区域标识或缺少前缀须提示并禁用旧输出，清空／修正／重置可恢复。 / Invalid queries disable old output; clearing, correction and reset recover.
+- 比较范围报告、CSV／Excel 与筛选 CIDR，确认记录保留重复、CIDR 仅去重而不合并包含／相邻网段。 / Reports retain records; filtered CIDRs only deduplicate without merging.
+- 文件选择／覆盖确认期间切换搜索方式再切回，旧输出须中止；最小窗口、中英文和较大字体下报告仍至少 120px。 / Mode changes away/back cancel pending saves; both languages and larger fonts preserve at least 120px report space.
+
 ## V1.24 新增操作验收 / New operation checks
 
 - 验证“全部空闲＋有候选重叠＋关键词”交集、原始序号跳转、空结果和一键重置。 / Verify availability/overlap/keyword intersections, original-index jumps, empty results and reset.

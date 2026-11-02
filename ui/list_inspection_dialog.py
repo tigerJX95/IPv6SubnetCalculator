@@ -430,6 +430,17 @@ class BatchCandidateDialog(QDialog):
         range_menu.addAction(self.copy_range_action)
         range_menu.addAction(self.save_range_action)
         range_menu.addAction(self.save_range_csv_action)
+        range_menu.addSeparator()
+        self.copy_range_cidrs_action = LanguageAction(range_menu)
+        self.copy_range_cidrs_action.setText(tx('复制当前范围 CIDR'))
+        self.copy_range_cidrs_action.setToolTip(tx('复制匹配候选的规范化 CIDR，去重并保留首次顺序；不合并包含或相邻网段。'))
+        self.copy_range_cidrs_action.triggered.connect(self.copy_range_cidrs)
+        self.save_range_cidrs_action = LanguageAction(range_menu)
+        self.save_range_cidrs_action.setText(tx('保存当前范围 CIDR 为 TXT'))
+        self.save_range_cidrs_action.setToolTip(tx('保存匹配候选的规范化去重 CIDR，可重新导入清单检查。'))
+        self.save_range_cidrs_action.triggered.connect(self.save_range_cidrs)
+        range_menu.addAction(self.copy_range_cidrs_action)
+        range_menu.addAction(self.save_range_cidrs_action)
         self.range_report_button.setMenu(range_menu)
         self.range_report_button.setPopupMode(QToolButton.ToolButtonPopupMode.InstantPopup)
         filter_row.addWidget(self.range_report_button)
@@ -445,9 +456,16 @@ class BatchCandidateDialog(QDialog):
                            (tx('无候选重叠'), 'without_overlap')]:
             self.overlap_filter.addItem(label, key)
         extra_filters.addWidget(self.overlap_filter)
+        self.search_mode = QComboBox()
+        self.search_mode.setAccessibleName(tx('候选搜索方式'))
+        self.search_mode.setToolTip(tx('文本包含按字符匹配；包含地址查找覆盖该地址的候选；网段重叠查找与该 CIDR 相交的候选。'))
+        for label, key in [(tx('文本包含'), 'text'), (tx('包含地址'), 'address'), (tx('网段重叠'), 'network')]:
+            self.search_mode.addItem(label, key)
+        extra_filters.addWidget(self.search_mode)
         self.search_input = QLineEdit()
         self.search_input.setMaxLength(200)
-        self.search_input.setAccessibleName(tx('候选关键词搜索'))
+        self.search_input.setAccessibleName(tx('候选查找条件'))
+        bind_input(self.search_input)
         self.search_input.setPlaceholderText(tx('搜索原始输入或规范化 CIDR'))
         self.search_input.setToolTip(tx('不区分大小写的文本包含搜索；与两个筛选项取交集。停止输入后更新，Enter 立即应用。'))
         extra_filters.addWidget(self.search_input, 1)
@@ -495,11 +513,13 @@ class BatchCandidateDialog(QDialog):
         self.overlap_filter.currentIndexChanged.connect(self.apply_browse_filter)
         self.search_input.textChanged.connect(self.schedule_search)
         self.search_input.returnPressed.connect(self.apply_browse_filter)
+        self.search_mode.currentIndexChanged.connect(self.apply_browse_filter)
         self.reset_filters_button.clicked.connect(self.reset_filters)
         self.show_candidate(record, ordinal)
 
     def selection_filters(self):
-        return dict(overlap=self.overlap_filter.currentData(), query=self.search_input.text())
+        return dict(overlap=self.overlap_filter.currentData(), query=self.search_input.text(),
+                    query_mode=self.search_mode.currentData())
 
     def schedule_search(self, *_args):
         if self._closed or self.owner.result is not self.batch_result:
@@ -517,10 +537,11 @@ class BatchCandidateDialog(QDialog):
     def reset_filters(self):
         if self._closed or self.owner.result is not self.batch_result:
             return
-        with QSignalBlocker(self.browse_filter), QSignalBlocker(self.overlap_filter), QSignalBlocker(self.search_input):
+        with QSignalBlocker(self.browse_filter), QSignalBlocker(self.overlap_filter), QSignalBlocker(self.search_input), QSignalBlocker(self.search_mode):
             self.browse_filter.setCurrentIndex(0)
             self.overlap_filter.setCurrentIndex(0)
             self.search_input.clear()
+            self.search_mode.setCurrentIndex(0)
         self.apply_browse_filter()
 
     def apply_browse_filter(self, *_args):
@@ -528,23 +549,38 @@ class BatchCandidateDialog(QDialog):
             return
         self.search_timer.stop()
         self._range_revision += 1
-        self.ordinals = self.batch_result.candidate_ordinals(self.browse_filter.currentData(), **self.selection_filters())
-        # A filter change invalidates pending saves even if the current candidate still matches.
+        # Changing mode also invalidates pending saves, even when the resulting set is unchanged.
         self.panel.invalidate()
+        clear_invalid(self.search_input)
+        mode = self.search_mode.currentData()
+        placeholders = {'text': tx('搜索原始输入或规范化 CIDR'), 'address': tx('输入 IPv6 地址'),
+                        'network': tx('输入 IPv6 CIDR')}
+        self.search_input.setPlaceholderText(placeholders[mode])
+        self.search_input.setToolTip(tx('文本包含不区分大小写；地址／网段模式按 IPv6 关系查找。空条件不限制结果，Enter 立即应用。'))
+        try:
+            self.ordinals = self.batch_result.candidate_ordinals(self.browse_filter.currentData(), **self.selection_filters())
+        except InputError as exc:
+            self.ordinals = ()
+            self.clear_matches(tx('搜索条件无效：')+exc.args[0])
+            mark_invalid(self.search_input, exc.args[0])
+            return
         if self.ordinals:
             ordinal = self.ordinal if self.ordinal in self.ordinals else self.ordinals[0]
             with QSignalBlocker(self.owner.detail_index):
                 self.owner.detail_index.setValue(ordinal)
             self.show_candidate(self.batch_result.entries[ordinal-1].record, ordinal)
         else:
-            self.ordinal = None
-            self.panel.input.clear()
-            self.heading.setText(tx('当前浏览范围没有匹配的候选。'))
-            self.index_input.clear()
-            for control in (self.first_button, self.previous_button, self.next_button, self.last_button,
-                            self.index_input, self.jump_button):
-                control.setEnabled(False)
-            self.refresh_counts()
+            self.clear_matches(tx('当前浏览范围没有匹配的候选。'))
+
+    def clear_matches(self, message):
+        self.ordinal = None
+        self.panel.input.clear()
+        self.heading.setText(message)
+        self.index_input.clear()
+        for control in (self.first_button, self.previous_button, self.next_button, self.last_button,
+                        self.index_input, self.jump_button):
+            control.setEnabled(False)
+        self.refresh_counts()
 
     def refresh_counts(self):
         self.filter_status.setText(tx('匹配 {0:,} / 总计 {1:,}', len(self.ordinals), len(self.batch_result.entries)))
@@ -555,6 +591,8 @@ class BatchCandidateDialog(QDialog):
         self.save_range_action.setEnabled(available)
         self.save_range_csv_action.setEnabled(available)
         self.save_range_xlsx_action.setEnabled(available)
+        self.copy_range_cidrs_action.setEnabled(available)
+        self.save_range_cidrs_action.setEnabled(available)
 
     def range_current(self):
         return (not self._closed and self.owner.result is self.batch_result
@@ -594,6 +632,21 @@ class BatchCandidateDialog(QDialog):
             lambda: self.batch_result.range_as_xlsx(category, display, **filters),
             lambda: self.range_current() and self._range_revision == revision
             and self.browse_filter.currentData() == category, extension='.xlsx')
+
+    def copy_range_cidrs(self):
+        if self.range_current():
+            output = self.batch_result.cidr_output(self.browse_filter.currentData(), **self.selection_filters())
+            self.owner.page.clipboard.copy_text(output.as_text(), tx('当前范围 CIDR 已复制。'), self)
+
+    def save_range_cidrs(self):
+        if not self.range_current():
+            return
+        category, revision = self.browse_filter.currentData(), self._range_revision
+        output = self.batch_result.cidr_output(category, **self.selection_filters())
+        self.owner.page.output_controller._save('IPv6_BatchRange_'+category+'_CIDRs.txt',
+            str(output.as_text())+'\n',
+            lambda: self.range_current() and self._range_revision == revision
+            and self.browse_filter.currentData() == category)
 
     def show_candidate(self, record, ordinal):
         # Invalidate even for duplicate input, so pending saves cannot use old details.
