@@ -16,14 +16,14 @@
 # along with IPv6SubnetCalculator. If not, see <https://www.gnu.org/licenses/>.
 
 """地址格式与双网段分析独立页面，结果不改变计算器状态。"""
-from ui.localized_widgets import QGroupBox, QLabel, QLineEdit, LanguageAction
+from ui.localized_widgets import QGroupBox, QLabel, QLineEdit, QComboBox, LanguageAction
 from core.localized_text import text as tx, join_text as jt
 from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtWidgets import QWidget, QScrollArea, QVBoxLayout, QGridLayout, QSizePolicy, QMenu
 from app_info import DEFAULT_NETWORK
 from core.ipv6_core import InputError
 from core.address_conversion import convert_address
-from core.network_relations import analyze_networks
+from core.network_relations import analyze_networks, relation_categories
 from ui.address_range_panel import AddressRangePanel
 from ui.address_utility_panel import AddressUtilityPanel
 from ui.input_feedback import bind_input, mark_invalid, clear_invalid
@@ -139,6 +139,25 @@ class AddressToolsPage(QWidget):
             field.setTextInteractionFlags(Qt.TextInteractionFlag.TextSelectableByMouse)
             field.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
             field.customContextMenuRequested.connect(lambda pos, field=field: self._show_result_menu(self.relation_menu(field), field, pos))
+        self.relation_category = QComboBox()
+        self.relation_category.setAccessibleName(tx('双网段 CIDR 输出类别'))
+        self.relation_category.setToolTip(tx('选择交集、独有地址或间隔；输出精确覆盖该类别的 CIDR。'))
+        for key, label in relation_categories():
+            self.relation_category.addItem(label, key)
+        self.relation_category.setEnabled(False)
+        self.relation_cidr_copy = IconButton('copy_page', tx('复制所选类别的完整 CIDR 清单'))
+        self.relation_cidr_copy.setEnabled(False)
+        self.relation_cidr_summary = QLabel('—')
+        self.relation_cidr_summary.setWordWrap(True)
+        self.relation_cidr_preview = value_label()
+        self.relation_cidr_preview.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Preferred)
+        self.relation_cidr_preview.setText('—')
+        grid.addWidget(self.relation_category, 7, 0, 1, 2)
+        grid.addWidget(self.relation_cidr_copy, 7, 2)
+        grid.addWidget(self.relation_cidr_summary, 8, 0, 1, 3)
+        grid.addWidget(self.relation_cidr_preview, 9, 0, 1, 3)
+        self.relation_category.currentIndexChanged.connect(self._refresh_relation_cidrs)
+        self.relation_cidr_copy.clicked.connect(self.copy_relation_cidrs)
         body.addWidget(networks)
         self.range_panel=AddressRangePanel(clipboard)
         self.range_panel.feedback.connect(self.feedback)
@@ -203,6 +222,7 @@ class AddressToolsPage(QWidget):
             field.setText('—')
         self.relation_detail.setText(tx('识别相同、包含、相邻或完全独立；输入主机位会自动规范化。'))
         self.copy_relation_action.setEnabled(False)
+        self._refresh_relation_cidrs()
 
     def convert(self):
         clear_invalid(self.address_input)
@@ -244,6 +264,7 @@ class AddressToolsPage(QWidget):
         self.relation_fields['counts'].setText(tx('重叠地址数：{0:,}    间隔地址数：{1:,}', relation.overlap_count, relation.gap_count))
         self.relation_detail.setText(relation.detail)
         self.copy_relation_action.setEnabled(True)
+        self._refresh_relation_cidrs()
         normalized = tx('（主机位已规范化：{0}）',jt(tx('、'), (label for label, flag in (('A', relation.normalized_a), ('B', relation.normalized_b)) if flag))) if relation.normalized_a or relation.normalized_b else ''
         self.feedback.emit(tx('网段关系分析完成')+normalized+tx('。'), 'success')
 
@@ -259,3 +280,25 @@ class AddressToolsPage(QWidget):
         if self.relation is not None:
             self.clipboard.copy_text(self.relation.as_text(), tx('关系分析已复制到剪贴板。'), self)
 
+
+    def _refresh_relation_cidrs(self, *_):
+        result = self.relation
+        self.relation_category.setEnabled(result is not None)
+        key = self.relation_category.currentData()
+        output = result.cidr_output(key) if result is not None else None
+        self.relation_cidr_copy.setEnabled(bool(output and output.count))
+        if output is None:
+            self.relation_cidr_summary.setText('—')
+            self.relation_cidr_preview.setText('—')
+            return
+        self.relation_cidr_summary.setText(tx('地址总数：{0:,}；CIDR 数量：{1:,}', result.coverage_count(key), output.count))
+        preview = ', '.join(map(str, output.cidrs[:3]))
+        if output.count > 3:
+            preview += tx('（仅预览前 3 条，复制可获取完整清单）')
+        self.relation_cidr_preview.setText(preview or tx('无'))
+
+    def copy_relation_cidrs(self):
+        if self.relation is not None:
+            output = self.relation.cidr_output(self.relation_category.currentData())
+            if output.count:
+                self.clipboard.copy_text(output.as_text(), tx('双网段 CIDR 清单已复制。'), self)

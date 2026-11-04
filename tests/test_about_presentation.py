@@ -63,8 +63,9 @@ class AboutPresentationTests(unittest.TestCase):
         from ui.main_window import MainWindow
         w=MainWindow();p=w.address_tools_page
         try:
-            for group in (p.convert_button.parentWidget(),p.analyze_button.parentWidget()):
-                self.assertEqual(len(group.findChildren(QToolButton)),1)
+            self.assertEqual(p.convert_button.parentWidget().findChildren(QToolButton),[p.convert_button])
+            relation_buttons=p.analyze_button.parentWidget().findChildren(QToolButton)
+            self.assertCountEqual(relation_buttons,[p.analyze_button,p.relation_cidr_copy])
             for language in ('zh_CN','en_US'):
                 self.app.language_manager.apply(language,persist=False)
                 p.address_input.setText('::1');p.convert();p.analyze()

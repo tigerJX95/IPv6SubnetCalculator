@@ -175,6 +175,15 @@
     },
     {
       "context": "App",
+      "source": "A 独有（A 减 B）",
+      "source_sha256": "d6e211d1811d4a72f31d95d43a5b1b10210c522b59739fb9594e094da5da2742",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "A：{0}",
       "source_sha256": "5d54b5b1de0865b406e79a8cf7d87e4fbc2d18aec93d5ed09fd7020efbe1030e",
       "protected_tokens": [],
@@ -195,6 +204,15 @@
       "context": "App",
       "source": "B 地址范围：{0} ～ {1}",
       "source_sha256": "fe3189b3e3d8ceeec4f537275e30692597576fc3b67e73d63b9832a0fd9e6ef1",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "B 独有（B 减 A）",
+      "source_sha256": "14cf6c7fea9bd84c14bc72c8d6473a54088da3cc05c82e39e85c749e1ecf3a3f",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -903,6 +921,15 @@
     },
     {
       "context": "App",
+      "source": "{0}：{1:,} 个地址，{2:,} 条 CIDR",
+      "source_sha256": "44f58229c6f85f81332a78fda2a4c3cba362a5affd9e827e2662b697ba3fd2c8",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "{0}：{1}",
       "source_sha256": "838f6df66524dcf810c1056180ab63c7034c74732071a871560344b2b9444166",
       "protected_tokens": [],
@@ -1083,6 +1110,15 @@
     },
     {
       "context": "App",
+      "source": "两网段之间的间隔",
+      "source_sha256": "ba2c0b36bcf564b5fdf00e326233ec4928aaa5055ca9fb25385ced87cda00476",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "中止",
       "source_sha256": "db861bf78396eedb1b09167da25714b2323053c1a90a161f927be7ba5cf06090",
       "protected_tokens": [],
@@ -1157,6 +1193,15 @@
       "context": "App",
       "source": "二进制（128 位）：{0}",
       "source_sha256": "b452147e5bca66328457c202358a1815f98b541a16d4bc5f222ba013791d47e2",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "交集（A 与 B 共有）",
+      "source_sha256": "b3b7b25027a67bb0280b7eb09fd6286a8f0b055873483ee2f40e055dfce4d00d",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -2561,6 +2606,24 @@
     },
     {
       "context": "App",
+      "source": "双网段 CIDR 清单已复制。",
+      "source_sha256": "990cf080e508e04a1818abbc009149fc4c3f8e1d56be9f1768abf9be01bab871",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "双网段 CIDR 输出类别",
+      "source_sha256": "e5e5d8f38585592a3daec931b08bb2bf439507772554247c13549f3b2a1fd5a8",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "双网段关系分析",
       "source_sha256": "6ce3f5f50bf710e024d5df438e2d5bc52f1e127be9b4caabaf11483714e3bfe8",
       "protected_tokens": [],
@@ -3253,6 +3316,15 @@
       "context": "App",
       "source": "复制所选文本",
       "source_sha256": "731d1d72443c66b438621797e53955ac81f9be830c1585a4b680514708d96dbc",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "复制所选类别的完整 CIDR 清单",
+      "source_sha256": "81c7d40c15e9871d6c0650450575b904bf5fa59ccd909a561667f48df9a18466",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -8400,6 +8472,15 @@
     },
     {
       "context": "App",
+      "source": "选择交集、独有地址或间隔；输出精确覆盖该类别的 CIDR。",
+      "source_sha256": "e270606e5444d86de7ac1ad8e3d1d2e7f29a9e05344684cdecc9677615e98bde",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "选择子网导出范围",
       "source_sha256": "690e2d9307f85befad4ae6b6d4b08ffca96a758568a99e9746b529df824507db",
       "protected_tokens": [],
@@ -8735,6 +8816,15 @@
       "context": "App",
       "source": "（主机位已规范化：{0}）",
       "source_sha256": "f9ce41bdd84f0121e94cf138765509b44bcf4a8552e539a11e7df47ba36f3438",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "（仅预览前 3 条，复制可获取完整清单）",
+      "source_sha256": "601d68f0ee218a8c756db5e82ad27ba57417e9a0ae74ae67702deaf12db677e4",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,

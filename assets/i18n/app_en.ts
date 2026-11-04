@@ -4014,6 +4014,46 @@ Click a link to open your default browser; a network connection is used only whe
       <source>当前范围 CIDR 已复制。</source>
       <translation>Current range CIDRs copied.</translation>
     </message>
+    <message>
+      <source>交集（A 与 B 共有）</source>
+      <translation>Intersection (A and B)</translation>
+    </message>
+    <message>
+      <source>A 独有（A 减 B）</source>
+      <translation>A only (A minus B)</translation>
+    </message>
+    <message>
+      <source>B 独有（B 减 A）</source>
+      <translation>B only (B minus A)</translation>
+    </message>
+    <message>
+      <source>两网段之间的间隔</source>
+      <translation>Gap between networks</translation>
+    </message>
+    <message>
+      <source>{0}：{1:,} 个地址，{2:,} 条 CIDR</source>
+      <translation>{0}: {1:,} addresses, {2:,} CIDRs</translation>
+    </message>
+    <message>
+      <source>双网段 CIDR 输出类别</source>
+      <translation>Two-network CIDR output category</translation>
+    </message>
+    <message>
+      <source>选择交集、独有地址或间隔；输出精确覆盖该类别的 CIDR。</source>
+      <translation>Choose the intersection, exclusive addresses or gap; output CIDRs that cover exactly that category.</translation>
+    </message>
+    <message>
+      <source>复制所选类别的完整 CIDR 清单</source>
+      <translation>Copy the complete CIDR list for the selected category</translation>
+    </message>
+    <message>
+      <source>（仅预览前 3 条，复制可获取完整清单）</source>
+      <translation> (first 3 shown; copy for the complete list)</translation>
+    </message>
+    <message>
+      <source>双网段 CIDR 清单已复制。</source>
+      <translation>Two-network CIDR list copied.</translation>
+    </message>
   </context>
   <context>
     <name>Export</name>

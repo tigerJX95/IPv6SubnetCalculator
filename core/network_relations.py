@@ -20,6 +20,14 @@ from core.localized_text import text as tx, join_text as jt
 from dataclasses import dataclass
 from ipaddress import IPv6Network
 from core.ipv6_core import calculate, InputError
+from core.list_inspection import coverage_cidrs, difference, size
+
+
+def relation_categories():
+    return (('intersection', tx('交集（A 与 B 共有）')),
+            ('a_only', tx('A 独有（A 减 B）')),
+            ('b_only', tx('B 独有（B 减 A）')),
+            ('gap', tx('两网段之间的间隔')))
 
 
 @dataclass(frozen=True)
@@ -34,9 +42,36 @@ class NetworkRelation:
     overlap_count: int
     gap_count: int
 
+    def coverage(self, category):
+        a, b = ((int(net.network_address), int(net.broadcast_address))
+                for net in (self.network_a, self.network_b))
+        if category == 'intersection':
+            first, last = max(a[0], b[0]), min(a[1], b[1])
+            return ((first, last),) if first <= last else ()
+        if category == 'a_only':
+            return difference((a,), (b,))
+        if category == 'b_only':
+            return difference((b,), (a,))
+        if category == 'gap':
+            lower, upper = sorted((a, b))
+            return ((lower[1]+1, upper[0]-1),) if self.gap_count else ()
+        raise ValueError('Unknown relation coverage category')
+
+    def cidr_output(self, category):
+        return coverage_cidrs(self.coverage(category))
+
+    def coverage_count(self, category):
+        return size(self.coverage(category))
+
     def as_text(self):
         a, b = self.network_a, self.network_b
-        return jt('\n', (tx('IPv6 双网段关系分析'), tx('网段 A：{0}', a), tx('A 地址范围：{0} ～ {1}', a.network_address, a.broadcast_address), tx('网段 B：{0}', b), tx('B 地址范围：{0} ～ {1}', b.network_address, b.broadcast_address), tx('关系：{0}', self.title), tx('重叠地址数：{0:,}', self.overlap_count), tx('间隔地址数：{0:,}', self.gap_count), tx('说明：{0}', self.detail), tx('主机位规范化：A {0}；B {1}', tx('是') if self.normalized_a else tx('否'), tx('是') if self.normalized_b else tx('否'))))
+        summary = (tx('IPv6 双网段关系分析'), tx('网段 A：{0}', a), tx('A 地址范围：{0} ～ {1}', a.network_address, a.broadcast_address), tx('网段 B：{0}', b), tx('B 地址范围：{0} ～ {1}', b.network_address, b.broadcast_address), tx('关系：{0}', self.title), tx('重叠地址数：{0:,}', self.overlap_count), tx('间隔地址数：{0:,}', self.gap_count), tx('说明：{0}', self.detail), tx('主机位规范化：A {0}；B {1}', tx('是') if self.normalized_a else tx('否'), tx('是') if self.normalized_b else tx('否')))
+        sections = []
+        for key, label in relation_categories():
+            output = self.cidr_output(key)
+            sections.extend(('', tx('{0}：{1:,} 个地址，{2:,} 条 CIDR', label, self.coverage_count(key), output.count),
+                             output.as_text() or tx('无')))
+        return jt('\n', (*summary, *sections))
 
 
 def analyze_networks(text_a: str, text_b: str) -> NetworkRelation:

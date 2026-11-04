@@ -313,3 +313,7 @@ These are **complete matching candidate networks**, not the current candidate's 
 In the preceding `::2` example, records 1 and 3 both normalize to `::/126`, so CIDR output contains only that line. If both `::/0` and `::/126` match, both remain; output does not collapse them to `::/0`. Availability/overlap filters do not reserve addresses, and copying does not edit the baseline.
 
 Empty results, invalid queries, pending searches and closed windows disable output. TXT saving retains overwrite confirmation and conflict protection; query/mode changes cancel old saves.
+
+## CIDRs for Two Networks
+
+After analyzing A and B in Address Tools, select intersection, A only, B only or gap. The gap includes only addresses between separated networks. For `::/126` and `::1/128`, the intersection is `::1/128`, A only contains `::/128` and `::2/127`, and B only and the gap are empty. The copy icon copies the full list, one CIDR per line. The full relation report includes every category.

@@ -126,3 +126,32 @@ class NetworkRelationTests(unittest.TestCase):
                 else: kind='independent'
                 result=analyze_networks(str(a),str(b))
                 self.assertEqual((result.kind,result.overlap_count,result.gap_count),(kind,overlap,gap),(a,b))
+
+
+class NetworkCoverageTests(unittest.TestCase):
+    def test_exact_sets_and_minimal_blocks(self):
+        from ipaddress import collapse_addresses
+        rng = random.Random(126)
+        for _ in range(120):
+            a,b = [IPv6Network((rng.randrange(128),rng.randrange(121,129)),strict=False) for _ in range(2)]
+            sa,sb = [set(range(int(n.network_address),int(n.broadcast_address)+1)) for n in (a,b)]
+            r = analyze_networks(str(a),str(b))
+            gap = set(range(max(min(sa),min(sb)))) - set(range(min(max(sa),max(sb))+1))
+            for key, expected in [('intersection',sa & sb),('a_only',sa - sb),('b_only',sb - sa),('gap',gap)]:
+                output=r.cidr_output(key)
+                actual={int(addr) for n in output.cidrs for addr in n}
+                self.assertEqual(actual,expected)
+                self.assertEqual(r.coverage_count(key),len(expected))
+                self.assertEqual(output.cidrs,tuple(collapse_addresses(output.cidrs)))
+
+    def test_full_space_subtraction_and_extreme_gap(self):
+        last='ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff/128'
+        r=analyze_networks('::/0',last)
+        self.assertEqual(r.cidr_output('intersection').as_text(),last)
+        self.assertEqual(r.coverage_count('a_only'),2**128-1)
+        self.assertEqual(r.cidr_output('a_only').count,128)
+        self.assertEqual(r.cidr_output('b_only').count,0)
+        r=analyze_networks(last,'::/128')
+        self.assertEqual(r.coverage_count('gap'),2**128-2)
+        self.assertEqual(r.cidr_output('gap').count,254)
+        self.assertEqual(r.cidr_output('a_only').as_text(),last)

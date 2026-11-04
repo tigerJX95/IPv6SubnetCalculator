@@ -1,17 +1,12 @@
 [简体中文](README.md) | **English**
 
-# 🌐 IPv6 Subnet Calculator V1.25
+# 🌐 IPv6 Subnet Calculator V1.26
 
-## V1.25 Candidate Address Queries and CIDR Output
+## V1.26 Exact CIDRs for Two Networks
 
-- Candidate details add search modes: Text contains, Contains address and Network overlap. Address/CIDR modes use IPv6 relationships independent of compressed or expanded spelling; CIDR host bits are normalized.
-- Queries intersect with baseline availability and candidate-overlap filters, retaining original indices and duplicates. Navigation and TXT/CSV/Excel output use the same matching records.
-- The Report menu adds copy/save of filtered CIDRs: complete normalized candidate networks, deduplicated in first-input order, without merging contained or adjacent networks.
-- Invalid addresses/CIDRs mark the query input and disable old output. Editing the query, mode or filters, including away and back, stops pending old saves. Reset restores Text contains mode.
-- Retains readable minimum report height and font-adaptive Windows layout; updates both languages, actual screenshots and current-version documentation.
-- Preserves the Issue template configuration; source packaging verifies `.github/ISSUE_TEMPLATE/config.yml` is included.
-
-Examples: [Candidate Details Guide](docs/BATCH_DETAILS_EN.md).
+- Two-network analysis now outputs CIDRs for the intersection, A only, B only and the gap.
+- Each category shows exact address and CIDR counts and up to three preview entries. Copy returns the complete list; empty categories disable copying.
+- The full relation report includes all four lists. Input edits clear old results and language switching preserves the analysis.
 
 [Update History](docs/HISTORY_EN.md)
 
@@ -106,6 +101,8 @@ Existing files require overwrite confirmation. If another program changes the de
 
 ![Address tools](docs/screenshots/tools_en_US_light.png)
 
+![Two-network CIDR output](docs/screenshots/relation_cidrs_en_US_light.png)
+
 ![List tools entry](docs/screenshots/query_entry_en_US_light.png)
 
 ![Free space](docs/screenshots/free_en_US_light.png)
@@ -126,7 +123,7 @@ Existing files require overwrite confirmation. If another program changes the de
 
 ## 📦 Download and Usage
 
-Download `IPv6SubnetCalculator_V1.25.exe` directly from Assets on GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest). Run the downloaded executable; no additional runtime setup is required. Enter a network and target prefix, then click the calculation icon; the application switches to Results when complete.
+Download `IPv6SubnetCalculator_V1.26.exe` directly from Assets on GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest). Run the downloaded executable; no additional runtime setup is required. Enter a network and target prefix, then click the calculation icon; the application switches to Results when complete.
 
 Press F1 or use the top-bar information icon for built-in help, license texts and legal notices.
 

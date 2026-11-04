@@ -1,3 +1,7 @@
+## V1.26 新增操作验收 / New operation checks
+
+- Verify category counts, complete clipboard output, empty categories, input invalidation and both languages/themes. / 检查类别计数、完整复制、空类别、输入变更失效及双语双主题。
+
 ## V1.25 新增操作验收 / New operation checks
 
 - 对压缩／展开写法执行地址归属查找，验证重复候选和原始序号保留；CIDR 重叠须包含包含关系、排除相邻。 / Verify address queries across spellings, duplicate/original identities, containment matches and excluded adjacency.

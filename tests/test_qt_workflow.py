@@ -595,6 +595,30 @@ class QtWorkflowTests(unittest.TestCase):
         finally:
             page.deleteLater()
 
+    def test_relation_cidr_copy_empty_category_and_live_language(self):
+        tools=self.window.address_tools_page
+        self.assertFalse(tools.relation_cidr_copy.isEnabled())
+        tools.network_a_input.setText('::/0')
+        tools.network_b_input.setText('::/128')
+        tools.analyze()
+        tools.relation_category.setCurrentIndex(tools.relation_category.findData('a_only'))
+        self.assertTrue(tools.relation_cidr_copy.isEnabled())
+        self.assertIn('128',tools.relation_cidr_summary.text())
+        tools.relation_cidr_copy.click()
+        self.assertEqual(len(QApplication.clipboard().text().splitlines()),128)
+        try:
+            self.application.language_manager.apply('en_US',persist=False)
+            self.assertIn('first 3 shown',tools.relation_cidr_preview.text())
+            tools.copy_relation_action.trigger()
+            self.assertIn('A only (A minus B)',QApplication.clipboard().text())
+            tools.relation_category.setCurrentIndex(tools.relation_category.findData('b_only'))
+            self.assertFalse(tools.relation_cidr_copy.isEnabled())
+            tools.network_b_input.setText('invalid')
+            self.assertFalse(tools.relation_category.isEnabled())
+            self.assertEqual(tools.relation_cidr_preview.text(),'—')
+        finally:
+            self.application.language_manager.apply('zh_CN',persist=False)
+
     def test_address_tools_start_disabled_and_enter_converts_and_copies(self):
         tools = self.window.address_tools_page
         self.window.tabs.setCurrentIndex(2)

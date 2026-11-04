@@ -1,12 +1,9 @@
 # Release Notes
 
-## V1.25 Candidate Address Queries and CIDR Output
+## V1.26 Exact CIDRs for Two Networks
 
-- Candidate details add search modes: Text contains, Contains address and Network overlap. Address/CIDR modes use IPv6 relationships independent of compressed or expanded spelling; CIDR host bits are normalized.
-- Queries intersect with baseline availability and candidate-overlap filters, retaining original indices and duplicates. Navigation and TXT/CSV/Excel output use the same matching records.
-- The Report menu adds copy/save of filtered CIDRs: complete normalized candidate networks, deduplicated in first-input order, without merging contained or adjacent networks.
-- Invalid addresses/CIDRs mark the query input and disable old output. Editing the query, mode or filters, including away and back, stops pending old saves. Reset restores Text contains mode.
-- Retains readable minimum report height and font-adaptive Windows layout; updates both languages, actual screenshots and current-version documentation.
-- Preserves the Issue template configuration; source packaging verifies `.github/ISSUE_TEMPLATE/config.yml` is included.
+- Two-network analysis now outputs CIDRs for the intersection, A only, B only and the gap.
+- Each category shows exact address and CIDR counts and up to three preview entries. Copy returns the complete list; empty categories disable copying.
+- The full relation report includes all four lists. Input edits clear old results and language switching preserves the analysis.
 
 [Update History](HISTORY.md)

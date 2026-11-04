@@ -1,23 +1,17 @@
 # 版本更新 / Release Notes
 
-## V1.25 候选语义查找与 CIDR 输出
+## V1.26 双网段精确 CIDR 分析
 
-- 候选详情新增搜索方式：文本包含、包含地址、网段重叠；地址／CIDR 按 IPv6 关系查找，不受压缩或展开写法影响，网段主机位自动规范化。
-- 查找结果继续与基准占用状态和候选间重叠筛选取交集，保留原始序号与重复项，导航及 TXT／CSV／Excel 输出统一遵循结果。
-- 范围报告菜单新增复制／保存筛选后的 CIDR 清单：输出整条规范化候选网段，去重并保留首次顺序，不合并包含或相邻网段。
-- 非法地址／CIDR 会在查找框提示并禁用旧输出；输入、模式或筛选条件变化（含改回）会中止已打开的旧保存，重置恢复文本模式。
-- 延续 Windows 报告区最小阅读高度和字体自适应布局，更新中英文帮助、实际截图与最新版本展示。
-- 保留 Issue 模板配置，源码打包检查确保包含 `.github/ISSUE_TEMPLATE/config.yml`。
+- 双网段关系分析新增交集、A 独有、B 独有和间隔四类 CIDR 输出。
+- 每类显示精确地址数、CIDR 数及前三条预览，复制取得完整清单；空结果禁用复制。
+- 完整关系报告收录四类清单。输入修改后清除旧结果，中英文切换保留分析状态。
 
 [历史更新](HISTORY.md)
 
-## V1.25 Candidate Address Queries and CIDR Output
+## V1.26 Exact CIDRs for Two Networks
 
-- Candidate details add search modes: Text contains, Contains address and Network overlap. Address/CIDR modes use IPv6 relationships independent of compressed or expanded spelling; CIDR host bits are normalized.
-- Queries intersect with baseline availability and candidate-overlap filters, retaining original indices and duplicates. Navigation and TXT/CSV/Excel output use the same matching records.
-- The Report menu adds copy/save of filtered CIDRs: complete normalized candidate networks, deduplicated in first-input order, without merging contained or adjacent networks.
-- Invalid addresses/CIDRs mark the query input and disable old output. Editing the query, mode or filters, including away and back, stops pending old saves. Reset restores Text contains mode.
-- Retains readable minimum report height and font-adaptive Windows layout; updates both languages, actual screenshots and current-version documentation.
-- Preserves the Issue template configuration; source packaging verifies `.github/ISSUE_TEMPLATE/config.yml` is included.
+- Two-network analysis now outputs CIDRs for the intersection, A only, B only and the gap.
+- Each category shows exact address and CIDR counts and up to three preview entries. Copy returns the complete list; empty categories disable copying.
+- The full relation report includes all four lists. Input edits clear old results and language switching preserves the analysis.
 
 [Update History](HISTORY_EN.md)
