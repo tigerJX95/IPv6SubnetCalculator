@@ -149,6 +149,8 @@ class AddressToolsPage(QWidget):
         self.relation_cidr_copy.setEnabled(False)
         self.relation_cidr_summary = QLabel('—')
         self.relation_cidr_summary.setWordWrap(True)
+        # A /0 address count must not increase the scroll area's minimum width.
+        self.relation_cidr_summary.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Preferred)
         self.relation_cidr_preview = value_label()
         self.relation_cidr_preview.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Preferred)
         self.relation_cidr_preview.setText('—')

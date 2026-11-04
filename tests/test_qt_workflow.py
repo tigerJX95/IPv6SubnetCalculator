@@ -718,6 +718,19 @@ class QtWorkflowTests(unittest.TestCase):
             self.window.resize(900,620)
             QApplication.processEvents()
             self.assertEqual(scroll.horizontalScrollBar().maximum(),0)
+            self.assertIn(f'{2**128:,}', tools.relation_cidr_summary.text())
+            # Exercise wide glyphs even on runners whose default font fits.
+            summary = tools.relation_cidr_summary
+            original = summary.font()
+            wide = summary.font()
+            wide.setPixelSize(46)
+            summary.setFont(wide)
+            try:
+                QApplication.processEvents()
+                self.assertLessEqual(scroll.widget().minimumSizeHint().width(),scroll.viewport().width())
+                self.assertEqual(scroll.horizontalScrollBar().maximum(),0)
+            finally:
+                summary.setFont(original)
             for widget in (scroll.viewport(),scroll.widget()):
                 rendered = widget.grab().toImage()
                 self.assertEqual(rendered.pixelColor(1,1).name(), THEMES[theme]['surface'])
