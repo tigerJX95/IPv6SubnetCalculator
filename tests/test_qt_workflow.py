@@ -718,27 +718,37 @@ class QtWorkflowTests(unittest.TestCase):
             self.window.resize(900,620)
             QApplication.processEvents()
             self.assertEqual(scroll.horizontalScrollBar().maximum(),0)
-            self.assertIn(f'{2**128:,}', tools.relation_cidr_summary.text())
-            # Exercise wide glyphs even on runners whose default font fits.
-            summary = tools.relation_cidr_summary
-            original = summary.font()
-            wide = summary.font()
-            wide.setPixelSize(46)
-            summary.setFont(wide)
-            try:
-                QApplication.processEvents()
-                self.assertLessEqual(scroll.widget().minimumSizeHint().width(),scroll.viewport().width())
-                self.assertEqual(scroll.horizontalScrollBar().maximum(),0)
-            finally:
-                summary.setFont(original)
             for widget in (scroll.viewport(),scroll.widget()):
                 rendered = widget.grab().toImage()
                 self.assertEqual(rendered.pixelColor(1,1).name(), THEMES[theme]['surface'])
             self.assertIn(f'{2**128:,}', tools.relation_fields['counts'].text())
-            scroll.ensureWidgetVisible(tools.relation_fields['counts'])
+            counts = tools.relation_fields['counts']
+            scroll.ensureWidgetVisible(counts, 0, 0)
             QApplication.processEvents()
-            self.assertTrue(scroll.viewport().rect().intersects(tools.relation_fields['counts'].geometry().translated(
-                tools.relation_fields['counts'].parentWidget().mapTo(scroll.viewport(),tools.relation_fields['counts'].parentWidget().rect().topLeft()))))
+            visible_rect = counts.rect().translated(counts.mapTo(scroll.viewport(), counts.rect().topLeft()))
+            self.assertTrue(scroll.viewport().rect().intersects(visible_rect))
+
+    def test_relation_cidr_summary_does_not_enforce_wide_font_minimum(self):
+        tools = self.window.address_tools_page
+        self.window.tabs.setCurrentIndex(2)
+        self.window.resize(900,620)
+        tools.network_a_input.setText('::/0')
+        tools.network_b_input.setText('::/0')
+        tools.analyze()
+        scroll = tools.findChild(QScrollArea)
+        summary = tools.relation_cidr_summary
+        self.assertIn(f'{2**128:,}', summary.text())
+        original = summary.font()
+        wide = summary.font()
+        wide.setPixelSize(46)
+        try:
+            summary.setFont(wide)
+            QApplication.processEvents()
+            self.assertLessEqual(scroll.widget().minimumSizeHint().width(),scroll.viewport().width())
+            self.assertEqual(scroll.horizontalScrollBar().maximum(),0)
+        finally:
+            summary.setFont(original)
+            QApplication.processEvents()
 
     def test_calculation_background_uses_theme_with_dark_system_palette(self):
         original_palette = self.application.palette()
