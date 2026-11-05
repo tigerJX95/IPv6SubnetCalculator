@@ -17,7 +17,7 @@
 
 """地址范围转换面板，独立维护验证、复制与清单发送。"""
 from PyQt6.QtCore import pyqtSignal
-from PyQt6.QtWidgets import QGridLayout, QHBoxLayout
+from PyQt6.QtWidgets import QGridLayout, QHBoxLayout, QSizePolicy
 from ui.localized_widgets import QGroupBox, QLabel, QLineEdit, QPlainTextEdit
 from core.address_range import range_to_cidrs
 from core.ipv6_core import InputError
@@ -29,7 +29,7 @@ from ui.input_feedback import bind_input, clear_invalid, mark_invalid
 
 class AddressRangePanel(QGroupBox):
     feedback=pyqtSignal(object,str)
-    transfer_requested=pyqtSignal(str)
+    transfer_requested=pyqtSignal(str,object)
 
     def __init__(self,clipboard,parent=None):
         super().__init__(tx('IPv6 地址范围转 CIDR'),parent)
@@ -56,6 +56,7 @@ class AddressRangePanel(QGroupBox):
         actions.addStretch()
         grid.addLayout(actions,2,0,1,2)
         self.summary=QLabel(tx('输入首末 IPv6 地址，生成不超出范围的最简 CIDR 清单。'));self.summary.setWordWrap(True)
+        self.summary.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Preferred)
         grid.addWidget(self.summary,3,0,1,2)
         self.output=QPlainTextEdit();self.output.setReadOnly(True);self.output.setFont(data_font());self.output.setFixedHeight(110)
         self.output.setAccessibleName(tx('地址范围 CIDR 结果'))
@@ -91,4 +92,6 @@ class AddressRangePanel(QGroupBox):
         if self.result is not None:self.clipboard.copy_text(self.result.as_text(),tx('范围转换报告已复制。'),self)
 
     def send_to_list(self):
-        if self.result is not None:self.transfer_requested.emit(self.result.cidr_text())
+        result = self.result
+        if result is not None:
+            self.transfer_requested.emit(result.cidr_text(), lambda: self.result is result)

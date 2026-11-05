@@ -1,12 +1,13 @@
 [简体中文](README.md) | **English**
 
-# 🌐 IPv6 Subnet Calculator V1.26
+# 🌐 IPv6 Subnet Calculator V1.27
 
-## V1.26 Exact CIDRs for Two Networks
+## V1.27 Send relation CIDRs to Subnet List
 
-- Two-network analysis now outputs CIDRs for the intersection, A only, B only and the gap.
-- Each category shows exact address and CIDR counts and up to three preview entries. Copy returns the complete list; empty categories disable copying.
-- The full relation report includes all four lists. Input edits clear old results and language switching preserves the analysis.
+- Swap A and B with one click and rerun the analysis. The original input spelling is preserved, making it easy to check containment and CIDR differences in the reverse direction.
+- Send the full intersection, A-only, B-only or gap CIDR list directly to Subnet List and start checking.
+- Replacing different existing input requires confirmation. Canceling, editing either network or changing the category during confirmation preserves the existing list.
+- Long address totals in the address-range tool adapt to the window width without widening the tools page.
 
 [Update History](docs/HISTORY_EN.md)
 
@@ -123,7 +124,7 @@ Existing files require overwrite confirmation. If another program changes the de
 
 ## 📦 Download and Usage
 
-Download `IPv6SubnetCalculator_V1.26.exe` directly from Assets on GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest). Run the downloaded executable; no additional runtime setup is required. Enter a network and target prefix, then click the calculation icon; the application switches to Results when complete.
+Download `IPv6SubnetCalculator_V1.27.exe` directly from Assets on GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest). Run the downloaded executable; no additional runtime setup is required. Enter a network and target prefix, then click the calculation icon; the application switches to Results when complete.
 
 Press F1 or use the top-bar information icon for built-in help, license texts and legal notices.
 

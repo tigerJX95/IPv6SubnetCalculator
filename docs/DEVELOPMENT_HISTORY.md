@@ -2,6 +2,18 @@
 
 [返回开发说明 / Development notes](DEVELOPMENT.md)
 
+## V1.26 双网段精确 CIDR 分析
+
+- 双网段关系分析新增交集、A 独有、B 独有和间隔四类 CIDR 输出。
+- 每类显示精确地址数、CIDR 数及前三条预览，复制取得完整清单；空结果禁用复制。
+- 完整关系报告收录四类清单。输入修改后清除旧结果，中英文切换保留分析状态。
+
+## V1.26 Exact CIDRs for Two Networks
+
+- Two-network analysis now outputs CIDRs for the intersection, A only, B only and the gap.
+- Each category shows exact address and CIDR counts and up to three preview entries. Copy returns the complete list; empty categories disable copying.
+- The full relation report includes all four lists. Input edits clear old results and language switching preserves the analysis.
+
 ## V1.25 候选语义查找与 CIDR 输出
 
 - 候选详情新增搜索方式：文本包含、包含地址、网段重叠；地址／CIDR 按 IPv6 关系查找，不受压缩或展开写法影响，网段主机位自动规范化。

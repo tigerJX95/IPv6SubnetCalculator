@@ -1200,6 +1200,15 @@
     },
     {
       "context": "App",
+      "source": "交换网段 A 和 B，并重新分析",
+      "source_sha256": "7a3d9f15d3dd2e8cdbaf90386378bbc23b952fc014f2d06f2245f917d35a6125",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "交集（A 与 B 共有）",
       "source_sha256": "b3b7b25027a67bb0280b7eb09fd6286a8f0b055873483ee2f40e055dfce4d00d",
       "protected_tokens": [],
@@ -4047,6 +4056,15 @@
     },
     {
       "context": "App",
+      "source": "将使用所选双网段 CIDR 替换当前清单，并重新检查。是否继续？",
+      "source_sha256": "061b1635cefdbdc8e95b855f70538a560a609d35c133342c4a0c4e3be4b82d20",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "将完整空闲 CIDR 送回清单检查；截断时禁用",
       "source_sha256": "494b9e101cfbc5bd9b820d54e4636ca3c2ca45e1c906312d198657cb29c97695",
       "protected_tokens": [],
@@ -4061,6 +4079,15 @@
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": true,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "将所选双网段 CIDR 送入子网清单并检查；替换前确认",
+      "source_sha256": "aa4865520309a3d38f35cbe7c7898e7c861dc6cb19bd135781c5f81870fb6ea9",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
       "opaque": false
     },
     {

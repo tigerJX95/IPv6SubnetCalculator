@@ -317,3 +317,7 @@ Empty results, invalid queries, pending searches and closed windows disable outp
 ## CIDRs for Two Networks
 
 After analyzing A and B in Address Tools, select intersection, A only, B only or gap. The gap includes only addresses between separated networks. For `::/126` and `::1/128`, the intersection is `::1/128`, A only contains `::/128` and `::2/127`, and B only and the gap are empty. The copy icon copies the full list, one CIDR per line. The full relation report includes every category.
+
+Select a category and click the Send to Subnet List icon next to Copy. The app transfers all CIDRs and starts checking them. For example, with A = `::/126` and B = `::1/128`, select A only to send `::/128` and `::2/127`. Choose No to keep different existing input.
+
+Click the double-arrow button next to Analyze to swap A and B and rerun the analysis. The selected CIDR category stays the same. For example, if A contained B, the result becomes B contains A; select B only to see the former A-only list.

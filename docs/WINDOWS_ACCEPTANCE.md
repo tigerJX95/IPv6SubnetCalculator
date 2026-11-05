@@ -1,3 +1,8 @@
+## V1.27 新增操作验收 / New operation checks
+
+- 交换包含关系中的 A/B，核对原始文本、方向、当前类别和复制结果。 / Swap A/B in a containment example and check raw inputs, direction, selected category and clipboard.
+- 验证双网段 CIDR 转入清单、拒绝替换、确认期间切换类别，以及最小窗口下的范围总数。 / Verify relation transfer, declining replacement, changing category during confirmation, and range totals at minimum window width.
+
 ## V1.26 新增操作验收 / New operation checks
 
 - Verify category counts, complete clipboard output, empty categories, input invalidation and both languages/themes. / 检查类别计数、完整复制、空类别、输入变更失效及双语双主题。

@@ -173,6 +173,29 @@ class AddressRangeUiTests(unittest.TestCase):
         with patch('ui.range_transfer_controller.QMessageBox.question',side_effect=changed):self.p.send_to_list()
         self.assertEqual(page.editor.toPlainText(),'::2/128');self.assertFalse(page.service.busy)
 
+    def test_transfer_confirmation_rejects_recomputed_range_and_reverted_list(self):
+        page = self.w.subnet_list_page
+        original = '::/128'
+        page.editor.setPlainText(original)
+        self.p.convert()
+
+        def recompute(*_):
+            self.p.end_input.setText('2026:1015:abcd::2')
+            self.p.convert()
+            return QMessageBox.StandardButton.Yes
+
+        def edit_and_revert(*_):
+            page.editor.setPlainText('::3/128')
+            page.editor.setPlainText(original)
+            return QMessageBox.StandardButton.Yes
+
+        for change in (recompute, edit_and_revert):
+            with self.subTest(change=change.__name__), patch(
+                    'ui.range_transfer_controller.QMessageBox.question', side_effect=change):
+                self.p.send_to_list()
+                self.assertEqual(page.editor.toPlainText(), original)
+                self.assertFalse(page.service.busy)
+
     def test_range_panel_is_accessible_at_minimum_size_both_languages_and_themes(self):
         self.w.resize(900,620);self.w.tabs.setCurrentWidget(self.w.address_tools_page)
         for language in ('zh_CN','en_US'):

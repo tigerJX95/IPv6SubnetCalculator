@@ -21,12 +21,30 @@ def _open_version(info):
     return _version(info)
 
 
+def _device_path(path):
+    windows = os.fsdecode(path).replace('/', '\\').casefold()
+    if windows.startswith(('\\\\.\\', '\\\\?\\globalroot\\', '\\??\\')):
+        return True
+    extended = '\\\\?\\'
+    unc = '\\\\'
+    if windows.startswith(extended):
+        tail = windows[len(extended):]
+        if tail.startswith('unc\\'):
+            tail = tail[4:]
+        else:
+            return tail.split('\\', 1)[0] in ('pipe', 'mailslot')
+    elif windows.startswith(unc):
+        tail = windows[len(unc):]
+    else:
+        return False
+    parts = tail.split('\\')
+    return len(parts) >= 2 and parts[1].rstrip(' .') in ('pipe', 'mailslot')
+
+
 def read_input_file(path, maximum, limit_message):
     if type(maximum) is not int or maximum < 1:
         raise ValueError('Invalid import size limit')
-    name = os.fsdecode(path)
-    windows = str(name).replace('/', '\\').casefold()
-    if windows.startswith(('\\\\.\\', '\\\\?\\globalroot\\', '\\??\\')):
+    if _device_path(path):
         raise InputError(tx('导入仅支持普通文件，不支持设备、管道或其他特殊文件。'))
     before = os.stat(path)
     if not stat.S_ISREG(before.st_mode):

@@ -668,6 +668,72 @@ class QtWorkflowTests(unittest.TestCase):
         self.assertEqual(tools.relation.kind, 'same')
         self.assertTrue(tools.copy_relation_action.isEnabled())
 
+    def test_swap_networks_recomputes_direction_and_invalidates_outputs(self):
+        tools = self.window.address_tools_page
+        self.window.tabs.setCurrentWidget(tools)
+        tools.network_a_input.setText('2001:db8::3/126')
+        tools.network_b_input.setText('2001:db8::1/128')
+        tools.analyze()
+        category = tools.relation_category
+        category.setCurrentIndex(category.findData('a_only'))
+        self.assertEqual(tools.relation.kind, 'a_contains_b')
+        self.assertTrue(tools.relation_cidr_transfer.isEnabled())
+        tools.swap_networks_button.click()
+        self.assertEqual(tools.network_a_input.text(), '2001:db8::1/128')
+        self.assertEqual(tools.network_b_input.text(), '2001:db8::3/126')
+        self.assertEqual(tools.relation.kind, 'b_contains_a')
+        self.assertEqual(category.currentData(), 'a_only')
+        self.assertFalse(tools.relation_cidr_copy.isEnabled())
+        self.assertFalse(tools.relation_cidr_transfer.isEnabled())
+        category.setCurrentIndex(category.findData('b_only'))
+        tools.relation_cidr_copy.click()
+        self.assertEqual(QApplication.clipboard().text(), '2001:db8::/128\n2001:db8::2/127')
+
+        tools.network_a_input.setText('bad')
+        tools.swap_networks_button.click()
+        self.assertEqual(tools.network_b_input.text(), 'bad')
+        self.assertIsNone(tools.relation)
+        self.assertFalse(tools.relation_cidr_transfer.isEnabled())
+        self.assertFalse(tools.copy_relation_action.isEnabled())
+
+    def test_relation_transfer_preserves_list_on_decline_and_stale_confirmation(self):
+        tools = self.window.address_tools_page
+        page = self.window.subnet_list_page
+        self.window.tabs.setCurrentWidget(tools)
+        page.editor.setPlainText('2001:db8::/32')
+        self.assertFalse(tools.relation_cidr_transfer.isEnabled())
+        tools.network_a_input.setText('::/126')
+        tools.network_b_input.setText('::1/128')
+        tools.analyze()
+        category = tools.relation_category
+        category.setCurrentIndex(category.findData('b_only'))
+        self.assertFalse(tools.relation_cidr_transfer.isEnabled())
+        category.setCurrentIndex(category.findData('a_only'))
+        with patch('ui.range_transfer_controller.QMessageBox.question',
+                   return_value=QMessageBox.StandardButton.No) as confirm:
+            tools.relation_cidr_transfer.click()
+            confirm.assert_called_once()
+        self.assertEqual(page.editor.toPlainText(), '2001:db8::/32')
+        self.assertIs(self.window.tabs.currentWidget(), tools)
+
+        def change_category(*_):
+            category.setCurrentIndex(category.findData('intersection'))
+            category.setCurrentIndex(category.findData('a_only'))
+            return QMessageBox.StandardButton.Yes
+
+        with patch('ui.range_transfer_controller.QMessageBox.question', side_effect=change_category):
+            tools.relation_cidr_transfer.click()
+        self.assertEqual(page.editor.toPlainText(), '2001:db8::/32')
+
+        with patch('ui.range_transfer_controller.QMessageBox.question',
+                   return_value=QMessageBox.StandardButton.Yes):
+            tools.relation_cidr_transfer.click()
+        wait_until(lambda: not page.service.busy)
+        self.assertIs(self.window.tabs.currentWidget(), page)
+        self.assertEqual(page.editor.toPlainText(), '::/128\n::2/127')
+        tools.network_b_input.setText('::2/128')
+        self.assertFalse(tools.relation_cidr_transfer.isEnabled())
+
     def test_tools_preserve_calculator_selection_and_results_across_tabs_and_themes(self):
         self.locate('190-210')
         records = list(self.page.model.records)

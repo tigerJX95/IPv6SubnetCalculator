@@ -32,6 +32,20 @@ class ImportSecurityTests(unittest.TestCase):
                 with self.subTest(name=name),self.assertRaises(InputError):read_input_file(name,1024,'limit')
             opening.assert_not_called()
 
+    def test_unc_pipe_and_mailslot_rejected_before_filesystem_access(self):
+        for name in (r'\\localhost\PIPE\input', r'\\remote\mailslot\input',
+                     r'\\?\UNC\remote\PiPe\input', r'\\?\PIPE\input',
+                     '//remote/pipe/input'):
+            with self.subTest(name=name), patch('services.input_files.os.stat') as stat_call:
+                with self.assertRaises(InputError):
+                    read_input_file(name,1024,'limit')
+                stat_call.assert_not_called()
+        for name in (r'\\remote\share\pipe\input.txt', r'\\?\UNC\remote\share\input.txt'):
+            with self.subTest(name=name), patch('services.input_files.os.stat', side_effect=FileNotFoundError) as stat_call:
+                with self.assertRaises(FileNotFoundError):
+                    read_input_file(name,1024,'limit')
+                stat_call.assert_called_once_with(name)
+
     def test_fifo_rejected_by_all_import_entry_points_without_blocking(self):
         if not hasattr(os,'mkfifo'):
             return  # Native FIFO integration applies to POSIX; device guards above are portable.

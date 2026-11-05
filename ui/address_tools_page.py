@@ -19,7 +19,7 @@
 from ui.localized_widgets import QGroupBox, QLabel, QLineEdit, QComboBox, LanguageAction
 from core.localized_text import text as tx, join_text as jt
 from PyQt6.QtCore import Qt, pyqtSignal
-from PyQt6.QtWidgets import QWidget, QScrollArea, QVBoxLayout, QGridLayout, QSizePolicy, QMenu
+from PyQt6.QtWidgets import QWidget, QScrollArea, QVBoxLayout, QHBoxLayout, QGridLayout, QSizePolicy, QMenu
 from app_info import DEFAULT_NETWORK
 from core.ipv6_core import InputError
 from core.address_conversion import convert_address
@@ -49,6 +49,7 @@ def _copy_action(parent, name, label):
 
 class AddressToolsPage(QWidget):
     feedback = pyqtSignal(object, str)
+    relation_transfer_requested = pyqtSignal(str, object)
 
     def __init__(self, clipboard, parent=None):
         super().__init__(parent)
@@ -117,7 +118,11 @@ class AddressToolsPage(QWidget):
         grid.addWidget(self.network_b_input, 1, 1)
         self.analyze_button = IconButton('calculate', tx('分析双网段关系（输入框内按 Enter）'))
         self.copy_relation_action = _copy_action(self, 'copy_network_relation', tx('复制完整关系报告'))
-        grid.addWidget(self.analyze_button, 1, 2)
+        self.swap_networks_button = IconButton('swap_networks', tx('交换网段 A 和 B，并重新分析'))
+        network_actions = QHBoxLayout()
+        network_actions.addWidget(self.swap_networks_button)
+        network_actions.addWidget(self.analyze_button)
+        grid.addLayout(network_actions, 1, 2)
         self.relation_title = QLabel(tx('输入两个 CIDR 后点击分析图标。'))
         self.relation_title.setObjectName('Hint')
         self.relation_title.setWordWrap(True)
@@ -147,6 +152,8 @@ class AddressToolsPage(QWidget):
         self.relation_category.setEnabled(False)
         self.relation_cidr_copy = IconButton('copy_page', tx('复制所选类别的完整 CIDR 清单'))
         self.relation_cidr_copy.setEnabled(False)
+        self.relation_cidr_transfer = IconButton('check_list', tx('将所选双网段 CIDR 送入子网清单并检查；替换前确认'))
+        self.relation_cidr_transfer.setEnabled(False)
         self.relation_cidr_summary = QLabel('—')
         self.relation_cidr_summary.setWordWrap(True)
         # A /0 address count must not increase the scroll area's minimum width.
@@ -154,12 +161,16 @@ class AddressToolsPage(QWidget):
         self.relation_cidr_preview = value_label()
         self.relation_cidr_preview.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Preferred)
         self.relation_cidr_preview.setText('—')
-        grid.addWidget(self.relation_category, 7, 0, 1, 2)
-        grid.addWidget(self.relation_cidr_copy, 7, 2)
+        actions = QHBoxLayout()
+        actions.addWidget(self.relation_category, 1)
+        actions.addWidget(self.relation_cidr_copy)
+        actions.addWidget(self.relation_cidr_transfer)
+        grid.addLayout(actions, 7, 0, 1, 3)
         grid.addWidget(self.relation_cidr_summary, 8, 0, 1, 3)
         grid.addWidget(self.relation_cidr_preview, 9, 0, 1, 3)
         self.relation_category.currentIndexChanged.connect(self._refresh_relation_cidrs)
         self.relation_cidr_copy.clicked.connect(self.copy_relation_cidrs)
+        self.relation_cidr_transfer.clicked.connect(self.send_relation_cidrs)
         body.addWidget(networks)
         self.range_panel=AddressRangePanel(clipboard)
         self.range_panel.feedback.connect(self.feedback)
@@ -179,6 +190,7 @@ class AddressToolsPage(QWidget):
         self.network_b_input.returnPressed.connect(self.analyze)
         self.convert_button.triggered.connect(self.convert)
         self.analyze_button.triggered.connect(self.analyze)
+        self.swap_networks_button.clicked.connect(self.swap_networks)
         self.copy_formats_action.triggered.connect(self.copy_formats)
         self.copy_relation_action.triggered.connect(self.copy_relation)
         for field in (self.address_input,self.network_a_input,self.network_b_input):
@@ -247,6 +259,12 @@ class AddressToolsPage(QWidget):
         self.copy_formats_action.setEnabled(True)
         self.feedback.emit(tx('地址格式转换完成。'), 'success')
 
+    def swap_networks(self):
+        a, b = self.network_a_input.text(), self.network_b_input.text()
+        self.network_a_input.setText(b)
+        self.network_b_input.setText(a)
+        self.analyze()
+
     def analyze(self):
         clear_invalid(self.network_a_input)
         clear_invalid(self.network_b_input)
@@ -284,11 +302,13 @@ class AddressToolsPage(QWidget):
 
 
     def _refresh_relation_cidrs(self, *_):
+        self._relation_cidr_revision = object()
         result = self.relation
         self.relation_category.setEnabled(result is not None)
         key = self.relation_category.currentData()
         output = result.cidr_output(key) if result is not None else None
         self.relation_cidr_copy.setEnabled(bool(output and output.count))
+        self.relation_cidr_transfer.setEnabled(self.relation_cidr_copy.isEnabled())
         if output is None:
             self.relation_cidr_summary.setText('—')
             self.relation_cidr_preview.setText('—')
@@ -304,3 +324,13 @@ class AddressToolsPage(QWidget):
             output = self.relation.cidr_output(self.relation_category.currentData())
             if output.count:
                 self.clipboard.copy_text(output.as_text(), tx('双网段 CIDR 清单已复制。'), self)
+
+
+    def send_relation_cidrs(self):
+        if self.relation is None:
+            return
+        output = self.relation.cidr_output(self.relation_category.currentData())
+        if output.count:
+            revision = self._relation_cidr_revision
+            self.relation_transfer_requested.emit(
+                output.as_text(), lambda: self._relation_cidr_revision is revision)

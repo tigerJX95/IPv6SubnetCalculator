@@ -3,6 +3,18 @@
   <context>
     <name>App</name>
     <message>
+        <source>交换网段 A 和 B，并重新分析</source>
+        <translation>Swap networks A and B and run the analysis again</translation>
+    </message>
+    <message>
+        <source>将所选双网段 CIDR 送入子网清单并检查；替换前确认</source>
+        <translation>Send the selected relation CIDRs to Subnet List and check them; confirm before replacing existing input</translation>
+    </message>
+    <message>
+        <source>将使用所选双网段 CIDR 替换当前清单，并重新检查。是否继续？</source>
+        <translation>Replace the current list with the selected relation CIDRs and check it again?</translation>
+    </message>
+    <message>
       <source>按序号范围复制子网</source>
       <translation>Copy Subnets by Index Range</translation>
     </message>
