@@ -321,3 +321,5 @@ After analyzing A and B in Address Tools, select intersection, A only, B only or
 Select a category and click the Send to Subnet List icon next to Copy. The app transfers all CIDRs and starts checking them. For example, with A = `::/126` and B = `::1/128`, select A only to send `::/128` and `::2/127`. Choose No to keep different existing input.
 
 Click the double-arrow button next to Analyze to swap A and B and rerun the analysis. The selected CIDR category stays the same. For example, if A contained B, the result becomes B contains A; select B only to see the former A-only list.
+
+Union includes every address in A or B. Symmetric difference excludes the intersection. With A = `::/126` and B = `::1/128`, the union is `::/126`; the symmetric difference is `::/128` and `::2/127`. Neither result fills gaps between separated networks.

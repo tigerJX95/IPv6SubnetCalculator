@@ -2,6 +2,20 @@
 
 [返回开发说明 / Development notes](DEVELOPMENT.md)
 
+## V1.27 双网段 CIDR 转入子网清单
+
+- 新增「交换 A/B」按钮：保留原始输入写法并立即重新分析，方便反向核对包含关系与独有网段。
+- 在双网段分析中选择交集、A 独有、B 独有或间隔，可直接将完整 CIDR 清单送入「子网清单」并开始检查。
+- 清单已有不同内容时先确认；取消或确认期间切换类别、修改网段，均保留原清单。
+- 地址范围转 CIDR 的长地址总数适应窗口宽度，避免撑宽工具页。
+
+## V1.27 Send relation CIDRs to Subnet List
+
+- Swap A and B with one click and rerun the analysis. The original input spelling is preserved, making it easy to check containment and CIDR differences in the reverse direction.
+- Send the full intersection, A-only, B-only or gap CIDR list directly to Subnet List and start checking.
+- Replacing different existing input requires confirmation. Canceling, editing either network or changing the category during confirmation preserves the existing list.
+- Long address totals in the address-range tool adapt to the window width without widening the tools page.
+
 ## V1.26 双网段精确 CIDR 分析
 
 - 双网段关系分析新增交集、A 独有、B 独有和间隔四类 CIDR 输出。

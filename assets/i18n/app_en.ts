@@ -3,6 +3,14 @@
   <context>
     <name>App</name>
     <message>
+        <source>并集（A 或 B）</source>
+        <translation>Union (A or B)</translation>
+    </message>
+    <message>
+        <source>互斥部分（仅属于 A 或 B）</source>
+        <translation>Symmetric difference (A or B, not both)</translation>
+    </message>
+    <message>
         <source>交换网段 A 和 B，并重新分析</source>
         <translation>Swap networks A and B and run the analysis again</translation>
     </message>
@@ -4051,8 +4059,8 @@ Click a link to open your default browser; a network connection is used only whe
       <translation>Two-network CIDR output category</translation>
     </message>
     <message>
-      <source>选择交集、独有地址或间隔；输出精确覆盖该类别的 CIDR。</source>
-      <translation>Choose the intersection, exclusive addresses or gap; output CIDRs that cover exactly that category.</translation>
+      <source>选择地址集合或间隔，输出精确覆盖该类别的 CIDR。</source>
+      <translation>Select an address set or gap to output CIDRs that cover it exactly.</translation>
     </message>
     <message>
       <source>复制所选类别的完整 CIDR 清单</source>

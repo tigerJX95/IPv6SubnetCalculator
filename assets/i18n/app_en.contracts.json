@@ -1200,6 +1200,15 @@
     },
     {
       "context": "App",
+      "source": "互斥部分（仅属于 A 或 B）",
+      "source_sha256": "7ae44c1cdcbbe7579e114529e42de953b628b5f5664b9524f2e102c4f93c41cb",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "交换网段 A 和 B，并重新分析",
       "source_sha256": "7a3d9f15d3dd2e8cdbaf90386378bbc23b952fc014f2d06f2245f917d35a6125",
       "protected_tokens": [],
@@ -4283,6 +4292,15 @@
       "context": "App",
       "source": "常用前缀",
       "source_sha256": "d364a76bec9727c00b0164c421dd2468a6f5f71fc00b692d333a03bff8d79226",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "并集（A 或 B）",
+      "source_sha256": "6630b1d44684c498ec619285f8f7251ff58e3eb90d91aa1f298fcb1a3c9c6e05",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -8499,8 +8517,8 @@
     },
     {
       "context": "App",
-      "source": "选择交集、独有地址或间隔；输出精确覆盖该类别的 CIDR。",
-      "source_sha256": "e270606e5444d86de7ac1ad8e3d1d2e7f29a9e05344684cdecc9677615e98bde",
+      "source": "选择地址集合或间隔，输出精确覆盖该类别的 CIDR。",
+      "source_sha256": "7c690e6f49ab9dc9251406448fe6d34018ce05bc2f3c47a8d4a46e4404a9a3c2",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,

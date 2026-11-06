@@ -27,7 +27,20 @@ def relation_categories():
     return (('intersection', tx('交集（A 与 B 共有）')),
             ('a_only', tx('A 独有（A 减 B）')),
             ('b_only', tx('B 独有（B 减 A）')),
-            ('gap', tx('两网段之间的间隔')))
+            ('gap', tx('两网段之间的间隔')),
+            ('union', tx('并集（A 或 B）')),
+            ('symmetric_difference', tx('互斥部分（仅属于 A 或 B）')))
+
+
+def _merge_ranges(ranges):
+    merged = []
+    for start, end in sorted(ranges):
+        if merged and start <= merged[-1][1] + 1:
+            first, last = merged[-1]
+            merged[-1] = first, max(last, end)
+        else:
+            merged.append((start, end))
+    return tuple(merged)
 
 
 @dataclass(frozen=True)
@@ -52,6 +65,10 @@ class NetworkRelation:
             return difference((a,), (b,))
         if category == 'b_only':
             return difference((b,), (a,))
+        if category == 'union':
+            return _merge_ranges((a, b))
+        if category == 'symmetric_difference':
+            return _merge_ranges(difference((a,), (b,)) + difference((b,), (a,)))
         if category == 'gap':
             lower, upper = sorted((a, b))
             return ((lower[1]+1, upper[0]-1),) if self.gap_count else ()

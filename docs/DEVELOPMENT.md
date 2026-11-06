@@ -1,18 +1,16 @@
 # 开发说明 / Development Notes
 
-## V1.27 双网段 CIDR 转入子网清单
+## V1.28 双网段并集与互斥部分
 
-- 新增「交换 A/B」按钮：保留原始输入写法并立即重新分析，方便反向核对包含关系与独有网段。
-- 在双网段分析中选择交集、A 独有、B 独有或间隔，可直接将完整 CIDR 清单送入「子网清单」并开始检查。
-- 清单已有不同内容时先确认；取消或确认期间切换类别、修改网段，均保留原清单。
-- 地址范围转 CIDR 的长地址总数适应窗口宽度，避免撑宽工具页。
+- 「并集」输出A 或 B 覆盖的全部地址，重叠地址只计算一次。
+- 「互斥部分」只保留恰好属于其中一个网段的地址，排除交集。
+- 两类结果均按地址升序生成最少 CIDR，不把网段之间的空档纳入结果。支持复制、送入子网清单及完整关系报告。
 
-## V1.27 Send relation CIDRs to Subnet List
+## V1.28 Union and symmetric difference for two networks
 
-- Swap A and B with one click and rerun the analysis. The original input spelling is preserved, making it easy to check containment and CIDR differences in the reverse direction.
-- Send the full intersection, A-only, B-only or gap CIDR list directly to Subnet List and start checking.
-- Replacing different existing input requires confirmation. Canceling, editing either network or changing the category during confirmation preserves the existing list.
-- Long address totals in the address-range tool adapt to the window width without widening the tools page.
+- Union covers all addresses in either network and counts overlaps only once.
+- Symmetric difference keeps addresses that belong to exactly one network and excludes the intersection.
+- Both results use the fewest CIDRs in ascending address order, leaving gaps uncovered. Copy them, send them to Subnet List or include them in the full relation report.
 
 [历史更新](HISTORY.md) · [Update History](HISTORY_EN.md) · [开发历史 / Development history](DEVELOPMENT_HISTORY.md)
 
@@ -27,13 +25,13 @@ python -m pip install -r requirements.txt
 python main.py
 ```
 
-Windows 下运行 `build.cmd`，会安装固定版本的界面依赖和 PyInstaller，生成 `dist/IPv6SubnetCalculator_V1.27.exe`。构建需要联网下载依赖；生成后的程序离线运行，不要求目标电脑安装 Python。EXE 的架构取决于所用 Python 的架构，建议使用 Windows x64 Python。
+Windows 下运行 `build.cmd`，会安装固定版本的界面依赖和 PyInstaller，生成 `dist/IPv6SubnetCalculator_V1.28.exe`。构建需要联网下载依赖；生成后的程序离线运行，不要求目标电脑安装 Python。EXE 的架构取决于所用 Python 的架构，建议使用 Windows x64 Python。
 
-On Windows, `build.cmd` installs the pinned interface dependencies and PyInstaller, then creates `dist/IPv6SubnetCalculator_V1.27.exe`. Building requires internet access to download dependencies. The resulting application works offline without Python on the target computer. Its architecture follows the Python interpreter used; Windows x64 Python is recommended.
+On Windows, `build.cmd` installs the pinned interface dependencies and PyInstaller, then creates `dist/IPv6SubnetCalculator_V1.28.exe`. Building requires internet access to download dependencies. The resulting application works offline without Python on the target computer. Its architecture follows the Python interpreter used; Windows x64 Python is recommended.
 
-可选运行 `python tools/package_release.py` 生成 `dist/IPv6SubnetCalculator_V1.27_Windows.zip`，包含 EXE、项目 `LICENSE`／`NOTICE` 及第三方许可文件。Windows 用户默认直接下载 EXE；ZIP 仅为可选归档，源码包单独提供。发布前运行 `verify.cmd` 检查本次 EXE。
+可选运行 `python tools/package_release.py` 生成 `dist/IPv6SubnetCalculator_V1.28_Windows.zip`，包含 EXE、项目 `LICENSE`／`NOTICE` 及第三方许可文件。Windows 用户默认直接下载 EXE；ZIP 仅为可选归档，源码包单独提供。发布前运行 `verify.cmd` 检查本次 EXE。
 
-Optionally run `python tools/package_release.py` to create `dist/IPv6SubnetCalculator_V1.27_Windows.zip`, containing the EXE, project LICENSE/NOTICE, and third-party license files. Publish the EXE as the default Windows download; the ZIP is optional and source is provided separately. Run `verify.cmd` before publishing to check the executable from this build.
+Optionally run `python tools/package_release.py` to create `dist/IPv6SubnetCalculator_V1.28_Windows.zip`, containing the EXE, project LICENSE/NOTICE, and third-party license files. Publish the EXE as the default Windows download; the ZIP is optional and source is provided separately. Run `verify.cmd` before publishing to check the executable from this build.
 
 ## 模块职责 / Module Responsibilities
 
@@ -102,9 +100,9 @@ Widget colors come from one stylesheet, without mixing in global `setPalette`. C
 
 Project-authored content uses `GPL-3.0-or-later`. The root `LICENSE` contains the unmodified GPLv3 text; `NOTICE` identifies the versions, scope, and lack of warranty. Third-party license files are retained separately.
 
-`build.cmd` 会将项目与第三方许可嵌入程序，并在 `dist/IPv6SubnetCalculator_V1.27_Licenses/` 输出可直接阅读的副本。该目录可作为独立许可附件保留；EXE 已嵌入许可文件。发布时提供与 EXE 对应版本的完整源码及构建材料（包括 `build.cmd`、`requirements.txt`、资源和开发说明）。源码可放在同一 Release 的源码附件中；确保该 Release 对应正确的提交和标签，不要仅链接到持续变化的主分支。
+`build.cmd` 会将项目与第三方许可嵌入程序，并在 `dist/IPv6SubnetCalculator_V1.28_Licenses/` 输出可直接阅读的副本。该目录可作为独立许可附件保留；EXE 已嵌入许可文件。发布时提供与 EXE 对应版本的完整源码及构建材料（包括 `build.cmd`、`requirements.txt`、资源和开发说明）。源码可放在同一 Release 的源码附件中；确保该 Release 对应正确的提交和标签，不要仅链接到持续变化的主分支。
 
-`build.cmd` embeds project and third-party license files in the application and also writes readable copies to `dist/IPv6SubnetCalculator_V1.27_Licenses/`. Retain that folder as an optional standalone license attachment; licenses are also embedded in the EXE. Provide the complete matching application source and build materials, including `build.cmd`, `requirements.txt`, assets, and these instructions. A source archive can accompany the same Release; use the matching commit and tag rather than linking only to a changing main branch.
+`build.cmd` embeds project and third-party license files in the application and also writes readable copies to `dist/IPv6SubnetCalculator_V1.28_Licenses/`. Retain that folder as an optional standalone license attachment; licenses are also embedded in the EXE. Provide the complete matching application source and build materials, including `build.cmd`, `requirements.txt`, assets, and these instructions. A source archive can accompany the same Release; use the matching commit and tag rather than linking only to a changing main branch.
 
 程序包含的第三方组件仍须按各自许可履行源码、版权和再分发义务。完整源码的提供范围包括适用许可证要求的依赖源码；仅附上项目的 Python 文件或上游主页链接并不自动满足所有第三方二进制分发条件。组件版本及获取入口见 `THIRD_PARTY_NOTICES.md`，发布时应保留所用版本的依赖源码及构建信息。
 
@@ -125,7 +123,7 @@ python tools/verify.py --report-dir verification
 指定打包程序可运行： / To include a packaged application:
 
 ```console
-python tools/verify.py --exe dist/IPv6SubnetCalculator_V1.27.exe --report-dir verification
+python tools/verify.py --exe dist/IPv6SubnetCalculator_V1.28.exe --report-dir verification
 ```
 
 `summary.json` 保存环境、逐阶段结果及性能数据；`SUMMARY.md` 为简要结果，`tests.log` 保存回归日志；`source.json` 和 `executable.json` 分别记录源码与打包程序检查。源码检查通过时，未提供的 EXE 仍标记为 `not_run`。只有在 Windows 上执行且 EXE 检查通过后，`windows_automated_checks` 才标记为通过；人工验证始终独立登记，见 [Windows 验证](WINDOWS_ACCEPTANCE.md)。

@@ -137,7 +137,7 @@ class NetworkCoverageTests(unittest.TestCase):
             sa,sb = [set(range(int(n.network_address),int(n.broadcast_address)+1)) for n in (a,b)]
             r = analyze_networks(str(a),str(b))
             gap = set(range(max(min(sa),min(sb)))) - set(range(min(max(sa),max(sb))+1))
-            for key, expected in [('intersection',sa & sb),('a_only',sa - sb),('b_only',sb - sa),('gap',gap)]:
+            for key, expected in [('intersection',sa & sb),('a_only',sa - sb),('b_only',sb - sa),('gap',gap),('union',sa | sb),('symmetric_difference',sa ^ sb)]:
                 output=r.cidr_output(key)
                 actual={int(addr) for n in output.cidrs for addr in n}
                 self.assertEqual(actual,expected)
@@ -150,6 +150,9 @@ class NetworkCoverageTests(unittest.TestCase):
         self.assertEqual(r.cidr_output('intersection').as_text(),last)
         self.assertEqual(r.coverage_count('a_only'),2**128-1)
         self.assertEqual(r.cidr_output('a_only').count,128)
+        self.assertEqual(r.cidr_output('union').as_text(),'::/0')
+        self.assertEqual(r.coverage_count('union'),2**128)
+        self.assertEqual(r.cidr_output('symmetric_difference'),r.cidr_output('a_only'))
         self.assertEqual(r.cidr_output('b_only').count,0)
         r=analyze_networks(last,'::/128')
         self.assertEqual(r.coverage_count('gap'),2**128-2)

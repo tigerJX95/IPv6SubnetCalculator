@@ -146,7 +146,7 @@ class AddressToolsPage(QWidget):
             field.customContextMenuRequested.connect(lambda pos, field=field: self._show_result_menu(self.relation_menu(field), field, pos))
         self.relation_category = QComboBox()
         self.relation_category.setAccessibleName(tx('双网段 CIDR 输出类别'))
-        self.relation_category.setToolTip(tx('选择交集、独有地址或间隔；输出精确覆盖该类别的 CIDR。'))
+        self.relation_category.setToolTip(tx('选择地址集合或间隔，输出精确覆盖该类别的 CIDR。'))
         for key, label in relation_categories():
             self.relation_category.addItem(label, key)
         self.relation_category.setEnabled(False)

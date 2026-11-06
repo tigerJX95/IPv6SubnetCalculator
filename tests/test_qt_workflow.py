@@ -668,6 +668,24 @@ class QtWorkflowTests(unittest.TestCase):
         self.assertEqual(tools.relation.kind, 'same')
         self.assertTrue(tools.copy_relation_action.isEnabled())
 
+    def test_relation_union_and_symmetric_difference_can_copy_and_transfer(self):
+        tools = self.window.address_tools_page
+        page = self.window.subnet_list_page
+        self.window.tabs.setCurrentWidget(tools)
+        tools.network_a_input.setText('::/126')
+        tools.network_b_input.setText('::1/128')
+        tools.analyze()
+        category = tools.relation_category
+        category.setCurrentIndex(category.findData('union'))
+        tools.relation_cidr_copy.click()
+        self.assertEqual(QApplication.clipboard().text(), '::/126')
+        category.setCurrentIndex(category.findData('symmetric_difference'))
+        tools.relation_cidr_transfer.click()
+        wait_until(lambda: not page.service.busy)
+        self.assertIs(self.window.tabs.currentWidget(), page)
+        self.assertEqual(page.editor.toPlainText(), '::/128\n::2/127')
+        self.assertEqual(page.analysis.error_count, 0)
+
     def test_swap_networks_recomputes_direction_and_invalidates_outputs(self):
         tools = self.window.address_tools_page
         self.window.tabs.setCurrentWidget(tools)

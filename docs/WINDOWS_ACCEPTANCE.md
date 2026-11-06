@@ -1,3 +1,7 @@
+## V1.28 新增操作验收 / New operation checks
+
+- 验证并集与互斥部分在包含、相邻、独立和相同网段下的计数、复制及转入子网清单。 / Check union and symmetric difference counts, copying and transfer for contained, adjacent, separated and identical networks.
+
 ## V1.27 新增操作验收 / New operation checks
 
 - 交换包含关系中的 A/B，核对原始文本、方向、当前类别和复制结果。 / Swap A/B in a containment example and check raw inputs, direction, selected category and clipboard.
