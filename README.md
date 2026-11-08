@@ -1,12 +1,12 @@
 **简体中文** | [English](README_EN.md)
 
-# 🌐 IPv6 子网计算器 V1.28
+# 🌐 IPv6 子网计算器 V1.29
 
-## V1.28 双网段并集与互斥部分
+## V1.29 双网段结果保存
 
-- 「并集」输出A 或 B 覆盖的全部地址，重叠地址只计算一次。
-- 「互斥部分」只保留恰好属于其中一个网段的地址，排除交集。
-- 两类结果均按地址升序生成最少 CIDR，不把网段之间的空档纳入结果。支持复制、送入子网清单及完整关系报告。
+- 双网段分析新增保存菜单，可将所选类别的完整 CIDR 清单或完整关系报告保存为 TXT。
+- CIDR 清单每行一条；完整报告包含全部六类结果，并使用保存时的界面语言。
+- 输入或分析结果变化时中止旧保存；保存所选清单时，切换类别也会中止旧保存。
 
 [历史更新](docs/HISTORY.md)
 
@@ -119,7 +119,7 @@ IPv6SubnetCalculator 是一款适用于 Windows 的离线 IPv6 子网计算工�
 
 ## 📦 下载与使用
 
-从 GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest) 的 Assets 中直接下载 `IPv6SubnetCalculator_V1.28.exe`，下载后即可运行，无需另行配置运行环境。输入 IPv6 网络地址与目标前缀，点击计算图标；完成后自动切换到结果页。
+从 GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest) 的 Assets 中直接下载 `IPv6SubnetCalculator_V1.29.exe`，下载后即可运行，无需另行配置运行环境。输入 IPv6 网络地址与目标前缀，点击计算图标；完成后自动切换到结果页。
 
 按 F1 或点击顶部“ⓘ”可查看内置帮助、许可原文与法律责任说明。
 

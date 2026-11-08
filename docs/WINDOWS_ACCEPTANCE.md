@@ -1,3 +1,7 @@
+## V1.29 新增操作验收 / New operation checks
+
+- 检查双网段 TXT 保存、空类别、切换类别后的旧保存及覆盖冲突。 / Check relation TXT saves, empty categories, category changes during save and overwrite conflicts.
+
 ## V1.28 新增操作验收 / New operation checks
 
 - 验证并集与互斥部分在包含、相邻、独立和相同网段下的计数、复制及转入子网清单。 / Check union and symmetric difference counts, copying and transfer for contained, adjacent, separated and identical networks.

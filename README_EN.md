@@ -1,12 +1,12 @@
 [简体中文](README.md) | **English**
 
-# 🌐 IPv6 Subnet Calculator V1.28
+# 🌐 IPv6 Subnet Calculator V1.29
 
-## V1.28 Union and symmetric difference for two networks
+## V1.29 Save two-network results
 
-- Union covers all addresses in either network and counts overlaps only once.
-- Symmetric difference keeps addresses that belong to exactly one network and excludes the intersection.
-- Both results use the fewest CIDRs in ascending address order, leaving gaps uncovered. Copy them, send them to Subnet List or include them in the full relation report.
+- Save the complete CIDR list for the selected category or the full relationship report as TXT.
+- The CIDR list has one entry per line. The full report includes all six categories in the interface language used at save time.
+- Pending saves stop if the inputs or analysis change. Changing the category also stops a pending save of the selected list.
 
 [Update History](docs/HISTORY_EN.md)
 
@@ -123,7 +123,7 @@ Existing files require overwrite confirmation. If another program changes the de
 
 ## 📦 Download and Usage
 
-Download `IPv6SubnetCalculator_V1.28.exe` directly from Assets on GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest). Run the downloaded executable; no additional runtime setup is required. Enter a network and target prefix, then click the calculation icon; the application switches to Results when complete.
+Download `IPv6SubnetCalculator_V1.29.exe` directly from Assets on GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest). Run the downloaded executable; no additional runtime setup is required. Enter a network and target prefix, then click the calculation icon; the application switches to Results when complete.
 
 Press F1 or use the top-bar information icon for built-in help, license texts and legal notices.
 

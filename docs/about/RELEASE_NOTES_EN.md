@@ -1,9 +1,9 @@
 # Release Notes
 
-## V1.28 Union and symmetric difference for two networks
+## V1.29 Save two-network results
 
-- Union covers all addresses in either network and counts overlaps only once.
-- Symmetric difference keeps addresses that belong to exactly one network and excludes the intersection.
-- Both results use the fewest CIDRs in ascending address order, leaving gaps uncovered. Copy them, send them to Subnet List or include them in the full relation report.
+- Save the complete CIDR list for the selected category or the full relationship report as TXT.
+- The CIDR list has one entry per line. The full report includes all six categories in the interface language used at save time.
+- Pending saves stop if the inputs or analysis change. Changing the category also stops a pending save of the selected list.
 
 [Update History](HISTORY.md)

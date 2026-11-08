@@ -323,3 +323,5 @@ Select a category and click the Send to Subnet List icon next to Copy. The app t
 Click the double-arrow button next to Analyze to swap A and B and rerun the analysis. The selected CIDR category stays the same. For example, if A contained B, the result becomes B contains A; select B only to see the former A-only list.
 
 Union includes every address in A or B. Symmetric difference excludes the intersection. With A = `::/126` and B = `::1/128`, the union is `::/126`; the symmetric difference is `::/128` and `::2/127`. Neither result fills gaps between separated networks.
+
+Click Save to write the selected CIDR list or the full relationship report as TXT. Reimport the list into Subnet List. The full report includes all six categories and remains available when the selected category is empty.

@@ -3,6 +3,18 @@
   <context>
     <name>App</name>
     <message>
+        <source>保存双网段结果为 TXT</source>
+        <translation>Save two-network results as TXT</translation>
+    </message>
+    <message>
+        <source>保存所选 CIDR 清单为 TXT</source>
+        <translation>Save selected CIDR list as TXT</translation>
+    </message>
+    <message>
+        <source>保存完整关系报告为 TXT</source>
+        <translation>Save full relation report as TXT</translation>
+    </message>
+    <message>
         <source>并集（A 或 B）</source>
         <translation>Union (A or B)</translation>
     </message>

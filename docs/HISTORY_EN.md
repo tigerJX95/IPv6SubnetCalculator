@@ -4,6 +4,12 @@
 
 Changes preceding the current version; see the home page for the latest release.
 
+## V1.28 Union and symmetric difference for two networks
+
+- Union covers all addresses in either network and counts overlaps only once.
+- Symmetric difference keeps addresses that belong to exactly one network and excludes the intersection.
+- Both results use the fewest CIDRs in ascending address order, leaving gaps uncovered. Copy them, send them to Subnet List or include them in the full relation report.
+
 ## V1.27 Send relation CIDRs to Subnet List
 
 - Swap A and B with one click and rerun the analysis. The original input spelling is preserved, making it easy to check containment and CIDR differences in the reverse direction.

@@ -1472,6 +1472,15 @@
     },
     {
       "context": "App",
+      "source": "保存双网段结果为 TXT",
+      "source_sha256": "46bed3d2e2aab300a41310144bdb846f957c961106c715b98bc02dda49407d45",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "保存完整 CIDR 清单为 TXT",
       "source_sha256": "4fa1e22115e6b3120fcbb57f4f13ebd78cb02a0a20040921ec9e5e09c820d911",
       "protected_tokens": [],
@@ -1483,6 +1492,15 @@
       "context": "App",
       "source": "保存完整候选详情为 TXT：基准可用性与候选间重叠来源",
       "source_sha256": "30df397dae16a8f3b2d29c9125caf4a93c3408a5524cc34ec629aa36bc032df7",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "保存完整关系报告为 TXT",
+      "source_sha256": "4e6f46ce2e0a3fb8a8b9bb86c644d18e796a5cd90a292da5076220bb44553c5e",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -1537,6 +1555,15 @@
       "context": "App",
       "source": "保存当前范围报告为 TXT",
       "source_sha256": "7cd6891257704b29897289009588584622deed998fbe3ddc6c3ba6a37962b7ed",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "保存所选 CIDR 清单为 TXT",
+      "source_sha256": "f50d1d064e94a7773882bda32174fef1d495f361ce52909bf02c1f5ac6860d91",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
