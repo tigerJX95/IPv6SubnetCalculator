@@ -2,6 +2,18 @@
 
 [返回开发说明 / Development notes](DEVELOPMENT.md)
 
+## V1.29 双网段结果保存
+
+- 双网段分析新增保存菜单，可将所选类别的完整 CIDR 清单或完整关系报告保存为 TXT。
+- CIDR 清单每行一条；完整报告包含全部六类结果，并使用保存时的界面语言。
+- 输入或分析结果变化时中止旧保存；保存所选清单时，切换类别也会中止旧保存。
+
+## V1.29 Save two-network results
+
+- Save the complete CIDR list for the selected category or the full relationship report as TXT.
+- The CIDR list has one entry per line. The full report includes all six categories in the interface language used at save time.
+- Pending saves stop if the inputs or analysis change. Changing the category also stops a pending save of the selected list.
+
 ## V1.28 双网段并集与互斥部分
 
 - 「并集」输出A 或 B 覆盖的全部地址，重叠地址只计算一次。

@@ -1,12 +1,12 @@
 [简体中文](README.md) | **English**
 
-# 🌐 IPv6 Subnet Calculator V1.29
+# 🌐 IPv6 Subnet Calculator V1.30
 
-## V1.29 Save two-network results
+## V1.30 Browse two-network CIDR details
 
-- Save the complete CIDR list for the selected category or the full relationship report as TXT.
-- The CIDR list has one entry per line. The full report includes all six categories in the interface language used at save time.
-- Pending saves stop if the inputs or analysis change. Changing the category also stops a pending save of the selected list.
+- Open the complete CIDR table for the selected category to check each block's first address, last address and exact address count.
+- Select multiple rows and copy only the chosen CIDRs, one per line, ready to paste into Subnet List.
+- Details are unavailable for empty categories. Editing a network, rerunning the analysis or changing the category closes outdated details.
 
 [Update History](docs/HISTORY_EN.md)
 
@@ -103,6 +103,8 @@ Existing files require overwrite confirmation. If another program changes the de
 
 ![Two-network CIDR output](docs/screenshots/relation_cidrs_en_US_light.png)
 
+![Full CIDR details](docs/screenshots/relation_details_en_US_light.png)
+
 ![List tools entry](docs/screenshots/query_entry_en_US_light.png)
 
 ![Free space](docs/screenshots/free_en_US_light.png)
@@ -123,7 +125,7 @@ Existing files require overwrite confirmation. If another program changes the de
 
 ## 📦 Download and Usage
 
-Download `IPv6SubnetCalculator_V1.29.exe` directly from Assets on GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest). Run the downloaded executable; no additional runtime setup is required. Enter a network and target prefix, then click the calculation icon; the application switches to Results when complete.
+Download `IPv6SubnetCalculator_V1.30.exe` directly from Assets on GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest). Run the downloaded executable; no additional runtime setup is required. Enter a network and target prefix, then click the calculation icon; the application switches to Results when complete.
 
 Press F1 or use the top-bar information icon for built-in help, license texts and legal notices.
 

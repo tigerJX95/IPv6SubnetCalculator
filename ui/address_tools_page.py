@@ -28,6 +28,7 @@ from ui.address_range_panel import AddressRangePanel
 from ui.address_utility_panel import AddressUtilityPanel
 from ui.input_feedback import bind_input, mark_invalid, clear_invalid
 from ui.fonts import data_font
+from ui.dialogs import RelationCidrDialog
 from ui.list_output_controller import save_output
 from ui.widgets import IconButton, value_label
 
@@ -58,6 +59,7 @@ class AddressToolsPage(QWidget):
         self.clipboard = clipboard
         self.formats = None
         self.relation = None
+        self.relation_details_dialog = None
         layout = QVBoxLayout(self)
         layout.setContentsMargins(12, 12, 12, 12)
         scroll = QScrollArea()
@@ -151,6 +153,9 @@ class AddressToolsPage(QWidget):
         for key, label in relation_categories():
             self.relation_category.addItem(label, key)
         self.relation_category.setEnabled(False)
+        self.relation_view = IconButton('view_cidrs', tx('查看所选类别的完整 CIDR 清单'))
+        self.relation_view.setEnabled(False)
+        self.relation_view.clicked.connect(self.view_relation_cidrs)
         self.relation_cidr_copy = IconButton('copy_page', tx('复制所选类别的完整 CIDR 清单'))
         self.relation_cidr_copy.setEnabled(False)
         self.relation_cidr_transfer = IconButton('check_list', tx('将所选双网段 CIDR 送入子网清单并检查；替换前确认'))
@@ -175,6 +180,7 @@ class AddressToolsPage(QWidget):
         self.relation_cidr_preview.setText('—')
         actions = QHBoxLayout()
         actions.addWidget(self.relation_category, 1)
+        actions.addWidget(self.relation_view)
         actions.addWidget(self.relation_cidr_copy)
         actions.addWidget(self.relation_cidr_transfer)
         actions.addWidget(self.relation_save)
@@ -316,10 +322,13 @@ class AddressToolsPage(QWidget):
 
     def _refresh_relation_cidrs(self, *_):
         self._relation_cidr_revision = object()
+        if self.relation_details_dialog is not None:
+            self.relation_details_dialog.reject()
         result = self.relation
         self.relation_category.setEnabled(result is not None)
         key = self.relation_category.currentData()
         output = result.cidr_output(key) if result is not None else None
+        self.relation_view.setEnabled(bool(output and output.count))
         self.relation_cidr_copy.setEnabled(bool(output and output.count))
         self.relation_cidr_transfer.setEnabled(self.relation_cidr_copy.isEnabled())
         self.relation_save_cidrs.setEnabled(bool(output and output.count))
@@ -334,6 +343,20 @@ class AddressToolsPage(QWidget):
         if output.count > 3:
             preview += tx('（仅预览前 3 条，复制可获取完整清单）')
         self.relation_cidr_preview.setText(preview or tx('无'))
+
+    def view_relation_cidrs(self):
+        if self.relation is None or self.relation_details_dialog is not None:
+            return
+        output = self.relation.cidr_output(self.relation_category.currentData())
+        if not output.count:
+            return
+        dialog = RelationCidrDialog(self.relation_category.sourceCurrentText(), output.cidrs, self.clipboard, self)
+        self.relation_details_dialog = dialog
+        try:
+            dialog.exec()
+        finally:
+            self.relation_details_dialog = None
+            dialog.deleteLater()
 
     def copy_relation_cidrs(self):
         if self.relation is not None:

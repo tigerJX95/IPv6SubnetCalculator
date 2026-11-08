@@ -325,3 +325,5 @@ Click the double-arrow button next to Analyze to swap A and B and rerun the anal
 Union includes every address in A or B. Symmetric difference excludes the intersection. With A = `::/126` and B = `::1/128`, the union is `::/126`; the symmetric difference is `::/128` and `::2/127`. Neither result fills gaps between separated networks.
 
 Click Save to write the selected CIDR list or the full relationship report as TXT. Reimport the list into Subnet List. The full report includes all six categories and remains available when the selected category is empty.
+
+Click the eye icon to view all CIDRs in the selected category, with first and last addresses and counts. Select rows with Ctrl or Shift, then click Copy or press Ctrl+C to copy only those CIDRs.
