@@ -668,6 +668,110 @@ class QtWorkflowTests(unittest.TestCase):
         self.assertEqual(tools.relation.kind, 'same')
         self.assertTrue(tools.copy_relation_action.isEnabled())
 
+    def test_relation_cidr_details_show_all_rows_and_copy_selected_only(self):
+        tools = self.window.address_tools_page
+        self.window.tabs.setCurrentWidget(tools)
+        self.assertFalse(tools.relation_view.isEnabled())
+        tools.network_a_input.setText('::/126')
+        tools.network_b_input.setText('::a/128')
+        tools.analyze()
+        category = tools.relation_category
+        category.setCurrentIndex(category.findData('intersection'))
+        self.assertFalse(tools.relation_view.isEnabled())
+        category.setCurrentIndex(category.findData('gap'))
+        tools.network_a_input.setText('::/128')
+        tools.network_b_input.setText('ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff/128')
+        tools.analyze()
+        self.assertTrue(tools.relation_view.isEnabled())
+
+        def inspect():
+            dialog = tools.relation_details_dialog
+            self.assertEqual(dialog.table.rowCount(), 254)
+            last = dialog.table.rowCount()-1
+            self.assertEqual(dialog.table.item(0, 0).text(), '::1/128')
+            self.assertEqual(dialog.table.item(0, 1).text(), '::1')
+            self.assertEqual(dialog.table.item(0, 2).text(), '::1')
+            self.assertEqual(dialog.table.item(0, 3).text(), '1')
+            self.assertFalse(dialog.copy_button.isEnabled())
+            selection = dialog.table.selectionModel()
+            flags = QItemSelectionModel.SelectionFlag.Select | QItemSelectionModel.SelectionFlag.Rows
+            selection.select(dialog.table.model().index(last, 0), flags)
+            selection.select(dialog.table.model().index(0, 0), flags)
+            self.application.language_manager.apply('en_US', persist=False)
+            self.assertNotRegex(dialog.table.horizontalHeaderItem(1).text(), r'[\u4e00-\u9fff]')
+            dialog.copy_button.click()
+            self.assertEqual(QApplication.clipboard().text(), '::1/128\nffff:ffff:ffff:ffff:ffff:ffff:ffff:fffe/128')
+            with patch.object(dialog, 'reject', wraps=dialog.reject) as reject:
+                tools.network_a_input.setText('::1/128')
+                reject.assert_called_once()
+            self.assertFalse(tools.relation_view.isEnabled())
+            return 0
+
+        try:
+            with patch('ui.dialogs.RelationCidrDialog.exec', side_effect=inspect) as opened:
+                tools.relation_view.click()
+                opened.assert_called_once()
+            self.assertIsNone(tools.relation_details_dialog)
+        finally:
+            self.application.language_manager.apply('zh_CN', persist=False)
+
+    def test_relation_txt_exports_selected_cidrs_and_localized_full_report(self):
+        tools = self.window.address_tools_page
+        self.assertFalse(tools.relation_save.isEnabled())
+        tools.network_a_input.setText('::/126')
+        tools.network_b_input.setText('::1/128')
+        tools.analyze()
+        category = tools.relation_category
+        category.setCurrentIndex(category.findData('symmetric_difference'))
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory)/'差集'
+            with patch('ui.list_output_controller.QFileDialog.getSaveFileName', return_value=(str(path), '')):
+                tools.relation_save_cidrs.trigger()
+            self.assertEqual(path.with_suffix('.txt').read_bytes(), b'::/128\n::2/127\n')
+            category.setCurrentIndex(category.findData('gap'))
+            self.assertFalse(tools.relation_save_cidrs.isEnabled())
+            self.assertTrue(tools.relation_save_report.isEnabled())
+            report = Path(directory)/'report.txt'
+            def pick_report(*args, **kwargs):
+                self.application.language_manager.apply('en_US', persist=False)
+                return str(report), ''
+            try:
+                with patch('ui.list_output_controller.QFileDialog.getSaveFileName', side_effect=pick_report):
+                    tools.relation_save_report.trigger()
+                content = report.read_text(encoding='utf-8')
+                self.assertIn('Union (A or B)', content)
+                self.assertIn('Symmetric difference (A or B, not both)', content)
+                self.assertNotRegex(content, r'[\u4e00-\u9fff]')
+            finally:
+                self.application.language_manager.apply('zh_CN', persist=False)
+
+    def test_relation_txt_rejects_changed_category_and_does_not_overwrite_changed_file(self):
+        tools = self.window.address_tools_page
+        tools.network_a_input.setText('::/126')
+        tools.network_b_input.setText('::1/128')
+        tools.analyze()
+        category = tools.relation_category
+        category.setCurrentIndex(category.findData('union'))
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory)/'result.txt'
+            def pick_stale(*args, **kwargs):
+                category.setCurrentIndex(category.findData('gap'))
+                category.setCurrentIndex(category.findData('union'))
+                return str(path), ''
+            with patch('ui.list_output_controller.QFileDialog.getSaveFileName', side_effect=pick_stale):
+                tools.relation_save_cidrs.trigger()
+            self.assertFalse(path.exists())
+            path.write_text('original', encoding='utf-8')
+            def confirm_conflict(*args):
+                path.write_text('external change', encoding='utf-8')
+                return QMessageBox.StandardButton.Yes
+            with patch('ui.list_output_controller.QFileDialog.getSaveFileName', return_value=(str(path), '')), \
+                    patch('ui.list_output_controller.QMessageBox.question', side_effect=confirm_conflict):
+                tools.relation_save_cidrs.trigger()
+            self.assertEqual(path.read_text(encoding='utf-8'), 'external change')
+            recovery, = Path(directory).glob('IPv6-Recovered-*.txt')
+            self.assertEqual(recovery.read_bytes(), b'::/126\n')
+
     def test_relation_union_and_symmetric_difference_can_copy_and_transfer(self):
         tools = self.window.address_tools_page
         page = self.window.subnet_list_page

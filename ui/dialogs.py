@@ -20,7 +20,11 @@ from ui.localized_widgets import QFormLayout, QDialog, QLabel, QLineEdit, QRadio
 from core.localized_text import text as tx, join_text as jt
 from ui.standard_dialogs import QMessageBox
 from PyQt6.QtCore import Qt, pyqtSignal
-from PyQt6.QtWidgets import QVBoxLayout, QHBoxLayout, QProgressBar
+from PyQt6.QtWidgets import (QVBoxLayout, QHBoxLayout, QProgressBar, QTableWidget,
+                             QTableWidgetItem, QAbstractItemView, QHeaderView, QApplication)
+from PyQt6.QtGui import QKeySequence, QShortcut
+from ui.fonts import data_font
+from services.language_service import display
 from core.ipv6_core import InputError, validate_subnet_index, subnet_at_index
 from core.subnet_tools import (MAX_COPY_RECORDS, validate_copy_range, subnet_range_text,
                                 adjacent_subnet_index)
@@ -43,6 +47,57 @@ class AppDialog(QDialog):
             x = max(area.left(), min(center.x()-self.width()//2, area.right()-self.width()+1))
             y = max(area.top(), min(center.y()-self.height()//2, area.bottom()-self.height()+1))
             self.move(x, y)
+
+
+class RelationCidrDialog(AppDialog):
+    def __init__(self, category, cidrs, clipboard, parent=None):
+        super().__init__(tx('双网段 CIDR 清单详情'), parent)
+        self.cidrs = cidrs
+        self.clipboard = clipboard
+        self.resize(980, 540)
+        layout = QVBoxLayout(self)
+        layout.addWidget(QLabel(tx('{0}：{1:,} 条 CIDR', category, len(cidrs))))
+        self.table = QTableWidget(len(cidrs), 4, self)
+        self.table.setFont(data_font(dense=True))
+        self.table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        self.table.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+        self.table.setSelectionMode(QAbstractItemView.SelectionMode.ExtendedSelection)
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
+        self.table.horizontalHeader().setStretchLastSection(True)
+        for row, net in enumerate(cidrs):
+            for col, value in enumerate((str(net), str(net.network_address), str(net.broadcast_address),
+                                         f'{net.num_addresses:,}')):
+                self.table.setItem(row, col, QTableWidgetItem(value))
+        layout.addWidget(self.table)
+        self.copy_button = IconButton('copy', tx('复制选中的 CIDR 行'))
+        self.copy_button.setEnabled(False)
+        self.copy_button.clicked.connect(self.copy_selected)
+        self.table.itemSelectionChanged.connect(self._update_copy)
+        QShortcut(QKeySequence.StandardKey.Copy, self).activated.connect(self.copy_selected)
+        close = IconButton('close_small', tx('关闭详情（Esc）'))
+        close.clicked.connect(self.accept)
+        actions = QHBoxLayout()
+        actions.addStretch()
+        actions.addWidget(self.copy_button)
+        actions.addWidget(close)
+        layout.addLayout(actions)
+        manager = getattr(QApplication.instance(), 'language_manager', None)
+        if manager is not None:
+            manager.changed.connect(self._update_headers)
+        self._update_headers()
+
+    def _update_headers(self, *_):
+        self.table.setHorizontalHeaderLabels([
+            'CIDR', display(tx('起始地址')), display(tx('结束地址')), display(tx('地址数量'))])
+
+    def _update_copy(self):
+        self.copy_button.setEnabled(self.table.selectionModel().hasSelection())
+
+    def copy_selected(self):
+        rows = sorted(index.row() for index in self.table.selectionModel().selectedRows())
+        if rows:
+            self.clipboard.copy_text('\n'.join(str(self.cidrs[row]) for row in rows),
+                                     tx('双网段 CIDR 清单已复制。'), self)
 
 
 class RangeCopyDialog(AppDialog):
