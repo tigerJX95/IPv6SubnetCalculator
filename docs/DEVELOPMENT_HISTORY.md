@@ -2,30 +2,6 @@
 
 [返回开发说明 / Development notes](DEVELOPMENT.md)
 
-## V1.29 双网段结果保存
-
-- 双网段分析新增保存菜单，可将所选类别的完整 CIDR 清单或完整关系报告保存为 TXT。
-- CIDR 清单每行一条；完整报告包含全部六类结果，并使用保存时的界面语言。
-- 输入或分析结果变化时中止旧保存；保存所选清单时，切换类别也会中止旧保存。
-
-## V1.29 Save two-network results
-
-- Save the complete CIDR list for the selected category or the full relationship report as TXT.
-- The CIDR list has one entry per line. The full report includes all six categories in the interface language used at save time.
-- Pending saves stop if the inputs or analysis change. Changing the category also stops a pending save of the selected list.
-
-## V1.28 双网段并集与互斥部分
-
-- 「并集」输出A 或 B 覆盖的全部地址，重叠地址只计算一次。
-- 「互斥部分」只保留恰好属于其中一个网段的地址，排除交集。
-- 两类结果均按地址升序生成最少 CIDR，不把网段之间的空档纳入结果。支持复制、送入子网清单及完整关系报告。
-
-## V1.28 Union and symmetric difference for two networks
-
-- Union covers all addresses in either network and counts overlaps only once.
-- Symmetric difference keeps addresses that belong to exactly one network and excludes the intersection.
-- Both results use the fewest CIDRs in ascending address order, leaving gaps uncovered. Copy them, send them to Subnet List or include them in the full relation report.
-
 ## V1.27 双网段 CIDR 转入子网清单
 
 - 新增「交换 A/B」按钮：保留原始输入写法并立即重新分析，方便反向核对包含关系与独有网段。

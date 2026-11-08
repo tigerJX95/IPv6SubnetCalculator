@@ -28,37 +28,6 @@ from services.text_output import save_text_atomic, save_bytes_atomic
 from services.error_messages import describe_error
 
 
-def save_output(parent, feedback, filename, value, current, *, extension='.txt', title=None):
-    if extension not in ('.txt','.csv','.xlsx'):raise ValueError('Unsupported text output extension')
-    file_filter=tx('CSV 文件 (*.csv)') if extension=='.csv' else (tx('Excel 文件 (*.xlsx)') if extension=='.xlsx' else tx('文本文件 (*.txt)'))
-    path,_=QFileDialog.getSaveFileName(parent,title if title is not None else (tx('保存候选范围为 Excel') if extension=='.xlsx' else tx('保存清单或规划文本')),filename,file_filter,options=QFileDialog.Option.DontConfirmOverwrite)
-    if not path:return
-    destination=Path(path)
-    if not destination.suffix:destination=destination.with_suffix(extension)
-    if destination.suffix.lower()!=extension:
-        message=tx('请使用 .csv 扩展名保存 CSV 文件。') if extension=='.csv' else (tx('请使用 .xlsx 扩展名保存 Excel 文件。') if extension=='.xlsx' else tx('请使用 .txt 扩展名保存文本文件。'))
-        feedback(message,'error');return
-    if not current():
-        feedback(tx('输入、结果或任务状态已变化，请重新选择保存。'),'info');return
-    try:expected=capture_file(destination)
-    except (OSError,ValueError) as exc:
-        feedback((tx('保存 Excel 失败：') if extension=='.xlsx' else tx('保存文本失败：'))+describe_error(exc),'error');return
-    if expected.exists:
-        answer=QMessageBox.question(parent,tx('覆盖确认'),tx('文件已存在，是否覆盖？\n{0}',destination),
-            QMessageBox.StandardButton.Yes|QMessageBox.StandardButton.No,QMessageBox.StandardButton.No)
-        if answer!=QMessageBox.StandardButton.Yes:return
-    if not current():
-        feedback(tx('输入、结果或任务状态已变化，请重新选择保存。'),'info');return
-    # 报告使用实际保存时的界面语言，原始输入和纯 CIDR 保留原文。
-    try:
-        content=value() if callable(value) else display(value)
-        writer=save_bytes_atomic if extension=='.xlsx' else save_text_atomic
-        writer(destination,content,expected=expected)
-    except Exception as exc:
-        feedback((tx('保存 Excel 失败：') if extension=='.xlsx' else tx('保存文本失败：'))+describe_error(exc),'error');return
-    feedback(tx('Excel 已保存：{0}',destination) if extension=='.xlsx' else tx('文本已保存：{0}',destination),'success')
-
-
 class ListOutputController(QObject):
     transfer_requested=pyqtSignal(str,object)
 
@@ -138,7 +107,34 @@ class ListOutputController(QObject):
             lambda:self._current(view,'result',result) and view.planning.free_result is result.free)
 
     def _save(self,filename,value,current,*,extension='.txt'):
-        save_output(self.page,self.page.feedback.emit,filename,value,current,extension=extension)
+        if extension not in ('.txt','.csv','.xlsx'):raise ValueError('Unsupported text output extension')
+        file_filter=tx('CSV 文件 (*.csv)') if extension=='.csv' else (tx('Excel 文件 (*.xlsx)') if extension=='.xlsx' else tx('文本文件 (*.txt)'))
+        path,_=QFileDialog.getSaveFileName(self.page,tx('保存候选范围为 Excel') if extension=='.xlsx' else tx('保存清单或规划文本'),filename,file_filter,options=QFileDialog.Option.DontConfirmOverwrite)
+        if not path:return
+        destination=Path(path)
+        if not destination.suffix:destination=destination.with_suffix(extension)
+        if destination.suffix.lower()!=extension:
+            message=tx('请使用 .csv 扩展名保存 CSV 文件。') if extension=='.csv' else (tx('请使用 .xlsx 扩展名保存 Excel 文件。') if extension=='.xlsx' else tx('请使用 .txt 扩展名保存文本文件。'))
+            self.page.feedback.emit(message,'error');return
+        if not current():
+            self.page.feedback.emit(tx('输入、结果或任务状态已变化，请重新选择保存。'),'info');return
+        try:expected=capture_file(destination)
+        except (OSError,ValueError) as exc:
+            self.page.feedback.emit((tx('保存 Excel 失败：') if extension=='.xlsx' else tx('保存文本失败：'))+describe_error(exc),'error');return
+        if expected.exists:
+            answer=QMessageBox.question(self.page,tx('覆盖确认'),tx('文件已存在，是否覆盖？\n{0}',destination),
+                QMessageBox.StandardButton.Yes|QMessageBox.StandardButton.No,QMessageBox.StandardButton.No)
+            if answer!=QMessageBox.StandardButton.Yes:return
+        if not current():
+            self.page.feedback.emit(tx('输入、结果或任务状态已变化，请重新选择保存。'),'info');return
+        # 报告使用实际保存时的界面语言，原始输入和纯 CIDR 保留原文。
+        try:
+            content=value() if callable(value) else display(value)
+            writer=save_bytes_atomic if extension=='.xlsx' else save_text_atomic
+            writer(destination,content,expected=expected)
+        except Exception as exc:
+            self.page.feedback.emit((tx('保存 Excel 失败：') if extension=='.xlsx' else tx('保存文本失败：'))+describe_error(exc),'error');return
+        self.page.feedback.emit(tx('Excel 已保存：{0}',destination) if extension=='.xlsx' else tx('文本已保存：{0}',destination),'success')
 
     def send_planning(self,task):
         p=self.page.planning;result=getattr(p,task+'_result')

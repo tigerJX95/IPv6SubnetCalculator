@@ -930,15 +930,6 @@
     },
     {
       "context": "App",
-      "source": "{0}：{1:,} 条 CIDR",
-      "source_sha256": "c912e3d3d0a31dcf3896edefc3904cd96bc0078c3d04fa2403da32945b2bee3f",
-      "protected_tokens": [],
-      "filter_patterns": [],
-      "structured_lines": false,
-      "opaque": false
-    },
-    {
-      "context": "App",
       "source": "{0}：{1}",
       "source_sha256": "838f6df66524dcf810c1056180ab63c7034c74732071a871560344b2b9444166",
       "protected_tokens": [],
@@ -1481,15 +1472,6 @@
     },
     {
       "context": "App",
-      "source": "保存双网段结果为 TXT",
-      "source_sha256": "46bed3d2e2aab300a41310144bdb846f957c961106c715b98bc02dda49407d45",
-      "protected_tokens": [],
-      "filter_patterns": [],
-      "structured_lines": false,
-      "opaque": false
-    },
-    {
-      "context": "App",
       "source": "保存完整 CIDR 清单为 TXT",
       "source_sha256": "4fa1e22115e6b3120fcbb57f4f13ebd78cb02a0a20040921ec9e5e09c820d911",
       "protected_tokens": [],
@@ -1501,15 +1483,6 @@
       "context": "App",
       "source": "保存完整候选详情为 TXT：基准可用性与候选间重叠来源",
       "source_sha256": "30df397dae16a8f3b2d29c9125caf4a93c3408a5524cc34ec629aa36bc032df7",
-      "protected_tokens": [],
-      "filter_patterns": [],
-      "structured_lines": false,
-      "opaque": false
-    },
-    {
-      "context": "App",
-      "source": "保存完整关系报告为 TXT",
-      "source_sha256": "4e6f46ce2e0a3fb8a8b9bb86c644d18e796a5cd90a292da5076220bb44553c5e",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -1564,15 +1537,6 @@
       "context": "App",
       "source": "保存当前范围报告为 TXT",
       "source_sha256": "7cd6891257704b29897289009588584622deed998fbe3ddc6c3ba6a37962b7ed",
-      "protected_tokens": [],
-      "filter_patterns": [],
-      "structured_lines": false,
-      "opaque": false
-    },
-    {
-      "context": "App",
-      "source": "保存所选 CIDR 清单为 TXT",
-      "source_sha256": "f50d1d064e94a7773882bda32174fef1d495f361ce52909bf02c1f5ac6860d91",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -2669,15 +2633,6 @@
     },
     {
       "context": "App",
-      "source": "双网段 CIDR 清单详情",
-      "source_sha256": "8b4fe85d94fd58d2f9394c1edec23f355b7c6ac9fec1ae5f2afed45be4de8b62",
-      "protected_tokens": [],
-      "filter_patterns": [],
-      "structured_lines": false,
-      "opaque": false
-    },
-    {
-      "context": "App",
       "source": "双网段 CIDR 输出类别",
       "source_sha256": "e5e5d8f38585592a3daec931b08bb2bf439507772554247c13549f3b2a1fd5a8",
       "protected_tokens": [],
@@ -3510,15 +3465,6 @@
       ],
       "filter_patterns": [],
       "structured_lines": true,
-      "opaque": false
-    },
-    {
-      "context": "App",
-      "source": "复制选中的 CIDR 行",
-      "source_sha256": "c81c20c96a34bb836d49ffe8c4e0fdf3a50dfc417241c04d6efa341b11850161",
-      "protected_tokens": [],
-      "filter_patterns": [],
-      "structured_lines": false,
       "opaque": false
     },
     {
@@ -5818,15 +5764,6 @@
       "context": "App",
       "source": "查看候选详情：冲突原始行、空闲与占用范围及 CIDR",
       "source_sha256": "8498b46e3d2cb7e22f7fddaf3cac34abd3fd81d0d8c30f9467892de34f7f6860",
-      "protected_tokens": [],
-      "filter_patterns": [],
-      "structured_lines": false,
-      "opaque": false
-    },
-    {
-      "context": "App",
-      "source": "查看所选类别的完整 CIDR 清单",
-      "source_sha256": "2fd1168af03b26954327bfea6d6e34eba92735eaeca96608741e7e968ab28659",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,

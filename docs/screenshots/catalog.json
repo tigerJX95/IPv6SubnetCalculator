@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "version": "1.30",
+  "version": "1.28",
   "images": {
     "docs/screenshots/calculation_zh_CN_light.png": {
       "language": "zh_CN",
@@ -12,7 +12,7 @@
     },
     "docs/screenshots/tools_zh_CN_light.png": {
       "language": "zh_CN",
-      "sha256": "1aaad257a90f21b15d1e62c3d1c09b504dd894f2aebbfb941197240b35d1e423"
+      "sha256": "a07aa3c918c1e44cd71a9df94c1b3599d8a9f56a57a07bbb33d0858b85223880"
     },
     "docs/screenshots/query_entry_zh_CN_light.png": {
       "language": "zh_CN",
@@ -48,7 +48,7 @@
     },
     "docs/screenshots/tools_en_US_light.png": {
       "language": "en_US",
-      "sha256": "5d198e813f2fc2d6b4eeea7291ef2910c351fcb927327163c55a2f59527359fa"
+      "sha256": "03502cbca3c4de6c0660e3d09b687cf9904248c433f901837ac7f2b93f96586c"
     },
     "docs/screenshots/query_entry_en_US_light.png": {
       "language": "en_US",
@@ -76,7 +76,7 @@
     },
     "docs/screenshots/about_zh_CN_light.png": {
       "language": "zh_CN",
-      "sha256": "0461c117b4cf88ee8d2d4bc21cb3b0bb76537940f1dd06b5b5d6921f9926de09"
+      "sha256": "527a42f3e32e690d63339785029bf970996891f1ea14b91d1e28e2b63889d52f"
     },
     "docs/screenshots/batch_availability_zh_CN_light.png": {
       "language": "zh_CN",
@@ -84,7 +84,7 @@
     },
     "docs/screenshots/about_zh_CN_dark.png": {
       "language": "zh_CN",
-      "sha256": "9eaee65033ea88146c7e748b25562df22986d0849f896040d4331651a0e5ad02"
+      "sha256": "e9cd5d042ca5d26f0c9a9e51a25656570be5352407b2065646bb097826c01d12"
     },
     "docs/screenshots/batch_availability_zh_CN_dark.png": {
       "language": "zh_CN",
@@ -92,7 +92,7 @@
     },
     "docs/screenshots/about_en_US_light.png": {
       "language": "en_US",
-      "sha256": "18db083b2f2aa5ff76f8d41c6a8d87460375a21b0f7800b7fe6809b54962a841"
+      "sha256": "13da326507f50cbab5a31ce1914fe45cef103142ce0a66cfa74390045b009584"
     },
     "docs/screenshots/batch_availability_en_US_light.png": {
       "language": "en_US",
@@ -100,7 +100,7 @@
     },
     "docs/screenshots/about_en_US_dark.png": {
       "language": "en_US",
-      "sha256": "770f7dd10334d79ae1aec122155adfd28d0d19638f24f30c516d32798c37a03d"
+      "sha256": "e777f76775bdad94cb610390b09c106c863123023444324dfa1b66a26b425412"
     },
     "docs/screenshots/batch_availability_en_US_dark.png": {
       "language": "en_US",
@@ -128,7 +128,7 @@
     },
     "docs/screenshots/about_release_zh_CN_light.png": {
       "language": "zh_CN",
-      "sha256": "9dbedd55aafbc54e95765dd4c4aa9c3035677b95b8d210b4544d5b8626a98d5a"
+      "sha256": "22b24c3c52cc83e2c5aaf7a414fd7318cfb7d2b3b63bcf395d7fa833d7d02a4c"
     },
     "docs/screenshots/about_legal_zh_CN_light.png": {
       "language": "zh_CN",
@@ -140,7 +140,7 @@
     },
     "docs/screenshots/about_release_zh_CN_dark.png": {
       "language": "zh_CN",
-      "sha256": "b061c5dc3a716dd1fe57b6b45ceeac3d0a0206f5f40ee04b56a39c0e9407b18b"
+      "sha256": "45bda91036f43da93f4b38f3a1b097f473841d0210b195a06070315fefa995e9"
     },
     "docs/screenshots/about_legal_zh_CN_dark.png": {
       "language": "zh_CN",
@@ -152,7 +152,7 @@
     },
     "docs/screenshots/about_release_en_US_light.png": {
       "language": "en_US",
-      "sha256": "01764b11ef1878c21eeb0b267880c37433a2875997ed340182a2c79baa32e363"
+      "sha256": "dd03d99aeda95018de3d07c4fbb8e67d717a1732b796f327310f412bc67c434a"
     },
     "docs/screenshots/about_legal_en_US_light.png": {
       "language": "en_US",
@@ -164,7 +164,7 @@
     },
     "docs/screenshots/about_release_en_US_dark.png": {
       "language": "en_US",
-      "sha256": "150f970b5997482b6435e488ec8455cff0836812b25f5652b4df7c832acc368a"
+      "sha256": "a44e5467be52e1e43c13c45772c55691c0b308b7f15ce61ed26dd86751c5c2e2"
     },
     "docs/screenshots/about_legal_en_US_dark.png": {
       "language": "en_US",
@@ -172,11 +172,11 @@
     },
     "docs/screenshots/tools_zh_CN_dark.png": {
       "language": "zh_CN",
-      "sha256": "41725d9fe1f9a488ffc9c0232104d7cd41f6065f0c14b7642f6bd3e045c47e0c"
+      "sha256": "f36ca972440b6cd52b8b5ee3b96ce112751df03dfc19602dcfb4432907ac57d6"
     },
     "docs/screenshots/tools_en_US_dark.png": {
       "language": "en_US",
-      "sha256": "17f4dab737d968f1a237f01d9b5597d5533a7e58371c117f2b35d4a2c30e9db7"
+      "sha256": "ce33556c20c2ea2ff20b4f9899082e3f6d39db11be8b71d3aa1d0e731811501d"
     },
     "docs/screenshots/batch_detail_zh_CN_light.png": {
       "language": "zh_CN",
@@ -388,35 +388,19 @@
     },
     "docs/screenshots/relation_cidrs_zh_CN_light.png": {
       "language": "zh_CN",
-      "sha256": "846a7128c757f3e4f134d9ee81f0bbb462cc1e6bcdee1c1d61b0ae05a56246a3"
+      "sha256": "c4c500698fa718b0e559e97e73d1f6cef5190702a68b9bdba498856baae8f3a4"
     },
     "docs/screenshots/relation_cidrs_zh_CN_dark.png": {
       "language": "zh_CN",
-      "sha256": "c884c624f67981b5f2745396f8849ffa4df1a7f234d32e00731ef4bd315c3d77"
+      "sha256": "82b68d795946ff9cb15a78c95dd354c51a666164c5b0323473170fbd3157bf58"
     },
     "docs/screenshots/relation_cidrs_en_US_light.png": {
       "language": "en_US",
-      "sha256": "9a798fd1916e50c2b4d6d6a9cd96a22b5fc93be65883e32f1cbdcf29d47503d5"
+      "sha256": "92f5b6e9da16b259117b20c12fd7faabad0a2edf4b58419bd8c6bf48ae55fe6c"
     },
     "docs/screenshots/relation_cidrs_en_US_dark.png": {
       "language": "en_US",
-      "sha256": "da2f0c0fb18f26f4e7aa7defab64d66861bf0799470476dfddd35ead10ca7e40"
-    },
-    "docs/screenshots/relation_details_zh_CN_light.png": {
-      "language": "zh_CN",
-      "sha256": "621378094108d6bcddfe1e98563ea5e246d3bf295a51c0b3214e4d654993a68f"
-    },
-    "docs/screenshots/relation_details_zh_CN_dark.png": {
-      "language": "zh_CN",
-      "sha256": "d5d1838199131678437867baf3d0a490c1c884c909269ba570e388053f8e6bf0"
-    },
-    "docs/screenshots/relation_details_en_US_light.png": {
-      "language": "en_US",
-      "sha256": "cce482e95482909e29d7b15516096c49467741904f64790404ed6735ea2d8cb9"
-    },
-    "docs/screenshots/relation_details_en_US_dark.png": {
-      "language": "en_US",
-      "sha256": "d89f9853cbb6e1ad1d1e4c9b9e2caf1fc3b3c1155a41c98bc8cceb50a4ab4418"
+      "sha256": "94a222ee2133ba1e7e08ca40f805c1edc0df10510f17ecb8059c8914591e7873"
     }
   }
 }

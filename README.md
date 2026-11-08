@@ -1,12 +1,12 @@
 **简体中文** | [English](README_EN.md)
 
-# 🌐 IPv6 子网计算器 V1.30
+# 🌐 IPv6 子网计算器 V1.28
 
-## V1.30 双网段 CIDR 详情
+## V1.28 双网段并集与互斥部分
 
-- 双网段分析可打开所选类别的完整 CIDR 表格，逐条查看起始地址、结束地址和精确地址数。
-- 表格支持多选，复制时只输出选中的 CIDR，每行一条，可粘贴到子网清单。
-- 空类别不打开详情；修改网段、重新分析或改变类别时，旧详情会关闭。
+- 「并集」输出A 或 B 覆盖的全部地址，重叠地址只计算一次。
+- 「互斥部分」只保留恰好属于其中一个网段的地址，排除交集。
+- 两类结果均按地址升序生成最少 CIDR，不把网段之间的空档纳入结果。支持复制、送入子网清单及完整关系报告。
 
 [历史更新](docs/HISTORY.md)
 
@@ -99,8 +99,6 @@ IPv6SubnetCalculator 是一款适用于 Windows 的离线 IPv6 子网计算工�
 
 ![双网段 CIDR 输出](docs/screenshots/relation_cidrs_zh_CN_light.png)
 
-![完整 CIDR 详情](docs/screenshots/relation_details_zh_CN_light.png)
-
 ![查询入口](docs/screenshots/query_entry_zh_CN_light.png)
 
 ![空闲空间](docs/screenshots/free_zh_CN_light.png)
@@ -121,7 +119,7 @@ IPv6SubnetCalculator 是一款适用于 Windows 的离线 IPv6 子网计算工�
 
 ## 📦 下载与使用
 
-从 GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest) 的 Assets 中直接下载 `IPv6SubnetCalculator_V1.30.exe`，下载后即可运行，无需另行配置运行环境。输入 IPv6 网络地址与目标前缀，点击计算图标；完成后自动切换到结果页。
+从 GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest) 的 Assets 中直接下载 `IPv6SubnetCalculator_V1.28.exe`，下载后即可运行，无需另行配置运行环境。输入 IPv6 网络地址与目标前缀，点击计算图标；完成后自动切换到结果页。
 
 按 F1 或点击顶部“ⓘ”可查看内置帮助、许可原文与法律责任说明。
 

@@ -1,12 +1,12 @@
 [简体中文](README.md) | **English**
 
-# 🌐 IPv6 Subnet Calculator V1.30
+# 🌐 IPv6 Subnet Calculator V1.28
 
-## V1.30 Browse two-network CIDR details
+## V1.28 Union and symmetric difference for two networks
 
-- Open the complete CIDR table for the selected category to check each block's first address, last address and exact address count.
-- Select multiple rows and copy only the chosen CIDRs, one per line, ready to paste into Subnet List.
-- Details are unavailable for empty categories. Editing a network, rerunning the analysis or changing the category closes outdated details.
+- Union covers all addresses in either network and counts overlaps only once.
+- Symmetric difference keeps addresses that belong to exactly one network and excludes the intersection.
+- Both results use the fewest CIDRs in ascending address order, leaving gaps uncovered. Copy them, send them to Subnet List or include them in the full relation report.
 
 [Update History](docs/HISTORY_EN.md)
 
@@ -103,8 +103,6 @@ Existing files require overwrite confirmation. If another program changes the de
 
 ![Two-network CIDR output](docs/screenshots/relation_cidrs_en_US_light.png)
 
-![Full CIDR details](docs/screenshots/relation_details_en_US_light.png)
-
 ![List tools entry](docs/screenshots/query_entry_en_US_light.png)
 
 ![Free space](docs/screenshots/free_en_US_light.png)
@@ -125,7 +123,7 @@ Existing files require overwrite confirmation. If another program changes the de
 
 ## 📦 Download and Usage
 
-Download `IPv6SubnetCalculator_V1.30.exe` directly from Assets on GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest). Run the downloaded executable; no additional runtime setup is required. Enter a network and target prefix, then click the calculation icon; the application switches to Results when complete.
+Download `IPv6SubnetCalculator_V1.28.exe` directly from Assets on GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest). Run the downloaded executable; no additional runtime setup is required. Enter a network and target prefix, then click the calculation icon; the application switches to Results when complete.
 
 Press F1 or use the top-bar information icon for built-in help, license texts and legal notices.
 

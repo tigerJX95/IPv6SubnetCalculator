@@ -65,7 +65,7 @@ class AboutPresentationTests(unittest.TestCase):
         try:
             self.assertEqual(p.convert_button.parentWidget().findChildren(QToolButton),[p.convert_button])
             relation_buttons=p.analyze_button.parentWidget().findChildren(QToolButton)
-            self.assertCountEqual(relation_buttons,[p.analyze_button,p.swap_networks_button,p.relation_view,p.relation_cidr_copy,p.relation_cidr_transfer,p.relation_save])
+            self.assertCountEqual(relation_buttons,[p.analyze_button,p.swap_networks_button,p.relation_cidr_copy,p.relation_cidr_transfer])
             for language in ('zh_CN','en_US'):
                 self.app.language_manager.apply(language,persist=False)
                 p.address_input.setText('::1');p.convert();p.analyze()

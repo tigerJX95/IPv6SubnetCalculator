@@ -19,7 +19,7 @@
 from ui.localized_widgets import QGroupBox, QLabel, QLineEdit, QComboBox, LanguageAction
 from core.localized_text import text as tx, join_text as jt
 from PyQt6.QtCore import Qt, pyqtSignal
-from PyQt6.QtWidgets import QWidget, QScrollArea, QVBoxLayout, QHBoxLayout, QGridLayout, QSizePolicy, QMenu, QToolButton
+from PyQt6.QtWidgets import QWidget, QScrollArea, QVBoxLayout, QHBoxLayout, QGridLayout, QSizePolicy, QMenu
 from app_info import DEFAULT_NETWORK
 from core.ipv6_core import InputError
 from core.address_conversion import convert_address
@@ -28,8 +28,6 @@ from ui.address_range_panel import AddressRangePanel
 from ui.address_utility_panel import AddressUtilityPanel
 from ui.input_feedback import bind_input, mark_invalid, clear_invalid
 from ui.fonts import data_font
-from ui.dialogs import RelationCidrDialog
-from ui.list_output_controller import save_output
 from ui.widgets import IconButton, value_label
 
 
@@ -59,7 +57,6 @@ class AddressToolsPage(QWidget):
         self.clipboard = clipboard
         self.formats = None
         self.relation = None
-        self.relation_details_dialog = None
         layout = QVBoxLayout(self)
         layout.setContentsMargins(12, 12, 12, 12)
         scroll = QScrollArea()
@@ -153,24 +150,10 @@ class AddressToolsPage(QWidget):
         for key, label in relation_categories():
             self.relation_category.addItem(label, key)
         self.relation_category.setEnabled(False)
-        self.relation_view = IconButton('view_cidrs', tx('查看所选类别的完整 CIDR 清单'))
-        self.relation_view.setEnabled(False)
-        self.relation_view.clicked.connect(self.view_relation_cidrs)
         self.relation_cidr_copy = IconButton('copy_page', tx('复制所选类别的完整 CIDR 清单'))
         self.relation_cidr_copy.setEnabled(False)
         self.relation_cidr_transfer = IconButton('check_list', tx('将所选双网段 CIDR 送入子网清单并检查；替换前确认'))
         self.relation_cidr_transfer.setEnabled(False)
-        self.relation_save = IconButton('save_plan', tx('保存双网段结果为 TXT'))
-        save_menu = QMenu(self.relation_save)
-        self.relation_save_cidrs = _copy_action(save_menu, 'save_relation_cidrs', tx('保存所选 CIDR 清单为 TXT'))
-        self.relation_save_report = _copy_action(save_menu, 'save_relation_report', tx('保存完整关系报告为 TXT'))
-        save_menu.addAction(self.relation_save_cidrs)
-        save_menu.addAction(self.relation_save_report)
-        self.relation_save.setMenu(save_menu)
-        self.relation_save.setPopupMode(QToolButton.ToolButtonPopupMode.InstantPopup)
-        self.relation_save.setEnabled(False)
-        self.relation_save_cidrs.triggered.connect(self.save_relation_cidrs)
-        self.relation_save_report.triggered.connect(self.save_relation_report)
         self.relation_cidr_summary = QLabel('—')
         self.relation_cidr_summary.setWordWrap(True)
         # A /0 address count must not increase the scroll area's minimum width.
@@ -180,10 +163,8 @@ class AddressToolsPage(QWidget):
         self.relation_cidr_preview.setText('—')
         actions = QHBoxLayout()
         actions.addWidget(self.relation_category, 1)
-        actions.addWidget(self.relation_view)
         actions.addWidget(self.relation_cidr_copy)
         actions.addWidget(self.relation_cidr_transfer)
-        actions.addWidget(self.relation_save)
         grid.addLayout(actions, 7, 0, 1, 3)
         grid.addWidget(self.relation_cidr_summary, 8, 0, 1, 3)
         grid.addWidget(self.relation_cidr_preview, 9, 0, 1, 3)
@@ -322,18 +303,12 @@ class AddressToolsPage(QWidget):
 
     def _refresh_relation_cidrs(self, *_):
         self._relation_cidr_revision = object()
-        if self.relation_details_dialog is not None:
-            self.relation_details_dialog.reject()
         result = self.relation
         self.relation_category.setEnabled(result is not None)
         key = self.relation_category.currentData()
         output = result.cidr_output(key) if result is not None else None
-        self.relation_view.setEnabled(bool(output and output.count))
         self.relation_cidr_copy.setEnabled(bool(output and output.count))
         self.relation_cidr_transfer.setEnabled(self.relation_cidr_copy.isEnabled())
-        self.relation_save_cidrs.setEnabled(bool(output and output.count))
-        self.relation_save_report.setEnabled(result is not None)
-        self.relation_save.setEnabled(result is not None)
         if output is None:
             self.relation_cidr_summary.setText('—')
             self.relation_cidr_preview.setText('—')
@@ -343,20 +318,6 @@ class AddressToolsPage(QWidget):
         if output.count > 3:
             preview += tx('（仅预览前 3 条，复制可获取完整清单）')
         self.relation_cidr_preview.setText(preview or tx('无'))
-
-    def view_relation_cidrs(self):
-        if self.relation is None or self.relation_details_dialog is not None:
-            return
-        output = self.relation.cidr_output(self.relation_category.currentData())
-        if not output.count:
-            return
-        dialog = RelationCidrDialog(self.relation_category.sourceCurrentText(), output.cidrs, self.clipboard, self)
-        self.relation_details_dialog = dialog
-        try:
-            dialog.exec()
-        finally:
-            self.relation_details_dialog = None
-            dialog.deleteLater()
 
     def copy_relation_cidrs(self):
         if self.relation is not None:
@@ -373,21 +334,3 @@ class AddressToolsPage(QWidget):
             revision = self._relation_cidr_revision
             self.relation_transfer_requested.emit(
                 output.as_text(), lambda: self._relation_cidr_revision is revision)
-
-
-    def save_relation_cidrs(self):
-        if self.relation is None:
-            return
-        key = self.relation_category.currentData()
-        output = self.relation.cidr_output(key)
-        if output.count:
-            revision = self._relation_cidr_revision
-            save_output(self, self.feedback.emit, f'IPv6_Relation_{key}.txt',
-                        output.as_text()+'\n', lambda: self._relation_cidr_revision is revision,
-                        title=tx('保存双网段结果为 TXT'))
-
-    def save_relation_report(self):
-        result = self.relation
-        if result is not None:
-            save_output(self, self.feedback.emit, 'IPv6_Relation_Report.txt', result.as_text(),
-                        lambda: self.relation is result, title=tx('保存双网段结果为 TXT'))
