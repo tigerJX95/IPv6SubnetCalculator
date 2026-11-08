@@ -3,6 +3,22 @@
   <context>
     <name>App</name>
     <message>
+        <source>双网段 CIDR 清单详情</source>
+        <translation>Two-network CIDR details</translation>
+    </message>
+    <message>
+        <source>{0}：{1:,} 条 CIDR</source>
+        <translation>{0}: {1:,} CIDRs</translation>
+    </message>
+    <message>
+        <source>复制选中的 CIDR 行</source>
+        <translation>Copy selected CIDR rows</translation>
+    </message>
+    <message>
+        <source>查看所选类别的完整 CIDR 清单</source>
+        <translation>View the full CIDR list for the selected category</translation>
+    </message>
+    <message>
         <source>保存双网段结果为 TXT</source>
         <translation>Save two-network results as TXT</translation>
     </message>
