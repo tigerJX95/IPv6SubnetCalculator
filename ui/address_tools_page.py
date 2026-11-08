@@ -148,6 +148,9 @@ class AddressToolsPage(QWidget):
             field.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
             field.customContextMenuRequested.connect(lambda pos, field=field: self._show_result_menu(self.relation_menu(field), field, pos))
         self.relation_category = QComboBox()
+        # Translated labels must not set the minimum width of the tools page.
+        self.relation_category.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToMinimumContentsLengthWithIcon)
+        self.relation_category.setMinimumContentsLength(12)
         self.relation_category.setAccessibleName(tx('双网段 CIDR 输出类别'))
         self.relation_category.setToolTip(tx('选择地址集合或间隔，输出精确覆盖该类别的 CIDR。'))
         for key, label in relation_categories():

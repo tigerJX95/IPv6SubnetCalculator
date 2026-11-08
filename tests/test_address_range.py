@@ -197,16 +197,55 @@ class AddressRangeUiTests(unittest.TestCase):
                 self.assertFalse(page.service.busy)
 
     def test_range_panel_is_accessible_at_minimum_size_both_languages_and_themes(self):
-        self.w.resize(900,620);self.w.tabs.setCurrentWidget(self.w.address_tools_page)
-        for language in ('zh_CN','en_US'):
-            self.app.language_manager.apply(language,persist=False)
-            for theme in ('light','dark'):
-                self.app.theme_manager.apply(theme,persist=False)
-                self.w.address_tools_page.findChild(QScrollArea).ensureWidgetVisible(self.p)
-                QApplication.processEvents()
-                for widget in (self.p.start_input,self.p.end_input,self.p.transfer_button):
-                    self.assertLessEqual(widget.mapTo(self.w,widget.rect().bottomRight()).x(),self.w.width())
-                self.assertGreater(self.p.start_input.width(),100)
+        self.w.resize(900,620)
+        tools = self.w.address_tools_page
+        self.w.tabs.setCurrentWidget(tools)
+        scroll = tools.findChild(QScrollArea)
+        for language in ('zh_CN', 'en_US'):
+            self.app.language_manager.apply(language, persist=False)
+            for theme in ('light', 'dark'):
+                with self.subTest(language=language, theme=theme):
+                    self.app.theme_manager.apply(theme, persist=False)
+                    self.assert_tools_fit_viewport(tools, scroll)
+
+    def assert_tools_fit_viewport(self, tools, scroll):
+        QApplication.processEvents()
+        scroll.ensureWidgetVisible(self.p)
+        QApplication.processEvents()
+        viewport = scroll.viewport()
+        self.assertEqual(
+            scroll.horizontalScrollBar().maximum(), 0,
+            f'Tools content width: {scroll.widget().width()}, viewport: {viewport.width()}',
+        )
+        for widget in (self.p.start_input, self.p.end_input, self.p.transfer_button, tools.relation_view):
+            with self.subTest(widget=widget.objectName() or type(widget).__name__):
+                self.assertGreaterEqual(widget.mapTo(viewport, widget.rect().topLeft()).x(), 0)
+                self.assertLess(widget.mapTo(viewport, widget.rect().bottomRight()).x(), viewport.width())
+        self.assertGreater(self.p.start_input.width(), 100)
+
+    def test_range_captions_wrap_at_minimum_window_width_with_wide_font_metrics(self):
+        self.w.resize(900, 620)
+        tools = self.w.address_tools_page
+        self.app.language_manager.apply('en_US', persist=False)
+        for column in range(2):
+            caption = self.p.layout().itemAtPosition(0, column).widget()
+            font = caption.font()
+            font.setPixelSize(48)
+            caption.setFont(font)
+        self.w.tabs.setCurrentWidget(tools)
+        self.assert_tools_fit_viewport(tools, tools.findChild(QScrollArea))
+
+    def test_long_relation_category_labels_cannot_expand_tools_page(self):
+        tools = self.w.address_tools_page
+        self.w.resize(900,620)
+        combo = tools.relation_category
+        combo.setItemText(0, 'Long CIDR category label ' * 12)
+        self.w.tabs.setCurrentWidget(tools)
+        QApplication.processEvents()
+        scroll = tools.findChild(QScrollArea)
+        self.assertGreater(combo.fontMetrics().horizontalAdvance(combo.itemText(0)), scroll.viewport().width())
+        self.assertLessEqual(scroll.widget().minimumSizeHint().width(), scroll.viewport().width())
+        self.assertEqual(scroll.horizontalScrollBar().maximum(), 0)
 
 
 if __name__=='__main__':unittest.main()

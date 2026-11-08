@@ -39,8 +39,12 @@ class AddressRangePanel(QGroupBox):
         grid.setColumnStretch(0,1);grid.setColumnStretch(1,1)
         self.start_input=QLineEdit('2026:1015:abcd::1')
         self.end_input=QLineEdit('2026:1015:abcd::ff')
-        grid.addWidget(QLabel(tx('起始地址（包含）')),0,0)
-        grid.addWidget(QLabel(tx('结束地址（包含）')),0,1)
+        for col, text in enumerate((tx('起始地址（包含）'), tx('结束地址（包含）'))):
+            label = QLabel(text)
+            label.setWordWrap(True)
+            # Wider fonts must wrap the captions instead of widening both columns.
+            label.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Preferred)
+            grid.addWidget(label, 0, col)
         for col,field in enumerate((self.start_input,self.end_input)):
             field.setMaxLength(200);field.setFont(data_font())
             field.setToolTip(tx('填写单个 IPv6 地址，不带 / 前缀或 % 区域标识。'))
