@@ -33,6 +33,7 @@ class PlanController:
     def __init__(self, window):
         self.window = window
         self.path = None
+        self.saved_revision = None
         self.saved_document = None
         page = window.calculation_page
         page.save_plan_button.clicked.connect(self.save)
@@ -74,6 +75,15 @@ class PlanController:
         self.window.feedback.set_message(message, 'error')
         QMessageBox.warning(self.window, action+tx('失败'), message)
 
+    @staticmethod
+    def _read_revision(path):
+        # Resolve input links for reading without authorizing an overwrite via a link.
+        before = capture_file(Path(path).resolve(strict=True))
+        plan = load_plan(before.path)
+        if capture_file(Path(path).resolve(strict=True)) != before:
+            raise InputError(tx('读取期间文件已变化，请等待写入完成后重新导入。'))
+        return plan, before
+
     def save(self, save_as=False):
         if self.window.export_service.busy:
             self.window.feedback.set_message(tx('请先完成或取消导出，再保存方案。'), 'info')
@@ -86,7 +96,10 @@ class PlanController:
             return False
         if self.path is not None and not save_as:
             path = self.path
-            try:expected=capture_file(path)
+            try:
+                expected = capture_file(path)
+                if expected != self.saved_revision:
+                    raise InputError(tx('磁盘上的方案已变化，请重新打开方案或另存为其他文件。'))
             except (OSError,InputError) as exc:
                 self._error(tx('保存方案'),exc);return False
         else:
@@ -112,11 +125,15 @@ class PlanController:
             self.window.feedback.set_message(tx('方案内容或任务状态已变化，请重新保存。'),'info');return False
         try:
             save_plan(path, plan,expected=expected)
+            saved_plan, revision = self._read_revision(path)
+            if saved_plan != plan:
+                raise InputError(tx('磁盘上的方案已变化，请重新打开方案或另存为其他文件。'))
         except (OSError, InputError) as exc:
             self._error(tx('保存方案'), exc)
             return False
         clear_invalid(self.window.calculation_page.plan_file_label)
         self.path = path
+        self.saved_revision = revision
         self.saved_document = document
         self._status()
         self.window.feedback.set_message(tx('计算方案已保存。'), 'success')
@@ -148,7 +165,7 @@ class PlanController:
             self.window.feedback.set_message(tx('请先完成或取消后台任务，再打开方案。'), 'info')
             return False
         try:
-            plan = load_plan(selected)
+            load_plan(selected)
         except (OSError, InputError) as exc:
             self._error(tx('打开方案'), exc)
             return False
@@ -165,12 +182,13 @@ class PlanController:
         # 确认期间可能先保存到同一个路径，或文件被外部程序修改。
         # 重新校验实际将恢复的内容，避免把旧快照误标为已保存。
         try:
-            plan = load_plan(selected)
+            plan, revision = self._read_revision(selected)
         except (OSError, InputError) as exc:
             self._error(tx('打开方案'), exc)
             return False
         self.apply(plan)
         self.path = Path(selected)
+        self.saved_revision = revision
         self.saved_document = self.document()
         self._status()
         self.window.feedback.set_message(tx('计算方案已恢复。'), 'success')

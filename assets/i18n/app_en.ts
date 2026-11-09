@@ -3,6 +3,14 @@
   <context>
     <name>App</name>
     <message>
+        <source>磁盘上的方案已变化，请重新打开方案或另存为其他文件。</source>
+        <translation>The plan on disk has changed. Reopen the plan or save to a different file.</translation>
+    </message>
+    <message>
+        <source>CIDR 筛选输入不能超过 200 个字符。</source>
+        <translation>CIDR filter input cannot exceed 200 characters.</translation>
+    </message>
+    <message>
         <source>输入 IPv6 地址或 CIDR 进行筛选</source>
         <translation>Filter by IPv6 address or CIDR</translation>
     </message>

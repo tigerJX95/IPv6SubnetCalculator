@@ -744,6 +744,15 @@ class QtWorkflowTests(unittest.TestCase):
             self.application.language_manager.apply('en_US', persist=False)
             self.assertEqual(dialog.filter_status.text(), 'Showing 2 / 3 CIDRs')
             self.assertEqual(dialog.filter_input.text(), '2001:db8::7/125')
+            oversized = '2001:db8::7' + ' ' * 189 + 'invalid'
+            QApplication.clipboard().setText(oversized)
+            dialog.filter_input.selectAll()
+            dialog.filter_input.paste()
+            self.assertEqual(dialog.filter_input.text(), oversized)
+            self.assertTrue(dialog.filter_input.property('invalid'))
+            self.assertFalse(dialog.copy_matches_button.isEnabled())
+            self.assertTrue(all(dialog.table.isRowHidden(i) for i in range(3)))
+            self.assertIn('200 characters', dialog.filter_status.text())
             for query, invalid in (('2001:db9::', False), ('fe80::1%12', True), ('::/129', True)):
                 with self.subTest(query=query):
                     dialog.filter_input.setText(query)

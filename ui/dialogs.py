@@ -61,7 +61,6 @@ class RelationCidrDialog(AppDialog):
         filters = QHBoxLayout()
         self.filter_input = QLineEdit()
         self.filter_input.setFont(data_font())
-        self.filter_input.setMaxLength(200)
         self.filter_input.setPlaceholderText(tx('输入 IPv6 地址或 CIDR 进行筛选'))
         self.filter_input.setAccessibleName(tx('筛选 CIDR 清单'))
         self.filter_input.setToolTip(tx('地址匹配包含它的条目；CIDR 匹配与它重叠的条目。'))
@@ -117,10 +116,13 @@ class RelationCidrDialog(AppDialog):
         self.copy_button.setEnabled(self.table.selectionModel().hasSelection())
 
     def _apply_filter(self, *_):
-        query = self.filter_input.text().strip()
-        self.clear_filter.setEnabled(bool(self.filter_input.text()))
+        raw = self.filter_input.text()
+        self.clear_filter.setEnabled(bool(raw))
         error = None
         try:
+            if len(raw) > 200:
+                raise InputError(tx('CIDR 筛选输入不能超过 200 个字符。'))
+            query = raw.strip()
             if '/' in query:
                 network = calculate(query, '128', preview_limit=0).network
                 self.matching_rows = tuple(row for row, cidr in enumerate(self.cidrs) if cidr.overlaps(network))

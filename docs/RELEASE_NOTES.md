@@ -1,17 +1,15 @@
 # 版本更新 / Release Notes
 
-## V1.31 双网段 CIDR 筛选与复制
+## V1.31.1 方案保存与 CIDR 筛选修复
 
-- 在双网段 CIDR 详情输入 IPv6 地址，查找包含该地址的条目；输入 CIDR，查找所有与它重叠的条目。
-- 实时显示匹配数，可一键复制全部筛选结果，每行一个 CIDR；仍可多选后只复制选中行。
-- 清空筛选恢复完整列表；无匹配或输入无效时不允许复制筛选结果。
+- 计算方案被其他程序修改或移除后，直接保存会提示重新打开或另存，保留磁盘上的内容和当前编辑。
+- CIDR 详情会提示超长筛选条件，避免截断输入后显示并复制错误结果。
 
 [历史更新](HISTORY.md)
 
-## V1.31 Filter and copy two-network CIDRs
+## V1.31.1 Plan saving and CIDR filter fixes
 
-- In Two-network CIDR details, enter an IPv6 address to find the entry that contains it, or enter a CIDR to find every overlapping entry.
-- See the match count as you type. Copy all matches in one click, one CIDR per line, or select and copy individual rows.
-- Clear the filter to restore the full list. Copying matches is disabled when the input is invalid or nothing matches.
+- If another application changes or removes a calculation plan, saving prompts you to reopen it or save to a different file, preserving both the on-disk contents and your edits.
+- CIDR details reject oversized filter input instead of using truncated text to show and copy results.
 
 [Update History](HISTORY_EN.md)

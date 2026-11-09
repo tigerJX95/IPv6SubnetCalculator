@@ -256,6 +256,15 @@
     },
     {
       "context": "App",
+      "source": "CIDR 筛选输入不能超过 200 个字符。",
+      "source_sha256": "3640a2dff1aacf2fd593f1c85cb1362bd59a3ea1e1b546a72c2b061923de9c8c",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "CSV 文件 (*.csv)",
       "source_sha256": "7676123cf2a45deb84c183fd5b3871b3b7d283eedeaf3021da096f229792d8cb",
       "protected_tokens": [],
@@ -6845,6 +6854,15 @@
       "context": "App",
       "source": "确认导出范围（Enter）",
       "source_sha256": "fef7249bbb93552fec3a7763be72458bbf2041ff6344b33631193256301a6367",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "磁盘上的方案已变化，请重新打开方案或另存为其他文件。",
+      "source_sha256": "dd3ccbdc0904a97fbde933b3cebda0d0cf11137e89f4c9992011e9103279d8c4",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
