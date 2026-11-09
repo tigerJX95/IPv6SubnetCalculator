@@ -327,3 +327,5 @@ Union includes every address in A or B. Symmetric difference excludes the inters
 Click Save to write the selected CIDR list or the full relationship report as TXT. Reimport the list into Subnet List. The full report includes all six categories and remains available when the selected category is empty.
 
 Click the eye icon to view all CIDRs in the selected category, with first and last addresses and counts. Select rows with Ctrl or Shift, then click Copy or press Ctrl+C to copy only those CIDRs.
+
+In the details window, enter an IPv6 address to find the block that contains it, or enter a CIDR to show all overlapping entries. For A = `::/126` and B = `::1/128`, choose A only and filter by `::3` to see only `::2/127`. Use Copy all CIDRs in the filtered results to copy every visible entry. Clear the filter to restore the full table.

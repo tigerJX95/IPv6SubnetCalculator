@@ -3,6 +3,30 @@
   <context>
     <name>App</name>
     <message>
+        <source>输入 IPv6 地址或 CIDR 进行筛选</source>
+        <translation>Filter by IPv6 address or CIDR</translation>
+    </message>
+    <message>
+        <source>筛选 CIDR 清单</source>
+        <translation>Filter CIDR list</translation>
+    </message>
+    <message>
+        <source>地址匹配包含它的条目；CIDR 匹配与它重叠的条目。</source>
+        <translation>An address matches the entry containing it; a CIDR matches overlapping entries.</translation>
+    </message>
+    <message>
+        <source>清空 CIDR 筛选</source>
+        <translation>Clear CIDR filter</translation>
+    </message>
+    <message>
+        <source>复制筛选结果中的全部 CIDR</source>
+        <translation>Copy all CIDRs in the filtered results</translation>
+    </message>
+    <message>
+        <source>显示 {0:,} / {1:,} 条 CIDR</source>
+        <translation>Showing {0:,} / {1:,} CIDRs</translation>
+    </message>
+    <message>
         <source>双网段 CIDR 清单详情</source>
         <translation>Two-network CIDR details</translation>
     </message>

@@ -1,3 +1,8 @@
+## V1.31 新增操作验收 / New operation checks
+
+- 筛选同一组 CIDR：输入单地址定位包含条目，输入 CIDR 匹配全部重叠条目；检查无匹配、非法输入、清空筛选及复制可见结果。 / Filter by address and overlapping CIDR, then check no matches, invalid input, clearing the filter and copying visible results.
+- 焦点在筛选框时 Ctrl+C 复制输入文本，焦点在表格时 Ctrl+C 复制选中 CIDR；中英文和浅色、深色主题下均可操作。 / Ctrl+C copies selected input text in the filter and selected CIDRs in the table. Check both languages and themes.
+
 ## V1.30 新增操作验收 / New operation checks
 
 - 验证完整 CIDR 详情的顺序、起止地址、多选复制、空类别与结果失效。 / Check CIDR detail order, endpoints, multi-row copying, empty categories and invalidation.

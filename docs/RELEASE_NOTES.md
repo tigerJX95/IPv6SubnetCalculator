@@ -1,17 +1,17 @@
 # 版本更新 / Release Notes
 
-## V1.26 双网段精确 CIDR 分析
+## V1.31 双网段 CIDR 筛选与复制
 
-- 双网段关系分析新增交集、A 独有、B 独有和间隔四类 CIDR 输出。
-- 每类显示精确地址数、CIDR 数及前三条预览，复制取得完整清单；空结果禁用复制。
-- 完整关系报告收录四类清单。输入修改后清除旧结果，中英文切换保留分析状态。
+- 在双网段 CIDR 详情输入 IPv6 地址，查找包含该地址的条目；输入 CIDR，查找所有与它重叠的条目。
+- 实时显示匹配数，可一键复制全部筛选结果，每行一个 CIDR；仍可多选后只复制选中行。
+- 清空筛选恢复完整列表；无匹配或输入无效时不允许复制筛选结果。
 
 [历史更新](HISTORY.md)
 
-## V1.26 Exact CIDRs for Two Networks
+## V1.31 Filter and copy two-network CIDRs
 
-- Two-network analysis now outputs CIDRs for the intersection, A only, B only and the gap.
-- Each category shows exact address and CIDR counts and up to three preview entries. Copy returns the complete list; empty categories disable copying.
-- The full relation report includes all four lists. Input edits clear old results and language switching preserves the analysis.
+- In Two-network CIDR details, enter an IPv6 address to find the entry that contains it, or enter a CIDR to find every overlapping entry.
+- See the match count as you type. Copy all matches in one click, one CIDR per line, or select and copy individual rows.
+- Clear the filter to restore the full list. Copying matches is disabled when the input is invalid or nothing matches.
 
 [Update History](HISTORY_EN.md)

@@ -25,7 +25,8 @@ from PyQt6.QtWidgets import (QVBoxLayout, QHBoxLayout, QProgressBar, QTableWidge
 from PyQt6.QtGui import QKeySequence, QShortcut
 from ui.fonts import data_font
 from services.language_service import display
-from core.ipv6_core import InputError, validate_subnet_index, subnet_at_index
+from core.ipv6_core import (InputError, calculate, validate_ipv6_address,
+                            validate_subnet_index, subnet_at_index)
 from core.subnet_tools import (MAX_COPY_RECORDS, validate_copy_range, subnet_range_text,
                                 adjacent_subnet_index)
 from ui.widgets import IconButton, value_label, FeedbackLabel
@@ -57,6 +58,20 @@ class RelationCidrDialog(AppDialog):
         self.resize(980, 540)
         layout = QVBoxLayout(self)
         layout.addWidget(QLabel(tx('{0}：{1:,} 条 CIDR', category, len(cidrs))))
+        filters = QHBoxLayout()
+        self.filter_input = QLineEdit()
+        self.filter_input.setFont(data_font())
+        self.filter_input.setMaxLength(200)
+        self.filter_input.setPlaceholderText(tx('输入 IPv6 地址或 CIDR 进行筛选'))
+        self.filter_input.setAccessibleName(tx('筛选 CIDR 清单'))
+        self.filter_input.setToolTip(tx('地址匹配包含它的条目；CIDR 匹配与它重叠的条目。'))
+        filters.addWidget(self.filter_input, 1)
+        self.clear_filter = IconButton('clear_highlight_small', tx('清空 CIDR 筛选'))
+        self.clear_filter.clicked.connect(self.filter_input.clear)
+        filters.addWidget(self.clear_filter)
+        layout.addLayout(filters)
+        self.filter_status = FeedbackLabel()
+        layout.addWidget(self.filter_status)
         self.table = QTableWidget(len(cidrs), 4, self)
         self.table.setFont(data_font(dense=True))
         self.table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
@@ -73,18 +88,26 @@ class RelationCidrDialog(AppDialog):
         self.copy_button.setEnabled(False)
         self.copy_button.clicked.connect(self.copy_selected)
         self.table.itemSelectionChanged.connect(self._update_copy)
-        QShortcut(QKeySequence.StandardKey.Copy, self).activated.connect(self.copy_selected)
+        shortcut = QShortcut(QKeySequence.StandardKey.Copy, self.table)
+        shortcut.setContext(Qt.ShortcutContext.WidgetWithChildrenShortcut)
+        shortcut.activated.connect(self.copy_selected)
+        self.copy_matches_button = IconButton('copy_page', tx('复制筛选结果中的全部 CIDR'))
+        self.copy_matches_button.clicked.connect(self.copy_matches)
         close = IconButton('close_small', tx('关闭详情（Esc）'))
         close.clicked.connect(self.accept)
         actions = QHBoxLayout()
         actions.addStretch()
         actions.addWidget(self.copy_button)
+        actions.addWidget(self.copy_matches_button)
         actions.addWidget(close)
         layout.addLayout(actions)
         manager = getattr(QApplication.instance(), 'language_manager', None)
         if manager is not None:
             manager.changed.connect(self._update_headers)
         self._update_headers()
+        bind_input(self.filter_input)
+        self.filter_input.textChanged.connect(self._apply_filter)
+        self._apply_filter()
 
     def _update_headers(self, *_):
         self.table.setHorizontalHeaderLabels([
@@ -93,8 +116,43 @@ class RelationCidrDialog(AppDialog):
     def _update_copy(self):
         self.copy_button.setEnabled(self.table.selectionModel().hasSelection())
 
+    def _apply_filter(self, *_):
+        query = self.filter_input.text().strip()
+        self.clear_filter.setEnabled(bool(self.filter_input.text()))
+        error = None
+        try:
+            if '/' in query:
+                network = calculate(query, '128', preview_limit=0).network
+                self.matching_rows = tuple(row for row, cidr in enumerate(self.cidrs) if cidr.overlaps(network))
+            elif query:
+                address = validate_ipv6_address(query)
+                self.matching_rows = tuple(row for row, cidr in enumerate(self.cidrs) if address in cidr)
+            else:
+                self.matching_rows = tuple(range(len(self.cidrs)))
+        except InputError as exc:
+            error = exc.args[0]
+            self.matching_rows = ()
+
+        self.table.clearSelection()
+        visible = set(self.matching_rows)
+        for row in range(len(self.cidrs)):
+            self.table.setRowHidden(row, row not in visible)
+        self.copy_matches_button.setEnabled(bool(visible))
+        if error is not None:
+            mark_invalid(self.filter_input, error)
+            self.filter_status.set_message(error, 'error')
+        else:
+            self.filter_status.set_message(tx('显示 {0:,} / {1:,} 条 CIDR', len(visible), len(self.cidrs)))
+
     def copy_selected(self):
-        rows = sorted(index.row() for index in self.table.selectionModel().selectedRows())
+        rows = sorted(index.row() for index in self.table.selectionModel().selectedRows()
+                      if not self.table.isRowHidden(index.row()))
+        self._copy_rows(rows)
+
+    def copy_matches(self):
+        self._copy_rows(self.matching_rows)
+
+    def _copy_rows(self, rows):
         if rows:
             self.clipboard.copy_text('\n'.join(str(self.cidrs[row]) for row in rows),
                                      tx('双网段 CIDR 清单已复制。'), self)

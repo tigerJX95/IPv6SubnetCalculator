@@ -2,6 +2,18 @@
 
 [返回开发说明 / Development notes](DEVELOPMENT.md)
 
+## V1.30 双网段 CIDR 详情
+
+- 双网段分析可打开所选类别的完整 CIDR 表格，逐条查看起始地址、结束地址和精确地址数。
+- 表格支持多选，复制时只输出选中的 CIDR，每行一条，可粘贴到子网清单。
+- 空类别不打开详情；修改网段、重新分析或改变类别时，旧详情会关闭。
+
+## V1.30 Browse two-network CIDR details
+
+- Open the complete CIDR table for the selected category to check each block's first address, last address and exact address count.
+- Select multiple rows and copy only the chosen CIDRs, one per line, ready to paste into Subnet List.
+- Details are unavailable for empty categories. Editing a network, rerunning the analysis or changing the category closes outdated details.
+
 ## V1.29 双网段结果保存
 
 - 双网段分析新增保存菜单，可将所选类别的完整 CIDR 清单或完整关系报告保存为 TXT。

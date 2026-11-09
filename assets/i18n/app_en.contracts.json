@@ -2936,6 +2936,15 @@
     },
     {
       "context": "App",
+      "source": "地址匹配包含它的条目；CIDR 匹配与它重叠的条目。",
+      "source_sha256": "4e1056505237146c5badc3dbe7289219faff31a252fd0535dc4975a3cc4d4fa4",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "地址工具",
       "source_sha256": "1a5948eb14e1301871258b59b65bb6d255efffd3ec4c254d49bd26442d8a38f7",
       "protected_tokens": [],
@@ -3460,6 +3469,15 @@
       "context": "App",
       "source": "复制空闲报告：含全部空闲地址范围与精确容量",
       "source_sha256": "44bfa2b81c92495c2b5bca493721e10389db74719e0ddce87c671da8fddc9b54",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "复制筛选结果中的全部 CIDR",
+      "source_sha256": "4cd6c7d7cd0604de7b345e252c077c11ca71bf80f2bc6646b507f0e469271b42",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -5546,6 +5564,15 @@
     },
     {
       "context": "App",
+      "source": "显示 {0:,} / {1:,} 条 CIDR",
+      "source_sha256": "d2165539c18a8996b6e3ac07efde80f5b856ecf42c9f6ab3adf7dd73f9b27560",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "暂无计算结果",
       "source_sha256": "9ca1eb322cabf827acbc6a0175c4ed79ea0a47c9bfd9c33726b5303a735dd237",
       "protected_tokens": [],
@@ -6436,6 +6463,15 @@
     },
     {
       "context": "App",
+      "source": "清空 CIDR 筛选",
+      "source_sha256": "f3a13fc8e4a1e17a4bc2646709796ea0bdb9c17640855941605e1e9fef1db7df",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "清除定位高亮\n保留本页手动选择。",
       "source_sha256": "cafc270eb2696cd34ca7092f9abdf93cd05d23d22749d04d7dbf218dff56a453",
       "protected_tokens": [],
@@ -7115,6 +7151,15 @@
       "context": "App",
       "source": "等待搜索…",
       "source_sha256": "5ecd560983e981a58ca8f98e4c44679d4eb3a507ba014ccd1c902c4fecdea89e",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "筛选 CIDR 清单",
+      "source_sha256": "c3ffd8208e7f4ac276d2c4678d96486f0c5392d35dfb879ae79b1dfd5c5dd33a",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -8321,6 +8366,15 @@
       "context": "App",
       "source": "输入 IPv6 地址",
       "source_sha256": "87ae7a1ea1e66e19bd2e55f1e36f58f1b794dde20869f0a5b86ad8671a4e1b7c",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "输入 IPv6 地址或 CIDR 进行筛选",
+      "source_sha256": "e6287e85b5973ff361f2a1961feeacf1c17c81be92fd7e3d975fe650b3fd6ae8",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
