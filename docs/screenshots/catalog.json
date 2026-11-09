@@ -404,19 +404,19 @@
     },
     "docs/screenshots/relation_details_zh_CN_light.png": {
       "language": "zh_CN",
-      "sha256": "621378094108d6bcddfe1e98563ea5e246d3bf295a51c0b3214e4d654993a68f"
+      "sha256": "aa8b844a5e46c1fd1f2cb741c3cf6af101d2ad2e283d54cff55f595facb69208"
     },
     "docs/screenshots/relation_details_zh_CN_dark.png": {
       "language": "zh_CN",
-      "sha256": "d5d1838199131678437867baf3d0a490c1c884c909269ba570e388053f8e6bf0"
+      "sha256": "949651af8cfc7db84737f0c819b969b9230d7fdc7f743b7555ee0518e3219cad"
     },
     "docs/screenshots/relation_details_en_US_light.png": {
       "language": "en_US",
-      "sha256": "cce482e95482909e29d7b15516096c49467741904f64790404ed6735ea2d8cb9"
+      "sha256": "3d627518896b8b8da0289c5ce3ab64beed9a4bba5e8fdb57457d223079a0c48c"
     },
     "docs/screenshots/relation_details_en_US_dark.png": {
       "language": "en_US",
-      "sha256": "d89f9853cbb6e1ad1d1e4c9b9e2caf1fc3b3c1155a41c98bc8cceb50a4ab4418"
+      "sha256": "2c932f602e868b6f5e198b0370c2bdcf7cca8f7ba04659e9fd5f7c47b99a6b6e"
     }
   }
 }

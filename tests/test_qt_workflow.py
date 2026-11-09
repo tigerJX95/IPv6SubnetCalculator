@@ -19,11 +19,12 @@
 import tempfile
 import unittest
 from pathlib import Path
+from ipaddress import IPv6Network
 from time import monotonic
 from unittest.mock import patch
 
 from PyQt6.QtCore import Qt, QItemSelectionModel, QTimer, QCoreApplication, QEvent, QSettings, QMimeData
-from PyQt6.QtGui import QColor, QPalette
+from PyQt6.QtGui import QColor, QKeySequence, QPalette
 from PyQt6.QtTest import QTest
 from PyQt6.QtWidgets import QApplication, QDialog, QScrollArea, QMessageBox
 from app import create_application
@@ -31,7 +32,8 @@ from core.ipv6_core import calculate
 from services.clipboard_service import ClipboardService
 from services.export_service import ExportService, _ExportThread
 from ui.main_window import MainWindow
-from ui.dialogs import RangeCopyDialog, ExportRangeDialog, SubnetDetailDialog, ExportProgressDialog
+from ui.dialogs import (RangeCopyDialog, ExportRangeDialog, SubnetDetailDialog,
+                        ExportProgressDialog, RelationCidrDialog)
 from ui.theme import ThemeManager, THEMES
 
 
@@ -713,6 +715,49 @@ class QtWorkflowTests(unittest.TestCase):
                 opened.assert_called_once()
             self.assertIsNone(tools.relation_details_dialog)
         finally:
+            self.application.language_manager.apply('zh_CN', persist=False)
+
+    def test_relation_details_filter_and_copy_respect_visible_rows(self):
+        cidrs = tuple(map(IPv6Network, ('2001:db8::/126', '2001:db8::6/127', '2001:db8::8/125')))
+        dialog = RelationCidrDialog('CIDR', cidrs, self.window.clipboard, self.window)
+        dialog.show()
+        dialog.activateWindow()
+        try:
+            dialog.table.selectRow(2)
+            dialog.filter_input.setText('2001:0DB8:0:0:0:0:0:7')
+            self.assertEqual([dialog.table.isRowHidden(i) for i in range(3)], [True, False, True])
+            self.assertFalse(dialog.copy_button.isEnabled())
+            dialog.filter_input.setFocus()
+            dialog.filter_input.selectAll()
+            QApplication.processEvents()
+            QTest.keySequence(dialog.filter_input, QKeySequence.StandardKey.Copy)
+            self.assertEqual(QApplication.clipboard().text(), '2001:0DB8:0:0:0:0:0:7')
+            dialog.table.selectRow(1)
+            dialog.table.setFocus()
+            QApplication.processEvents()
+            QTest.keySequence(dialog.table, QKeySequence.StandardKey.Copy)
+            self.assertEqual(QApplication.clipboard().text(), '2001:db8::6/127')
+            dialog.filter_input.setText('2001:db8::7/125')
+            self.assertEqual([dialog.table.isRowHidden(i) for i in range(3)], [False, False, True])
+            dialog.copy_matches_button.click()
+            self.assertEqual(QApplication.clipboard().text(), '2001:db8::/126\n2001:db8::6/127')
+            self.application.language_manager.apply('en_US', persist=False)
+            self.assertEqual(dialog.filter_status.text(), 'Showing 2 / 3 CIDRs')
+            self.assertEqual(dialog.filter_input.text(), '2001:db8::7/125')
+            for query, invalid in (('2001:db9::', False), ('fe80::1%12', True), ('::/129', True)):
+                with self.subTest(query=query):
+                    dialog.filter_input.setText(query)
+                    self.assertTrue(all(dialog.table.isRowHidden(i) for i in range(3)))
+                    self.assertFalse(dialog.copy_matches_button.isEnabled())
+                    self.assertEqual(dialog.filter_input.property('invalid'), invalid)
+                    self.assertNotRegex(dialog.filter_status.text(), r'[\u4e00-\u9fff]')
+            dialog.clear_filter.click()
+            self.assertFalse(any(dialog.table.isRowHidden(i) for i in range(3)))
+            self.assertTrue(dialog.copy_matches_button.isEnabled())
+            self.assertEqual(dialog.filter_status.text(), 'Showing 3 / 3 CIDRs')
+        finally:
+            dialog.close()
+            dialog.deleteLater()
             self.application.language_manager.apply('zh_CN', persist=False)
 
     def test_relation_txt_exports_selected_cidrs_and_localized_full_report(self):
