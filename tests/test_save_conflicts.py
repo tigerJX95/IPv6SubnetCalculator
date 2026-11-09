@@ -171,6 +171,34 @@ class SaveConflictUiTests(unittest.TestCase):
         with patch('ui.plan_controller.QFileDialog.getSaveFileName',return_value=(str(path),'')),patch('ui.plan_controller.QMessageBox.question',side_effect=confirm),patch('ui.plan_controller.QMessageBox.warning'):
             self.assertFalse(self.w.plan_controller.save(save_as=True))
         self.assertEqual(path.read_text(),'external changes');self.assertEqual(len(list(path.parent.glob('IPv6-Recovered-*.json'))),1)
+
+    def test_direct_save_rejects_external_changes_since_open_or_save(self):
+        path = self.path.with_suffix('.json')
+        save_plan(path, CalculationPlan('::/0', 64, 'Original'))
+        controller = self.w.plan_controller
+        self.assertTrue(controller.open_path(path))
+        name = self.w.calculation_page.plan_name_input
+        name.setText('First local edit')
+        self.assertTrue(controller.save())
+        name.setText('Second local edit')
+        self.assertTrue(controller.save())
+        self.assertEqual(load_plan(path).name, 'Second local edit')
+
+        save_plan(path, CalculationPlan('::/0', 64, 'External edit'))
+        external = path.read_bytes()
+        name.setText('Unsaved local edit')
+        with patch('ui.plan_controller.QMessageBox.warning') as warning:
+            self.assertFalse(controller.save())
+            warning.assert_called_once()
+        self.assertEqual(path.read_bytes(), external)
+        self.assertEqual(name.text(), 'Unsaved local edit')
+        self.assertNotEqual(controller.saved_document, controller.document())
+        copy = path.with_name('copy.json')
+        with patch('ui.plan_controller.QFileDialog.getSaveFileName', return_value=(str(copy), '')):
+            self.assertTrue(controller.save(save_as=True))
+        self.assertEqual(load_plan(copy).name, 'Unsaved local edit')
+        self.assertEqual(path.read_bytes(), external)
+
     def test_list_target_changed_in_confirmation_is_preserved(self):
         self.path.write_text('original');self.page.editor.setPlainText('::/0')
         def confirm(*args,**kwargs):self.path.write_text('external changes');return QMessageBox.StandardButton.Yes

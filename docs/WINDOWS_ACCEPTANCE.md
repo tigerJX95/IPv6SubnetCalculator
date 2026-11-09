@@ -1,3 +1,8 @@
+## V1.31.1 操作验收 / Operation checks
+
+- 打开已保存的方案，用另一程序修改同一文件，再按 Ctrl+S；检查外部内容和本地编辑均保留，另存正常。 / Open a saved plan, edit it in another program, then press Ctrl+S. Check that both edits survive and Save As works.
+- 粘贴超过 200 字符的 CIDR 筛选文本，检查提示和复制状态；缩短为有效查询后应恢复。 / Paste a CIDR filter longer than 200 characters, check the error and disabled copy action, then shorten it to a valid query.
+
 ## V1.31 新增操作验收 / New operation checks
 
 - 筛选同一组 CIDR：输入单地址定位包含条目，输入 CIDR 匹配全部重叠条目；检查无匹配、非法输入、清空筛选及复制可见结果。 / Filter by address and overlapping CIDR, then check no matches, invalid input, clearing the filter and copying visible results.

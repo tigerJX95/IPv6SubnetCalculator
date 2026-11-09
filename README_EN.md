@@ -1,12 +1,11 @@
 [简体中文](README.md) | **English**
 
-# 🌐 IPv6 Subnet Calculator V1.31
+# 🌐 IPv6 Subnet Calculator V1.31.1
 
-## V1.31 Filter and copy two-network CIDRs
+## V1.31.1 Plan saving and CIDR filter fixes
 
-- In Two-network CIDR details, enter an IPv6 address to find the entry that contains it, or enter a CIDR to find every overlapping entry.
-- See the match count as you type. Copy all matches in one click, one CIDR per line, or select and copy individual rows.
-- Clear the filter to restore the full list. Copying matches is disabled when the input is invalid or nothing matches.
+- If another application changes or removes a calculation plan, saving prompts you to reopen it or save to a different file, preserving both the on-disk contents and your edits.
+- CIDR details reject oversized filter input instead of using truncated text to show and copy results.
 
 [Update History](docs/HISTORY_EN.md)
 
@@ -125,7 +124,7 @@ Existing files require overwrite confirmation. If another program changes the de
 
 ## 📦 Download and Usage
 
-Download `IPv6SubnetCalculator_V1.31.exe` directly from Assets on GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest). Run the downloaded executable; no additional runtime setup is required. Enter a network and target prefix, then click the calculation icon; the application switches to Results when complete.
+Download `IPv6SubnetCalculator_V1.31.1.exe` directly from Assets on GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest). Run the downloaded executable; no additional runtime setup is required. Enter a network and target prefix, then click the calculation icon; the application switches to Results when complete.
 
 Press F1 or use the top-bar information icon for built-in help, license texts and legal notices.
 

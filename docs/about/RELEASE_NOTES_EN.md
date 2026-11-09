@@ -1,9 +1,8 @@
 # Release Notes
 
-## V1.31 Filter and copy two-network CIDRs
+## V1.31.1 Plan saving and CIDR filter fixes
 
-- In Two-network CIDR details, enter an IPv6 address to find the entry that contains it, or enter a CIDR to find every overlapping entry.
-- See the match count as you type. Copy all matches in one click, one CIDR per line, or select and copy individual rows.
-- Clear the filter to restore the full list. Copying matches is disabled when the input is invalid or nothing matches.
+- If another application changes or removes a calculation plan, saving prompts you to reopen it or save to a different file, preserving both the on-disk contents and your edits.
+- CIDR details reject oversized filter input instead of using truncated text to show and copy results.
 
 [Update History](HISTORY.md)

@@ -70,7 +70,7 @@ class AboutLinkTests(unittest.TestCase):
         with patch('ui.about_dialog.QDesktopServices.openUrl') as open_url:
             for language in ('zh_CN','en_US'):
                 self.app.language_manager.apply(language,persist=False)
-                self.assertEqual(set(re.findall(r'V(\d+\.\d+)',browser.toPlainText())),{APP_VERSION})
+                self.assertEqual(set(re.findall(r'V(\d+\.\d+(?:\.\d+)?)',browser.toPlainText())),{APP_VERSION})
                 browser.open_link(QUrl('HISTORY.md'))
                 self.assertIn('V1.19',browser.toPlainText())
                 self.assertNotIn('V'+APP_VERSION,browser.toPlainText())
@@ -80,7 +80,7 @@ class AboutLinkTests(unittest.TestCase):
                     browser.open_link(QUrl(target))
                     self.assertEqual(browser.toPlainText(),original)
                 browser.open_link(QUrl('RELEASE_NOTES.md'))
-                self.assertEqual(set(re.findall(r'V(\d+\.\d+)',browser.toPlainText())),{APP_VERSION})
+                self.assertEqual(set(re.findall(r'V(\d+\.\d+(?:\.\d+)?)',browser.toPlainText())),{APP_VERSION})
             self.assertFalse(open_url.called)
         browser.open_link(QUrl('HISTORY.md'))
         self.app.language_manager.apply('en_US',persist=False)

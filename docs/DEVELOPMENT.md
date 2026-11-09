@@ -1,16 +1,14 @@
 # 开发说明 / Development Notes
 
-## V1.31 双网段 CIDR 筛选与复制
+## V1.31.1 方案保存与 CIDR 筛选修复
 
-- 在双网段 CIDR 详情输入 IPv6 地址，查找包含该地址的条目；输入 CIDR，查找所有与它重叠的条目。
-- 实时显示匹配数，可一键复制全部筛选结果，每行一个 CIDR；仍可多选后只复制选中行。
-- 清空筛选恢复完整列表；无匹配或输入无效时不允许复制筛选结果。
+- 计算方案被其他程序修改或移除后，直接保存会提示重新打开或另存，保留磁盘上的内容和当前编辑。
+- CIDR 详情会提示超长筛选条件，避免截断输入后显示并复制错误结果。
 
-## V1.31 Filter and copy two-network CIDRs
+## V1.31.1 Plan saving and CIDR filter fixes
 
-- In Two-network CIDR details, enter an IPv6 address to find the entry that contains it, or enter a CIDR to find every overlapping entry.
-- See the match count as you type. Copy all matches in one click, one CIDR per line, or select and copy individual rows.
-- Clear the filter to restore the full list. Copying matches is disabled when the input is invalid or nothing matches.
+- If another application changes or removes a calculation plan, saving prompts you to reopen it or save to a different file, preserving both the on-disk contents and your edits.
+- CIDR details reject oversized filter input instead of using truncated text to show and copy results.
 
 [历史更新](HISTORY.md) · [Update History](HISTORY_EN.md) · [开发历史 / Development history](DEVELOPMENT_HISTORY.md)
 
@@ -25,13 +23,13 @@ python -m pip install -r requirements.txt
 python main.py
 ```
 
-Windows 下运行 `build.cmd`，会安装固定版本的界面依赖和 PyInstaller，生成 `dist/IPv6SubnetCalculator_V1.31.exe`。构建需要联网下载依赖；生成后的程序离线运行，不要求目标电脑安装 Python。EXE 的架构取决于所用 Python 的架构，建议使用 Windows x64 Python。
+Windows 下运行 `build.cmd`，会安装固定版本的界面依赖和 PyInstaller，生成 `dist/IPv6SubnetCalculator_V1.31.1.exe`。构建需要联网下载依赖；生成后的程序离线运行，不要求目标电脑安装 Python。EXE 的架构取决于所用 Python 的架构，建议使用 Windows x64 Python。
 
-On Windows, `build.cmd` installs the pinned interface dependencies and PyInstaller, then creates `dist/IPv6SubnetCalculator_V1.31.exe`. Building requires internet access to download dependencies. The resulting application works offline without Python on the target computer. Its architecture follows the Python interpreter used; Windows x64 Python is recommended.
+On Windows, `build.cmd` installs the pinned interface dependencies and PyInstaller, then creates `dist/IPv6SubnetCalculator_V1.31.1.exe`. Building requires internet access to download dependencies. The resulting application works offline without Python on the target computer. Its architecture follows the Python interpreter used; Windows x64 Python is recommended.
 
-可选运行 `python tools/package_release.py` 生成 `dist/IPv6SubnetCalculator_V1.31_Windows.zip`，包含 EXE、项目 `LICENSE`／`NOTICE` 及第三方许可文件。Windows 用户默认直接下载 EXE；ZIP 仅为可选归档，源码包单独提供。发布前运行 `verify.cmd` 检查本次 EXE。
+可选运行 `python tools/package_release.py` 生成 `dist/IPv6SubnetCalculator_V1.31.1_Windows.zip`，包含 EXE、项目 `LICENSE`／`NOTICE` 及第三方许可文件。Windows 用户默认直接下载 EXE；ZIP 仅为可选归档，源码包单独提供。发布前运行 `verify.cmd` 检查本次 EXE。
 
-Optionally run `python tools/package_release.py` to create `dist/IPv6SubnetCalculator_V1.31_Windows.zip`, containing the EXE, project LICENSE/NOTICE, and third-party license files. Publish the EXE as the default Windows download; the ZIP is optional and source is provided separately. Run `verify.cmd` before publishing to check the executable from this build.
+Optionally run `python tools/package_release.py` to create `dist/IPv6SubnetCalculator_V1.31.1_Windows.zip`, containing the EXE, project LICENSE/NOTICE, and third-party license files. Publish the EXE as the default Windows download; the ZIP is optional and source is provided separately. Run `verify.cmd` before publishing to check the executable from this build.
 
 ## 模块职责 / Module Responsibilities
 
@@ -100,9 +98,9 @@ Widget colors come from one stylesheet, without mixing in global `setPalette`. C
 
 Project-authored content uses `GPL-3.0-or-later`. The root `LICENSE` contains the unmodified GPLv3 text; `NOTICE` identifies the versions, scope, and lack of warranty. Third-party license files are retained separately.
 
-`build.cmd` 会将项目与第三方许可嵌入程序，并在 `dist/IPv6SubnetCalculator_V1.31_Licenses/` 输出可直接阅读的副本。该目录可作为独立许可附件保留；EXE 已嵌入许可文件。发布时提供与 EXE 对应版本的完整源码及构建材料（包括 `build.cmd`、`requirements.txt`、资源和开发说明）。源码可放在同一 Release 的源码附件中；确保该 Release 对应正确的提交和标签，不要仅链接到持续变化的主分支。
+`build.cmd` 会将项目与第三方许可嵌入程序，并在 `dist/IPv6SubnetCalculator_V1.31.1_Licenses/` 输出可直接阅读的副本。该目录可作为独立许可附件保留；EXE 已嵌入许可文件。发布时提供与 EXE 对应版本的完整源码及构建材料（包括 `build.cmd`、`requirements.txt`、资源和开发说明）。源码可放在同一 Release 的源码附件中；确保该 Release 对应正确的提交和标签，不要仅链接到持续变化的主分支。
 
-`build.cmd` embeds project and third-party license files in the application and also writes readable copies to `dist/IPv6SubnetCalculator_V1.31_Licenses/`. Retain that folder as an optional standalone license attachment; licenses are also embedded in the EXE. Provide the complete matching application source and build materials, including `build.cmd`, `requirements.txt`, assets, and these instructions. A source archive can accompany the same Release; use the matching commit and tag rather than linking only to a changing main branch.
+`build.cmd` embeds project and third-party license files in the application and also writes readable copies to `dist/IPv6SubnetCalculator_V1.31.1_Licenses/`. Retain that folder as an optional standalone license attachment; licenses are also embedded in the EXE. Provide the complete matching application source and build materials, including `build.cmd`, `requirements.txt`, assets, and these instructions. A source archive can accompany the same Release; use the matching commit and tag rather than linking only to a changing main branch.
 
 程序包含的第三方组件仍须按各自许可履行源码、版权和再分发义务。完整源码的提供范围包括适用许可证要求的依赖源码；仅附上项目的 Python 文件或上游主页链接并不自动满足所有第三方二进制分发条件。组件版本及获取入口见 `THIRD_PARTY_NOTICES.md`，发布时应保留所用版本的依赖源码及构建信息。
 
@@ -123,7 +121,7 @@ python tools/verify.py --report-dir verification
 指定打包程序可运行： / To include a packaged application:
 
 ```console
-python tools/verify.py --exe dist/IPv6SubnetCalculator_V1.31.exe --report-dir verification
+python tools/verify.py --exe dist/IPv6SubnetCalculator_V1.31.1.exe --report-dir verification
 ```
 
 `summary.json` 保存环境、逐阶段结果及性能数据；`SUMMARY.md` 为简要结果，`tests.log` 保存回归日志；`source.json` 和 `executable.json` 分别记录源码与打包程序检查。源码检查通过时，未提供的 EXE 仍标记为 `not_run`。只有在 Windows 上执行且 EXE 检查通过后，`windows_automated_checks` 才标记为通过；人工验证始终独立登记，见 [Windows 验证](WINDOWS_ACCEPTANCE.md)。

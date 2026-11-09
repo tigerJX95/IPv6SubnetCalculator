@@ -43,7 +43,7 @@ class AboutPresentationTests(unittest.TestCase):
             for language in ('zh_CN','en_US'):
                 self.app.language_manager.apply(language,persist=False)
                 self.assertIn('V'+APP_VERSION,d.release_notes.toPlainText())
-                self.assertEqual(set(re.findall(r'V(\d+\.\d+)',d.release_notes.toPlainText())),{APP_VERSION})
+                self.assertEqual(set(re.findall(r'V(\d+\.\d+(?:\.\d+)?)',d.release_notes.toPlainText())),{APP_VERSION})
                 self.assertNotRegex(d.usage.toPlainText(),r'V1\.11')
                 if language=='en_US':self.assertNotRegex(d.release_notes.toPlainText(),r'[\u4e00-\u9fff]')
             for path in ('docs/about/USAGE.md','docs/about/USAGE_EN.md'):
