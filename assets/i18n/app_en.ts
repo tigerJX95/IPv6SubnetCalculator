@@ -3,6 +3,14 @@
   <context>
     <name>App</name>
     <message>
+        <source>保存筛选结果中的全部 CIDR 为 TXT</source>
+        <translation>Save all filtered CIDRs as TXT</translation>
+    </message>
+    <message>
+        <source>显示 {0:,} / {1:,} 条 CIDR；可见条目覆盖 {2:,} 个地址</source>
+        <translation>Showing {0:,} / {1:,} CIDRs; visible entries cover {2:,} addresses</translation>
+    </message>
+    <message>
         <source>磁盘上的方案已变化，请重新打开方案或另存为其他文件。</source>
         <translation>The plan on disk has changed. Reopen the plan or save to a different file.</translation>
     </message>

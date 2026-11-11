@@ -1,3 +1,8 @@
+## V1.32 操作验收 / Operation checks · 2026-11-11
+
+- 输入或粘贴 1280、0640、0000，确认拒绝计算；修正为 128 后恢复正常。 / Enter or paste 1280, 0640 and 0000, verify rejection, then correct to 128 and calculate.
+- 筛选双网段详情并保存 TXT，检查精确地址数、文件行序与可见条目一致，以及空结果、取消和覆盖确认。 / Filter two-network details and save TXT. Check the exact address count, saved order, empty results, cancellation, and overwrite confirmation.
+
 ## V1.31.1 操作验收 / Operation checks
 
 - 打开已保存的方案，用另一程序修改同一文件，再按 Ctrl+S；检查外部内容和本地编辑均保留，另存正常。 / Open a saved plan, edit it in another program, then press Ctrl+S. Check that both edits survive and Save As works.

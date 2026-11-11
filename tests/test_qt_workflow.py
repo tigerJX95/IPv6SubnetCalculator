@@ -48,6 +48,34 @@ def wait_until(condition, timeout=4):
 
 
 class QtWorkflowTests(unittest.TestCase):
+    def test_target_prefix_rejects_four_digits_without_truncating_paste_or_typing(self):
+        field = self.window.calculation_page.target_input
+        self.window.calculation_page.network_input.setText('::/0')
+        for language in ('zh_CN', 'en_US'):
+            self.application.language_manager.apply(language, persist=False)
+            for value in ('1280', '0640', '0000'):
+                with self.subTest(language=language, value=value):
+                    field.selectAll()
+                    QApplication.clipboard().setText(value)
+                    field.paste()
+                    self.assertEqual(field.text(), value)
+                    self.window.calculate()
+                    self.assertIsNone(self.window.result)
+                    self.assertTrue(field.property('invalid'))
+                    self.assertFalse(self.page.export_button.isEnabled())
+                    if language == 'en_US':
+                        self.assertNotRegex(self.window.feedback.text(), r'[\u4e00-\u9fff]')
+            field.clear()
+            QTest.keyClicks(field, '1280')
+            self.assertEqual(field.text(), '1280')
+            self.window.calculate()
+            self.assertIsNone(self.window.result)
+            field.setText('128')
+            self.window.calculate()
+            self.assertEqual(self.window.result.target_prefix, 128)
+            self.assertFalse(field.property('invalid'))
+        self.application.language_manager.apply('zh_CN', persist=False)
+
     @classmethod
     def setUpClass(cls):
         cls.settings_dir = tempfile.TemporaryDirectory()
@@ -742,7 +770,7 @@ class QtWorkflowTests(unittest.TestCase):
             dialog.copy_matches_button.click()
             self.assertEqual(QApplication.clipboard().text(), '2001:db8::/126\n2001:db8::6/127')
             self.application.language_manager.apply('en_US', persist=False)
-            self.assertEqual(dialog.filter_status.text(), 'Showing 2 / 3 CIDRs')
+            self.assertEqual(dialog.filter_status.text(), 'Showing 2 / 3 CIDRs; visible entries cover 6 addresses')
             self.assertEqual(dialog.filter_input.text(), '2001:db8::7/125')
             oversized = '2001:db8::7' + ' ' * 189 + 'invalid'
             QApplication.clipboard().setText(oversized)
@@ -763,11 +791,63 @@ class QtWorkflowTests(unittest.TestCase):
             dialog.clear_filter.click()
             self.assertFalse(any(dialog.table.isRowHidden(i) for i in range(3)))
             self.assertTrue(dialog.copy_matches_button.isEnabled())
-            self.assertEqual(dialog.filter_status.text(), 'Showing 3 / 3 CIDRs')
+            self.assertEqual(dialog.filter_status.text(), 'Showing 3 / 3 CIDRs; visible entries cover 14 addresses')
         finally:
             dialog.close()
             dialog.deleteLater()
             self.application.language_manager.apply('zh_CN', persist=False)
+
+    def test_relation_detail_saves_filtered_rows_and_cancels_stale_queries(self):
+        cidrs = tuple(map(IPv6Network, ('::/126', '::4/128', '::6/127', '::8/125')))
+        dialog = RelationCidrDialog('CIDR', cidrs, self.window.clipboard, self.window)
+        dialog.show()
+        try:
+            dialog.filter_input.setText('::/125')
+            dialog.table.selectRow(0)
+            with tempfile.TemporaryDirectory() as directory:
+                destination = Path(directory) / 'filtered'
+                with patch('ui.list_output_controller.QFileDialog.getSaveFileName',
+                           return_value=(str(destination), '')):
+                    dialog.save_matches_button.click()
+                saved = destination.with_suffix('.txt')
+                self.assertEqual(saved.read_bytes(), b'::/126\n::4/128\n::6/127\n')
+                self.assertTrue(dialog.save_feedback.isVisible())
+
+                def change_and_revert(*args, **kwargs):
+                    dialog.filter_input.setText('::7')
+                    dialog.filter_input.setText('::/125')
+                    return QMessageBox.StandardButton.Yes
+
+                saved.write_bytes(b'existing')
+                with patch('ui.list_output_controller.QFileDialog.getSaveFileName',
+                           return_value=(str(saved), '')), patch(
+                               'ui.list_output_controller.QMessageBox.question', side_effect=change_and_revert):
+                    dialog.save_matches_button.click()
+                self.assertEqual(saved.read_bytes(), b'existing')
+                for query in ('2001:db8::', '::/129'):
+                    dialog.filter_input.setText(query)
+                    self.assertFalse(dialog.save_matches_button.isEnabled())
+
+                def close_during_picker(*args, **kwargs):
+                    dialog.reject()
+                    return str(destination.with_name('closed.txt')), ''
+
+                dialog.filter_input.setText('::/125')
+                with patch('ui.list_output_controller.QFileDialog.getSaveFileName',
+                           side_effect=close_during_picker):
+                    dialog.save_matches_button.click()
+                self.assertFalse(destination.with_name('closed.txt').exists())
+        finally:
+            dialog.close()
+            dialog.deleteLater()
+
+    def test_relation_detail_count_covers_whole_visible_block_without_rounding(self):
+        dialog = RelationCidrDialog('CIDR', (IPv6Network('::/0'),), self.window.clipboard, self.window)
+        try:
+            dialog.filter_input.setText('2001:db8::1')
+            self.assertIn(f'{2**128:,}', dialog.filter_status.text())
+        finally:
+            dialog.deleteLater()
 
     def test_relation_txt_exports_selected_cidrs_and_localized_full_report(self):
         tools = self.window.address_tools_page

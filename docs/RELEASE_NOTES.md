@@ -1,15 +1,19 @@
 # 版本更新 / Release Notes
 
-## V1.31.1 方案保存与 CIDR 筛选修复
+## V1.32 保存筛选后的 CIDR 清单 · 2026-11-11
 
-- 计算方案被其他程序修改或移除后，直接保存会提示重新打开或另存，保留磁盘上的内容和当前编辑。
-- CIDR 详情会提示超长筛选条件，避免截断输入后显示并复制错误结果。
+- 双网段 CIDR 详情新增保存按钮，可将当前筛选结果保存为 UTF-8 TXT，每行一个 CIDR，可重新导入子网清单。
+- 筛选栏显示可见 CIDR 条目合计覆盖的地址数，按完整条目计算，保留精确整数。
+- 无匹配或输入无效时禁用保存；在选择文件或确认覆盖期间更改筛选条件会中止本次保存。
+- 修复目标前缀输入被截断的问题：输入或粘贴四位前缀时明确报错，不再把 1280 当作 128 计算。
 
 [历史更新](HISTORY.md)
 
-## V1.31.1 Plan saving and CIDR filter fixes
+## V1.32 Save filtered CIDR lists · 2026-11-11
 
-- If another application changes or removes a calculation plan, saving prompts you to reopen it or save to a different file, preserving both the on-disk contents and your edits.
-- CIDR details reject oversized filter input instead of using truncated text to show and copy results.
+- Save the current two-network CIDR results as UTF-8 TXT, one CIDR per line, ready to import into Subnet List.
+- The filter status shows how many addresses the visible CIDR blocks cover. It counts the whole blocks and preserves the exact total.
+- Saving is disabled for invalid filters or empty results. Changing the filter while choosing a file or confirming an overwrite cancels the save.
+- Fix target prefix truncation: four-digit prefixes entered or pasted into the field are rejected instead of calculating 1280 as 128.
 
 [Update History](HISTORY_EN.md)

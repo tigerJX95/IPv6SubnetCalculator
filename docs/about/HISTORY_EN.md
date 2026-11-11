@@ -2,6 +2,11 @@
 
 [Back to current release](RELEASE_NOTES.md)
 
+## V1.31.1 Plan saving and CIDR filter fixes
+
+- If another application changes or removes a calculation plan, saving prompts you to reopen it or save to a different file, preserving both the on-disk contents and your edits.
+- CIDR details reject oversized filter input instead of using truncated text to show and copy results.
+
 ## V1.31 Filter and copy two-network CIDRs
 
 - In Two-network CIDR details, enter an IPv6 address to find the entry that contains it, or enter a CIDR to find every overlapping entry.

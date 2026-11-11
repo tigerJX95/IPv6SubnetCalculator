@@ -1,11 +1,13 @@
 **简体中文** | [English](README_EN.md)
 
-# 🌐 IPv6 子网计算器 V1.31.1
+# 🌐 IPv6 子网计算器 V1.32
 
-## V1.31.1 方案保存与 CIDR 筛选修复
+## V1.32 保存筛选后的 CIDR 清单 · 2026-11-11
 
-- 计算方案被其他程序修改或移除后，直接保存会提示重新打开或另存，保留磁盘上的内容和当前编辑。
-- CIDR 详情会提示超长筛选条件，避免截断输入后显示并复制错误结果。
+- 双网段 CIDR 详情新增保存按钮，可将当前筛选结果保存为 UTF-8 TXT，每行一个 CIDR，可重新导入子网清单。
+- 筛选栏显示可见 CIDR 条目合计覆盖的地址数，按完整条目计算，保留精确整数。
+- 无匹配或输入无效时禁用保存；在选择文件或确认覆盖期间更改筛选条件会中止本次保存。
+- 修复目标前缀输入被截断的问题：输入或粘贴四位前缀时明确报错，不再把 1280 当作 128 计算。
 
 [历史更新](docs/HISTORY.md)
 
@@ -120,7 +122,7 @@ IPv6SubnetCalculator 是一款适用于 Windows 的离线 IPv6 子网计算工�
 
 ## 📦 下载与使用
 
-从 GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest) 的 Assets 中直接下载 `IPv6SubnetCalculator_V1.31.1.exe`，下载后即可运行，无需另行配置运行环境。输入 IPv6 网络地址与目标前缀，点击计算图标；完成后自动切换到结果页。
+从 GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest) 的 Assets 中直接下载 `IPv6SubnetCalculator_V1.32.exe`，下载后即可运行，无需另行配置运行环境。输入 IPv6 网络地址与目标前缀，点击计算图标；完成后自动切换到结果页。
 
 按 F1 或点击顶部“ⓘ”可查看内置帮助、许可原文与法律责任说明。
 
