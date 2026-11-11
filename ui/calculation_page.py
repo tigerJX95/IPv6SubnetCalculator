@@ -69,7 +69,8 @@ class CalculationPage(QWidget):
         self.target_input = QLineEdit('64')
         self.target_input.setObjectName('target_input')
         self.target_input.setFont(data_font())
-        self.target_input.setMaxLength(3)
+        # Keep the entered prefix intact: truncating 1280 to 128 would turn
+        # invalid input into a different, valid calculation.
         self.target_input.setMinimumWidth(55)
         self.target_input.setToolTip(tx('输入 0～128 的目标前缀，不需要 /，且不得小于原网络前缀。'))
         self.prefix_shortcuts = QComboBox()

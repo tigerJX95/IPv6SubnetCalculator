@@ -1,11 +1,13 @@
 [简体中文](README.md) | **English**
 
-# 🌐 IPv6 Subnet Calculator V1.31.1
+# 🌐 IPv6 Subnet Calculator V1.32
 
-## V1.31.1 Plan saving and CIDR filter fixes
+## V1.32 Save filtered CIDR lists · 2026-11-11
 
-- If another application changes or removes a calculation plan, saving prompts you to reopen it or save to a different file, preserving both the on-disk contents and your edits.
-- CIDR details reject oversized filter input instead of using truncated text to show and copy results.
+- Save the current two-network CIDR results as UTF-8 TXT, one CIDR per line, ready to import into Subnet List.
+- The filter status shows how many addresses the visible CIDR blocks cover. It counts the whole blocks and preserves the exact total.
+- Saving is disabled for invalid filters or empty results. Changing the filter while choosing a file or confirming an overwrite cancels the save.
+- Fix target prefix truncation: four-digit prefixes entered or pasted into the field are rejected instead of calculating 1280 as 128.
 
 [Update History](docs/HISTORY_EN.md)
 
@@ -124,7 +126,7 @@ Existing files require overwrite confirmation. If another program changes the de
 
 ## 📦 Download and Usage
 
-Download `IPv6SubnetCalculator_V1.31.1.exe` directly from Assets on GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest). Run the downloaded executable; no additional runtime setup is required. Enter a network and target prefix, then click the calculation icon; the application switches to Results when complete.
+Download `IPv6SubnetCalculator_V1.32.exe` directly from Assets on GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest). Run the downloaded executable; no additional runtime setup is required. Enter a network and target prefix, then click the calculation icon; the application switches to Results when complete.
 
 Press F1 or use the top-bar information icon for built-in help, license texts and legal notices.
 

@@ -1688,6 +1688,15 @@
     },
     {
       "context": "App",
+      "source": "保存筛选结果中的全部 CIDR 为 TXT",
+      "source_sha256": "27b8c356b3492301730e84f44f5a67172e1f208be9bc4ff38b42bc05c9709bd4",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "保存规划报告为 TXT",
       "source_sha256": "5c69a5e5de57fe0db4745b54a74403e1f374a7ba795ef8243fc9f15e7027517b",
       "protected_tokens": [],
@@ -5575,6 +5584,15 @@
       "context": "App",
       "source": "显示 {0:,} / {1:,} 条 CIDR",
       "source_sha256": "d2165539c18a8996b6e3ac07efde80f5b856ecf42c9f6ab3adf7dd73f9b27560",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "显示 {0:,} / {1:,} 条 CIDR；可见条目覆盖 {2:,} 个地址",
+      "source_sha256": "fe62ba90314c42b9ddfcb8d10a4d966a8ee538d5201007e8a65dab5348ede3be",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,

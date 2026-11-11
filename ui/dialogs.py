@@ -31,6 +31,7 @@ from core.subnet_tools import (MAX_COPY_RECORDS, validate_copy_range, subnet_ran
                                 adjacent_subnet_index)
 from ui.widgets import IconButton, value_label, FeedbackLabel
 from ui.input_feedback import bind_input, mark_invalid, clear_invalid
+from ui.list_output_controller import save_output
 
 
 class AppDialog(QDialog):
@@ -92,20 +93,27 @@ class RelationCidrDialog(AppDialog):
         shortcut.activated.connect(self.copy_selected)
         self.copy_matches_button = IconButton('copy_page', tx('复制筛选结果中的全部 CIDR'))
         self.copy_matches_button.clicked.connect(self.copy_matches)
+        self.save_matches_button = IconButton('save_plan', tx('保存筛选结果中的全部 CIDR 为 TXT'))
+        self.save_matches_button.clicked.connect(self.save_matches)
         close = IconButton('close_small', tx('关闭详情（Esc）'))
         close.clicked.connect(self.accept)
         actions = QHBoxLayout()
         actions.addStretch()
         actions.addWidget(self.copy_button)
         actions.addWidget(self.copy_matches_button)
+        actions.addWidget(self.save_matches_button)
         actions.addWidget(close)
         layout.addLayout(actions)
+        self.save_feedback = FeedbackLabel()
+        self.save_feedback.hide()
+        layout.addWidget(self.save_feedback)
         manager = getattr(QApplication.instance(), 'language_manager', None)
         if manager is not None:
             manager.changed.connect(self._update_headers)
         self._update_headers()
         bind_input(self.filter_input)
         self.filter_input.textChanged.connect(self._apply_filter)
+        self.finished.connect(self._invalidate_filter_revision)
         self._apply_filter()
 
     def _update_headers(self, *_):
@@ -115,7 +123,12 @@ class RelationCidrDialog(AppDialog):
     def _update_copy(self):
         self.copy_button.setEnabled(self.table.selectionModel().hasSelection())
 
+    def _invalidate_filter_revision(self, *_):
+        self._filter_revision = object()
+
     def _apply_filter(self, *_):
+        self._invalidate_filter_revision()
+        self.save_feedback.hide()
         raw = self.filter_input.text()
         self.clear_filter.setEnabled(bool(raw))
         error = None
@@ -140,11 +153,16 @@ class RelationCidrDialog(AppDialog):
         for row in range(len(self.cidrs)):
             self.table.setRowHidden(row, row not in visible)
         self.copy_matches_button.setEnabled(bool(visible))
+        self.save_matches_button.setEnabled(bool(visible))
         if error is not None:
             mark_invalid(self.filter_input, error)
             self.filter_status.set_message(error, 'error')
         else:
-            self.filter_status.set_message(tx('显示 {0:,} / {1:,} 条 CIDR', len(visible), len(self.cidrs)))
+            # The relation output is disjoint. Count the visible CIDR blocks,
+            # including addresses in those blocks outside the query.
+            total = sum(self.cidrs[row].num_addresses for row in self.matching_rows)
+            self.filter_status.set_message(tx('显示 {0:,} / {1:,} 条 CIDR；可见条目覆盖 {2:,} 个地址',
+                                              len(visible), len(self.cidrs), total))
 
     def copy_selected(self):
         rows = sorted(index.row() for index in self.table.selectionModel().selectedRows()
@@ -153,6 +171,20 @@ class RelationCidrDialog(AppDialog):
 
     def copy_matches(self):
         self._copy_rows(self.matching_rows)
+
+    def save_matches(self):
+        if not self.matching_rows or not self.isVisible():
+            return
+        revision = self._filter_revision
+        content = '\n'.join(str(self.cidrs[row]) for row in self.matching_rows) + '\n'
+        save_output(self, self._show_save_feedback, 'IPv6_Relation_Filtered.txt', content,
+                    lambda: self.isVisible() and self._filter_revision is revision,
+                    title=tx('保存筛选结果中的全部 CIDR 为 TXT'))
+
+    def _show_save_feedback(self, message, severity):
+        if self.isVisible():
+            self.save_feedback.set_message(message, severity)
+            self.save_feedback.show()
 
     def _copy_rows(self, rows):
         if rows:
