@@ -1,3 +1,9 @@
+## V1.33 操作验收 / Operation checks · 2026-11-15
+
+- 筛选 `::3`，验证原有保存输出完整的 `::2/127`，新增导出只输出 `::3/128`；无效或无匹配时禁用。 / Filter for `::3` and verify that the existing save writes `::2/127` while the new export writes only `::3/128`. Check that invalid and unmatched filters disable export.
+
+- 在双网段 CIDR 详情筛选 `::3`，若唯一匹配条目为 `::2/127`，检查覆盖数为 2、命中数为 1；筛选无匹配时命中数为 0，清空筛选后仅显示覆盖数。分别检查中英文。 / In two-network CIDR details, filter for `::3` with `::2/127` as the only match. Check coverage of 2 and a match count of 1. An unmatched query shows 0 matches, and clearing the filter shows coverage only. Check both languages.
+
 ## V1.32 操作验收 / Operation checks · 2026-11-11
 
 - 输入或粘贴 1280、0640、0000，确认拒绝计算；修正为 128 后恢复正常。 / Enter or paste 1280, 0640 and 0000, verify rejection, then correct to 128 and calculate.

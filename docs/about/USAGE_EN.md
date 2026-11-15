@@ -330,4 +330,6 @@ Click the eye icon to view all CIDRs in the selected category, with first and la
 
 In the details window, enter an IPv6 address to find the block that contains it, or enter a CIDR to show all overlapping entries. For A = `::/126` and B = `::1/128`, choose A only and filter by `::3` to see only `::2/127`. Use Copy all CIDRs in the filtered results to copy every visible entry. Clear the filter to restore the full table.
 
-After filtering, click Save to export all visible CIDRs as TXT, one entry per line. The count covers the full visible blocks: filtering by `::3` and matching only `::2/127` shows 2 covered addresses.
+After filtering, click Save to export all visible CIDRs as TXT, one entry per line. The count covers the full visible blocks: filtering by `::3` and matching only `::2/127` shows 2 covered addresses and 1 address matched within the filter. For a CIDR filter, the match count includes only addresses within that CIDR. Clear the filter to show only full coverage.
+
+Use “Save only the CIDRs within the filter as TXT” to export the exact overlap. In the example above it saves only `::3/128`; the original Save button still writes `::2/127`. The new action requires a valid filter with at least one match.

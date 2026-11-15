@@ -4,6 +4,6 @@
 
 This version uses PyQt6 6.12.0 and Qt 6.12.0 from [Riverbank's official pre-release index](https://www.riverbankcomputing.com/pypi/), before main PyPI publication. Installation/builds use the exact versions and additional official index in `requirements.txt`. The same pinned versions can resolve from main PyPI once published there.
 
-Windows x64 与 Linux x86-64 的官方 wheel 可用于相应构建；本次实际自动验证的平台见交付说明。组件版权和许可原文保留在 `docs/licenses/` 与关于窗口中。关于窗口“程序信息”显示实际运行组件版本。
+Windows x64 与 Linux x86-64 的官方 wheel 可用于相应构建。组件版权和许可原文保留在 `docs/licenses/` 与关于窗口中。关于窗口“程序信息”显示实际运行组件版本。
 
 Official wheels are available for Windows x64 and Linux x86-64. Delivery notes identify the platform actually checked. Original component notices remain in `docs/licenses/` and About; the Information tab shows actual runtime versions.

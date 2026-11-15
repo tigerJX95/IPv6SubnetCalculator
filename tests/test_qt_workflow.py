@@ -770,7 +770,9 @@ class QtWorkflowTests(unittest.TestCase):
             dialog.copy_matches_button.click()
             self.assertEqual(QApplication.clipboard().text(), '2001:db8::/126\n2001:db8::6/127')
             self.application.language_manager.apply('en_US', persist=False)
-            self.assertEqual(dialog.filter_status.text(), 'Showing 2 / 3 CIDRs; visible entries cover 6 addresses')
+            self.assertEqual(dialog.filter_status.text(),
+                             'Showing 2 / 3 CIDRs; visible entries cover 6 addresses\n'
+                             'Addresses matched within the filter: 6')
             self.assertEqual(dialog.filter_input.text(), '2001:db8::7/125')
             oversized = '2001:db8::7' + ' ' * 189 + 'invalid'
             QApplication.clipboard().setText(oversized)
@@ -841,13 +843,57 @@ class QtWorkflowTests(unittest.TestCase):
             dialog.close()
             dialog.deleteLater()
 
-    def test_relation_detail_count_covers_whole_visible_block_without_rounding(self):
+    def test_relation_detail_exports_only_the_intersection(self):
+        cidrs = tuple(map(IPv6Network, ('::/126', '::4/128', '::6/127', '::8/125')))
+        dialog = RelationCidrDialog('CIDR', cidrs, self.window.clipboard, self.window)
+        dialog.show()
+        try:
+            with tempfile.TemporaryDirectory() as directory:
+                path = Path(directory) / 'overlap.txt'
+                for query, output in (('::3', b'::3/128\n'), ('::2/127', b'::2/127\n'),
+                                      ('::/125', b'::/126\n::4/128\n::6/127\n')):
+                    with self.subTest(query=query):
+                        path.unlink(missing_ok=True)
+                        dialog.filter_input.setText(query)
+                        with patch('ui.list_output_controller.QFileDialog.getSaveFileName',
+                                   return_value=(str(path), '')):
+                            dialog.save_overlap_button.click()
+                        self.assertEqual(path.read_bytes(), output)
+                def change_during_picker(*args, **kwargs):
+                    dialog.filter_input.setText('::3')
+                    return str(path), ''
+                with patch('ui.list_output_controller.QFileDialog.getSaveFileName',
+                           side_effect=change_during_picker):
+                    dialog.save_overlap_button.click()
+                self.assertEqual(path.read_bytes(), b'::/126\n::4/128\n::6/127\n')
+                for query in ('', '::/129', '2001:db8::'):
+                    dialog.filter_input.setText(query)
+                    self.assertFalse(dialog.save_overlap_button.isEnabled())
+        finally:
+            dialog.close()
+            dialog.deleteLater()
+
+    def test_relation_detail_distinguishes_visible_coverage_from_filter_overlap(self):
         dialog = RelationCidrDialog('CIDR', (IPv6Network('::/0'),), self.window.clipboard, self.window)
         try:
             dialog.filter_input.setText('2001:db8::1')
             self.assertIn(f'{2**128:,}', dialog.filter_status.text())
+            self.assertIn('筛选范围内实际命中 1 个地址', dialog.filter_status.text())
+            self.application.language_manager.apply('en_US', persist=False)
+            for query, expected in (('2001:db8::/32', 2**96), ('::/0', 2**128)):
+                with self.subTest(query=query):
+                    dialog.filter_input.setText(query)
+                    self.assertEqual(dialog.filter_status.text().splitlines(),
+                                     [f'Showing 1 / 1 CIDRs; visible entries cover {2**128:,} addresses',
+                                      f'Addresses matched within the filter: {expected:,}'])
+            dialog.filter_input.setText('::/129')
+            self.assertNotIn('Addresses matched', dialog.filter_status.text())
+            dialog.filter_input.clear()
+            self.assertEqual(dialog.filter_status.text(),
+                             f'Showing 1 / 1 CIDRs; visible entries cover {2**128:,} addresses')
         finally:
             dialog.deleteLater()
+            self.application.language_manager.apply('zh_CN', persist=False)
 
     def test_relation_txt_exports_selected_cidrs_and_localized_full_report(self):
         tools = self.window.address_tools_page

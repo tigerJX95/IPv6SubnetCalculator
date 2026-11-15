@@ -3,6 +3,14 @@
   <context>
     <name>App</name>
     <message>
+        <source>保存筛选范围内实际命中的 CIDR 为 TXT</source>
+        <translation>Save only the CIDRs within the filter as TXT</translation>
+    </message>
+    <message>
+        <source>筛选范围内实际命中 {0:,} 个地址</source>
+        <translation>Addresses matched within the filter: {0:,}</translation>
+    </message>
+    <message>
         <source>保存筛选结果中的全部 CIDR 为 TXT</source>
         <translation>Save all filtered CIDRs as TXT</translation>
     </message>
