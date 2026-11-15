@@ -333,3 +333,5 @@ In the details window, enter an IPv6 address to find the block that contains it,
 After filtering, click Save to export all visible CIDRs as TXT, one entry per line. The count covers the full visible blocks: filtering by `::3` and matching only `::2/127` shows 2 covered addresses and 1 address matched within the filter. For a CIDR filter, the match count includes only addresses within that CIDR. Clear the filter to show only full coverage.
 
 Use “Save only the CIDRs within the filter as TXT” to export the exact overlap. In the example above it saves only `::3/128`; the original Save button still writes `::2/127`. The new action requires a valid filter with at least one match.
+
+Use an address range such as `::3 - ::8` to filter by two inclusive endpoints. Click “Copy only the CIDRs within the filter” to paste the exact overlap into Subnet List. The original copy action still copies full entries.

@@ -1,3 +1,7 @@
+## V1.34 操作验收 / Operation checks · 2026-11-19
+
+- 筛选 `::3 - ::8`，检查起止地址均计入、复制与保存的交集一致；反向范围、缺少端点或无匹配时，禁用复制和保存交集。 / Filter by `::3 - ::8`. Check that both endpoints count and that copied and saved overlaps agree. Reversed, incomplete, or unmatched ranges disable exact copy and save.
+
 ## V1.33 操作验收 / Operation checks · 2026-11-15
 
 - 筛选 `::3`，验证原有保存输出完整的 `::2/127`，新增导出只输出 `::3/128`；无效或无匹配时禁用。 / Filter for `::3` and verify that the existing save writes `::2/127` while the new export writes only `::3/128`. Check that invalid and unmatched filters disable export.

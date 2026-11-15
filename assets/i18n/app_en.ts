@@ -27,16 +27,24 @@
         <translation>CIDR filter input cannot exceed 200 characters.</translation>
     </message>
     <message>
-        <source>输入 IPv6 地址或 CIDR 进行筛选</source>
-        <translation>Filter by IPv6 address or CIDR</translation>
+        <source>按 IPv6 地址、CIDR 或起止范围筛选</source>
+        <translation>Filter by IPv6 address, CIDR, or range</translation>
     </message>
     <message>
         <source>筛选 CIDR 清单</source>
         <translation>Filter CIDR list</translation>
     </message>
     <message>
-        <source>地址匹配包含它的条目；CIDR 匹配与它重叠的条目。</source>
-        <translation>An address matches the entry containing it; a CIDR matches overlapping entries.</translation>
+        <source>输入单个地址、CIDR，或用连字符连接起止地址（如 ::3 - ::8）。</source>
+        <translation>Enter one address, a CIDR, or two endpoints separated by a hyphen (e.g. ::3 - ::8).</translation>
+    </message>
+    <message>
+        <source>复制筛选范围内实际命中的 CIDR</source>
+        <translation>Copy only the CIDRs within the filter</translation>
+    </message>
+    <message>
+        <source>已复制筛选范围内实际命中的 CIDR。</source>
+        <translation>Copied only the CIDRs within the filter.</translation>
     </message>
     <message>
         <source>清空 CIDR 筛选</source>
