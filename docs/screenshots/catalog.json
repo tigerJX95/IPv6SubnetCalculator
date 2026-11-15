@@ -404,19 +404,19 @@
     },
     "docs/screenshots/relation_details_zh_CN_light.png": {
       "language": "zh_CN",
-      "sha256": "665aa0f6010d8c0a25c8770ada6ef5edc7668b35ebae2693201af46043df2565"
+      "sha256": "136d99154cd8f783f2b0aa3eddffd762cc46ced359036ebd13d36b348928a113"
     },
     "docs/screenshots/relation_details_zh_CN_dark.png": {
       "language": "zh_CN",
-      "sha256": "cb3b4f367a263eb82e631551c22aeca90f3ee41c3ca83f81ec331af3f00a3899"
+      "sha256": "d469dda9ed66dab179dc93719393e86ad59e357c5874e9f57bf8b51bdc63c66a"
     },
     "docs/screenshots/relation_details_en_US_light.png": {
       "language": "en_US",
-      "sha256": "506539c33e2432e7906cfb6f7dc419e8fb324ba286daa695bd6bea806f47b5dd"
+      "sha256": "6d38c672c7b2188cb42f93e00e65d7167558aba0d24c577d766925e44cb4a58e"
     },
     "docs/screenshots/relation_details_en_US_dark.png": {
       "language": "en_US",
-      "sha256": "40511475d9b970923287b1870f5831bcb02a03411d2d917657749eb45f4670fc"
+      "sha256": "e7e72ed92396c9a6e16c63d0d7ab84b7b2d43fe15cbabec87b4e09b09dc72edd"
     }
   }
 }

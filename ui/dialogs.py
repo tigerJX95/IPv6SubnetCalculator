@@ -18,7 +18,7 @@
 """详情、范围复制、导出范围及导出进度窗口。"""
 from ui.localized_widgets import QFormLayout, QDialog, QLabel, QLineEdit, QRadioButton
 from core.localized_text import text as tx, join_text as jt
-from ipaddress import IPv6Network
+from ipaddress import summarize_address_range
 from ui.standard_dialogs import QMessageBox
 from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtWidgets import (QVBoxLayout, QHBoxLayout, QProgressBar, QTableWidget,
@@ -28,6 +28,7 @@ from ui.fonts import data_font
 from services.language_service import display
 from core.ipv6_core import (InputError, calculate, validate_ipv6_address,
                             validate_subnet_index, subnet_at_index)
+from core.address_range import range_to_cidrs
 from core.subnet_tools import (MAX_COPY_RECORDS, validate_copy_range, subnet_range_text,
                                 adjacent_subnet_index)
 from ui.widgets import IconButton, value_label, FeedbackLabel
@@ -63,9 +64,9 @@ class RelationCidrDialog(AppDialog):
         filters = QHBoxLayout()
         self.filter_input = QLineEdit()
         self.filter_input.setFont(data_font())
-        self.filter_input.setPlaceholderText(tx('输入 IPv6 地址或 CIDR 进行筛选'))
+        self.filter_input.setPlaceholderText(tx('按 IPv6 地址、CIDR 或起止范围筛选'))
         self.filter_input.setAccessibleName(tx('筛选 CIDR 清单'))
-        self.filter_input.setToolTip(tx('地址匹配包含它的条目；CIDR 匹配与它重叠的条目。'))
+        self.filter_input.setToolTip(tx('输入单个地址、CIDR，或用连字符连接起止地址（如 ::3 - ::8）。'))
         filters.addWidget(self.filter_input, 1)
         self.clear_filter = IconButton('clear_highlight_small', tx('清空 CIDR 筛选'))
         self.clear_filter.clicked.connect(self.filter_input.clear)
@@ -94,6 +95,8 @@ class RelationCidrDialog(AppDialog):
         shortcut.activated.connect(self.copy_selected)
         self.copy_matches_button = IconButton('copy_page', tx('复制筛选结果中的全部 CIDR'))
         self.copy_matches_button.clicked.connect(self.copy_matches)
+        self.copy_overlap_button = IconButton('copy_range', tx('复制筛选范围内实际命中的 CIDR'))
+        self.copy_overlap_button.clicked.connect(self.copy_overlap)
         self.save_matches_button = IconButton('save_plan', tx('保存筛选结果中的全部 CIDR 为 TXT'))
         self.save_matches_button.clicked.connect(self.save_matches)
         self.save_overlap_button = IconButton('export', tx('保存筛选范围内实际命中的 CIDR 为 TXT'))
@@ -104,6 +107,7 @@ class RelationCidrDialog(AppDialog):
         actions.addStretch()
         actions.addWidget(self.copy_button)
         actions.addWidget(self.copy_matches_button)
+        actions.addWidget(self.copy_overlap_button)
         actions.addWidget(self.save_matches_button)
         actions.addWidget(self.save_overlap_button)
         actions.addWidget(close)
@@ -136,19 +140,20 @@ class RelationCidrDialog(AppDialog):
         raw = self.filter_input.text()
         self.clear_filter.setEnabled(bool(raw))
         error = None
-        network = None
         self._overlap_cidrs = ()
         try:
             if len(raw) > 200:
                 raise InputError(tx('CIDR 筛选输入不能超过 200 个字符。'))
             query = raw.strip()
-            if '/' in query:
+            if '-' in query:
+                interval = range_to_cidrs(*query.split('-', 1))
+                self._match_interval(interval.start, interval.end)
+            elif '/' in query:
                 network = calculate(query, '128', preview_limit=0).network
-                self.matching_rows = tuple(row for row, cidr in enumerate(self.cidrs) if cidr.overlaps(network))
+                self._match_interval(network.network_address, network.broadcast_address)
             elif query:
                 address = validate_ipv6_address(query)
-                network = IPv6Network((address, 128))
-                self.matching_rows = tuple(row for row, cidr in enumerate(self.cidrs) if address in cidr)
+                self._match_interval(address, address)
             else:
                 self.matching_rows = tuple(range(len(self.cidrs)))
         except InputError as exc:
@@ -161,12 +166,8 @@ class RelationCidrDialog(AppDialog):
             self.table.setRowHidden(row, row not in visible)
         self.copy_matches_button.setEnabled(bool(visible))
         self.save_matches_button.setEnabled(bool(visible))
-        if network is not None:
-            # Overlapping CIDRs are nested, so their intersection is the smaller block.
-            self._overlap_cidrs = tuple(
-                cidr if cidr.prefixlen >= network.prefixlen else network
-                for cidr in (self.cidrs[row] for row in self.matching_rows))
         self.save_overlap_button.setEnabled(bool(self._overlap_cidrs))
+        self.copy_overlap_button.setEnabled(bool(self._overlap_cidrs))
         if error is not None:
             mark_invalid(self.filter_input, error)
             self.filter_status.set_message(error, 'error')
@@ -181,6 +182,17 @@ class RelationCidrDialog(AppDialog):
                 status = jt('\n', (status, tx('筛选范围内实际命中 {0:,} 个地址', matched)))
             self.filter_status.set_message(status)
 
+    def _match_interval(self, start, end):
+        rows, overlap = [], []
+        for row, cidr in enumerate(self.cidrs):
+            first = max(start, cidr.network_address)
+            last = min(end, cidr.broadcast_address)
+            if first <= last:
+                rows.append(row)
+                overlap.extend(summarize_address_range(first, last))
+        self.matching_rows = tuple(rows)
+        self._overlap_cidrs = tuple(overlap)
+
     def copy_selected(self):
         rows = sorted(index.row() for index in self.table.selectionModel().selectedRows()
                       if not self.table.isRowHidden(index.row()))
@@ -188,6 +200,11 @@ class RelationCidrDialog(AppDialog):
 
     def copy_matches(self):
         self._copy_rows(self.matching_rows)
+
+    def copy_overlap(self):
+        if self._overlap_cidrs:
+            self.clipboard.copy_text('\n'.join(map(str, self._overlap_cidrs)),
+                                     tx('已复制筛选范围内实际命中的 CIDR。'), self)
 
     def save_matches(self):
         self._save_cidrs((self.cidrs[row] for row in self.matching_rows),

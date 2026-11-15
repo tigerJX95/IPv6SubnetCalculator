@@ -2963,15 +2963,6 @@
     },
     {
       "context": "App",
-      "source": "地址匹配包含它的条目；CIDR 匹配与它重叠的条目。",
-      "source_sha256": "4e1056505237146c5badc3dbe7289219faff31a252fd0535dc4975a3cc4d4fa4",
-      "protected_tokens": [],
-      "filter_patterns": [],
-      "structured_lines": false,
-      "opaque": false
-    },
-    {
-      "context": "App",
       "source": "地址工具",
       "source_sha256": "1a5948eb14e1301871258b59b65bb6d255efffd3ec4c254d49bd26442d8a38f7",
       "protected_tokens": [],
@@ -3505,6 +3496,15 @@
       "context": "App",
       "source": "复制筛选结果中的全部 CIDR",
       "source_sha256": "4cd6c7d7cd0604de7b345e252c077c11ca71bf80f2bc6646b507f0e469271b42",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "复制筛选范围内实际命中的 CIDR",
+      "source_sha256": "b42fe6d360182aa32fd451fa2e4d47076b93a26045689cfd0f484e425eed7a95",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -4317,6 +4317,15 @@
     },
     {
       "context": "App",
+      "source": "已复制筛选范围内实际命中的 CIDR。",
+      "source_sha256": "d971f86b808d95f17deece8320035f0823944e33724e92cb9ce885fdbb74c14f",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "已定位第 {0:,}～{1:,} 个子网，共 {2:,} 项；翻页仍保留范围高亮。",
       "source_sha256": "f5b946b0b6ce68a261122bc7b9c0a2e9dc2372d094899bedc7e349a2cbc227ea",
       "protected_tokens": [],
@@ -4820,6 +4829,15 @@
       "context": "App",
       "source": "按 IPv6 地址",
       "source_sha256": "994d913bdc571e43c96e0dd2d244458c303f8c591ac6391d01c6cedacfb3ba01",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "按 IPv6 地址、CIDR 或起止范围筛选",
+      "source_sha256": "e020d512af8897b0b4b2cde008d60d72f5db51719f4fa476841fb3dbb819ebf4",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -8427,15 +8445,6 @@
     },
     {
       "context": "App",
-      "source": "输入 IPv6 地址或 CIDR 进行筛选",
-      "source_sha256": "e6287e85b5973ff361f2a1961feeacf1c17c81be92fd7e3d975fe650b3fd6ae8",
-      "protected_tokens": [],
-      "filter_patterns": [],
-      "structured_lines": false,
-      "opaque": false
-    },
-    {
-      "context": "App",
       "source": "输入 IPv6 地址或完整 ip6.arpa 名称；允许大写和末尾根点，不查询 DNS。",
       "source_sha256": "ee0afd6fb08853c7c427dbe66bfeb1395833d1e11947db6bc2299bd6c6c96cef",
       "protected_tokens": [],
@@ -8492,6 +8501,15 @@
       "context": "App",
       "source": "输入准备分配的 IPv6 CIDR，检查与清单的冲突及候选内空闲部分。",
       "source_sha256": "b893e1a5ab64d140f785a5aa750faf46b3cd6bf40672c368677d13ba5bb549ea",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "输入单个地址、CIDR，或用连字符连接起止地址（如 ::3 - ::8）。",
+      "source_sha256": "bad28ddefda5e61cf945a266b1beaeb38fb72bc6ccff9ec0723a60c038a4f9c0",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,

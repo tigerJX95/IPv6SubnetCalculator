@@ -873,6 +873,44 @@ class QtWorkflowTests(unittest.TestCase):
             dialog.close()
             dialog.deleteLater()
 
+    def test_relation_detail_range_filter_and_exact_copy(self):
+        cidrs = tuple(map(IPv6Network, ('::/126', '::6/127', '::8/125')))
+        dialog = RelationCidrDialog('CIDR', cidrs, self.window.clipboard, self.window)
+        dialog.show()
+        try:
+            self.application.language_manager.apply('en_US', persist=False)
+            dialog.filter_input.setText('::3 - ::8')
+            self.assertEqual(dialog.matching_rows, (0, 1, 2))
+            self.assertEqual(dialog.filter_status.text().splitlines(),
+                             ['Showing 3 / 3 CIDRs; visible entries cover 14 addresses',
+                              'Addresses matched within the filter: 4'])
+            dialog.copy_overlap_button.click()
+            expected = '::3/128\n::6/127\n::8/128'
+            self.assertEqual(QApplication.clipboard().text(), expected)
+            with tempfile.TemporaryDirectory() as directory:
+                path = Path(directory) / 'range.txt'
+                with patch('ui.list_output_controller.QFileDialog.getSaveFileName',
+                           return_value=(str(path), '')):
+                    dialog.save_overlap_button.click()
+                self.assertEqual(path.read_bytes(), (expected + '\n').encode())
+            dialog.copy_matches_button.click()
+            self.assertEqual(QApplication.clipboard().text(), '::/126\n::6/127\n::8/125')
+            dialog.filter_input.setText('::8')
+            dialog.copy_overlap_button.click()
+            self.assertEqual(QApplication.clipboard().text(), '::8/128')
+            for query, invalid in (('::8 - ::3', True), ('::3 -', True),
+                                   ('::4 - ::5', False), ('', False)):
+                with self.subTest(query=query):
+                    dialog.filter_input.setText(query)
+                    self.assertFalse(dialog.copy_overlap_button.isEnabled())
+                    self.assertFalse(dialog.save_overlap_button.isEnabled())
+                    self.assertEqual(dialog.filter_input.property('invalid'), invalid)
+                    self.assertNotRegex(dialog.filter_status.text(), r'[\u4e00-\u9fff]')
+        finally:
+            dialog.close()
+            dialog.deleteLater()
+            self.application.language_manager.apply('zh_CN', persist=False)
+
     def test_relation_detail_distinguishes_visible_coverage_from_filter_overlap(self):
         dialog = RelationCidrDialog('CIDR', (IPv6Network('::/0'),), self.window.clipboard, self.window)
         try:

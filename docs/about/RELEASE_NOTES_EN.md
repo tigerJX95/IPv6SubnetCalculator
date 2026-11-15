@@ -1,8 +1,8 @@
 # Release Notes
 
-## V1.33 Two-network CIDR filter counts and export · 2026-11-15
+## V1.34 Filter two-network CIDRs by address range and copy matches · 2026-11-19
 
-- Two-network CIDR details show full coverage and the exact address count within the filter separately. For example, filtering for `::3` matches `::2/127`: the block covers 2 addresses, and 1 address matches the filter.
-- Two-network CIDR details can save only the addresses shared by the filter and the current category as TXT. For example, filtering for `::3` in `::2/127` saves only `::3/128`. The existing save action still writes full visible CIDRs.
+- Filter two-network CIDR details by an inclusive IPv6 address range such as `::3 - ::8`. The match count and exact TXT export include only addresses in the overlap.
+- Copy the exact matching CIDRs directly into Subnet List. This works with single-address, CIDR, and address-range filters.
 
 [Update History](HISTORY.md)
