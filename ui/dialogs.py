@@ -18,6 +18,7 @@
 """详情、范围复制、导出范围及导出进度窗口。"""
 from ui.localized_widgets import QFormLayout, QDialog, QLabel, QLineEdit, QRadioButton
 from core.localized_text import text as tx, join_text as jt
+from ipaddress import IPv6Network
 from ui.standard_dialogs import QMessageBox
 from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtWidgets import (QVBoxLayout, QHBoxLayout, QProgressBar, QTableWidget,
@@ -95,6 +96,8 @@ class RelationCidrDialog(AppDialog):
         self.copy_matches_button.clicked.connect(self.copy_matches)
         self.save_matches_button = IconButton('save_plan', tx('保存筛选结果中的全部 CIDR 为 TXT'))
         self.save_matches_button.clicked.connect(self.save_matches)
+        self.save_overlap_button = IconButton('export', tx('保存筛选范围内实际命中的 CIDR 为 TXT'))
+        self.save_overlap_button.clicked.connect(self.save_overlap)
         close = IconButton('close_small', tx('关闭详情（Esc）'))
         close.clicked.connect(self.accept)
         actions = QHBoxLayout()
@@ -102,6 +105,7 @@ class RelationCidrDialog(AppDialog):
         actions.addWidget(self.copy_button)
         actions.addWidget(self.copy_matches_button)
         actions.addWidget(self.save_matches_button)
+        actions.addWidget(self.save_overlap_button)
         actions.addWidget(close)
         layout.addLayout(actions)
         self.save_feedback = FeedbackLabel()
@@ -132,6 +136,8 @@ class RelationCidrDialog(AppDialog):
         raw = self.filter_input.text()
         self.clear_filter.setEnabled(bool(raw))
         error = None
+        network = None
+        self._overlap_cidrs = ()
         try:
             if len(raw) > 200:
                 raise InputError(tx('CIDR 筛选输入不能超过 200 个字符。'))
@@ -141,6 +147,7 @@ class RelationCidrDialog(AppDialog):
                 self.matching_rows = tuple(row for row, cidr in enumerate(self.cidrs) if cidr.overlaps(network))
             elif query:
                 address = validate_ipv6_address(query)
+                network = IPv6Network((address, 128))
                 self.matching_rows = tuple(row for row, cidr in enumerate(self.cidrs) if address in cidr)
             else:
                 self.matching_rows = tuple(range(len(self.cidrs)))
@@ -154,6 +161,12 @@ class RelationCidrDialog(AppDialog):
             self.table.setRowHidden(row, row not in visible)
         self.copy_matches_button.setEnabled(bool(visible))
         self.save_matches_button.setEnabled(bool(visible))
+        if network is not None:
+            # Overlapping CIDRs are nested, so their intersection is the smaller block.
+            self._overlap_cidrs = tuple(
+                cidr if cidr.prefixlen >= network.prefixlen else network
+                for cidr in (self.cidrs[row] for row in self.matching_rows))
+        self.save_overlap_button.setEnabled(bool(self._overlap_cidrs))
         if error is not None:
             mark_invalid(self.filter_input, error)
             self.filter_status.set_message(error, 'error')
@@ -161,8 +174,12 @@ class RelationCidrDialog(AppDialog):
             # The relation output is disjoint. Count the visible CIDR blocks,
             # including addresses in those blocks outside the query.
             total = sum(self.cidrs[row].num_addresses for row in self.matching_rows)
-            self.filter_status.set_message(tx('显示 {0:,} / {1:,} 条 CIDR；可见条目覆盖 {2:,} 个地址',
-                                              len(visible), len(self.cidrs), total))
+            status = tx('显示 {0:,} / {1:,} 条 CIDR；可见条目覆盖 {2:,} 个地址',
+                        len(visible), len(self.cidrs), total)
+            if query:
+                matched = sum(cidr.num_addresses for cidr in self._overlap_cidrs)
+                status = jt('\n', (status, tx('筛选范围内实际命中 {0:,} 个地址', matched)))
+            self.filter_status.set_message(status)
 
     def copy_selected(self):
         rows = sorted(index.row() for index in self.table.selectionModel().selectedRows()
@@ -173,13 +190,21 @@ class RelationCidrDialog(AppDialog):
         self._copy_rows(self.matching_rows)
 
     def save_matches(self):
-        if not self.matching_rows or not self.isVisible():
+        self._save_cidrs((self.cidrs[row] for row in self.matching_rows),
+                         'IPv6_Relation_Filtered.txt', tx('保存筛选结果中的全部 CIDR 为 TXT'))
+
+    def save_overlap(self):
+        self._save_cidrs(self._overlap_cidrs, 'IPv6_Relation_Filter_Overlap.txt',
+                         tx('保存筛选范围内实际命中的 CIDR 为 TXT'))
+
+    def _save_cidrs(self, cidrs, filename, title):
+        if not self.isVisible():
             return
         revision = self._filter_revision
-        content = '\n'.join(str(self.cidrs[row]) for row in self.matching_rows) + '\n'
-        save_output(self, self._show_save_feedback, 'IPv6_Relation_Filtered.txt', content,
-                    lambda: self.isVisible() and self._filter_revision is revision,
-                    title=tx('保存筛选结果中的全部 CIDR 为 TXT'))
+        content = '\n'.join(map(str, cidrs))
+        if content:
+            save_output(self, self._show_save_feedback, filename, content + '\n',
+                        lambda: self.isVisible() and self._filter_revision is revision, title=title)
 
     def _show_save_feedback(self, message, severity):
         if self.isVisible():

@@ -1697,6 +1697,15 @@
     },
     {
       "context": "App",
+      "source": "保存筛选范围内实际命中的 CIDR 为 TXT",
+      "source_sha256": "1d1b4f831529d6cd2369302df4e935d6dc39eae0783bb51a4ab6ba3de457acd8",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "保存规划报告为 TXT",
       "source_sha256": "5c69a5e5de57fe0db4745b54a74403e1f374a7ba795ef8243fc9f15e7027517b",
       "protected_tokens": [],
@@ -7196,6 +7205,15 @@
       "context": "App",
       "source": "筛选 CIDR 清单",
       "source_sha256": "c3ffd8208e7f4ac276d2c4678d96486f0c5392d35dfb879ae79b1dfd5c5dd33a",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "筛选范围内实际命中 {0:,} 个地址",
+      "source_sha256": "76a6aab2cfa21d70070caf4bd58184a81d6bc3e3663a5ed96c738a67992da405",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
