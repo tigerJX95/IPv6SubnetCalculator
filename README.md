@@ -1,11 +1,11 @@
 **简体中文** | [English](README_EN.md)
 
-# 🌐 IPv6 子网计算器 V1.34
+# 🌐 IPv6 子网计算器 V1.35
 
-## V1.34 双网段按地址范围筛选与复制 · 2026-11-19
+## V1.35 特殊用途地址识别与 IANA 登记详情 · 2026-11-16
 
-- 双网段 CIDR 详情支持按起止 IPv6 地址筛选，例如 `::3 - ::8`。首尾地址都计入，统计和 TXT 导出只计算实际重叠的地址。
-- 新增复制实际命中 CIDR 的按钮，结果可直接粘贴到子网清单。单地址、CIDR 和起止范围筛选均可使用。
+- 补齐 DNS-SD、PCP、TURN、AMT、AS112 等 8 个 IANA 登记前缀。单一用途采用最具体的条目；跨越更细登记的网段（如 `2001::/23`）提示混合范围。
+- 计算页和复制的摘要显示匹配的 IANA 前缀、登记表日期及源地址、目的地址、可转发、全球可达和协议保留属性。登记属性不代表实际网络连通性。
 
 [历史更新](docs/HISTORY.md)
 
@@ -92,6 +92,8 @@ IPv6SubnetCalculator 是一款适用于 Windows 的离线 IPv6 子网计算工�
 
 ![计算页面](docs/screenshots/calculation_zh_CN_light.png)
 
+![IANA 特殊用途地址登记详情](docs/screenshots/iana_registry_zh_CN_light.png)
+
 ![子网结果](docs/screenshots/results_zh_CN_dark.png)
 
 ![地址工具](docs/screenshots/tools_zh_CN_light.png)
@@ -120,7 +122,7 @@ IPv6SubnetCalculator 是一款适用于 Windows 的离线 IPv6 子网计算工�
 
 ## 📦 下载与使用
 
-从 GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest) 的 Assets 中直接下载 `IPv6SubnetCalculator_V1.34.exe`，下载后即可运行，无需另行配置运行环境。输入 IPv6 网络地址与目标前缀，点击计算图标；完成后自动切换到结果页。
+从 GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest) 的 Assets 中直接下载 `IPv6SubnetCalculator_V1.35.exe`，下载后即可运行，无需另行配置运行环境。输入 IPv6 网络地址与目标前缀，点击计算图标；完成后自动切换到结果页。
 
 按 F1 或点击顶部“ⓘ”可查看内置帮助、许可原文与法律责任说明。
 

@@ -3,6 +3,106 @@
   <context>
     <name>App</name>
     <message>
+        <source>未登记</source>
+        <translation>Not recorded</translation>
+    </message>
+    <message>
+        <source>不适用</source>
+        <translation>Not applicable</translation>
+    </message>
+    <message>
+        <source>IANA 登记前缀：{0}（登记表更新：{1}）</source>
+        <translation>IANA registered prefix: {0} (registry updated: {1})</translation>
+    </message>
+    <message>
+        <source>源地址：{0}；目的地址：{1}；可转发：{2}；全球可达：{3}；协议保留：{4}</source>
+        <translation>Source: {0}; Destination: {1}; Forwardable: {2}; Globally reachable: {3}; Reserved by protocol: {4}</translation>
+    </message>
+    <message>
+        <source>登记属性不代表实际网络连通性。</source>
+        <translation>Registry attributes do not indicate actual network connectivity.</translation>
+    </message>
+    <message>
+        <source>以上登记属性可被更具体的分配覆盖。</source>
+        <translation>More-specific allocations can override these registry attributes.</translation>
+    </message>
+    <message>
+        <source>Teredo 可达性条件见 RFC 4380 第 5 节。</source>
+        <translation>See RFC 4380 Section 5 for Teredo reachability conditions.</translation>
+    </message>
+    <message>
+        <source>6to4 可达性条件见 RFC 3056。</source>
+        <translation>See RFC 3056 for 6to4 reachability conditions.</translation>
+    </message>
+    <message>
+        <source>ULA 不在全球互联网中路由，详见 RFC 4193。</source>
+        <translation>ULAs are not routed on the global Internet; see RFC 4193.</translation>
+    </message>
+    <message>
+        <source>PCP 服务任播地址</source>
+        <translation>PCP service anycast address</translation>
+    </message>
+    <message>
+        <source>用于发现端口控制协议（PCP）服务，不应用作普通地址池。</source>
+        <translation>Used to discover Port Control Protocol (PCP) services; do not use as a general address pool.</translation>
+    </message>
+    <message>
+        <source>TURN 服务任播地址</source>
+        <translation>TURN service anycast address</translation>
+    </message>
+    <message>
+        <source>用于发现 TURN 中继服务，不应用作普通地址池。</source>
+        <translation>Used to discover TURN relays; do not use as a general address pool.</translation>
+    </message>
+    <message>
+        <source>DNS-SD 服务注册协议任播地址</source>
+        <translation>DNS-SD Service Registration Protocol anycast address</translation>
+    </message>
+    <message>
+        <source>用于发现 DNS-SD 服务注册协议的注册服务，不应用作普通地址池。</source>
+        <translation>Used to discover DNS-SD Service Registration Protocol registrars; do not use as a general address pool.</translation>
+    </message>
+    <message>
+        <source>AMT 自动组播隧道地址</source>
+        <translation>AMT automatic multicast tunneling address</translation>
+    </message>
+    <message>
+        <source>用于自动组播隧道（AMT），不应用作普通地址池。</source>
+        <translation>Used for Automatic Multicast Tunneling (AMT); do not use as a general address pool.</translation>
+    </message>
+    <message>
+        <source>AS112 IPv6 服务地址</source>
+        <translation>AS112 IPv6 service address</translation>
+    </message>
+    <message>
+        <source>用于 AS112 DNS 服务，不应用作普通地址池。</source>
+        <translation>Used for AS112 DNS service; do not use as a general address pool.</translation>
+    </message>
+    <message>
+        <source>旧式 ORCHID 地址（已废弃）</source>
+        <translation>Legacy ORCHID address (deprecated)</translation>
+    </message>
+    <message>
+        <source>原 ORCHID 分配已终止，不应用于新部署。</source>
+        <translation>The original ORCHID allocation has ended; do not use it in new deployments.</translation>
+    </message>
+    <message>
+        <source>无人机远程标识 DET 前缀</source>
+        <translation>Drone Remote ID DET prefix</translation>
+    </message>
+    <message>
+        <source>用于无人机远程标识协议的实体标签，不应用作普通地址池。</source>
+        <translation>Used for Drone Remote ID Protocol Entity Tags; do not use as a general address pool.</translation>
+    </message>
+    <message>
+        <source>AS112 直接委派服务地址</source>
+        <translation>AS112 direct delegation service address</translation>
+    </message>
+    <message>
+        <source>用于 AS112 直接委派的 DNS 服务，不应用作普通地址池。</source>
+        <translation>Used for direct delegation to AS112 DNS service; do not use as a general address pool.</translation>
+    </message>
+    <message>
         <source>保存筛选范围内实际命中的 CIDR 为 TXT</source>
         <translation>Save only the CIDRs within the filter as TXT</translation>
     </message>

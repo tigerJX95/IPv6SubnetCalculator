@@ -21,12 +21,56 @@ from dataclasses import dataclass
 from ipaddress import IPv6Network
 
 
+IANA_REGISTRY_UPDATED = '2025-10-09'
+
+
+@dataclass(frozen=True)
+class RegistryDetails:
+    prefix: str
+    attributes: str
+    footnote: str = ''
+
+    def as_text(self):
+        values = {'1': tx('是'), '0': tx('否'), '-': tx('未登记'), '?': tx('不适用')}
+        lines = [
+            tx('IANA 登记前缀：{0}（登记表更新：{1}）', self.prefix, IANA_REGISTRY_UPDATED),
+            tx('源地址：{0}；目的地址：{1}；可转发：{2}；全球可达：{3}；协议保留：{4}',
+               *(values[value] for value in self.attributes)),
+        ]
+        if self.footnote:
+            lines.append(self.footnote)
+        lines.append(tx('登记属性不代表实际网络连通性。'))
+        return jt('\n', lines)
+
+
 @dataclass(frozen=True)
 class AddressUsage:
     name: str
     guidance: str
     reference: str
     level: str  # 信息、注意、警告
+    registry: RegistryDetails | None = None
+
+
+# IANA IPv6 Special-Purpose Address Space snapshot (2025-10-09).
+# Source, Destination, Forwardable, Globally Reachable, Reserved-by-Protocol.
+# 1=True, 0=False, -=blank, ?=N/A. Preserve the distinctions and footnotes.
+_IANA_ATTRIBUTES = {
+    '::1/128': '00001', '::/128': '10001', '::ffff:0:0/96': '00001',
+    '64:ff9b::/96': '11110', '64:ff9b:1::/48': '11100', '100::/64': '11100',
+    '100:0:0:1::/64': '10000', '2001::/23': '00000', '2001::/32': '111?0',
+    '2001:1::1/128': '11110', '2001:1::2/128': '11110', '2001:1::3/128': '11110',
+    '2001:2::/48': '11100', '2001:3::/32': '11110', '2001:4:112::/48': '11110',
+    '2001:10::/28': '-----', '2001:20::/28': '11110', '2001:30::/28': '11110',
+    '2001:db8::/32': '00000', '2002::/16': '111?0', '2620:4f:8000::/48': '11110',
+    '3fff::/20': '00000', '5f00::/16': '11100', 'fc00::/7': '11100', 'fe80::/10': '11001',
+}
+_IANA_FOOTNOTES = {
+    '2001::/23': tx('以上登记属性可被更具体的分配覆盖。'),
+    '2001::/32': tx('Teredo 可达性条件见 RFC 4380 第 5 节。'),
+    '2002::/16': tx('6to4 可达性条件见 RFC 3056。'),
+    'fc00::/7': tx('ULA 不在全球互联网中路由，详见 RFC 4193。'),
+}
 
 
 # 更具体的前缀必须优先于其上层范围。条目保留常见且有明确部署意义的用途类别。
@@ -40,6 +84,14 @@ _ENTRIES = (
     ('100:0:0:1::/64', tx('虚拟示例前缀'), tx('用于协议规定的虚拟用途，不应作为实际终端地址分配。'), 'RFC 9780', tx('警告')),
     ('fec0::/10', tx('旧式站点本地地址（已废弃）'), tx('旧式站点本地地址已由 RFC 3879 废弃，不应用于新网络部署；内部网络请优先采用按规范生成的 ULA。'), 'RFC 3879 / RFC 4193', tx('警告')),
     ('2001::/32', tx('Teredo 隧道地址'), tx('历史 IPv6 过渡机制地址，不建议用于新建 IPv6 网络的普通地址分配。'), 'RFC 4380', tx('注意')),
+    ('2001:1::1/128', tx('PCP 服务任播地址'), tx('用于发现端口控制协议（PCP）服务，不应用作普通地址池。'), 'RFC 7723', tx('注意')),
+    ('2001:1::2/128', tx('TURN 服务任播地址'), tx('用于发现 TURN 中继服务，不应用作普通地址池。'), 'RFC 8155', tx('注意')),
+    ('2001:1::3/128', tx('DNS-SD 服务注册协议任播地址'), tx('用于发现 DNS-SD 服务注册协议的注册服务，不应用作普通地址池。'), 'RFC 9665', tx('注意')),
+    ('2001:3::/32', tx('AMT 自动组播隧道地址'), tx('用于自动组播隧道（AMT），不应用作普通地址池。'), 'RFC 7450', tx('注意')),
+    ('2001:4:112::/48', tx('AS112 IPv6 服务地址'), tx('用于 AS112 DNS 服务，不应用作普通地址池。'), 'RFC 7535', tx('注意')),
+    ('2001:10::/28', tx('旧式 ORCHID 地址（已废弃）'), tx('原 ORCHID 分配已终止，不应用于新部署。'), 'RFC 4843 / IANA', tx('警告')),
+    ('2001:30::/28', tx('无人机远程标识 DET 前缀'), tx('用于无人机远程标识协议的实体标签，不应用作普通地址池。'), 'RFC 9374', tx('注意')),
+    ('2620:4f:8000::/48', tx('AS112 直接委派服务地址'), tx('用于 AS112 直接委派的 DNS 服务，不应用作普通地址池。'), 'RFC 7534', tx('注意')),
     ('2001:20::/28', tx('ORCHIDv2 标识符地址'), tx('用于特定协议的加密哈希标识符，不属于普通单播网络地址分配空间。'), 'RFC 7343', tx('注意')),
     ('2001:2::/48', tx('基准测试地址'), tx('用于性能基准测试，不应用于实际公网地址分配。'), 'RFC 5180', tx('警告')),
     ('2001:db8::/32', tx('文档示例地址'), tx('保留供文档与教学示例使用，不可用于真实公网地址部署。'), 'RFC 3849', tx('警告')),
@@ -54,7 +106,16 @@ _ENTRIES = (
     # IETF 协议分配范围可能包含更具体的特殊登记项；不以宽泛类别取代细项。
     ('2001::/23', tx('IETF 协议专用地址空间'), tx('用于 IETF 协议相关分配；是否可在具体网络部署须依据更具体的地址用途规范，不能直接视为普通公网地址池。'), 'RFC 2928 / IANA', tx('注意')),
 )
-_REGISTERED = tuple((IPv6Network(cidr), AddressUsage(name, desc, ref, level)) for cidr,name,desc,ref,level in _ENTRIES)
+def _registry_for(cidr):
+    prefix = 'fc00::/7' if cidr in ('fc00::/8', 'fd00::/8') else cidr
+    if prefix in _IANA_ATTRIBUTES:
+        return RegistryDetails(prefix, _IANA_ATTRIBUTES[prefix], _IANA_FOOTNOTES.get(prefix, ''))
+    return None
+
+
+_REGISTERED = tuple((IPv6Network(cidr), AddressUsage(name, desc, ref, level, _registry_for(cidr)))
+                    for cidr, name, desc, ref, level in _ENTRIES)
+_IANA_NETWORKS = tuple(map(IPv6Network, _IANA_ATTRIBUTES))
 _GLOBAL_UNICAST = IPv6Network('2000::/3')
 
 
@@ -63,7 +124,8 @@ def describe_network(network: IPv6Network) -> AddressUsage:
     if not isinstance(network, IPv6Network):
         raise TypeError(tx('network 必须是 IPv6Network'))
     specific = [(block.prefixlen, usage) for block, usage in _REGISTERED if network.subnet_of(block)]
-    if specific:
+    contains_registration = any(block != network and block.subnet_of(network) for block in _IANA_NETWORKS)
+    if specific and not contains_registration:
         # 优先更具体的用途，不能因宽泛的 IETF 分配段覆盖 Teredo 等细分地址。
         _, selected = max(specific, key=lambda item: item[0])
         return selected

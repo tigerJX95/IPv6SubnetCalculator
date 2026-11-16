@@ -417,6 +417,22 @@
     "docs/screenshots/relation_details_en_US_dark.png": {
       "language": "en_US",
       "sha256": "e7e72ed92396c9a6e16c63d0d7ab84b7b2d43fe15cbabec87b4e09b09dc72edd"
+    },
+    "docs/screenshots/iana_registry_en_US_dark.png": {
+      "language": "en_US",
+      "sha256": "f4776c5a718434e3b12ec413e25245ecf5ceff2e9d4391f79e355119d1fbef03"
+    },
+    "docs/screenshots/iana_registry_en_US_light.png": {
+      "language": "en_US",
+      "sha256": "6f038e47484ade506c507f70bc9c9b45f42a725c4998eae79afdd6346cc05c29"
+    },
+    "docs/screenshots/iana_registry_zh_CN_dark.png": {
+      "language": "zh_CN",
+      "sha256": "1cbfa78931f7e2d95d3955cb17fb1cc0b34af64851736a9289a0b970a92aa2fc"
+    },
+    "docs/screenshots/iana_registry_zh_CN_light.png": {
+      "language": "zh_CN",
+      "sha256": "a4ca78290e5a6fe59a0832740f14fcce5f9d3152e5473fadda2ff4c303954cc3"
     }
   }
 }

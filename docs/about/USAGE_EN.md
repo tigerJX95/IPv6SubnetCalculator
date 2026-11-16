@@ -2,6 +2,10 @@
 
 This guide explains current operations. Version changes are listed separately on the Release Notes tab.
 
+## View IANA registry details
+
+In Subnet Calculation, enter `2001:1::3/128` to see its designation as a DNS-SD Service Registration Protocol anycast address. The usage section and copied summary include the matched IANA prefix, registry date and attributes. Mixed ranges show general guidance; Not applicable and Not recorded correspond to N/A and blank entries, respectively. Neither means No. Registry attributes do not describe live connectivity. [IANA](https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry.xhtml)
+
 ## Planning project save and restore
 
 - Open/save-as icons at the top of Subnet List remain accessible on the Allocation Suggestions tab.

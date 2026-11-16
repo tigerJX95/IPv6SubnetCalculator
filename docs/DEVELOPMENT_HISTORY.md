@@ -2,6 +2,16 @@
 
 [返回开发说明 / Development notes](DEVELOPMENT.md)
 
+## V1.34 双网段按地址范围筛选与复制 · 2026-11-19
+
+- 双网段 CIDR 详情支持按起止 IPv6 地址筛选，例如 `::3 - ::8`。首尾地址都计入，统计和 TXT 导出只计算实际重叠的地址。
+- 新增复制实际命中 CIDR 的按钮，结果可直接粘贴到子网清单。单地址、CIDR 和起止范围筛选均可使用。
+
+## V1.34 Filter two-network CIDRs by address range and copy matches · 2026-11-19
+
+- Filter two-network CIDR details by an inclusive IPv6 address range such as `::3 - ::8`. The match count and exact TXT export include only addresses in the overlap.
+- Copy the exact matching CIDRs directly into Subnet List. This works with single-address, CIDR, and address-range filters.
+
 ## V1.33 双网段 CIDR 筛选统计与导出 · 2026-11-15
 
 - 双网段 CIDR 详情分别显示可见条目的完整覆盖数和筛选范围内实际命中的地址数。例如，筛选 `::3` 命中 `::2/127` 时，完整覆盖 2 个地址，实际命中 1 个地址。

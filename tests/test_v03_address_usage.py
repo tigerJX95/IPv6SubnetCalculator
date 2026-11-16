@@ -57,6 +57,29 @@ class UsageTests(unittest.TestCase):
         self.check('2000::/3', '混合', '注意')
         self.check('::/0', '混合', '注意')
         self.check('2001::/16', '混合', '注意')
+        for cidr in ('2001::/23', '2001:1::/126'):
+            with self.subTest(cidr=cidr):
+                self.check(cidr, '混合', '注意')
+                self.assertIsNone(describe_network(IPv6Network(cidr)).registry)
+
+    def test_specific_iana_entries_and_non_boolean_states(self):
+        for cidr, label, flags in (
+                ('2001:1::1/128', 'PCP', '11110'),
+                ('2001:1::2/128', 'TURN', '11110'),
+                ('2001:1::3/128', 'DNS-SD', '11110'),
+                ('2001:3::/32', 'AMT', '11110'),
+                ('2001:4:112::/48', 'AS112', '11110'),
+                ('2001:10::/28', '已废弃', '-----'),
+                ('2001:30::/28', 'DET', '11110'),
+                ('2620:4f:8000::/48', 'AS112', '11110'),
+                ('2002::/16', '6to4', '111?0'),
+                ('5f00::/16', 'SRv6', '11100')):
+            with self.subTest(cidr=cidr):
+                usage = describe_network(IPv6Network(cidr))
+                self.assertIn(label, usage.name)
+                self.assertEqual((usage.registry.prefix, usage.registry.attributes), (cidr, flags))
+        self.assertEqual(describe_network(IPv6Network('fd12::/48')).registry.prefix, 'fc00::/7')
+        self.assertIsNone(describe_network(IPv6Network('2026:1015:abcd::/48')).registry)
     def test_explicit_address_types(self):
         self.check('fd00:1000:a12b::/48', 'ULA')
         self.check('2002::/32', '6to4')
