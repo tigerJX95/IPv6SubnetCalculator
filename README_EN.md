@@ -1,11 +1,11 @@
 [简体中文](README.md) | **English**
 
-# 🌐 IPv6 Subnet Calculator V1.34
+# 🌐 IPv6 Subnet Calculator V1.35
 
-## V1.34 Filter two-network CIDRs by address range and copy matches · 2026-11-19
+## V1.35 Special-purpose address classification and IANA registry details · 2026-11-16
 
-- Filter two-network CIDR details by an inclusive IPv6 address range such as `::3 - ::8`. The match count and exact TXT export include only addresses in the overlap.
-- Copy the exact matching CIDRs directly into Subnet List. This works with single-address, CIDR, and address-range filters.
+- Recognize eight additional IANA prefixes, including DNS-SD, PCP, TURN, AMT and AS112. Use the most specific entry for a single use and flag mixed ranges such as `2001::/23` that contain more-specific entries.
+- The calculation page and copied summary show the matching IANA prefix, registry date, and the source, destination, forwarding, global reachability and protocol reservation attributes. These attributes do not indicate actual network connectivity.
 
 [Update History](docs/HISTORY_EN.md)
 
@@ -96,6 +96,8 @@ Existing files require overwrite confirmation. If another program changes the de
 
 ![Calculation](docs/screenshots/calculation_en_US_light.png)
 
+![IANA special-purpose address registry details](docs/screenshots/iana_registry_en_US_light.png)
+
 ![Subnet results](docs/screenshots/results_en_US_dark.png)
 
 ![Address tools](docs/screenshots/tools_en_US_light.png)
@@ -124,7 +126,7 @@ Existing files require overwrite confirmation. If another program changes the de
 
 ## 📦 Download and Usage
 
-Download `IPv6SubnetCalculator_V1.34.exe` directly from Assets on GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest). Run the downloaded executable; no additional runtime setup is required. Enter a network and target prefix, then click the calculation icon; the application switches to Results when complete.
+Download `IPv6SubnetCalculator_V1.35.exe` directly from Assets on GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest). Run the downloaded executable; no additional runtime setup is required. Enter a network and target prefix, then click the calculation icon; the application switches to Results when complete.
 
 Press F1 or use the top-bar information icon for built-in help, license texts and legal notices.
 

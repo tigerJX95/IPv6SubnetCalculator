@@ -873,6 +873,26 @@ class QtWorkflowTests(unittest.TestCase):
             dialog.close()
             dialog.deleteLater()
 
+    def test_iana_registry_details_switch_language_and_clear_with_result(self):
+        page = self.window.calculation_page
+        try:
+            page.set_result(calculate('2001:1::3/128', '128', preview_limit=0))
+            self.assertFalse(page.usage_registry.isHidden())
+            self.assertIn('可转发：是；全球可达：是', page.usage_registry.text())
+            self.application.language_manager.apply('en_US', persist=False)
+            self.assertIn('Forwardable: Yes; Globally reachable: Yes', page.usage_registry.text())
+            self.assertIn('RFC 9665', page.usage_reference.text())
+            self.assertIn('2001:1::3/128', page.usage_registry.text())
+            page.copy_summary_button.click()
+            self.assertIn('IANA registered prefix:', QApplication.clipboard().text())
+            page.set_result(calculate('2001::/23', '64', preview_limit=0))
+            self.assertTrue(page.usage_registry.isHidden())
+            self.assertEqual(page.usage_registry.text(), '')
+            page.set_result(None)
+            self.assertTrue(page.usage_registry.isHidden())
+        finally:
+            self.application.language_manager.apply('zh_CN', persist=False)
+
     def test_relation_detail_range_filter_and_exact_copy(self):
         cidrs = tuple(map(IPv6Network, ('::/126', '::6/127', '::8/125')))
         dialog = RelationCidrDialog('CIDR', cidrs, self.window.clipboard, self.window)

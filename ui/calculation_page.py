@@ -146,7 +146,11 @@ class CalculationPage(QWidget):
         self.usage_reference = QLabel()
         self.usage_reference.setObjectName('Reference')
         self.usage_reference.setWordWrap(True)
-        for widget in (self.usage_type, self.usage_guidance, self.usage_reference):
+        self.usage_registry = QLabel()
+        self.usage_registry.setObjectName('Reference')
+        self.usage_registry.setWordWrap(True)
+        self.usage_registry.hide()
+        for widget in (self.usage_type, self.usage_guidance, self.usage_reference, self.usage_registry):
             widget.setTextInteractionFlags(Qt.TextInteractionFlag.TextSelectableByMouse)
             usage_layout.addWidget(widget)
         body.addWidget(usage)
@@ -209,6 +213,8 @@ class CalculationPage(QWidget):
             self.usage_type.setText('—')
             self.usage_guidance.setText(tx('计算后显示网络地址用途与部署限制。'))
             self.usage_reference.clear()
+            self.usage_registry.clear()
+            self.usage_registry.hide()
             return
         values = dict(network=str(result.network), start=str(result.start_address),
                       end=str(result.end_address), count=subnet_count_description(result),
@@ -219,3 +225,5 @@ class CalculationPage(QWidget):
         self.usage_type.setText(tx('地址类型：')+usage.name)
         self.usage_guidance.setText(usage.guidance)
         self.usage_reference.setText(tx('规范参考：')+usage.reference)
+        self.usage_registry.setText(usage.registry.as_text() if usage.registry else '')
+        self.usage_registry.setVisible(usage.registry is not None)

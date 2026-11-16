@@ -148,6 +148,15 @@
     },
     {
       "context": "App",
+      "source": "6to4 可达性条件见 RFC 3056。",
+      "source_sha256": "6356fefd0c84c5799c09f6b27119e558c6123c9e5a08af2b3d53ad9c656ffac2",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "6to4 隧道地址",
       "source_sha256": "43fa13dc7d9181480c4b8f5b29b7ba5ac9ccb3e773d0c1d0a0f34f86650c29bf",
       "protected_tokens": [],
@@ -177,6 +186,33 @@
       "context": "App",
       "source": "A 独有（A 减 B）",
       "source_sha256": "d6e211d1811d4a72f31d95d43a5b1b10210c522b59739fb9594e094da5da2742",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "AMT 自动组播隧道地址",
+      "source_sha256": "951432087de6f79270730c5bd0c8b99084e2f8f21363194f4c000aa47549917e",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "AS112 IPv6 服务地址",
+      "source_sha256": "09d72fdbf4f3c0d772894f7684748bf0eccb110de73a0248a8f0377fab4a8408",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "AS112 直接委派服务地址",
+      "source_sha256": "abd9ee2f4601428fe2140bc212736159f59a416ab0710295a22c4287e912950d",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -291,6 +327,15 @@
     },
     {
       "context": "App",
+      "source": "DNS-SD 服务注册协议任播地址",
+      "source_sha256": "0809ce61eb1c1d14210b1791d131f32610de3f36cd9c28a6ffad057d32685240",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "Excel 单工作表超出最大记录数量",
       "source_sha256": "93489f913db5dcf0d0ab9e74096bbb00958239ac81b18d97767fa7749e28beb8",
       "protected_tokens": [],
@@ -342,6 +387,15 @@
           "*.xlsx"
         ]
       ],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "IANA 登记前缀：{0}（登记表更新：{1}）",
+      "source_sha256": "3153518ac5eb0f784cf93a24e1d0fc8d70c668c5a4be0286814cdef83374ab8d",
+      "protected_tokens": [],
+      "filter_patterns": [],
       "structured_lines": false,
       "opaque": false
     },
@@ -741,6 +795,15 @@
     },
     {
       "context": "App",
+      "source": "PCP 服务任播地址",
+      "source_sha256": "bf8fcbbe826a65d5576762a9a0b4276ad3bbab019fdbc453904c5bbc6d30dff2",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "PyQt6 · GPL v3 原文",
       "source_sha256": "1f9012959541d373e6ca423093aeba8e4321c15ce4d431ac819ae6c968383bde",
       "protected_tokens": [],
@@ -795,8 +858,35 @@
     },
     {
       "context": "App",
+      "source": "TURN 服务任播地址",
+      "source_sha256": "31ed88bc5ee9cd7e5826f4dd8be008d1f3e6aa89471f15af4bb5e52d68c1614f",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "Teredo 可达性条件见 RFC 4380 第 5 节。",
+      "source_sha256": "a244931c8dfcabc21fbc76d3b4f4e57f0e9f003efe8c44e6af4dec1f401956b2",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "Teredo 隧道地址",
       "source_sha256": "7f03f7396e8b8e1994ed80c78cb453ef18c80b955420bfc5734fec4009ff2e42",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "ULA 不在全球互联网中路由，详见 RFC 4193。",
+      "source_sha256": "f3cd66a80e1fdd75e9aa96630342df38a604fc847adb8c89ed1b6de8e0885565",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -1083,6 +1173,15 @@
     },
     {
       "context": "App",
+      "source": "不适用",
+      "source_sha256": "2746d995801b1cc88d3b666d149c5ff80330c98c00348a186125253c012084e7",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "不限重叠",
       "source_sha256": "ceb73570b576f0cbf21add8c2f359be9887a90410e9a34e66880e424e64d4123",
       "protected_tokens": [],
@@ -1301,6 +1400,15 @@
       "context": "App",
       "source": "仅进行地址数学运算，不代表地址已分配或可部署。",
       "source_sha256": "5e1fdfca629175b543e6e58c984d0c5833b5b0c3354ae3ed7f85fd25c82b7950",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "以上登记属性可被更具体的分配覆盖。",
+      "source_sha256": "80f6039fb5d272caecd9bae5aea6c48c4aaac9dae2c8097bf334a72535ddee7a",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -2644,6 +2752,15 @@
       "context": "App",
       "source": "压缩 / 规范化：{0}",
       "source_sha256": "9872000915d70100f282cd5ce786d661c2b84e3be39f897f8611a4cc73ce141d",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "原 ORCHID 分配已终止，不应用于新部署。",
+      "source_sha256": "50bdcc4e70c3629438cf805daf605e12e7bc6ce2fcf7aab606ce2d496e02840c",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -5474,6 +5591,15 @@
     },
     {
       "context": "App",
+      "source": "无人机远程标识 DET 前缀",
+      "source_sha256": "f258dea6e36a9a3ff87696f6dbfdbe4e994ed9996c2870ec6dc2ec2bf458f33c",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "无候选重叠",
       "source_sha256": "3f29440cfe9a241e2347a97b7527405f6b02d4d80f3a57c6e7c459ceb3d3552c",
       "protected_tokens": [],
@@ -5566,6 +5692,15 @@
       "context": "App",
       "source": "无法追加建议：",
       "source_sha256": "ae220e81d3328844187adf10d18d79b4b98603241ff87edeec2e29d8436c03b4",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "旧式 ORCHID 地址（已废弃）",
+      "source_sha256": "79b2f841e158e703dfe66f1c7c65103a1740f1730b060f89b99ce9e7da347330",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -5773,6 +5908,15 @@
       "context": "App",
       "source": "未指定地址",
       "source_sha256": "5d8675602bdd828ff6e7f9809920982716c3863f7b8d23062681626ca52bc9ff",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "未登记",
+      "source_sha256": "0db3db44213b39629289a62eddf515133d075a3829ceda2d06df351c2343c152",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -6546,6 +6690,15 @@
     },
     {
       "context": "App",
+      "source": "源地址：{0}；目的地址：{1}；可转发：{2}；全球可达：{3}；协议保留：{4}",
+      "source_sha256": "88602efc6275e9e070448354915ee30450f05f1271b3a28db9ff9ac0d07a1520",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "源网络前缀：/{0}",
       "source_sha256": "0141aa90160a2b5a51b489a932cfd5993d3e52512e12302fc7a5dbd40abac863",
       "protected_tokens": [],
@@ -6636,6 +6789,24 @@
     },
     {
       "context": "App",
+      "source": "用于 AS112 DNS 服务，不应用作普通地址池。",
+      "source_sha256": "290163bea62b853b7ad8ae98f84a062045fe05ac18c9866d5e02829380ee266a",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "用于 AS112 直接委派的 DNS 服务，不应用作普通地址池。",
+      "source_sha256": "b61177047088c69ac2b32c6e47678a7f217afe1fa19538e8c86049131a004882",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "用于 IETF 协议相关分配；是否可在具体网络部署须依据更具体的地址用途规范，不能直接视为普通公网地址池。",
       "source_sha256": "e163ed45630d4ea046118ed7e277b457173ac5fce83bc0563725995b279b0ce9",
       "protected_tokens": [],
@@ -6681,8 +6852,44 @@
     },
     {
       "context": "App",
+      "source": "用于发现 DNS-SD 服务注册协议的注册服务，不应用作普通地址池。",
+      "source_sha256": "28c1feab7eb218e0b5dd6c411186f64d06401a040bac6f051df941bf05efea64",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "用于发现 TURN 中继服务，不应用作普通地址池。",
+      "source_sha256": "56f547368bac4dac6126b9694f79e950df4497a6cd94f46e5e5bc8675c07ed7a",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "用于发现端口控制协议（PCP）服务，不应用作普通地址池。",
+      "source_sha256": "377bb2d93317749e23a35a316ca314a5183d00894ac5df0785cdc243d3bf80df",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "用于性能基准测试，不应用于实际公网地址分配。",
       "source_sha256": "5d4fd5f5a8511b6567516fd27c52ed089645f5dc32a459b0b2f12c1d4a57c683",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "用于无人机远程标识协议的实体标签，不应用作普通地址池。",
+      "source_sha256": "ceabd9ad26bfc0198bebf144f9b2db627856a4523f5dc021bee522b27ca2ccf0",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -6717,8 +6924,26 @@
     },
     {
       "context": "App",
+      "source": "用于自动组播隧道（AMT），不应用作普通地址池。",
+      "source_sha256": "8425c3126b3ea6245911e3ef56365bba63e170dbad494188fcac399f7920ae65",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "留空允许整个 IPv6 空间；填写 CIDR 后，起始和结果地址都须在该网段内。",
       "source_sha256": "31db9d9750f063c8d4d8cb2b1149e153aa62e836f45aa9d04bf3b57ec0bef709",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "登记属性不代表实际网络连通性。",
+      "source_sha256": "7896666aa464ff8ce6b80a69b9b2e0529db60db1b1e0e1b2ffbe284a5ca01613",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,

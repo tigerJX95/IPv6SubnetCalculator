@@ -1,3 +1,7 @@
+## V1.35 操作验收 / Operation checks · 2026-11-16
+
+- 计算 `2001:1::3/128`，检查中英文任播名称、IANA 属性和复制摘要；改为 `2001::/23`，确认显示混合范围且不沿用单项登记。 / Calculate `2001:1::3/128` and check the anycast name, IANA attributes and copied summary in both languages. Change to `2001::/23` and check that the mixed range does not show single-entry attributes.
+
 ## V1.34 操作验收 / Operation checks · 2026-11-19
 
 - 筛选 `::3 - ::8`，检查起止地址均计入、复制与保存的交集一致；反向范围、缺少端点或无匹配时，禁用复制和保存交集。 / Filter by `::3 - ::8`. Check that both endpoints count and that copied and saved overlaps agree. Reversed, incomplete, or unmatched ranges disable exact copy and save.
