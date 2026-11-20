@@ -122,3 +122,24 @@ class Nat64UiTests(unittest.TestCase):
                 rect = combo.style().subControlRect(QStyle.ComplexControl.CC_ComboBox, option,
                                                     QStyle.SubControl.SC_ComboBoxEditField, combo)
                 self.assertGreaterEqual(rect.width(), combo.fontMetrics().horizontalAdvance(combo.itemText(0))+4)
+
+    def test_nat64_wide_font_metrics_do_not_force_horizontal_tools_scroll(self):
+        from PyQt6.QtWidgets import QScrollArea, QLabel
+        panel = self.w.address_tools_page.nat64_panel
+        self.app.language_manager.apply('en_US', persist=False)
+        font = panel.font()
+        font.setStretch(220)
+        panel.setFont(font)
+        self.w.resize(900, 620)
+        self.w.tabs.setCurrentWidget(self.w.address_tools_page)
+        for theme in ('light', 'dark'):
+            with self.subTest(theme=theme):
+                self.app.theme_manager.apply(theme, persist=False)
+                for widget in [panel.mode, *panel.findChildren(QLabel)]:widget.setFont(font)
+                for _ in range(3):self.app.processEvents()
+                scroll = self.w.address_tools_page.findChild(QScrollArea)
+                self.assertEqual(scroll.horizontalScrollBar().maximum(), 0,
+                                 f'content {scroll.widget().width()}, viewport {scroll.viewport().width()}')
+                self.assertGreater(panel.inputs['address'].width(), 100)
+                self.assertLess(panel.run_button.mapTo(scroll.viewport(), panel.run_button.rect().bottomRight()).x(),
+                                scroll.viewport().width())

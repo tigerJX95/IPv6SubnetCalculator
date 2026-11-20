@@ -2,7 +2,7 @@
 # Copyright (C) 2026 IPv6SubnetCalculator contributors
 """Independent NAT64 conversion with immediate stale-output invalidation."""
 from PyQt6.QtCore import Qt, pyqtSignal
-from PyQt6.QtWidgets import QGridLayout
+from PyQt6.QtWidgets import QGridLayout, QSizePolicy
 from ui.localized_widgets import QGroupBox, QComboBox, QLabel, QLineEdit, QTextBrowser, LanguageAction
 from core.localized_text import text as tx
 from core.nat64 import convert_nat64
@@ -22,11 +22,14 @@ class Nat64Panel(QGroupBox):
         layout = QGridLayout(self)
         layout.setColumnStretch(1, 1)
         self.mode = QComboBox()
+        self.mode.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToMinimumContentsLengthWithIcon)
+        self.mode.setMinimumContentsLength(12)
         self.mode.addItem(tx('IPv4 嵌入 IPv6'), False)
         self.mode.addItem(tx('从 IPv6 提取 IPv4'), True)
         self.mode.setAccessibleName(tx('NAT64 换算方向'))
         self.mode.setToolTip(tx('选择将 IPv4 嵌入指定前缀，或从 IPv6 提取 IPv4。'))
-        layout.addWidget(QLabel(tx('换算方向')), 0, 0)
+        self.direction_label = self._caption(tx('换算方向'))
+        layout.addWidget(self.direction_label, 0, 0)
         layout.addWidget(self.mode, 0, 1)
         self.inputs = {}
         for row, (key, label, value, tip) in enumerate((
@@ -42,13 +45,14 @@ class Nat64Panel(QGroupBox):
             field.textChanged.connect(self.invalidate)
             field.returnPressed.connect(self.run)
             self.inputs[key] = field
-            layout.addWidget(QLabel(label), row, 0)
+            layout.addWidget(self._caption(label), row, 0)
             layout.addWidget(field, row, 1)
         self.run_button = IconButton('calculate', tx('执行 NAT64 地址换算（Enter）'))
         self.run_button.clicked.connect(self.run)
         layout.addWidget(self.run_button, 2, 2)
         self.hint = QLabel(tx('支持 RFC 6052 的六种前缀长度；仅换算地址，不配置转换服务。'))
         self.hint.setWordWrap(True)
+        self.hint.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Preferred)
         self.hint.setObjectName('Reference')
         layout.addWidget(self.hint, 3, 0, 1, 3)
         self.report = QTextBrowser()
@@ -66,6 +70,14 @@ class Nat64Panel(QGroupBox):
         self.report.customContextMenuRequested.connect(self.show_menu)
         self.mode.currentIndexChanged.connect(self.invalidate)
         self.invalidate()
+
+    @staticmethod
+    def _caption(text):
+        label = QLabel(text)
+        label.setWordWrap(True)
+        # Native Windows font metrics must not determine the page's minimum width.
+        label.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Preferred)
+        return label
 
     def invalidate(self, *_args):
         self.result = None
