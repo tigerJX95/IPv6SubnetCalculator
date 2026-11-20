@@ -1,11 +1,13 @@
 [简体中文](README.md) | **English**
 
-# 🌐 IPv6 Subnet Calculator V1.35
+# 🌐 IPv6 Subnet Calculator V1.36
 
-## V1.35 Special-purpose address classification and IANA registry details · 2026-11-16
+## V1.36 NAT64 address conversion and display fix · 2026-11-20
 
-- Recognize eight additional IANA prefixes, including DNS-SD, PCP, TURN, AMT and AS112. Use the most specific entry for a single use and flag mixed ranges such as `2001::/23` that contain more-specific entries.
-- The calculation page and copied summary show the matching IANA prefix, registry date, and the source, destination, forwarding, global reachability and protocol reservation attributes. These attributes do not indicate actual network connectivity.
+- Fix horizontal overflow in Address Tools on Windows with English and small windows; NAT64 labels and direction selection adapt to the available width.
+- Embed IPv4 addresses into a specified NAT64 prefix or extract them from IPv6 addresses using RFC 6052. Copy the converted address directly.
+- Distinguish address conversion from deployment restrictions. Check prefix alignment, address membership and the reserved octet, and report a nonzero reserved suffix during extraction.
+- Fix clipped text in the calculation page's prefix menu. First launch defaults to Simplified Chinese; a saved language choice is retained.
 
 [Update History](docs/HISTORY_EN.md)
 
@@ -124,9 +126,11 @@ Existing files require overwrite confirmation. If another program changes the de
 
 ![Find candidates containing an address](docs/screenshots/batch_address_search_en_US_light.png)
 
+![NAT64 address conversion](docs/screenshots/nat64_en_US_light.png)
+
 ## 📦 Download and Usage
 
-Download `IPv6SubnetCalculator_V1.35.exe` directly from Assets on GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest). Run the downloaded executable; no additional runtime setup is required. Enter a network and target prefix, then click the calculation icon; the application switches to Results when complete.
+Download `IPv6SubnetCalculator_V1.36.exe` directly from Assets on GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest). Run the downloaded executable; no additional runtime setup is required. Enter a network and target prefix, then click the calculation icon; the application switches to Results when complete.
 
 Press F1 or use the top-bar information icon for built-in help, license texts and legal notices.
 

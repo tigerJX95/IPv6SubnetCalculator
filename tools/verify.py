@@ -127,6 +127,8 @@ def main():
             executable = args.exe.resolve()
             if not executable.is_file():
                 raise FileNotFoundError('Executable not found: '+str(executable))
+            from tools.frozen_policy import check_archive
+            result['steps']['executable_components'] = check_archive(executable)
             report = output/'executable.json'
             report.unlink(missing_ok=True)
             code = run([str(executable), '--self-check', str(report)], output/'executable.log', env, 90)

@@ -19,16 +19,8 @@ set "IPV6_APP_NAME=IPv6SubnetCalculator_V%IPV6_APP_VERSION%"
 %IPV6_PYTHON% -m pip install -r requirements-ci.txt || goto fail
 %IPV6_PYTHON% tools\check_security.py || goto fail
 %IPV6_PYTHON% tools\build_manifest.py || goto fail
-%IPV6_PYTHON% -m PyInstaller --noconfirm --clean --onefile --windowed ^
- --name "%IPV6_APP_NAME%" --icon app.ico ^
- --add-data "build_manifest.json;." ^
- --add-data "app.ico;." --add-data "assets;assets" ^
- --add-data "LICENSE;." --add-data "NOTICE;." ^
- --add-data "THIRD_PARTY_NOTICES.md;." --add-data "docs/licenses;docs/licenses" ^
- --add-data "docs/about;docs/about" ^
- --copy-metadata PyQt6 --copy-metadata PyQt6-Qt6 --copy-metadata PyQt6-sip ^
- --exclude-module tkinter --exclude-module PyQt5 --exclude-module PySide2 --exclude-module PySide6 ^
- main.py || goto fail
+%IPV6_PYTHON% -m PyInstaller --noconfirm --clean IPv6SubnetCalculator.spec || goto fail
+%IPV6_PYTHON% tools\frozen_policy.py "dist\%IPV6_APP_NAME%.exe" || goto fail
 if not exist "dist\%IPV6_APP_NAME%.exe" goto fail
 if not exist "dist\%IPV6_APP_NAME%_Licenses" mkdir "dist\%IPV6_APP_NAME%_Licenses" || goto fail
 copy /y LICENSE "dist\%IPV6_APP_NAME%_Licenses\LICENSE" >nul || goto fail

@@ -1,11 +1,13 @@
 **简体中文** | [English](README_EN.md)
 
-# 🌐 IPv6 子网计算器 V1.35
+# 🌐 IPv6 子网计算器 V1.36
 
-## V1.35 特殊用途地址识别与 IANA 登记详情 · 2026-11-16
+## V1.36 NAT64 地址换算与显示修复 · 2026-11-20
 
-- 补齐 DNS-SD、PCP、TURN、AMT、AS112 等 8 个 IANA 登记前缀。单一用途采用最具体的条目；跨越更细登记的网段（如 `2001::/23`）提示混合范围。
-- 计算页和复制的摘要显示匹配的 IANA 前缀、登记表日期及源地址、目的地址、可转发、全球可达和协议保留属性。登记属性不代表实际网络连通性。
+- 修复 Windows 英文界面下地址工具页在小窗口中横向溢出的问题，NAT64 标签与方向选择适应可用宽度。
+- 新增 NAT64 地址换算。支持按 RFC 6052 将 IPv4 地址嵌入指定前缀，或从 IPv6 地址提取 IPv4；可复制换算结果。
+- 区分地址格式换算与部署限制。校验前缀对齐、地址归属和保留字节，提取时对非零保留后缀给出提示。
+- 修复计算页「常用前缀」文字裁切；首次启动默认简体中文，保留已选择的界面语言。
 
 [历史更新](docs/HISTORY.md)
 
@@ -120,9 +122,11 @@ IPv6SubnetCalculator 是一款适用于 Windows 的离线 IPv6 子网计算工�
 
 ![按地址归属查找候选](docs/screenshots/batch_address_search_zh_CN_light.png)
 
+![NAT64 地址换算](docs/screenshots/nat64_zh_CN_light.png)
+
 ## 📦 下载与使用
 
-从 GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest) 的 Assets 中直接下载 `IPv6SubnetCalculator_V1.35.exe`，下载后即可运行，无需另行配置运行环境。输入 IPv6 网络地址与目标前缀，点击计算图标；完成后自动切换到结果页。
+从 GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest) 的 Assets 中直接下载 `IPv6SubnetCalculator_V1.36.exe`，下载后即可运行，无需另行配置运行环境。输入 IPv6 网络地址与目标前缀，点击计算图标；完成后自动切换到结果页。
 
 按 F1 或点击顶部“ⓘ”可查看内置帮助、许可原文与法律责任说明。
 

@@ -57,7 +57,9 @@ class AboutContentTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             for name in ('main.py', 'app.py', 'app_info.py', 'app.ico', 'requirements.txt',
-                         'build.cmd', 'LICENSE', 'NOTICE', 'THIRD_PARTY_NOTICES.md'):
+                         'build.cmd', 'LICENSE', 'NOTICE', 'THIRD_PARTY_NOTICES.md',
+                         'IPv6SubnetCalculator.spec', 'tools/frozen_policy.py'):
+                (root/name).parent.mkdir(parents=True, exist_ok=True)
                 shutil.copyfile(source/name, root/name)
             for folder in ('core','ui','services','assets','docs/licenses','docs/about'):
                 shutil.copytree(source/folder, root/folder, ignore=shutil.ignore_patterns('__pycache__'))

@@ -339,3 +339,9 @@ After filtering, click Save to export all visible CIDRs as TXT, one entry per li
 Use “Save only the CIDRs within the filter as TXT” to export the exact overlap. In the example above it saves only `::3/128`; the original Save button still writes `::2/127`. The new action requires a valid filter with at least one match.
 
 Use an address range such as `::3 - ::8` to filter by two inclusive endpoints. Click “Copy only the CIDRs within the filter” to paste the exact overlap into Subnet List. The original copy action still copies full entries.
+
+## NAT64 address conversion
+
+In Address Tools, select the conversion direction, enter an aligned NAT64 prefix and one address, then click the calculation icon or press Enter. Prefix lengths /32, /40, /48, /56, /64 and /96 are supported. Right-click the result to copy the converted address or full report. Editing either input or changing direction clears the old result.
+
+Example: enter prefix `64:ff9b::/96` and IPv4 `192.0.2.33`; the result is `64:ff9b::c000:221`. To extract, select the reverse direction and enter that IPv6 address with the same prefix; the result is `192.0.2.33`. This documentation address is for conversion examples; do not deploy it using the well-known prefix. A nonzero reserved octet is rejected; a nonzero suffix is ignored with a warning according to RFC 6052. This tool does not configure NAT64 or DNS64 or check network connectivity.

@@ -19,8 +19,8 @@
 from ui.localized_widgets import QGroupBox, QLabel, QLineEdit, QComboBox, QPlainTextEdit
 from core.localized_text import text as tx, join_text as jt
 from ipaddress import IPv6Address
-from PyQt6.QtCore import Qt, pyqtSignal
-from PyQt6.QtWidgets import QWidget, QScrollArea, QVBoxLayout, QGridLayout, QHBoxLayout
+from PyQt6.QtCore import Qt, pyqtSignal, QEvent
+from PyQt6.QtWidgets import QWidget, QScrollArea, QVBoxLayout, QGridLayout, QHBoxLayout, QStyle, QStyleOptionComboBox
 from app_info import DEFAULT_NETWORK
 from core.ipv6_core import common_target_prefixes, prefix_analysis, subnet_count_description
 from core.address_usage import describe_network
@@ -28,6 +28,34 @@ from core.calculation_summary import format_calculation_summary
 from ui.input_feedback import bind_input
 from ui.fonts import data_font
 from ui.widgets import IconButton, value_label
+
+
+class PrefixComboBox(QComboBox):
+    """Reserve actual styled text space, including translated labels."""
+    def _fit_text(self):
+        if not self.count():
+            return
+        option = QStyleOptionComboBox()
+        self.initStyleOption(option)
+        rect = self.style().subControlRect(QStyle.ComplexControl.CC_ComboBox, option,
+                                           QStyle.SubControl.SC_ComboBoxEditField, self)
+        text_width = max(self.fontMetrics().horizontalAdvance(self.itemText(i)) for i in range(self.count()))
+        width = text_width + 12 + max(0, self.width() - rect.width())
+        if self.minimumWidth() != width:
+            self.setMinimumWidth(width)
+
+    def retranslate(self, *args):
+        super().retranslate(*args)
+        self._fit_text()
+
+    def changeEvent(self, event):
+        super().changeEvent(event)
+        if event.type() in (QEvent.Type.FontChange, QEvent.Type.StyleChange, QEvent.Type.LanguageChange):
+            self._fit_text()
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        self._fit_text()
 
 
 class CalculationPage(QWidget):
@@ -73,7 +101,7 @@ class CalculationPage(QWidget):
         # invalid input into a different, valid calculation.
         self.target_input.setMinimumWidth(55)
         self.target_input.setToolTip(tx('输入 0～128 的目标前缀，不需要 /，且不得小于原网络前缀。'))
-        self.prefix_shortcuts = QComboBox()
+        self.prefix_shortcuts = PrefixComboBox()
         self.prefix_shortcuts.setMinimumWidth(110)
         self.prefix_shortcuts.setToolTip(tx('选择适合当前网络的常用目标前缀，并立即计算。'))
         prefix_area.addWidget(self.target_input, 1)
@@ -188,6 +216,7 @@ class CalculationPage(QWidget):
         for prefix in choices:
             self.prefix_shortcuts.addItem(tx('/{0}', prefix), prefix)
         self.prefix_shortcuts.setEnabled(bool(choices))
+        self.prefix_shortcuts._fit_text()
 
     def _choose_prefix(self, index):
         prefix = self.prefix_shortcuts.itemData(index)

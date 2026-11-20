@@ -26,6 +26,7 @@ from core.address_conversion import convert_address
 from core.network_relations import analyze_networks, relation_categories
 from ui.address_range_panel import AddressRangePanel
 from ui.address_utility_panel import AddressUtilityPanel
+from ui.nat64_panel import Nat64Panel
 from ui.input_feedback import bind_input, mark_invalid, clear_invalid
 from ui.fonts import data_font
 from ui.dialogs import RelationCidrDialog
@@ -202,6 +203,9 @@ class AddressToolsPage(QWidget):
         for panel in (self.reverse_dns_panel, self.offset_panel):
             panel.feedback.connect(self.feedback)
             body.addWidget(panel)
+        self.nat64_panel = Nat64Panel(clipboard)
+        self.nat64_panel.feedback.connect(self.feedback)
+        body.addWidget(self.nat64_panel)
         body.addStretch()
 
         self.address_input.textChanged.connect(self._clear_formats)
