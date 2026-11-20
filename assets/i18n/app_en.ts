@@ -3,208 +3,208 @@
   <context>
     <name>App</name>
     <message>
-        <source>未登记</source>
-        <translation>Not recorded</translation>
+      <source>未登记</source>
+      <translation>Not recorded</translation>
     </message>
     <message>
-        <source>不适用</source>
-        <translation>Not applicable</translation>
+      <source>不适用</source>
+      <translation>Not applicable</translation>
     </message>
     <message>
-        <source>IANA 登记前缀：{0}（登记表更新：{1}）</source>
-        <translation>IANA registered prefix: {0} (registry updated: {1})</translation>
+      <source>IANA 登记前缀：{0}（登记表更新：{1}）</source>
+      <translation>IANA registered prefix: {0} (registry updated: {1})</translation>
     </message>
     <message>
-        <source>源地址：{0}；目的地址：{1}；可转发：{2}；全球可达：{3}；协议保留：{4}</source>
-        <translation>Source: {0}; Destination: {1}; Forwardable: {2}; Globally reachable: {3}; Reserved by protocol: {4}</translation>
+      <source>源地址：{0}；目的地址：{1}；可转发：{2}；全球可达：{3}；协议保留：{4}</source>
+      <translation>Source: {0}; Destination: {1}; Forwardable: {2}; Globally reachable: {3}; Reserved by protocol: {4}</translation>
     </message>
     <message>
-        <source>登记属性不代表实际网络连通性。</source>
-        <translation>Registry attributes do not indicate actual network connectivity.</translation>
+      <source>登记属性不代表实际网络连通性。</source>
+      <translation>Registry attributes do not indicate actual network connectivity.</translation>
     </message>
     <message>
-        <source>以上登记属性可被更具体的分配覆盖。</source>
-        <translation>More-specific allocations can override these registry attributes.</translation>
+      <source>以上登记属性可被更具体的分配覆盖。</source>
+      <translation>More-specific allocations can override these registry attributes.</translation>
     </message>
     <message>
-        <source>Teredo 可达性条件见 RFC 4380 第 5 节。</source>
-        <translation>See RFC 4380 Section 5 for Teredo reachability conditions.</translation>
+      <source>Teredo 可达性条件见 RFC 4380 第 5 节。</source>
+      <translation>See RFC 4380 Section 5 for Teredo reachability conditions.</translation>
     </message>
     <message>
-        <source>6to4 可达性条件见 RFC 3056。</source>
-        <translation>See RFC 3056 for 6to4 reachability conditions.</translation>
+      <source>6to4 可达性条件见 RFC 3056。</source>
+      <translation>See RFC 3056 for 6to4 reachability conditions.</translation>
     </message>
     <message>
-        <source>ULA 不在全球互联网中路由，详见 RFC 4193。</source>
-        <translation>ULAs are not routed on the global Internet; see RFC 4193.</translation>
+      <source>ULA 不在全球互联网中路由，详见 RFC 4193。</source>
+      <translation>ULAs are not routed on the global Internet; see RFC 4193.</translation>
     </message>
     <message>
-        <source>PCP 服务任播地址</source>
-        <translation>PCP service anycast address</translation>
+      <source>PCP 服务任播地址</source>
+      <translation>PCP service anycast address</translation>
     </message>
     <message>
-        <source>用于发现端口控制协议（PCP）服务，不应用作普通地址池。</source>
-        <translation>Used to discover Port Control Protocol (PCP) services; do not use as a general address pool.</translation>
+      <source>用于发现端口控制协议（PCP）服务，不应用作普通地址池。</source>
+      <translation>Used to discover Port Control Protocol (PCP) services; do not use as a general address pool.</translation>
     </message>
     <message>
-        <source>TURN 服务任播地址</source>
-        <translation>TURN service anycast address</translation>
+      <source>TURN 服务任播地址</source>
+      <translation>TURN service anycast address</translation>
     </message>
     <message>
-        <source>用于发现 TURN 中继服务，不应用作普通地址池。</source>
-        <translation>Used to discover TURN relays; do not use as a general address pool.</translation>
+      <source>用于发现 TURN 中继服务，不应用作普通地址池。</source>
+      <translation>Used to discover TURN relays; do not use as a general address pool.</translation>
     </message>
     <message>
-        <source>DNS-SD 服务注册协议任播地址</source>
-        <translation>DNS-SD Service Registration Protocol anycast address</translation>
+      <source>DNS-SD 服务注册协议任播地址</source>
+      <translation>DNS-SD Service Registration Protocol anycast address</translation>
     </message>
     <message>
-        <source>用于发现 DNS-SD 服务注册协议的注册服务，不应用作普通地址池。</source>
-        <translation>Used to discover DNS-SD Service Registration Protocol registrars; do not use as a general address pool.</translation>
+      <source>用于发现 DNS-SD 服务注册协议的注册服务，不应用作普通地址池。</source>
+      <translation>Used to discover DNS-SD Service Registration Protocol registrars; do not use as a general address pool.</translation>
     </message>
     <message>
-        <source>AMT 自动组播隧道地址</source>
-        <translation>AMT automatic multicast tunneling address</translation>
+      <source>AMT 自动组播隧道地址</source>
+      <translation>AMT automatic multicast tunneling address</translation>
     </message>
     <message>
-        <source>用于自动组播隧道（AMT），不应用作普通地址池。</source>
-        <translation>Used for Automatic Multicast Tunneling (AMT); do not use as a general address pool.</translation>
+      <source>用于自动组播隧道（AMT），不应用作普通地址池。</source>
+      <translation>Used for Automatic Multicast Tunneling (AMT); do not use as a general address pool.</translation>
     </message>
     <message>
-        <source>AS112 IPv6 服务地址</source>
-        <translation>AS112 IPv6 service address</translation>
+      <source>AS112 IPv6 服务地址</source>
+      <translation>AS112 IPv6 service address</translation>
     </message>
     <message>
-        <source>用于 AS112 DNS 服务，不应用作普通地址池。</source>
-        <translation>Used for AS112 DNS service; do not use as a general address pool.</translation>
+      <source>用于 AS112 DNS 服务，不应用作普通地址池。</source>
+      <translation>Used for AS112 DNS service; do not use as a general address pool.</translation>
     </message>
     <message>
-        <source>旧式 ORCHID 地址（已废弃）</source>
-        <translation>Legacy ORCHID address (deprecated)</translation>
+      <source>旧式 ORCHID 地址（已废弃）</source>
+      <translation>Legacy ORCHID address (deprecated)</translation>
     </message>
     <message>
-        <source>原 ORCHID 分配已终止，不应用于新部署。</source>
-        <translation>The original ORCHID allocation has ended; do not use it in new deployments.</translation>
+      <source>原 ORCHID 分配已终止，不应用于新部署。</source>
+      <translation>The original ORCHID allocation has ended; do not use it in new deployments.</translation>
     </message>
     <message>
-        <source>无人机远程标识 DET 前缀</source>
-        <translation>Drone Remote ID DET prefix</translation>
+      <source>无人机远程标识 DET 前缀</source>
+      <translation>Drone Remote ID DET prefix</translation>
     </message>
     <message>
-        <source>用于无人机远程标识协议的实体标签，不应用作普通地址池。</source>
-        <translation>Used for Drone Remote ID Protocol Entity Tags; do not use as a general address pool.</translation>
+      <source>用于无人机远程标识协议的实体标签，不应用作普通地址池。</source>
+      <translation>Used for Drone Remote ID Protocol Entity Tags; do not use as a general address pool.</translation>
     </message>
     <message>
-        <source>AS112 直接委派服务地址</source>
-        <translation>AS112 direct delegation service address</translation>
+      <source>AS112 直接委派服务地址</source>
+      <translation>AS112 direct delegation service address</translation>
     </message>
     <message>
-        <source>用于 AS112 直接委派的 DNS 服务，不应用作普通地址池。</source>
-        <translation>Used for direct delegation to AS112 DNS service; do not use as a general address pool.</translation>
+      <source>用于 AS112 直接委派的 DNS 服务，不应用作普通地址池。</source>
+      <translation>Used for direct delegation to AS112 DNS service; do not use as a general address pool.</translation>
     </message>
     <message>
-        <source>保存筛选范围内实际命中的 CIDR 为 TXT</source>
-        <translation>Save only the CIDRs within the filter as TXT</translation>
+      <source>保存筛选范围内实际命中的 CIDR 为 TXT</source>
+      <translation>Save only the CIDRs within the filter as TXT</translation>
     </message>
     <message>
-        <source>筛选范围内实际命中 {0:,} 个地址</source>
-        <translation>Addresses matched within the filter: {0:,}</translation>
+      <source>筛选范围内实际命中 {0:,} 个地址</source>
+      <translation>Addresses matched within the filter: {0:,}</translation>
     </message>
     <message>
-        <source>保存筛选结果中的全部 CIDR 为 TXT</source>
-        <translation>Save all filtered CIDRs as TXT</translation>
+      <source>保存筛选结果中的全部 CIDR 为 TXT</source>
+      <translation>Save all filtered CIDRs as TXT</translation>
     </message>
     <message>
-        <source>显示 {0:,} / {1:,} 条 CIDR；可见条目覆盖 {2:,} 个地址</source>
-        <translation>Showing {0:,} / {1:,} CIDRs; visible entries cover {2:,} addresses</translation>
+      <source>显示 {0:,} / {1:,} 条 CIDR；可见条目覆盖 {2:,} 个地址</source>
+      <translation>Showing {0:,} / {1:,} CIDRs; visible entries cover {2:,} addresses</translation>
     </message>
     <message>
-        <source>磁盘上的方案已变化，请重新打开方案或另存为其他文件。</source>
-        <translation>The plan on disk has changed. Reopen the plan or save to a different file.</translation>
+      <source>磁盘上的方案已变化，请重新打开方案或另存为其他文件。</source>
+      <translation>The plan on disk has changed. Reopen the plan or save to a different file.</translation>
     </message>
     <message>
-        <source>CIDR 筛选输入不能超过 200 个字符。</source>
-        <translation>CIDR filter input cannot exceed 200 characters.</translation>
+      <source>CIDR 筛选输入不能超过 200 个字符。</source>
+      <translation>CIDR filter input cannot exceed 200 characters.</translation>
     </message>
     <message>
-        <source>按 IPv6 地址、CIDR 或起止范围筛选</source>
-        <translation>Filter by IPv6 address, CIDR, or range</translation>
+      <source>按 IPv6 地址、CIDR 或起止范围筛选</source>
+      <translation>Filter by IPv6 address, CIDR, or range</translation>
     </message>
     <message>
-        <source>筛选 CIDR 清单</source>
-        <translation>Filter CIDR list</translation>
+      <source>筛选 CIDR 清单</source>
+      <translation>Filter CIDR list</translation>
     </message>
     <message>
-        <source>输入单个地址、CIDR，或用连字符连接起止地址（如 ::3 - ::8）。</source>
-        <translation>Enter one address, a CIDR, or two endpoints separated by a hyphen (e.g. ::3 - ::8).</translation>
+      <source>输入单个地址、CIDR，或用连字符连接起止地址（如 ::3 - ::8）。</source>
+      <translation>Enter one address, a CIDR, or two endpoints separated by a hyphen (e.g. ::3 - ::8).</translation>
     </message>
     <message>
-        <source>复制筛选范围内实际命中的 CIDR</source>
-        <translation>Copy only the CIDRs within the filter</translation>
+      <source>复制筛选范围内实际命中的 CIDR</source>
+      <translation>Copy only the CIDRs within the filter</translation>
     </message>
     <message>
-        <source>已复制筛选范围内实际命中的 CIDR。</source>
-        <translation>Copied only the CIDRs within the filter.</translation>
+      <source>已复制筛选范围内实际命中的 CIDR。</source>
+      <translation>Copied only the CIDRs within the filter.</translation>
     </message>
     <message>
-        <source>清空 CIDR 筛选</source>
-        <translation>Clear CIDR filter</translation>
+      <source>清空 CIDR 筛选</source>
+      <translation>Clear CIDR filter</translation>
     </message>
     <message>
-        <source>复制筛选结果中的全部 CIDR</source>
-        <translation>Copy all CIDRs in the filtered results</translation>
+      <source>复制筛选结果中的全部 CIDR</source>
+      <translation>Copy all CIDRs in the filtered results</translation>
     </message>
     <message>
-        <source>显示 {0:,} / {1:,} 条 CIDR</source>
-        <translation>Showing {0:,} / {1:,} CIDRs</translation>
+      <source>显示 {0:,} / {1:,} 条 CIDR</source>
+      <translation>Showing {0:,} / {1:,} CIDRs</translation>
     </message>
     <message>
-        <source>双网段 CIDR 清单详情</source>
-        <translation>Two-network CIDR details</translation>
+      <source>双网段 CIDR 清单详情</source>
+      <translation>Two-network CIDR details</translation>
     </message>
     <message>
-        <source>{0}：{1:,} 条 CIDR</source>
-        <translation>{0}: {1:,} CIDRs</translation>
+      <source>{0}：{1:,} 条 CIDR</source>
+      <translation>{0}: {1:,} CIDRs</translation>
     </message>
     <message>
-        <source>复制选中的 CIDR 行</source>
-        <translation>Copy selected CIDR rows</translation>
+      <source>复制选中的 CIDR 行</source>
+      <translation>Copy selected CIDR rows</translation>
     </message>
     <message>
-        <source>查看所选类别的完整 CIDR 清单</source>
-        <translation>View the full CIDR list for the selected category</translation>
+      <source>查看所选类别的完整 CIDR 清单</source>
+      <translation>View the full CIDR list for the selected category</translation>
     </message>
     <message>
-        <source>保存双网段结果为 TXT</source>
-        <translation>Save two-network results as TXT</translation>
+      <source>保存双网段结果为 TXT</source>
+      <translation>Save two-network results as TXT</translation>
     </message>
     <message>
-        <source>保存所选 CIDR 清单为 TXT</source>
-        <translation>Save selected CIDR list as TXT</translation>
+      <source>保存所选 CIDR 清单为 TXT</source>
+      <translation>Save selected CIDR list as TXT</translation>
     </message>
     <message>
-        <source>保存完整关系报告为 TXT</source>
-        <translation>Save full relation report as TXT</translation>
+      <source>保存完整关系报告为 TXT</source>
+      <translation>Save full relation report as TXT</translation>
     </message>
     <message>
-        <source>并集（A 或 B）</source>
-        <translation>Union (A or B)</translation>
+      <source>并集（A 或 B）</source>
+      <translation>Union (A or B)</translation>
     </message>
     <message>
-        <source>互斥部分（仅属于 A 或 B）</source>
-        <translation>Symmetric difference (A or B, not both)</translation>
+      <source>互斥部分（仅属于 A 或 B）</source>
+      <translation>Symmetric difference (A or B, not both)</translation>
     </message>
     <message>
-        <source>交换网段 A 和 B，并重新分析</source>
-        <translation>Swap networks A and B and run the analysis again</translation>
+      <source>交换网段 A 和 B，并重新分析</source>
+      <translation>Swap networks A and B and run the analysis again</translation>
     </message>
     <message>
-        <source>将所选双网段 CIDR 送入子网清单并检查；替换前确认</source>
-        <translation>Send the selected relation CIDRs to Subnet List and check them; confirm before replacing existing input</translation>
+      <source>将所选双网段 CIDR 送入子网清单并检查；替换前确认</source>
+      <translation>Send the selected relation CIDRs to Subnet List and check them; confirm before replacing existing input</translation>
     </message>
     <message>
-        <source>将使用所选双网段 CIDR 替换当前清单，并重新检查。是否继续？</source>
-        <translation>Replace the current list with the selected relation CIDRs and check it again?</translation>
+      <source>将使用所选双网段 CIDR 替换当前清单，并重新检查。是否继续？</source>
+      <translation>Replace the current list with the selected relation CIDRs and check it again?</translation>
     </message>
     <message>
       <source>按序号范围复制子网</source>
@@ -4257,6 +4257,114 @@ Click a link to open your default browser; a network connection is used only whe
     <message>
       <source>双网段 CIDR 清单已复制。</source>
       <translation>Two-network CIDR list copied.</translation>
+    </message>
+    <message>
+      <source>请输入对齐的 IPv6 CIDR，前缀长度须为 32、40、48、56、64 或 96。</source>
+      <translation>Enter an aligned IPv6 CIDR with prefix length 32, 40, 48, 56, 64 or 96.</translation>
+    </message>
+    <message>
+      <source>NAT64 前缀无效或含有非零主机位，请输入对齐的网络地址。</source>
+      <translation>Invalid NAT64 prefix or nonzero host bits; enter an aligned network address.</translation>
+    </message>
+    <message>
+      <source>NAT64 前缀长度仅支持 32、40、48、56、64 或 96。</source>
+      <translation>NAT64 prefix length must be 32, 40, 48, 56, 64 or 96.</translation>
+    </message>
+    <message>
+      <source>NAT64 地址换算</source>
+      <translation>NAT64 address conversion</translation>
+    </message>
+    <message>
+      <source>NAT64 前缀：{0}</source>
+      <translation>NAT64 prefix: {0}</translation>
+    </message>
+    <message>
+      <source>IPv4 地址：{0}</source>
+      <translation>IPv4 address: {0}</translation>
+    </message>
+    <message>
+      <source>保留后缀非零；按 RFC 6052 忽略后缀并提取 IPv4 地址。</source>
+      <translation>Nonzero reserved suffix; ignore the suffix and extract the IPv4 address according to RFC 6052.</translation>
+    </message>
+    <message>
+      <source>该 IPv4 地址非全球可达地址，不应使用知名前缀进行实际部署。</source>
+      <translation>This IPv4 address is not globally reachable; do not deploy it with the well-known prefix.</translation>
+    </message>
+    <message>
+      <source>仅进行地址格式换算，不检查连通性，也不配置 NAT64 或 DNS64 服务。</source>
+      <translation>Address conversion only; no connectivity checks or NAT64 or DNS64 service configuration.</translation>
+    </message>
+    <message>
+      <source>请输入单个有效地址，不带 CIDR 前缀或区域标识。</source>
+      <translation>Enter one valid address without a CIDR prefix or zone identifier.</translation>
+    </message>
+    <message>
+      <source>IPv6 地址不属于指定 NAT64 前缀。</source>
+      <translation>The IPv6 address is outside the specified NAT64 prefix.</translation>
+    </message>
+    <message>
+      <source>NAT64 地址的第 64～71 位保留字节须为零。</source>
+      <translation>The reserved octet at bits 64 to 71 of a NAT64 address must be zero.</translation>
+    </message>
+    <message>
+      <source>请输入有效的 IPv4 地址。</source>
+      <translation>Enter a valid IPv4 address.</translation>
+    </message>
+    <message>
+      <source>请输入有效的 IPv6 地址。</source>
+      <translation>Enter a valid IPv6 address.</translation>
+    </message>
+    <message>
+      <source>IPv4 嵌入 IPv6</source>
+      <translation>Embed IPv4 into IPv6</translation>
+    </message>
+    <message>
+      <source>从 IPv6 提取 IPv4</source>
+      <translation>Extract IPv4 from IPv6</translation>
+    </message>
+    <message>
+      <source>NAT64 换算方向</source>
+      <translation>NAT64 conversion direction</translation>
+    </message>
+    <message>
+      <source>选择将 IPv4 嵌入指定前缀，或从 IPv6 提取 IPv4。</source>
+      <translation>Embed IPv4 into the specified prefix or extract IPv4 from IPv6.</translation>
+    </message>
+    <message>
+      <source>换算方向</source>
+      <translation>Conversion direction</translation>
+    </message>
+    <message>
+      <source>NAT64 前缀</source>
+      <translation>NAT64 prefix</translation>
+    </message>
+    <message>
+      <source>输入对齐的 IPv6 CIDR；支持 /32、/40、/48、/56、/64 和 /96。</source>
+      <translation>Enter an aligned IPv6 CIDR; supported lengths: /32, /40, /48, /56, /64 and /96.</translation>
+    </message>
+    <message>
+      <source>待换算地址</source>
+      <translation>Address to convert</translation>
+    </message>
+    <message>
+      <source>按照所选方向输入单个 IPv4 或 IPv6 地址；输入框内按 Enter 换算。</source>
+      <translation>Enter one IPv4 or IPv6 address for the selected direction; press Enter to convert.</translation>
+    </message>
+    <message>
+      <source>执行 NAT64 地址换算（Enter）</source>
+      <translation>Convert NAT64 address (Enter)</translation>
+    </message>
+    <message>
+      <source>支持 RFC 6052 的六种前缀长度；仅换算地址，不配置转换服务。</source>
+      <translation>Supports the six RFC 6052 prefix lengths; converts addresses without configuring a translation service.</translation>
+    </message>
+    <message>
+      <source>复制换算结果</source>
+      <translation>Copy converted address</translation>
+    </message>
+    <message>
+      <source>NAT64 地址换算完成。</source>
+      <translation>NAT64 address conversion completed.</translation>
     </message>
   </context>
   <context>

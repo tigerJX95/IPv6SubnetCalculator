@@ -410,6 +410,24 @@
     },
     {
       "context": "App",
+      "source": "IPv4 地址：{0}",
+      "source_sha256": "6b1dc11b0346e894b25166456c95667ea2e87d0b783820e21a3d19c8f931a92a",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "IPv4 嵌入 IPv6",
+      "source_sha256": "a3200674348f54c1261ad07aac78ace3b569144efe98fecf3ac7818470d13fcd",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "IPv4 映射地址",
       "source_sha256": "2ba37797ae4fd171dcfa9ebfbe4d46cd5f1a7ed90e388e30dc313c709e360099",
       "protected_tokens": [],
@@ -474,6 +492,15 @@
       "context": "App",
       "source": "IPv6 双网段关系分析",
       "source_sha256": "355ad297888eb420be24dc170a366ab2c6b8a94d4157addc51a30dfeba63ce35",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "IPv6 地址不属于指定 NAT64 前缀。",
+      "source_sha256": "e1a5dccaee2a1af9feba98d8ffe97a28278e6f64f056931e0259bc8846e2c6d4",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -779,6 +806,78 @@
       "context": "App",
       "source": "Markdown 文档",
       "source_sha256": "7907b1e051a78f99d88f483b38852ec93dc708c928ae02d256e59977fa427077",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "NAT64 前缀",
+      "source_sha256": "8bc431f3221e2c2c79aa8992f64eb16c7bea4218bfe18f1706f97b8ade796cf0",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "NAT64 前缀无效或含有非零主机位，请输入对齐的网络地址。",
+      "source_sha256": "f2ab365bdf16f43f18e9688a616a5c119a95e0deee5111fc074e027c43a1f3a7",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "NAT64 前缀长度仅支持 32、40、48、56、64 或 96。",
+      "source_sha256": "45320658285a329b96fb31aac0c056bea178c1bda2d13ddb25390a2444270902",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "NAT64 前缀：{0}",
+      "source_sha256": "212fe0b4fd69592123954720541083cc6c1be1ce17da284a114449c2d3dd5a7a",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "NAT64 地址换算",
+      "source_sha256": "94d4fcd48c3db89e095023be598bed3344b8445022a14cc0ec63c93fdf2deeb7",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "NAT64 地址换算完成。",
+      "source_sha256": "18af0b7b1ecc98e5908e51ee5937cbbdf785ef988dd9081174dd9933ffda24fe",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "NAT64 地址的第 64～71 位保留字节须为零。",
+      "source_sha256": "e249228d5156c73a3ed73105983e736edefd3b7b4e0d62f2a976b8dfe1683a3b",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "NAT64 换算方向",
+      "source_sha256": "9bc7fd5e7d8579ac27a55161a6e5cfcc8b7829f0f28006cc076e89b5c7f87c76",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -1407,6 +1506,24 @@
     },
     {
       "context": "App",
+      "source": "仅进行地址格式换算，不检查连通性，也不配置 NAT64 或 DNS64 服务。",
+      "source_sha256": "1fdf6ac1e16e079ea2dc97115f665e06dc687d954f8c7fa399a3187498ea4961",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "从 IPv6 提取 IPv4",
+      "source_sha256": "8d987dee0e39ebd4245b917dc2ae2e7dc9b09737800077bbc0e535f53448b86c",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "以上登记属性可被更具体的分配覆盖。",
       "source_sha256": "80f6039fb5d272caecd9bae5aea6c48c4aaac9dae2c8097bf334a72535ddee7a",
       "protected_tokens": [],
@@ -1864,6 +1981,15 @@
       "context": "App",
       "source": "保留供文档与教学示例使用，不可用于真实公网地址部署。",
       "source_sha256": "4a67b1f104c3f60f43b070075fe257d2a461b3c97c964a19ee93138ae97d0b57",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "保留后缀非零；按 RFC 6052 忽略后缀并提取 IPv4 地址。",
+      "source_sha256": "bb8d7bc180fe9c8ae057ac4aa5bb978816301ca74bb1a955caf4b6eb60fee56b",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -3548,6 +3674,15 @@
     },
     {
       "context": "App",
+      "source": "复制换算结果",
+      "source_sha256": "009cbbde27a7b67154d981161bafc13545294f7d5cefc9ee0f93abec2a616d15",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "复制整理后的完整 CIDR 集合",
       "source_sha256": "d1ff060e64ffcf983a3d85490683b81a7750cdafb6a66d7dbe5956e8ef467c2d",
       "protected_tokens": [],
@@ -4753,6 +4888,15 @@
     },
     {
       "context": "App",
+      "source": "待换算地址",
+      "source_sha256": "5ecce13a7ee83684f4555cfa7947d6daffd6f0675fab95f79f262c4f9bef71b2",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "待检查的 IPv6 CIDR 清单",
       "source_sha256": "108bf52d5717899d8c116dfc6169f6ae621c7e6d7e1527d01cd00434b795dbe4",
       "protected_tokens": [],
@@ -4868,6 +5012,15 @@
       ],
       "filter_patterns": [],
       "structured_lines": true,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "执行 NAT64 地址换算（Enter）",
+      "source_sha256": "f0e74fa6970812db98a840589f8bbe689f121724b60253835e1b0a69f0c94d27",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
       "opaque": false
     },
     {
@@ -5061,6 +5214,24 @@
     },
     {
       "context": "App",
+      "source": "按照所选方向输入单个 IPv4 或 IPv6 地址；输入框内按 Enter 换算。",
+      "source_sha256": "3411dd02c1dff593895274d7bede103e1af529d70412d599ec98455d3879fda8",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "换算方向",
+      "source_sha256": "6099dc7b50453e94308a9461f32d6a46e2a125ac752d62c0a10871fefa9cb9ea",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "搜索关键词：{0}",
       "source_sha256": "34328e49ba7cc09507651e19ba7a8ce1e83671b7545bb0e8362d414e876aa607",
       "protected_tokens": [],
@@ -5108,6 +5279,15 @@
       "context": "App",
       "source": "搜索网段无效：",
       "source_sha256": "1ae0579ec440f3b8a87fc540e38ae535d3f0dbf2d6dbca9e4a781949d1605da4",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "支持 RFC 6052 的六种前缀长度；仅换算地址，不配置转换服务。",
+      "source_sha256": "9a0b25d4cbef9716beadc6c956e8423699f97f82eb7e752ab174a90b813b5451",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -8184,6 +8364,15 @@
     },
     {
       "context": "App",
+      "source": "该 IPv4 地址非全球可达地址，不应使用知名前缀进行实际部署。",
+      "source_sha256": "574f13bc613f30a370bc922e17a549a8f7ca57e481f9d25f2bc30420955681fc",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "该 IPv6 地址不在当前计算的网络范围内。",
       "source_sha256": "b51ee3e574477cf9423e1f9d22203809d2338c8758ffc0e49f3fc57a508899ad",
       "protected_tokens": [],
@@ -8411,6 +8600,42 @@
       "context": "App",
       "source": "请输入包含起止两端的范围，例如：{0}",
       "source_sha256": "cc171adea2ca0dafb5e1bcdf4e508018cb446f7b60874a4bc3f2ae2db5361b5d",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "请输入单个有效地址，不带 CIDR 前缀或区域标识。",
+      "source_sha256": "cd939ad5e4142d6031d6104cdfff46bd88a8bed6362ec1573096071d4e3f812e",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "请输入对齐的 IPv6 CIDR，前缀长度须为 32、40、48、56、64 或 96。",
+      "source_sha256": "0f15b7e195400af611e57d8c6fee6777ea9b53981cd850d1400c187f5edb104b",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "请输入有效的 IPv4 地址。",
+      "source_sha256": "930cb1efee69046196f3d88a6a8ece118664b8db3de75a85c02e8f6276ec54da",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "请输入有效的 IPv6 地址。",
+      "source_sha256": "916c63c43b064b8f42f37b40d6c3c7b35c9ceac04c4161b3896a285a6f1908d7",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -8796,6 +9021,15 @@
     },
     {
       "context": "App",
+      "source": "输入对齐的 IPv6 CIDR；支持 /32、/40、/48、/56、/64 和 /96。",
+      "source_sha256": "c7ee4b600f6b6236e103183c09b86f832e3f55f7117f67b1f130dd8423843c4f",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "输入已修改",
       "source_sha256": "b5f896fb065a109d8532c40719e3b641944003a263ac0f6f47ddf73c792a81bc",
       "protected_tokens": [],
@@ -8942,6 +9176,15 @@
       "context": "App",
       "source": "选择子网导出范围",
       "source_sha256": "690e2d9307f85befad4ae6b6d4b08ffca96a758568a99e9746b529df824507db",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "选择将 IPv4 嵌入指定前缀，或从 IPv6 提取 IPv4。",
+      "source_sha256": "4abccf6f5adc7af2d6ba5901cef56fb077798d62f2245bff265213c078e9ccd9",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,

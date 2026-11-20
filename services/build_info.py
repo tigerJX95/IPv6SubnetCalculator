@@ -27,7 +27,8 @@ from app_info import APP_VERSION, resource_path
 def source_digest(root=None):
     root = Path(root) if root is not None else Path(__file__).resolve().parents[1]
     names = {'main.py', 'app.py', 'app_info.py', 'app.ico', 'requirements.txt',
-             'build.cmd', 'LICENSE', 'NOTICE', 'THIRD_PARTY_NOTICES.md'}
+             'build.cmd', 'LICENSE', 'NOTICE', 'THIRD_PARTY_NOTICES.md',
+             'IPv6SubnetCalculator.spec', 'tools/frozen_policy.py'}
     for folder, pattern in (('core', '*.py'), ('ui', '*.py'), ('services', '*.py'),
                             ('assets', '*'), ('docs/licenses', '*'), ('docs/about', '*')):
         names.update(p.relative_to(root).as_posix() for p in (root/folder).rglob(pattern) if p.is_file())

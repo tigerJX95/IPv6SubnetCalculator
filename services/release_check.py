@@ -208,6 +208,17 @@ class ReleaseCheck(QObject):
         self.require(offset.result is None and not offset.run()
                      and not offset.copy_result_action.isEnabled(), 'Network boundary allowed stale offset')
         self.checks.append('address_offset_exact_math_network_bounds_and_invalidation')
+        nat64 = tools.nat64_panel
+        nat64.inputs['prefix'].setText('64:ff9b::/96')
+        nat64.inputs['address'].setText('192.0.2.33')
+        self.require(nat64.run() and str(nat64.result.address) == '64:ff9b::c000:221', 'NAT64 embedding failed')
+        nat64.mode.setCurrentIndex(1)
+        self.require(nat64.result is None and not nat64.copy_result_action.isEnabled(), 'NAT64 mode change retained output')
+        nat64.inputs['address'].setText('64:ff9b::c000:221')
+        self.require(nat64.run() and str(nat64.result.address) == '192.0.2.33', 'NAT64 extraction failed')
+        nat64.inputs['address'].setText('2001:db8::1')
+        self.require(not nat64.run() and not nat64.copy_result_action.isEnabled(), 'NAT64 invalid input retained output')
+        self.checks.append('nat64_bidirectional_conversion_and_invalidation')
         from services.plan_storage import save_plan, load_plan
         calculation.target_input.setText('64')
         plan = self.window.plan_controller.snapshot()

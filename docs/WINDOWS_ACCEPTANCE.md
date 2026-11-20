@@ -1,4 +1,4 @@
-## V1.35 操作验收 / Operation checks · 2026-11-16
+## V1.36 操作验收 / Operation checks · 2026-11-20
 
 - 计算 `2001:1::3/128`，检查中英文任播名称、IANA 属性和复制摘要；改为 `2001::/23`，确认显示混合范围且不沿用单项登记。 / Calculate `2001:1::3/128` and check the anycast name, IANA attributes and copied summary in both languages. Change to `2001::/23` and check that the mixed range does not show single-entry attributes.
 
