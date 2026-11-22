@@ -27,6 +27,7 @@ from core.network_relations import analyze_networks, relation_categories
 from ui.address_range_panel import AddressRangePanel
 from ui.address_utility_panel import AddressUtilityPanel
 from ui.nat64_panel import Nat64Panel
+from ui.planning_utility_panel import PlanningUtilityPanel
 from ui.input_feedback import bind_input, mark_invalid, clear_invalid
 from ui.fonts import data_font
 from ui.dialogs import RelationCidrDialog
@@ -206,6 +207,11 @@ class AddressToolsPage(QWidget):
         self.nat64_panel = Nat64Panel(clipboard)
         self.nat64_panel.feedback.connect(self.feedback)
         body.addWidget(self.nat64_panel)
+        self.prefix_demand_panel = PlanningUtilityPanel(clipboard)
+        self.reverse_zones_panel = PlanningUtilityPanel(clipboard, zones=True)
+        for panel in (self.prefix_demand_panel, self.reverse_zones_panel):
+            panel.feedback.connect(self.feedback)
+            body.addWidget(panel)
         body.addStretch()
 
         self.address_input.textChanged.connect(self._clear_formats)

@@ -1,19 +1,17 @@
 # 版本更新 / Release Notes
 
-## V1.36 NAT64 地址换算与显示修复 · 2026-11-20
+## V1.37 前缀需求规划与反向 DNS 区域 · 2026-11-22
 
-- 修复 Windows 英文界面下地址工具页在小窗口中横向溢出的问题，NAT64 标签与方向选择适应可用宽度。
-- 新增 NAT64 地址换算。支持按 RFC 6052 将 IPv4 地址嵌入指定前缀，或从 IPv6 地址提取 IPv4；可复制换算结果。
-- 区分地址格式换算与部署限制。校验前缀对齐、地址归属和保留字节，提取时对非零保留后缀给出提示。
-- 修复计算页「常用前缀」文字裁切；首次启动默认简体中文，保留已选择的界面语言。
+- 新增按需求反推父前缀：输入子网数量、每个子网前缀和额外预留，分别显示数学上最小父前缀与四位边界对齐方案，可复制结果或保存规划报告。
+- 新增子网级反向 DNS 区域生成：非四位对齐网段精确拆分为最多 8 个区域，支持纯区域清单复制及 TXT 保存，不查询 DNS、不创建记录。
+- NAT64 部署提示明确引用 RFC 6052，帮助文档区分现行规范与修订草案；补强地址等价表示和窄窗口布局验证。
 
 [历史更新](HISTORY.md)
 
-## V1.36 NAT64 address conversion and display fix · 2026-11-20
+## V1.37 Prefix demand planning and reverse DNS zones · 2026-11-22
 
-- Fix horizontal overflow in Address Tools on Windows with English and small windows; NAT64 labels and direction selection adapt to the available width.
-- Embed IPv4 addresses into a specified NAT64 prefix or extract them from IPv6 addresses using RFC 6052. Copy the converted address directly.
-- Distinguish address conversion from deployment restrictions. Check prefix alignment, address membership and the reserved octet, and report a nonzero reserved suffix during extraction.
-- Fix clipped text in the calculation page's prefix menu. First launch defaults to Simplified Chinese; a saved language choice is retained.
+- Size a parent prefix from subnet count, individual prefix and extra reserve. Compare the mathematical minimum with a nibble-aligned alternative, copy the result or save the planning report.
+- Generate subnet reverse DNS zones. Non-nibble-aligned networks split into at most eight exact zones; copy the plain list or save TXT without querying DNS or creating records.
+- Cite RFC 6052 explicitly in NAT64 deployment guidance and distinguish the current specification from its revision draft in Help. Extend equivalent-address and small-window checks.
 
 [Update History](HISTORY_EN.md)

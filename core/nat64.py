@@ -48,7 +48,7 @@ class Nat64Result:
         if self.nonzero_suffix:
             lines.append(tx('保留后缀非零；按 RFC 6052 忽略后缀并提取 IPv4 地址。'))
         if self.prefix == WELL_KNOWN and not self.ipv4.is_global:
-            lines.append(tx('该 IPv4 地址非全球可达地址，不应使用知名前缀进行实际部署。'))
+            lines.append(tx('依据 RFC 6052 第 3.1 节，该 IPv4 地址非全球可达，不应使用知名前缀进行实际部署。'))
         lines.append(tx('仅进行地址格式换算，不检查连通性，也不配置 NAT64 或 DNS64 服务。'))
         return jt('\n', lines)
 

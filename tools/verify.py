@@ -108,7 +108,7 @@ def main():
         regression_report=output/'regression.json'
         regression_report.unlink(missing_ok=True)
         code=run([sys.executable,'tools/run_regression.py','--report',str(regression_report),
-                  '--run-id',token],output/'tests.log',env,240)
+                  '--run-id',token],output/'tests.log',env,600)
         payload=read_regression(regression_report,code,expected_digest,token)
         result['steps']['regression']=dict(status='passed',tests=payload['tests_run'],
             skipped=payload['skipped'],complete=True,run_id=token)

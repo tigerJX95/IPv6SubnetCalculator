@@ -345,3 +345,19 @@ Use an address range such as `::3 - ::8` to filter by two inclusive endpoints. C
 In Address Tools, select the conversion direction, enter an aligned NAT64 prefix and one address, then click the calculation icon or press Enter. Prefix lengths /32, /40, /48, /56, /64 and /96 are supported. Right-click the result to copy the converted address or full report. Editing either input or changing direction clears the old result.
 
 Example: enter prefix `64:ff9b::/96` and IPv4 `192.0.2.33`; the result is `64:ff9b::c000:221`. To extract, select the reverse direction and enter that IPv6 address with the same prefix; the result is `192.0.2.33`. This documentation address is for conversion examples; do not deploy it using the well-known prefix. A nonzero reserved octet is rejected; a nonzero suffix is ignored with a warning according to RFC 6052. This tool does not configure NAT64 or DNS64 or check network connectivity.
+
+## Parent prefix from demand
+
+Open Address Tools → Parent prefix from demand. Enter the required **subnet count** (not address count), the prefix of each subnet (0–128, default 64), and extra reserve (an integer percentage 0–100, default 0). Extra reserve is added to the original demand and rounded up. Click the calculation icon or press Enter. Right-click to copy the minimum prefix or complete report; use Save to write the report as TXT. Editing any field clears old output.
+
+Example: 300 subnets of /64 with 10% extra reserve require 330 subnets. The minimum parent is /55 (512 /64 subnets; 182 spare after reserve). The optional nibble-aligned /52 holds 4,096 /64 subnets. Alignment is an alternative, not a mandatory allocation rule. These results do not select a network address or allocate resources.
+
+## Subnet reverse DNS zones
+
+Enter an IPv6 CIDR in Address Tools → Subnet reverse DNS zones. Host bits are normalized to the network. Aligned prefixes generate one `ip6.arpa` zone; other prefixes split exactly into at most eight zones at the next nibble boundary. Right-click to copy the pure zone list or full report; Save writes the pure list as UTF-8 TXT, one name per line. Input changes invalidate both copying and saving.
+
+Example: `2001:db8:abcd::/48` produces `d.c.b.a.8.b.d.0.1.0.0.2.ip6.arpa`; `2001:db8:abcd::/57` produces eight /60 zones without extending coverage. `/0` produces `ip6.arpa`; `/128` produces the full 32-label reverse name. This is zone-name planning, not DNS delegation, DNS querying or PTR creation. See [RFC 3596](https://www.rfc-editor.org/rfc/rfc3596.html).
+
+## NAT64 specification status
+
+The non-global IPv4 deployment warning follows **RFC 6052 Section 3.1**. As checked on 2026-11-22, [draft-ietf-v6ops-nat64-wkp-1918-10](https://datatracker.ietf.org/doc/draft-ietf-v6ops-nat64-wkp-1918/) remains an Internet-Draft in Last Call and proposes relaxing restrictions for certain non-global IPv4 addresses. This draft is not treated as an effective replacement for the current RFC. Address layout conversion remains independent of deployment guidance.

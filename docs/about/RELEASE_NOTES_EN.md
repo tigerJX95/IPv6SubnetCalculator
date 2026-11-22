@@ -1,10 +1,9 @@
 # Release Notes
 
-## V1.36 NAT64 address conversion and display fix · 2026-11-20
+## V1.37 Prefix demand planning and reverse DNS zones · 2026-11-22
 
-- Fix horizontal overflow in Address Tools on Windows with English and small windows; NAT64 labels and direction selection adapt to the available width.
-- Embed IPv4 addresses into a specified NAT64 prefix or extract them from IPv6 addresses using RFC 6052. Copy the converted address directly.
-- Distinguish address conversion from deployment restrictions. Check prefix alignment, address membership and the reserved octet, and report a nonzero reserved suffix during extraction.
-- Fix clipped text in the calculation page's prefix menu. First launch defaults to Simplified Chinese; a saved language choice is retained.
+- Size a parent prefix from subnet count, individual prefix and extra reserve. Compare the mathematical minimum with a nibble-aligned alternative, copy the result or save the planning report.
+- Generate subnet reverse DNS zones. Non-nibble-aligned networks split into at most eight exact zones; copy the plain list or save TXT without querying DNS or creating records.
+- Cite RFC 6052 explicitly in NAT64 deployment guidance and distinguish the current specification from its revision draft in Help. Extend equivalent-address and small-window checks.
 
 [Update History](HISTORY_EN.md)
