@@ -1,4 +1,4 @@
-## V1.36 操作验收 / Operation checks · 2026-11-20
+## V1.37 操作验收 / Operation checks · 2026-11-22
 
 - 计算 `2001:1::3/128`，检查中英文任播名称、IANA 属性和复制摘要；改为 `2001::/23`，确认显示混合范围且不沿用单项登记。 / Calculate `2001:1::3/128` and check the anycast name, IANA attributes and copied summary in both languages. Change to `2001::/23` and check that the mixed range does not show single-entry attributes.
 
@@ -250,3 +250,12 @@ Verify these cases on Windows in both OS display languages where available; Linu
 - 核对浅深主题、中英文冲突提示及恢复路径。 / Verify both themes/languages and recovery paths.
 - 确认新验证报告具有 regression.json、非零测试数、匹配运行标识和完整工作流。Windows 命名互斥、NTFS/exFAT 与网络目录行为仍须实机验证。 / Verify structured evidence and native Windows/filesystem behavior.
 - Qt 升级尚未完成，不将 Qt 6.11.2 自检通过记为 D01 已修复。 / Functional checks on Qt 6.11.2 do not close D01.
+
+### V1.37 规划工具 / Planning tools
+
+- 在中英文及浅深色主题下，以 900×620 窗口打开地址工具，确认没有横向滚动，输入、计算和保存图标可访问。
+- 需求填 300、前缀 64、额外预留 10，确认含预留数量 330、最小父前缀 /55、对齐方案 /52；复制结果、保存报告，再修改输入，确认旧输出禁用。
+- 反向区域填 `2001:db8:abcd::/57`，确认 8 个 /60 区域；保存 TXT 应只有区域名，每行一个，修改输入后不能继续保存旧结果。
+- For both languages and themes, open Address Tools at 900×620 and check that fields and action icons remain accessible without horizontal page scrolling.
+- Demand 300, prefix 64, reserve 10 must give required count 330, minimum /55 and aligned /52. Copy and save, then edit an input and confirm old output is disabled.
+- `2001:db8:abcd::/57` must produce eight /60 zones. TXT must contain only one zone name per line. Editing input must disable saving the old result.

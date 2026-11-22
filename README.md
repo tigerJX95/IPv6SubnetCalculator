@@ -1,13 +1,12 @@
 **简体中文** | [English](README_EN.md)
 
-# 🌐 IPv6 子网计算器 V1.36
+# 🌐 IPv6 子网计算器 V1.37
 
-## V1.36 NAT64 地址换算与显示修复 · 2026-11-20
+## V1.37 前缀需求规划与反向 DNS 区域 · 2026-11-22
 
-- 修复 Windows 英文界面下地址工具页在小窗口中横向溢出的问题，NAT64 标签与方向选择适应可用宽度。
-- 新增 NAT64 地址换算。支持按 RFC 6052 将 IPv4 地址嵌入指定前缀，或从 IPv6 地址提取 IPv4；可复制换算结果。
-- 区分地址格式换算与部署限制。校验前缀对齐、地址归属和保留字节，提取时对非零保留后缀给出提示。
-- 修复计算页「常用前缀」文字裁切；首次启动默认简体中文，保留已选择的界面语言。
+- 新增按需求反推父前缀：输入子网数量、每个子网前缀和额外预留，分别显示数学上最小父前缀与四位边界对齐方案，可复制结果或保存规划报告。
+- 新增子网级反向 DNS 区域生成：非四位对齐网段精确拆分为最多 8 个区域，支持纯区域清单复制及 TXT 保存，不查询 DNS、不创建记录。
+- NAT64 部署提示明确引用 RFC 6052，帮助文档区分现行规范与修订草案；补强地址等价表示和窄窗口布局验证。
 
 [历史更新](docs/HISTORY.md)
 
@@ -124,9 +123,13 @@ IPv6SubnetCalculator 是一款适用于 Windows 的离线 IPv6 子网计算工�
 
 ![NAT64 地址换算](docs/screenshots/nat64_zh_CN_light.png)
 
+![按需求反推父前缀](docs/screenshots/prefix_demand_zh_CN_light.png)
+
+![子网级反向 DNS 区域](docs/screenshots/reverse_zones_zh_CN_light.png)
+
 ## 📦 下载与使用
 
-从 GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest) 的 Assets 中直接下载 `IPv6SubnetCalculator_V1.36.exe`，下载后即可运行，无需另行配置运行环境。输入 IPv6 网络地址与目标前缀，点击计算图标；完成后自动切换到结果页。
+从 GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest) 的 Assets 中直接下载 `IPv6SubnetCalculator_V1.37.exe`，下载后即可运行，无需另行配置运行环境。输入 IPv6 网络地址与目标前缀，点击计算图标；完成后自动切换到结果页。
 
 按 F1 或点击顶部“ⓘ”可查看内置帮助、许可原文与法律责任说明。
 

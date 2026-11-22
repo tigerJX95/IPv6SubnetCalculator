@@ -1,5 +1,12 @@
 # Update History
 
+## V1.36 NAT64 address conversion and display fix · 2026-11-20
+
+- Fix horizontal overflow in Address Tools on Windows with English and small windows; NAT64 labels and direction selection adapt to the available width.
+- Embed IPv4 addresses into a specified NAT64 prefix or extract them from IPv6 addresses using RFC 6052. Copy the converted address directly.
+- Distinguish address conversion from deployment restrictions. Check prefix alignment, address membership and the reserved octet, and report a nonzero reserved suffix during extraction.
+- Fix clipped text in the calculation page's prefix menu. First launch defaults to Simplified Chinese; a saved language choice is retained.
+
 ## V1.35 Special-purpose address classification and IANA registry details · 2026-11-16
 
 - Recognize eight additional IANA prefixes, including DNS-SD, PCP, TURN, AMT and AS112. Use the most specific entry for a single use and flag mixed ranges such as `2001::/23` that contain more-specific entries.

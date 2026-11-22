@@ -219,6 +219,25 @@ class ReleaseCheck(QObject):
         nat64.inputs['address'].setText('2001:db8::1')
         self.require(not nat64.run() and not nat64.copy_result_action.isEnabled(), 'NAT64 invalid input retained output')
         self.checks.append('nat64_bidirectional_conversion_and_invalidation')
+        demand = tools.prefix_demand_panel
+        demand.inputs['count'].setText('300')
+        demand.inputs['target'].setText('64')
+        demand.inputs['reserve'].setText('10')
+        self.require(demand.run() and demand.result.required == 330
+                     and demand.result.minimum_prefix == 55 and demand.result.aligned_prefix == 52,
+                     'Demand prefix sizing failed')
+        demand.inputs['count'].setText('bad')
+        self.require(demand.result is None and not demand.run() and not demand.save_button.isEnabled(),
+                     'Edited demand retained output')
+        zones = tools.reverse_zones_panel
+        zones.inputs['network'].setText('2001:db8:abcd::/57')
+        self.require(zones.run() and len(zones.result.zones) == 8
+                     and all(n.prefixlen == 60 for n in zones.result.networks), 'Reverse-zone partition failed')
+        zones.inputs['network'].setText('bad')
+        self.require(zones.result is None and not zones.run() and not zones.save_button.isEnabled(),
+                     'Edited reverse-zone input retained output')
+        self.checks.append('prefix_demand_and_reverse_zones_exact_bounds_and_invalidation')
+
         from services.plan_storage import save_plan, load_plan
         calculation.target_input.setText('64')
         plan = self.window.plan_controller.snapshot()

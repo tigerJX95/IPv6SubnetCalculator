@@ -4366,6 +4366,154 @@ Click a link to open your default browser; a network connection is used only whe
       <source>NAT64 地址换算完成。</source>
       <translation>NAT64 address conversion completed.</translation>
     </message>
+    <message>
+      <source>IPv6 网段</source>
+      <translation>IPv6 network</translation>
+    </message>
+    <message>
+      <source>{0} → {1}</source>
+      <translation>{0} → {1}</translation>
+    </message>
+    <message>
+      <source>{0}：/{1}；容量：{2} 个子网；满足含预留需求后剩余：{3}</source>
+      <translation>{0}: /{1}; capacity: {2} subnets; spare after demand including reserve: {3}</translation>
+    </message>
+    <message>
+      <source>仅生成区域名；不查询 DNS、不创建 PTR 记录，也不代表已取得委派权限。</source>
+      <translation>Generates zone names only; no DNS queries or PTR record creation, and no delegation authority is implied.</translation>
+    </message>
+    <message>
+      <source>依据 RFC 6052 第 3.1 节，该 IPv4 地址非全球可达，不应使用知名前缀进行实际部署。</source>
+      <translation>Under RFC 6052 Section 3.1, this IPv4 address is not globally reachable; do not deploy it with the well-known prefix.</translation>
+    </message>
+    <message>
+      <source>保存前缀需求规划报告为 TXT</source>
+      <translation>Save prefix demand planning report as TXT</translation>
+    </message>
+    <message>
+      <source>保存反向 DNS 区域清单为 TXT</source>
+      <translation>Save reverse DNS zone list as TXT</translation>
+    </message>
+    <message>
+      <source>先按额外预留向上取整，再计算最小父前缀；同时展示可选的四位对齐方案。</source>
+      <translation>Round demand including extra reserve up, then calculate the minimum parent prefix; also show an optional nibble-aligned alternative.</translation>
+    </message>
+    <message>
+      <source>区域前缀：/{0}；区域数量：{1}</source>
+      <translation>Zone prefix: /{0}; number of zones: {1}</translation>
+    </message>
+    <message>
+      <source>原前缀未按四位边界对齐，已拆成精确覆盖原网段的区域，没有扩大范围。</source>
+      <translation>The original prefix is not nibble-aligned; the zones partition the original network exactly without enlarging it.</translation>
+    </message>
+    <message>
+      <source>含预留需求超过整个 IPv6 空间可容纳的此类子网数量。</source>
+      <translation>Demand including reserve exceeds the number of these subnets in the entire IPv6 address space.</translation>
+    </message>
+    <message>
+      <source>四位边界对齐方案</source>
+      <translation>Nibble-aligned alternative</translation>
+    </message>
+    <message>
+      <source>填写 0～128 的前缀数字，例如 64，不带 /。</source>
+      <translation>Enter a prefix length from 0 to 128, such as 64, without /.</translation>
+    </message>
+    <message>
+      <source>复制反向 DNS 区域清单</source>
+      <translation>Copy reverse DNS zone list</translation>
+    </message>
+    <message>
+      <source>复制最小父前缀</source>
+      <translation>Copy minimum parent prefix</translation>
+    </message>
+    <message>
+      <source>子网数量须为 1～2^128 的十进制整数，最多 39 位数字。</source>
+      <translation>Subnet count must be a decimal integer from 1 to 2^128, with at most 39 digits.</translation>
+    </message>
+    <message>
+      <source>子网级反向 DNS 区域</source>
+      <translation>Subnet reverse DNS zones</translation>
+    </message>
+    <message>
+      <source>所需子网数量</source>
+      <translation>Required subnet count</translation>
+    </message>
+    <message>
+      <source>按 RFC 3596 生成区域名，最多 8 个；纯清单可复制或保存为 TXT。</source>
+      <translation>Generate up to 8 zone names under RFC 3596; copy the plain list or save it as TXT.</translation>
+    </message>
+    <message>
+      <source>按需求反推父前缀</source>
+      <translation>Parent prefix from demand</translation>
+    </message>
+    <message>
+      <source>按需求计算父前缀（Enter）</source>
+      <translation>Calculate parent prefix from demand (Enter)</translation>
+    </message>
+    <message>
+      <source>数学上最小父前缀</source>
+      <translation>Mathematically minimum parent prefix</translation>
+    </message>
+    <message>
+      <source>此结果不选择具体网络地址；请在已获分配的地址空间内规划。</source>
+      <translation>This result does not select a network address; plan within address space allocated to you.</translation>
+    </message>
+    <message>
+      <source>每个子网前缀</source>
+      <translation>Prefix of each subnet</translation>
+    </message>
+    <message>
+      <source>每个子网前缀须为 0～128 的十进制整数。</source>
+      <translation>Each subnet prefix must be a decimal integer from 0 to 128.</translation>
+    </message>
+    <message>
+      <source>每个子网前缀：/{0}</source>
+      <translation>Prefix of each subnet: /{0}</translation>
+    </message>
+    <message>
+      <source>生成反向 DNS 区域（Enter）</source>
+      <translation>Generate reverse DNS zones (Enter)</translation>
+    </message>
+    <message>
+      <source>规范化网段：{0}</source>
+      <translation>Normalized network: {0}</translation>
+    </message>
+    <message>
+      <source>请输入有效的 IPv6 CIDR，不带区域标识。</source>
+      <translation>Enter a valid IPv6 CIDR without a zone identifier.</translation>
+    </message>
+    <message>
+      <source>输入 IPv6 CIDR；主机位自动规范化，非四位对齐前缀最多拆成 8 个区域。</source>
+      <translation>Enter an IPv6 CIDR; host bits are normalized and non-nibble-aligned prefixes split into at most 8 zones.</translation>
+    </message>
+    <message>
+      <source>输入所需子网个数，而不是地址个数；支持精确大整数。</source>
+      <translation>Enter the required number of subnets, rather than addresses; exact large integers are supported.</translation>
+    </message>
+    <message>
+      <source>需要的子网数量：{0}</source>
+      <translation>Required subnet count: {0}</translation>
+    </message>
+    <message>
+      <source>预留数量向上取整；四位对齐为可选规划方案，不代表强制分配要求。</source>
+      <translation>Reserve is rounded up; nibble alignment is an optional planning alternative, not a mandatory assignment requirement.</translation>
+    </message>
+    <message>
+      <source>额外预留为原始需求的 0～100%，向上取整；例如 300 加 10% 得到 330。</source>
+      <translation>Extra reserve is 0 to 100% of original demand, rounded up; for example, 300 plus 10% is 330.</translation>
+    </message>
+    <message>
+      <source>额外预留须为 0～100 的整数百分比。</source>
+      <translation>Extra reserve must be an integer percentage from 0 to 100.</translation>
+    </message>
+    <message>
+      <source>额外预留（%）</source>
+      <translation>Extra reserve (%)</translation>
+    </message>
+    <message>
+      <source>额外预留：{0}%；含预留所需子网数量：{1}</source>
+      <translation>Extra reserve: {0}%; required subnet count including reserve: {1}</translation>
+    </message>
   </context>
   <context>
     <name>Export</name>
