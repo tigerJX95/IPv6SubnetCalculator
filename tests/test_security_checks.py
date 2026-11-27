@@ -38,8 +38,16 @@ class SecurityCheckTests(unittest.TestCase):
     def test_success_requires_both_checks_and_does_not_claim_codeql(self):
         code,result=self.run_case(0)
         self.assertEqual(code,0)
-        self.assertEqual(result['checks'],{'bandit':'passed','dependencies':'passed'})
+        self.assertEqual(result['checks'],{'dependency_locks':'passed','qt_native':'passed','bandit':'passed','dependencies':'passed'})
+        self.assertIs(result['qt_all_patched'],False)
         self.assertEqual(result['codeql'],'not_run_locally')
+
+    def test_native_and_lock_failures_cannot_be_hidden_by_successful_scanners(self):
+        for checker in ('audit_qt','validate_locks'):
+            with self.subTest(checker=checker),patch('tools.check_security.'+checker,side_effect=ValueError('changed input')):
+                code,result=self.run_case(0)
+                self.assertEqual(code,1)
+                self.assertEqual(result['status'],'failed')
 
     def test_actions_are_pinned_and_no_privileged_pr_trigger(self):
         for path in (ROOT/'.github/workflows').glob('*.yml'):

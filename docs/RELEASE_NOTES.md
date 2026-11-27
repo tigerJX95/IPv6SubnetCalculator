@@ -1,17 +1,17 @@
 # 版本更新 / Release Notes
 
-## V1.37 前缀需求规划与反向 DNS 区域 · 2026-11-22
+## V1.38 站点前缀对比与 Pref64 离线识别 · 2026-11-27
 
-- 新增按需求反推父前缀：输入子网数量、每个子网前缀和额外预留，分别显示数学上最小父前缀与四位边界对齐方案，可复制结果或保存规划报告。
-- 新增子网级反向 DNS 区域生成：非四位对齐网段精确拆分为最多 8 个区域，支持纯区域清单复制及 TXT 保存，不查询 DNS、不创建记录。
-- NAT64 部署提示明确引用 RFC 6052，帮助文档区分现行规范与修订草案；补强地址等价表示和窄窗口布局验证。
+- 新增站点前缀方案对比：输入父网段与站点数量，对比 /48、/52、/56、/60、/64 的站点容量、每站点 /64 子网数及本次连续分配首末前缀，明确区分容量不足与无法细分。
+- 新增 Pref64 离线识别：粘贴 ipv4only.arpa 的 AAAA 地址，按 RFC 7050 与 RFC 6052 分析六种前缀长度，保留多个候选、原始行号与单／双地址证据，并排除无法消解的歧义样本。
+- 两项工具均支持报告复制与 TXT 保存；输入变化立即停用旧结果。更新双语帮助及实际界面截图，保留现行规范与修订草案的区别。
 
 [历史更新](HISTORY.md)
 
-## V1.37 Prefix demand planning and reverse DNS zones · 2026-11-22
+## V1.38 Site prefix comparison and offline Pref64 identification · 2026-11-27
 
-- Size a parent prefix from subnet count, individual prefix and extra reserve. Compare the mathematical minimum with a nibble-aligned alternative, copy the result or save the planning report.
-- Generate subnet reverse DNS zones. Non-nibble-aligned networks split into at most eight exact zones; copy the plain list or save TXT without querying DNS or creating records.
-- Cite RFC 6052 explicitly in NAT64 deployment guidance and distinguish the current specification from its revision draft in Help. Extend equivalent-address and small-window checks.
+- Compare site prefix options from a parent network and site count. See capacity, /64 subnets per site and the first/last prefix in the requested contiguous range for /48, /52, /56, /60 and /64; distinguish insufficient capacity from an unsplittable parent.
+- Identify Pref64 candidates offline from pasted ipv4only.arpa AAAA addresses using the six RFC 6052 layouts and RFC 7050 markers. Preserve multiple candidates, original line numbers and single/two-address evidence; exclude unresolved ambiguity.
+- Copy or save both reports as TXT; input edits immediately disable stale output. Refresh bilingual help and actual interface screenshots, keeping current specifications distinct from revision drafts.
 
 [Update History](HISTORY_EN.md)

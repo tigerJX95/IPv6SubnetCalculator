@@ -4514,6 +4514,158 @@ Click a link to open your default browser; a network connection is used only whe
       <source>额外预留：{0}%；含预留所需子网数量：{1}</source>
       <translation>Extra reserve: {0}%; required subnet count including reserve: {1}</translation>
     </message>
+    <message>
+      <source>站点数量须为 1～2^128 的十进制整数，最多 39 位数字。</source>
+      <translation>Site count must be a decimal integer from 1 to 2^128, using at most 39 digits.</translation>
+    </message>
+    <message>
+      <source>站点前缀方案对比</source>
+      <translation>Site prefix comparison</translation>
+    </message>
+    <message>
+      <source>父网段（已规范化）：{0}</source>
+      <translation>Parent network (normalized): {0}</translation>
+    </message>
+    <message>
+      <source>所需站点数量：{0:,}</source>
+      <translation>Requested sites: {0:,}</translation>
+    </message>
+    <message>
+      <source>地址用途：{0}</source>
+      <translation>Address usage: {0}</translation>
+    </message>
+    <message>
+      <source>以上是互斥的规划方案，不可合并视为同时分配；未扣除已占用网段。</source>
+      <translation>These are alternative plans, not simultaneous allocations; occupied networks have not been deducted.</translation>
+    </message>
+    <message>
+      <source>RFC 6177 不要求所有站点统一使用 /48；请结合实际需求和已获分配的地址空间选择。</source>
+      <translation>RFC 6177 does not require every site to use /48; choose according to actual needs and allocated address space.</translation>
+    </message>
+    <message>
+      <source>/{0}：容量 {1:,} 个站点；每站点含 {2:,} 个 /64 子网。</source>
+      <translation>/{0}: capacity {1:,} sites; {2:,} /64 subnets per site.</translation>
+    </message>
+    <message>
+      <source>此前缀比父网段更短，无法从父网段中划分。</source>
+      <translation>This prefix is shorter than the parent prefix and cannot be subdivided from it.</translation>
+    </message>
+    <message>
+      <source>容量不足，缺少 {0:,} 个站点前缀。</source>
+      <translation>Insufficient capacity: short by {0:,} site prefixes.</translation>
+    </message>
+    <message>
+      <source>满足需求；剩余 {0:,} 个站点前缀。</source>
+      <translation>Demand met; {0:,} site prefixes remain.</translation>
+    </message>
+    <message>
+      <source>本次连续分配范围：{0} → {1}</source>
+      <translation>Contiguous range for this plan: {0} → {1}</translation>
+    </message>
+    <message>
+      <source>Pref64 离线识别</source>
+      <translation>Offline Pref64 identification</translation>
+    </message>
+    <message>
+      <source>AAAA 样本：{0}；前缀候选：{1}；未匹配：{2}；歧义样本：{3}</source>
+      <translation>AAAA samples: {0}; prefix candidates: {1}; unmatched: {2}; ambiguous samples: {3}</translation>
+    </message>
+    <message>
+      <source>依据 RFC 7050 与 RFC 6052 检查 192.0.0.170／192.0.0.171 的六种标准布局；歧义样本不用于推断。</source>
+      <translation>Check the six standard layouts of 192.0.0.170 and 192.0.0.171 under RFC 7050 and RFC 6052; ambiguous samples are excluded from inference.</translation>
+    </message>
+    <message>
+      <source>仅离线分析格式，不发送 DNS 请求、不验证 DNSSEC 或服务真实性，也不证明 NAT64 可达。</source>
+      <translation>Offline format analysis only: no DNS requests, DNSSEC or service authentication, or NAT64 reachability checks.</translation>
+    </message>
+    <message>
+      <source>AAAA 样本最多 16 KiB、256 行及 128 个地址。</source>
+      <translation>AAAA samples are limited to 16 KiB, 256 lines and 128 addresses.</translation>
+    </message>
+    <message>
+      <source>请输入每行一个 IPv6 AAAA 地址，最多 128 个；允许空行和 # 注释。</source>
+      <translation>Enter one IPv6 AAAA address per line, up to 128; blank lines and # comments are allowed.</translation>
+    </message>
+    <message>
+      <source>未找到可唯一解释的 Pref64 格式候选；请核对 ipv4only.arpa 的 AAAA 地址。</source>
+      <translation>No uniquely interpretable Pref64 format candidates found; check the AAAA addresses for ipv4only.arpa.</translation>
+    </message>
+    <message>
+      <source>AAAA 样本包含无效的 Unicode 字符。</source>
+      <translation>AAAA samples contain invalid Unicode characters.</translation>
+    </message>
+    <message>
+      <source>前缀候选：{0}</source>
+      <translation>Prefix candidate: {0}</translation>
+    </message>
+    <message>
+      <source>样本证据：{0}；原始行号：{1}</source>
+      <translation>Sample evidence: {0}; original line numbers: {1}</translation>
+    </message>
+    <message>
+      <source>样本含非零保留后缀；提取时按 RFC 6052 忽略后缀。</source>
+      <translation>The sample has a nonzero reserved suffix; extraction ignores it under RFC 6052.</translation>
+    </message>
+    <message>
+      <source>第 {0} 行不是有效的单个 IPv6 AAAA 地址。</source>
+      <translation>Line {0} is not a valid single IPv6 AAAA address.</translation>
+    </message>
+    <message>
+      <source>同时匹配两个已知 IPv4 地址。</source>
+      <translation>Both well-known IPv4 addresses matched.</translation>
+    </message>
+    <message>
+      <source>仅匹配一个已知 IPv4 地址；这是单地址样本，不是双地址交叉核对。</source>
+      <translation>Only one well-known IPv4 address matched; this is a single-address sample, not a two-address cross-check.</translation>
+    </message>
+    <message>
+      <source>保存完整工具报告为 TXT</source>
+      <translation>Save the complete tool report as TXT</translation>
+    </message>
+    <message>
+      <source>复制 Pref64 前缀候选清单</source>
+      <translation>Copy the Pref64 prefix candidate list</translation>
+    </message>
+    <message>
+      <source>分析 Pref64 格式候选</source>
+      <translation>Analyze Pref64 format candidates</translation>
+    </message>
+    <message>
+      <source>比较站点前缀方案（Enter）</source>
+      <translation>Compare site prefix options (Enter)</translation>
+    </message>
+    <message>
+      <source>离线分析 RFC 7050 格式候选；不查询 DNS、不检查服务真实性。</source>
+      <translation>Analyze RFC 7050 format candidates offline, without DNS queries or service authentication.</translation>
+    </message>
+    <message>
+      <source>对比 /48、/52、/56、/60、/64 的容量、每站点 /64 数及连续分配范围。</source>
+      <translation>Compare /48, /52, /56, /60 and /64 capacity, /64 subnets per site and contiguous allocation ranges.</translation>
+    </message>
+    <message>
+      <source>ipv4only.arpa 的 AAAA 地址（每行一个）</source>
+      <translation>AAAA addresses for ipv4only.arpa (one per line)</translation>
+    </message>
+    <message>
+      <source>粘贴已获取的 AAAA 地址，不含域名、TTL 或命令输出；最多 128 个。</source>
+      <translation>Paste collected AAAA addresses only, without names, TTLs or command output; up to 128 addresses.</translation>
+    </message>
+    <message>
+      <source>父网段</source>
+      <translation>Parent network</translation>
+    </message>
+    <message>
+      <source>输入已获分配的 IPv6 CIDR；主机位会自动规范化。</source>
+      <translation>Enter an allocated IPv6 CIDR; host bits are normalized automatically.</translation>
+    </message>
+    <message>
+      <source>所需站点数量</source>
+      <translation>Requested site count</translation>
+    </message>
+    <message>
+      <source>比较五种站点前缀能否满足数量需求，不枚举所有站点。</source>
+      <translation>Compare whether five site prefix sizes meet the requested count without enumerating all sites.</translation>
+    </message>
   </context>
   <context>
     <name>Export</name>

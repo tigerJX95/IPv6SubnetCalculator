@@ -62,7 +62,10 @@ class ReleaseValidationTests(unittest.TestCase):
             root = Path(directory)
             for name in ('main.py', 'app.py', 'app_info.py', 'app.ico', 'requirements.txt',
                          'build.cmd', 'LICENSE', 'NOTICE', 'THIRD_PARTY_NOTICES.md',
-                         'IPv6SubnetCalculator.spec', 'tools/frozen_policy.py'):
+                         'IPv6SubnetCalculator.spec', 'tools/frozen_policy.py',
+                         'requirements-ci.txt', 'requirements-build.txt',
+                         'requirements-runtime.lock', 'requirements-ci.lock', 'requirements-build.lock',
+                         'tools/dependency_locks.py', 'tools/qt_advisories.py', 'tools/qt_advisories.json'):
                 (root/name).parent.mkdir(parents=True, exist_ok=True)
                 shutil.copyfile(source/name, root/name)
             for folder in ('core', 'ui', 'services', 'assets', 'docs/licenses', 'docs/about'):

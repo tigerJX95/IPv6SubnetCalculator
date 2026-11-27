@@ -1,12 +1,12 @@
 **简体中文** | [English](README_EN.md)
 
-# 🌐 IPv6 子网计算器 V1.37
+# 🌐 IPv6 子网计算器 V1.38
 
-## V1.37 前缀需求规划与反向 DNS 区域 · 2026-11-22
+## V1.38 站点前缀对比与 Pref64 离线识别 · 2026-11-27
 
-- 新增按需求反推父前缀：输入子网数量、每个子网前缀和额外预留，分别显示数学上最小父前缀与四位边界对齐方案，可复制结果或保存规划报告。
-- 新增子网级反向 DNS 区域生成：非四位对齐网段精确拆分为最多 8 个区域，支持纯区域清单复制及 TXT 保存，不查询 DNS、不创建记录。
-- NAT64 部署提示明确引用 RFC 6052，帮助文档区分现行规范与修订草案；补强地址等价表示和窄窗口布局验证。
+- 新增站点前缀方案对比：输入父网段与站点数量，对比 /48、/52、/56、/60、/64 的站点容量、每站点 /64 子网数及本次连续分配首末前缀，明确区分容量不足与无法细分。
+- 新增 Pref64 离线识别：粘贴 ipv4only.arpa 的 AAAA 地址，按 RFC 7050 与 RFC 6052 分析六种前缀长度，保留多个候选、原始行号与单／双地址证据，并排除无法消解的歧义样本。
+- 两项工具均支持报告复制与 TXT 保存；输入变化立即停用旧结果。更新双语帮助及实际界面截图，保留现行规范与修订草案的区别。
 
 [历史更新](docs/HISTORY.md)
 
@@ -127,9 +127,13 @@ IPv6SubnetCalculator 是一款适用于 Windows 的离线 IPv6 子网计算工�
 
 ![子网级反向 DNS 区域](docs/screenshots/reverse_zones_zh_CN_light.png)
 
+![站点前缀方案对比](docs/screenshots/site_prefixes_zh_CN_light.png)
+
+![Pref64 离线识别](docs/screenshots/pref64_discovery_zh_CN_light.png)
+
 ## 📦 下载与使用
 
-从 GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest) 的 Assets 中直接下载 `IPv6SubnetCalculator_V1.37.exe`，下载后即可运行，无需另行配置运行环境。输入 IPv6 网络地址与目标前缀，点击计算图标；完成后自动切换到结果页。
+从 GitHub [Releases](https://github.com/tigerJX95/IPv6SubnetCalculator/releases/latest) 的 Assets 中直接下载 `IPv6SubnetCalculator_V1.38.exe`，下载后即可运行，无需另行配置运行环境。输入 IPv6 网络地址与目标前缀，点击计算图标；完成后自动切换到结果页。
 
 按 F1 或点击顶部“ⓘ”可查看内置帮助、许可原文与法律责任说明。
 

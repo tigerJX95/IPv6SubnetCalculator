@@ -237,6 +237,23 @@ class ReleaseCheck(QObject):
         self.require(zones.result is None and not zones.run() and not zones.save_button.isEnabled(),
                      'Edited reverse-zone input retained output')
         self.checks.append('prefix_demand_and_reverse_zones_exact_bounds_and_invalidation')
+        sites = tools.site_prefix_panel
+        sites.inputs['network'].setText('2001:db8:abcd::/48')
+        sites.inputs['count'].setText('16')
+        self.require(sites.run() and sites.result.options[1].capacity == 16
+                     and str(sites.result.options[1].last) == '2001:db8:abcd:f000::/52',
+                     'Site prefix comparison failed')
+        sites.inputs['count'].setText('0')
+        self.require(not sites.run() and not sites.save_button.isEnabled(), 'Stale site report retained')
+        self.checks.append('site_prefix_comparison_exact_ranges_and_invalidation')
+        pref64 = tools.pref64_discovery_panel
+        pref64.inputs['samples'].setPlainText('64:ff9b::c000:aa\n64:ff9b::c000:ab')
+        self.require(pref64.run() and pref64.result.prefix_text() == '64:ff9b::/96'
+                     and len(pref64.result.candidates[0].evidence) == 2, 'Offline Pref64 samples failed')
+        pref64.inputs['samples'].setPlainText('2001:db8::1')
+        self.require(pref64.result is None and pref64.run() and not pref64.copy_prefixes_action.isEnabled(),
+                     'Unmatched Pref64 sample retained candidate output')
+        self.checks.append('offline_pref64_candidates_and_output_invalidation')
 
         from services.plan_storage import save_plan, load_plan
         calculation.target_input.setText('64')
