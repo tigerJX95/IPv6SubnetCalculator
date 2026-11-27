@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Tools used by .github/workflows/quality.yml; not application dependencies.
+--index-url https://pypi.org/simple/
 ruff==0.17.1
 pip-audit==2.10.1
 bandit==1.9.4

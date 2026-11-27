@@ -1,0 +1,5 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Inputs for the complete release environment; install requirements-build.lock.
+-r requirements.txt
+-r requirements-ci.txt
+pyinstaller==6.22.3

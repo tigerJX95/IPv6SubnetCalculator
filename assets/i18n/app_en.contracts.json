@@ -103,6 +103,15 @@
     },
     {
       "context": "App",
+      "source": "/{0}：容量 {1:,} 个站点；每站点含 {2:,} 个 /64 子网。",
+      "source_sha256": "6f5d5384fe8722b303f7aa547cc27fef28c4f8ee39bd55a51dcd8cd02f28a10b",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "/{0}｜{1:,}｜{2:,}",
       "source_sha256": "e7676a71eac66f83fb4765bebf7f3a6f31280d93861a7e10e5c72b16cd6c8c06",
       "protected_tokens": [],
@@ -186,6 +195,33 @@
       "context": "App",
       "source": "A 独有（A 减 B）",
       "source_sha256": "d6e211d1811d4a72f31d95d43a5b1b10210c522b59739fb9594e094da5da2742",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "AAAA 样本包含无效的 Unicode 字符。",
+      "source_sha256": "1f55a091a523dd5413d987c8854af43a521e82fd646e0ec8936c11656ec57d26",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "AAAA 样本最多 16 KiB、256 行及 128 个地址。",
+      "source_sha256": "5851dadd861371378ebd5460db86b300a069a7ec7e987aa3eaf135ce51d18d56",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "AAAA 样本：{0}；前缀候选：{1}；未匹配：{2}；歧义样本：{3}",
+      "source_sha256": "846fc3319d58e5a8d76938b160b2c77498defc5407728317516f18fa17e8a9a1",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -912,6 +948,15 @@
     },
     {
       "context": "App",
+      "source": "Pref64 离线识别",
+      "source_sha256": "6a1c2280db78196d386d1a36bdab87337380939f42397a2879057f1b38fe9ca4",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "PyQt6 · GPL v3 原文",
       "source_sha256": "1f9012959541d373e6ca423093aeba8e4321c15ce4d431ac819ae6c968383bde",
       "protected_tokens": [],
@@ -950,6 +995,15 @@
       "context": "App",
       "source": "Qt 中文控件 · 来源与许可",
       "source_sha256": "9b6f44349529f47d2917cfbde3998bb892c38cd22d91048b2a2eb4ba585b1205",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "RFC 6177 不要求所有站点统一使用 /48；请结合实际需求和已获分配的地址空间选择。",
+      "source_sha256": "e5f6d690b65681f3f8ca4a8149d1ea8ee9cc434caf4b0b23b84a79d6df203672",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -1022,6 +1076,15 @@
       "context": "App",
       "source": "ZIP 压缩文件",
       "source_sha256": "bc343625ba3743d1fc45c36cad46497084262b6555d4c39ba8007f7f70edd344",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "ipv4only.arpa 的 AAAA 地址（每行一个）",
+      "source_sha256": "dae96b16f198f4933b9682b1f0db78aa8b8af464479f6dfb1b6a3a498330da25",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -1488,6 +1551,15 @@
     },
     {
       "context": "App",
+      "source": "仅匹配一个已知 IPv4 地址；这是单地址样本，不是双地址交叉核对。",
+      "source_sha256": "68035422bba7ce16bdea09db99e91eb7a8866d9c4e2ccf7de87744c2c74fea81",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "仅支持单个地址的完整 32 标签名称，不支持反向区域或通配符；不进行 DNS 查询。",
       "source_sha256": "70bf8479c70ed4bbb93a236889d1b7920471787456aea01561f46f1ff096a0d3",
       "protected_tokens": [],
@@ -1508,6 +1580,15 @@
       "context": "App",
       "source": "仅用于本机通信，不可分配到普通网络接口进行设备互联。",
       "source_sha256": "32b515b4e24a08334f62f2e8dfd9ceb48e738300480dd8e9cc48bd50a350eb36",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "仅离线分析格式，不发送 DNS 请求、不验证 DNSSEC 或服务真实性，也不证明 NAT64 可达。",
+      "source_sha256": "1fd36e0ec9ffeabd76ad9fd380a751b1dd247deadfeec0df0377a18bed59a616",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -1553,6 +1634,15 @@
       "context": "App",
       "source": "从 IPv6 提取 IPv4",
       "source_sha256": "8d987dee0e39ebd4245b917dc2ae2e7dc9b09737800077bbc0e535f53448b86c",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "以上是互斥的规划方案，不可合并视为同时分配；未扣除已占用网段。",
+      "source_sha256": "023b7be4d522b5737170e83c15e9582d407ffbbc743f2321b90935800f8e0e9d",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -1688,6 +1778,15 @@
     },
     {
       "context": "App",
+      "source": "依据 RFC 7050 与 RFC 6052 检查 192.0.0.170／192.0.0.171 的六种标准布局；歧义样本不用于推断。",
+      "source_sha256": "03591acbec46fd9e6e7110e3e3191895e5d021547d44ad8490e08431d87f4f2e",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "保存",
       "source_sha256": "a3030bf8f16dc63c6b277564c68f78a3be5abe5f2907c51826dee7184ff793fd",
       "protected_tokens": [],
@@ -1807,6 +1906,15 @@
       "context": "App",
       "source": "保存完整关系报告为 TXT",
       "source_sha256": "4e6f46ce2e0a3fb8a8b9bb86c644d18e796a5cd90a292da5076220bb44553c5e",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "保存完整工具报告为 TXT",
+      "source_sha256": "b9a84cfed262f77a99f56d68d45d688a24baa327e874921347eb642463036b02",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -2705,6 +2813,15 @@
     },
     {
       "context": "App",
+      "source": "分析 Pref64 格式候选",
+      "source_sha256": "14df4dece7dd7cbbe5507b5db683bb3ad9604d742a9a3a155015d58e586ac6fe",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "分析双网段关系（输入框内按 Enter）",
       "source_sha256": "60ca97afc3ae7466ec94b7b0d546c6aa21a2612524ae9c75c579703b6c368419",
       "protected_tokens": [],
@@ -2752,6 +2869,15 @@
       "context": "App",
       "source": "分页参数不正确",
       "source_sha256": "4f7782c64348e39100828d524ef94389a48b41b564015d4d28017f06f76ed390",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "前缀候选：{0}",
+      "source_sha256": "793beb2b057fd6efee18dcdb52fab0760a7241604a2b6713e2774219029005eb",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -3251,6 +3377,15 @@
     },
     {
       "context": "App",
+      "source": "同时匹配两个已知 IPv4 地址。",
+      "source_sha256": "4f4ead372109b3b4b1e74cb7b9aa6ac5ca7d34db296ec49697f199b6331ea37c",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "名称",
       "source_sha256": "d44e9b3d3b31d37b4f0cd94f7861383519f9ec0cf59b953596627a3e7706bfbc",
       "protected_tokens": [],
@@ -3406,6 +3541,15 @@
       "context": "App",
       "source": "地址格式转换完成。",
       "source_sha256": "8e318e5f569e45ff82dc05487a48983fcdeb284a1c6505a67daae3a66fa4ea4f",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "地址用途：{0}",
+      "source_sha256": "84afbc93b74533b6588255e6a331c8844c059a2870349f0d4e3a784d9953ee70",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -3577,6 +3721,15 @@
       "context": "App",
       "source": "复制 IPv6 地址",
       "source_sha256": "84b2f2a605dbe026a3d9ea58aac010a2889780bf16497163ae799abce4508708",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "复制 Pref64 前缀候选清单",
+      "source_sha256": "285f09b8e15950dda8e184e378a355ab291395fc2865466337a55bcc275fba89",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -4279,8 +4432,26 @@
     },
     {
       "context": "App",
+      "source": "容量不足，缺少 {0:,} 个站点前缀。",
+      "source_sha256": "b1271e4757812cbf783b6c41dcd497f47abaddcbe3d39d13ba57c1f62f5f8dfb",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "容量总览父网段",
       "source_sha256": "51b7900328d1fcece02d43fea181206ae8d8de5d65d19f63fda16a7a79c3ea0e",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "对比 /48、/52、/56、/60、/64 的容量、每站点 /64 数及连续分配范围。",
+      "source_sha256": "e8647657c5107924ee84ee752c9e469ad590d2b296838c99392ea534342e265d",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -5115,6 +5286,24 @@
       "context": "App",
       "source": "所需子网数量",
       "source_sha256": "68c073d220780fc032b2cb9a0b368a440ab3676cb4e83a457970d5fbd0f280fd",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "所需站点数量",
+      "source_sha256": "74a27e3192643e3c448c92ea67a71531edfe0796913d22912fe06a4ea30e8774",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "所需站点数量：{0:,}",
+      "source_sha256": "04ebc2f13fb2e3b0c5a9729ebe3269efe75a1fcf04cb4d0cb2d724eca5d287e7",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -6284,6 +6473,15 @@
     },
     {
       "context": "App",
+      "source": "未找到可唯一解释的 Pref64 格式候选；请核对 ipv4only.arpa 的 AAAA 地址。",
+      "source_sha256": "089c9ecbb0f94589aa0ff2d890f00d12079a28b1bcb1b89c64e8204019b68e59",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "未指定地址",
       "source_sha256": "5d8675602bdd828ff6e7f9809920982716c3863f7b8d23062681626ca52bc9ff",
       "protected_tokens": [],
@@ -6340,6 +6538,15 @@
       "context": "App",
       "source": "本次计算共有 {0:,} 个子网。",
       "source_sha256": "56292295f38861386f2d3422366b1270919f2ef028933576116f39fdd13c144c",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "本次连续分配范围：{0} → {1}",
+      "source_sha256": "87a8d1e13586dea0a4ecd4731f949b67c8afd2e1fae7b28293ffe8cbe721c57e",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -6520,6 +6727,24 @@
       "context": "App",
       "source": "校验记录",
       "source_sha256": "b59e0bc9780bf0c064976b5624f95d2d4bd3f3c66576642e46c9161586834a04",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "样本含非零保留后缀；提取时按 RFC 6052 忽略后缀。",
+      "source_sha256": "265f43ffcb2f61d9c98a41fee7cb2ad09358a0d785e9c609f755bf41522f5bd8",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "样本证据：{0}；原始行号：{1}",
+      "source_sha256": "396862e8a279bfe5bd2952c4cd862484717b1a97c4c0973f5448fe35dcd643fa",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -6709,6 +6934,15 @@
     },
     {
       "context": "App",
+      "source": "此前缀比父网段更短，无法从父网段中划分。",
+      "source_sha256": "27d98a762a0f1b19684ed95442118da8a4d616ca725d47bdbe87603511637f78",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "此结果不选择具体网络地址；请在已获分配的地址空间内规划。",
       "source_sha256": "31aa1ca03e04d6ec483aab389ce3b8a57fabdad297274545ec6c1470fad6d678",
       "protected_tokens": [],
@@ -6832,6 +7066,24 @@
       "context": "App",
       "source": "每页：",
       "source_sha256": "b8ee64b0253ce2bcd30ba5da2bcb0048a79b84f49358bd344f076b3127e8789d",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "比较五种站点前缀能否满足数量需求，不枚举所有站点。",
+      "source_sha256": "d340d8124e1ba53e9e1e67b38054095bac2c23c42554d6d00d7b39a765749335",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "比较站点前缀方案（Enter）",
+      "source_sha256": "6f63064639f5c0a420702c07adfa49aa7053f2f8725114078a12a5a88ccac818",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -7122,8 +7374,26 @@
     },
     {
       "context": "App",
+      "source": "满足需求；剩余 {0:,} 个站点前缀。",
+      "source_sha256": "ccc589711fcac392140ae3743bf8e7749c3bab529e361d02457a7328202e60c5",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "点击复制完整精确统计。",
       "source_sha256": "4b2b34c3af060e10cfb4b91f75617d06199bca2c80095c4230cef79f438b2a8c",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "父网段",
+      "source_sha256": "637e50ff9d20a32dbb2d8d311eb2ed6ac0d0c1fdf77cdcf6cd9cf6763339fa15",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -7151,6 +7421,15 @@
       "context": "App",
       "source": "父网段输入错误：",
       "source_sha256": "9eb5a37f48c17929f3de4e978b8821b62deb909404b2f978dc4d937b5d4171c7",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "父网段（已规范化）：{0}",
+      "source_sha256": "868f9ebe6d1de9cc93dea066c2a889d69205a9e0a6b42dab3ec41af9abe25456",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -7599,6 +7878,15 @@
     },
     {
       "context": "App",
+      "source": "离线分析 RFC 7050 格式候选；不查询 DNS、不检查服务真实性。",
+      "source_sha256": "b3b8021c79f8275aafa1302e6da3d3ab162a92d5479d830d9b85d3a080cc34ce",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "离线计算 · 使用帮助 · 开源许可",
       "source_sha256": "f6ab8cd3ed69f71537ab7ed0474ad1103bd85e96f40666fb75cdfb2b66da6920",
       "protected_tokens": [],
@@ -7752,6 +8040,24 @@
     },
     {
       "context": "App",
+      "source": "站点前缀方案对比",
+      "source_sha256": "a53248c0f8fc72425a973d5e939f624c5e63791f965029b02d785d8feb7d3de8",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "站点数量须为 1～2^128 的十进制整数，最多 39 位数字。",
+      "source_sha256": "ddc7c56c0d58bb5fe8a12c92f8ff6edc18f441b8213d3370c2eaf633bae44269",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "第 {0} / {1} 页 · 共 {2} 项",
       "source_sha256": "26febad4c742e004999cbbb6f6441b5dddd3170ab1ee213b53b8a099bbaf8629",
       "protected_tokens": [],
@@ -7763,6 +8069,15 @@
       "context": "App",
       "source": "第 {0} 行 / 第 {1} 行：{2}",
       "source_sha256": "778308e098bae171d28313ee6abdd9b10c13406c48f175b4b3a526694df51c76",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "第 {0} 行不是有效的单个 IPv6 AAAA 地址。",
+      "source_sha256": "f975608c96335fb9748358a24ddc630f261c29e906aa0d35d5725eb115bf4fe8",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -7907,6 +8222,15 @@
       "context": "App",
       "source": "粘贴对比清单，或导入 TXT／规划项目 JSON。留空表示空清单。",
       "source_sha256": "70d6658deacc88048bdbc5c743b76a554769f1f65e5e0bb7d5165779b816194c",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "粘贴已获取的 AAAA 地址，不含域名、TTL 或命令输出；最多 128 个。",
+      "source_sha256": "422c1ffdaab280a86ee0f2308e534b0d932f2af6b7b1953949fe6e2a93ec51b2",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,
@@ -8913,6 +9237,15 @@
     },
     {
       "context": "App",
+      "source": "请输入每行一个 IPv6 AAAA 地址，最多 128 个；允许空行和 # 注释。",
+      "source_sha256": "baaaa8e81f14072446e9d0c4eb47c689a2143be1f10e3878c513b0e3b37de391",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
       "source": "请输入每行一个 IPv6 CIDR；空行和以 # 开头的注释会被忽略。",
       "source_sha256": "13ddaff9cd5985214af74ba36a65c53b1067a10fc285f9c85228ecf84671890c",
       "protected_tokens": [],
@@ -9311,6 +9644,15 @@
       "context": "App",
       "source": "输入已修改，需重新检查；原始文件不会被修改。",
       "source_sha256": "410252089b3243f8d18f68d86a1474983802d58975c7c832a9de9d82101918ff",
+      "protected_tokens": [],
+      "filter_patterns": [],
+      "structured_lines": false,
+      "opaque": false
+    },
+    {
+      "context": "App",
+      "source": "输入已获分配的 IPv6 CIDR；主机位会自动规范化。",
+      "source_sha256": "418de792c9eb623c6fd0bf3a780cff970dc5a58a3d9ea4f036c8896b45b0a64f",
       "protected_tokens": [],
       "filter_patterns": [],
       "structured_lines": false,

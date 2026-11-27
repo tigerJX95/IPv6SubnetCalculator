@@ -14,9 +14,7 @@ set "IPV6_APP_VERSION="
 for /f "delims=" %%V in ('%IPV6_PYTHON% -c "from app_info import APP_VERSION; print(APP_VERSION)"') do set "IPV6_APP_VERSION=%%V"
 if not defined IPV6_APP_VERSION goto fail
 set "IPV6_APP_NAME=IPv6SubnetCalculator_V%IPV6_APP_VERSION%"
-%IPV6_PYTHON% -m pip install -r requirements.txt || goto fail
-%IPV6_PYTHON% -m pip install --upgrade "pyinstaller>=6.22.3,<7" || goto fail
-%IPV6_PYTHON% -m pip install -r requirements-ci.txt || goto fail
+%IPV6_PYTHON% -m pip install --require-hashes --only-binary=:all: -r requirements-build.lock || goto fail
 %IPV6_PYTHON% tools\check_security.py || goto fail
 %IPV6_PYTHON% tools\build_manifest.py || goto fail
 %IPV6_PYTHON% -m PyInstaller --noconfirm --clean IPv6SubnetCalculator.spec || goto fail

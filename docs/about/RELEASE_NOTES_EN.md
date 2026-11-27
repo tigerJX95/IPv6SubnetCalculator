@@ -1,9 +1,9 @@
 # Release Notes
 
-## V1.37 Prefix demand planning and reverse DNS zones · 2026-11-22
+## V1.38 Site prefix comparison and offline Pref64 identification · 2026-11-27
 
-- Size a parent prefix from subnet count, individual prefix and extra reserve. Compare the mathematical minimum with a nibble-aligned alternative, copy the result or save the planning report.
-- Generate subnet reverse DNS zones. Non-nibble-aligned networks split into at most eight exact zones; copy the plain list or save TXT without querying DNS or creating records.
-- Cite RFC 6052 explicitly in NAT64 deployment guidance and distinguish the current specification from its revision draft in Help. Extend equivalent-address and small-window checks.
+- Compare site prefix options from a parent network and site count. See capacity, /64 subnets per site and the first/last prefix in the requested contiguous range for /48, /52, /56, /60 and /64; distinguish insufficient capacity from an unsplittable parent.
+- Identify Pref64 candidates offline from pasted ipv4only.arpa AAAA addresses using the six RFC 6052 layouts and RFC 7050 markers. Preserve multiple candidates, original line numbers and single/two-address evidence; exclude unresolved ambiguity.
+- Copy or save both reports as TXT; input edits immediately disable stale output. Refresh bilingual help and actual interface screenshots, keeping current specifications distinct from revision drafts.
 
 [Update History](HISTORY_EN.md)

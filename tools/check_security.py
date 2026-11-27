@@ -8,6 +8,9 @@ from pathlib import Path
 import subprocess
 import sys
 ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT))
+from tools.dependency_locks import validate_locks
+from tools.qt_advisories import audit_qt
 
 
 def valid_dependency_report(path):
@@ -54,6 +57,14 @@ def main():
         jobs.append(('dependencies',[sys.executable,'-m','pip_audit','--disable-pip','--no-deps','--requirement','requirements.txt',
                     '--vulnerability-service','osv','--progress-spinner','off','--format','json','--output',str(output/'dependency-audit.json')]))
     results={}
+    for name,check in [('dependency_locks',validate_locks),('qt_native',audit_qt)]:
+        try:
+            payload=check(ROOT)
+            results[name]='passed' if payload.get('status')=='passed' else 'failed'
+        except (OSError,ValueError,KeyError,TypeError,SyntaxError) as exc:
+            payload={'status':'failed','error':str(exc)}
+            results[name]='failed'
+        (output/(name+'.json')).write_text(json.dumps(payload,indent=2)+'\n',encoding='utf-8')
     for name,command in jobs:
         report=output/('bandit.json' if name=='bandit' else 'dependency-audit.json');report.unlink(missing_ok=True)
         try:
@@ -67,6 +78,8 @@ def main():
             (output/(name+'.log')).write_text(str(exc),encoding='utf-8');results[name]='failed'
     payload=dict(status='passed' if all(x=='passed' for x in results.values()) else 'failed',checks=results,
                  codeql='not_run_locally')
+    qt=json.loads((output/'qt_native.json').read_text(encoding='utf-8'))
+    payload['qt_all_patched']=qt.get('all_patched',False)
     (output/'summary.json').write_text(json.dumps(payload,indent=2)+'\n',encoding='utf-8')
     print(json.dumps(payload,indent=2));return 0 if payload['status']=='passed' else 1
 

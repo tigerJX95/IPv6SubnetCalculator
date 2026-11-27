@@ -360,4 +360,30 @@ Example: `2001:db8:abcd::/48` produces `d.c.b.a.8.b.d.0.1.0.0.2.ip6.arpa`; `2001
 
 ## NAT64 specification status
 
-The non-global IPv4 deployment warning follows **RFC 6052 Section 3.1**. As checked on 2026-11-22, [draft-ietf-v6ops-nat64-wkp-1918-10](https://datatracker.ietf.org/doc/draft-ietf-v6ops-nat64-wkp-1918/) remains an Internet-Draft in Last Call and proposes relaxing restrictions for certain non-global IPv4 addresses. This draft is not treated as an effective replacement for the current RFC. Address layout conversion remains independent of deployment guidance.
+The non-global IPv4 deployment warning follows **RFC 6052 Section 3.1**. As checked on 2026-11-24, [draft-ietf-v6ops-nat64-wkp-1918-10](https://datatracker.ietf.org/doc/draft-ietf-v6ops-nat64-wkp-1918/) remains an Internet-Draft (Datatracker lists Last Call with a 2026-11-23 deadline) and proposes relaxing restrictions for certain non-global IPv4 addresses. This draft is not treated as an effective replacement for the current RFC. Address layout conversion remains independent of deployment guidance.
+
+## Site prefix comparison
+
+Open Address Tools → Site prefix comparison.
+
+- **Parent network**: an IPv6 CIDR, default `2001:db8:abcd::/48`. Host bits are normalized. Use allocated space for actual planning; documentation addresses are examples only.
+- **Requested site count**: default 16; a decimal integer from 1 to 2^128, at most 39 digits. This counts sites, not addresses per site.
+- **Calculate icon / Enter**: compare /48, /52, /56, /60 and /64. Each row shows total site capacity, /64 subnets per site and, where the demand fits, the first/last prefix in the requested contiguous range and remaining capacity. Insufficient capacity never generates an out-of-range allocation.
+- **Save icon / right-click Copy complete tool report**: save UTF-8 TXT or copy a report in the current language. Editing either input immediately clears old output.
+
+Example: parent `2001:db8:abcd::/48`, 16 sites. A /48 option holds only one site and cannot meet demand. A /52 option holds exactly 16 sites, with 4,096 /64 subnets per site, from `2001:db8:abcd::/52` to `2001:db8:abcd:f000::/52`. A /56 option holds 256 sites and leaves 240 after this request.
+
+The rows are alternatives, not simultaneous allocations. Existing occupied space is not deducted; use Subnet List to check conflicts. [RFC 6177](https://www.rfc-editor.org/rfc/rfc6177.html) does not require every site to use /48. The recent [end-site prefix assignment draft -02](https://datatracker.ietf.org/doc/html/draft-ietf-v6ops-prefix-to-end-sites-02), dated 2026-11-15, remains work in progress and is not imposed as a software rule.
+
+## Offline Pref64 identification
+
+Open the bottom of Address Tools → Offline Pref64 identification. This analyzes collected AAAA samples offline; it does not run DNS commands or change network settings.
+
+- **AAAA addresses**: paste one IPv6 AAAA address collected for `ipv4only.arpa` per line, without names, TTLs, command output or CIDR. Blank lines and # comments are allowed. Limits: 128 addresses, 256 physical lines and 16 KiB. An invalid line stops processing and reports its original physical line number.
+- **Calculate icon**: inspect the RFC 6052 /32, /40, /48, /56, /64 and /96 layouts for the RFC 7050 values `192.0.0.170` and `192.0.0.171`. Preserve all interpretable candidates in response order rather than selecting the first. If one marker is ambiguous, cross-check with the other; unresolved samples are excluded.
+- **Report**: see each candidate, single/two-address evidence, original line numbers and unmatched/ambiguous totals. A single known IPv4 address can still yield a candidate, clearly labeled as single-address evidence. Nonzero suffixes are noted separately.
+- **Right-click Copy the Pref64 prefix candidate list**: copy one prefix per line. Disabled when there are no candidates; the complete report can still be copied or saved as TXT. Editing input disables old output immediately.
+
+Example: paste `64:ff9b::c000:aa` and `64:ff9b::c000:ab` on separate lines. The candidate is `64:ff9b::/96`, with evidence for `192.0.0.170` and `192.0.0.171`. Pasting only the first gives single-address evidence; `2001:db8::1` yields no candidate.
+
+This tool reuses format rules from [RFC 7050](https://www.rfc-editor.org/rfc/rfc7050.html) and [RFC 6052](https://www.rfc-editor.org/rfc/rfc6052.html). It does not perform online discovery, DNSSEC, service authentication or connectivity validation. A format candidate establishes neither address rights nor a working NAT64 service.

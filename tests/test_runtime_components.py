@@ -15,5 +15,6 @@ class RuntimeComponentTests(unittest.TestCase):
 
     def test_official_index_and_versions_are_pinned(self):
         root=Path(__file__).resolve().parents[1];text=(root/'requirements.txt').read_text()
-        for line in ('--extra-index-url https://www.riverbankcomputing.com/pypi/simple/','PyQt6==6.12.0','PyQt6-Qt6==6.12.0','PyQt6-sip==13.13.0'):
+        self.assertNotIn('--extra-index-url',text)
+        for line in ('--index-url https://pypi.org/simple/','PyQt6==6.12.0','PyQt6-Qt6==6.12.0','PyQt6-sip==13.13.0'):
             self.assertIn(line,text)

@@ -12,7 +12,8 @@ import sys
 
 def relevant_paths(names):
     prefixes=('core/','ui/','services/','assets/','tests/','docs/')
-    exact={'app.py','app_info.py','main.py','requirements.txt','requirements-ci.txt',
+    exact={'app.py','app_info.py','main.py','requirements.txt','requirements-ci.txt','requirements-build.txt',
+           'requirements-runtime.lock','requirements-ci.lock','requirements-build.lock',
            'build.cmd','verify.cmd','tools/check_i18n.py','tools/update_translations.py',
            'tools/i18n_gate.py','tools/update_i18n_contracts.py','tools/check_doc_images.py',
            '.github/workflows/i18n-check.yml'}

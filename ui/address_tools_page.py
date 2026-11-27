@@ -28,6 +28,7 @@ from ui.address_range_panel import AddressRangePanel
 from ui.address_utility_panel import AddressUtilityPanel
 from ui.nat64_panel import Nat64Panel
 from ui.planning_utility_panel import PlanningUtilityPanel
+from ui.site_discovery_panel import SiteDiscoveryPanel
 from ui.input_feedback import bind_input, mark_invalid, clear_invalid
 from ui.fonts import data_font
 from ui.dialogs import RelationCidrDialog
@@ -210,6 +211,11 @@ class AddressToolsPage(QWidget):
         self.prefix_demand_panel = PlanningUtilityPanel(clipboard)
         self.reverse_zones_panel = PlanningUtilityPanel(clipboard, zones=True)
         for panel in (self.prefix_demand_panel, self.reverse_zones_panel):
+            panel.feedback.connect(self.feedback)
+            body.addWidget(panel)
+        self.site_prefix_panel = SiteDiscoveryPanel(clipboard)
+        self.pref64_discovery_panel = SiteDiscoveryPanel(clipboard, discovery=True)
+        for panel in (self.site_prefix_panel, self.pref64_discovery_panel):
             panel.feedback.connect(self.feedback)
             body.addWidget(panel)
         body.addStretch()
