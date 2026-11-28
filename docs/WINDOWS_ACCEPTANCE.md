@@ -1,4 +1,4 @@
-## V1.38 操作验收 / Operation checks · 2026-11-22
+## V1.39 操作验收 / Operation checks · 2026-11-22
 
 - 计算 `2001:1::3/128`，检查中英文任播名称、IANA 属性和复制摘要；改为 `2001::/23`，确认显示混合范围且不沿用单项登记。 / Calculate `2001:1::3/128` and check the anycast name, IANA attributes and copied summary in both languages. Change to `2001::/23` and check that the mixed range does not show single-entry attributes.
 
@@ -94,7 +94,7 @@
 
 ## 新增操作验收 / New operation checks
 
-1. 关于窗口确认 PyQt6 与 Qt 均显示 6.12.0；安装时通过 requirements.txt 使用 Riverbank 官方预发布源。/ Confirm both runtime versions in About and the official index installation.
+1. 关于窗口确认 PyQt6 与 Qt 均显示 6.12.1；安装时通过带哈希的 requirements-build.lock 使用官方 PyPI 源。/ Confirm both runtime versions in About and the hash-locked official PyPI installation.
 2. 批量可用性导入 TXT／CIDR 或规划项目 JSON，确认仅候选文本变化，基准、父网段和分配参数保持原样。/ Import candidates without restoring baseline or allocation parameters.
 3. 已有候选时确认替换；取消、无效编码和超限文件应保留原结果。/ Check replacement confirmation and preservation on cancellation or errors.
 4. 在中英文、浅深色主题下检查文件夹入口、候选详情、关于页标题及右键复制。/ Inspect both languages/themes, candidate details, document headings and context menus.
@@ -251,7 +251,7 @@ Verify these cases on Windows in both OS display languages where available; Linu
 - 确认新验证报告具有 regression.json、非零测试数、匹配运行标识和完整工作流。Windows 命名互斥、NTFS/exFAT 与网络目录行为仍须实机验证。 / Verify structured evidence and native Windows/filesystem behavior.
 - Qt 升级尚未完成，不将 Qt 6.11.2 自检通过记为 D01 已修复。 / Functional checks on Qt 6.11.2 do not close D01.
 
-### V1.38 规划工具 / Planning tools
+### V1.39 规划工具 / Planning tools
 
 - 在中英文及浅深色主题下，以 900×620 窗口打开地址工具，确认没有横向滚动，输入、计算和保存图标可访问。
 - 需求填 300、前缀 64、额外预留 10，确认含预留数量 330、最小父前缀 /55、对齐方案 /52；复制结果、保存报告，再修改输入，确认旧输出禁用。

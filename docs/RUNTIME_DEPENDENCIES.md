@@ -1,8 +1,8 @@
 # 运行组件与安装来源 / Runtime Components and Installation Source
 
-本版固定使用 PyQt6 6.12.0、Qt 6.12.0 和 PyQt6-sip 13.13.0，可从官方 PyPI 安装。`requirements.txt` 保留 [Riverbank 官方源](https://www.riverbankcomputing.com/pypi/) 作为附加索引，版本固定不变。
+本版固定使用 PyQt6 6.12.1、Qt 6.12.1 和 PyQt6-sip 13.13.0，可从官方 PyPI 安装。安装使用官方 PyPI 单一索引；构建使用带哈希的 `requirements-build.lock`。
 
-This version pins PyQt6 6.12.0, Qt 6.12.0 and PyQt6-sip 13.13.0, available from official PyPI. `requirements.txt` retains [Riverbank's official index](https://www.riverbankcomputing.com/pypi/) as an additional source with the same exact pins.
+This version pins PyQt6 6.12.1, Qt 6.12.1 and PyQt6-sip 13.13.0, available from official PyPI. Installation uses the single official PyPI index; builds use the hash-locked `requirements-build.lock`.
 
 本地和 GitHub 构建共用 `IPv6SubnetCalculator.spec`。EXE 保留界面及图标所需组件，排除不使用的网络、多媒体、QML 等组件；`tools/frozen_policy.py` 检查生成的 EXE，发现不符合要求的组件时终止构建。源码环境安装的完整 Qt wheel 不会因此被修改。
 

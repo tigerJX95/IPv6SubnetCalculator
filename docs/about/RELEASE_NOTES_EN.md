@@ -1,9 +1,9 @@
 # Release Notes
 
-## V1.38 Site prefix comparison and offline Pref64 identification · 2026-11-27
+## V1.39 Batch NAT64 conversion and ULA subnet lookup · 2026-11-28
 
-- Compare site prefix options from a parent network and site count. See capacity, /64 subnets per site and the first/last prefix in the requested contiguous range for /48, /52, /56, /60 and /64; distinguish insufficient capacity from an unsplittable parent.
-- Identify Pref64 candidates offline from pasted ipv4only.arpa AAAA addresses using the six RFC 6052 layouts and RFC 7050 markers. Preserve multiple candidates, original line numbers and single/two-address evidence; exclude unresolved ambiguity.
-- Copy or save both reports as TXT; input edits immediately disable stale output. Refresh bilingual help and actual interface screenshots, keeping current specifications distinct from revision drafts.
+- Convert batches in either NAT64 direction using all six RFC 6052 prefix lengths. Preserve input order, duplicates and original line numbers; any invalid address cancels the entire output. Copy address-only lists or save full TXT reports.
+- Generate a ULA /48 within fd00::/8 using the system random source, or enter an existing prefix. Locate an exact /64 subnet and its address range using a hexadecimal Subnet ID from 0000 to ffff.
+- Correct multicast IPv4 destination guidance in NAT64 reports. Add bilingual help, actual interface screenshots and protection against exporting results after inputs change.
 
 [Update History](HISTORY_EN.md)

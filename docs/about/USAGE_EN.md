@@ -360,7 +360,7 @@ Example: `2001:db8:abcd::/48` produces `d.c.b.a.8.b.d.0.1.0.0.2.ip6.arpa`; `2001
 
 ## NAT64 specification status
 
-The non-global IPv4 deployment warning follows **RFC 6052 Section 3.1**. As checked on 2026-11-24, [draft-ietf-v6ops-nat64-wkp-1918-10](https://datatracker.ietf.org/doc/draft-ietf-v6ops-nat64-wkp-1918/) remains an Internet-Draft (Datatracker lists Last Call with a 2026-11-23 deadline) and proposes relaxing restrictions for certain non-global IPv4 addresses. This draft is not treated as an effective replacement for the current RFC. Address layout conversion remains independent of deployment guidance.
+The non-global IPv4 deployment warning follows **RFC 6052 Section 3.1**. As checked on 2026-11-28, [draft-ietf-v6ops-nat64-wkp-1918-11](https://datatracker.ietf.org/doc/draft-ietf-v6ops-nat64-wkp-1918/) is in IESG Evaluation and remains an Internet-Draft and proposes relaxing restrictions for certain non-global IPv4 addresses. This draft is not treated as an effective replacement for the current RFC. Address layout conversion remains independent of deployment guidance.
 
 ## Site prefix comparison
 
@@ -387,3 +387,39 @@ Open the bottom of Address Tools → Offline Pref64 identification. This analyze
 Example: paste `64:ff9b::c000:aa` and `64:ff9b::c000:ab` on separate lines. The candidate is `64:ff9b::/96`, with evidence for `192.0.0.170` and `192.0.0.171`. Pasting only the first gives single-address evidence; `2001:db8::1` yields no candidate.
 
 This tool reuses format rules from [RFC 7050](https://www.rfc-editor.org/rfc/rfc7050.html) and [RFC 6052](https://www.rfc-editor.org/rfc/rfc6052.html). It does not perform online discovery, DNSSEC, service authentication or connectivity validation. A format candidate establishes neither address rights nor a working NAT64 service.
+
+## Batch NAT64 conversion
+
+Use this tool at the bottom of Address Tools. Its state is independent of single-address conversion, Pref64 identification and subnet calculations.
+
+| Setting or action | Description and example |
+| --- | --- |
+| Conversion direction | Defaults to embedding IPv4 into IPv6; alternatively extract IPv4 from IPv6. Changing direction immediately clears previous output. |
+| NAT64 prefix | An aligned IPv6 CIDR with /32, /40, /48, /56, /64 or /96. The default is `64:ff9b::/96`. |
+| Address list | One address per line for the chosen direction; at most 128 addresses, 16 KiB and 256 physical lines. Blank lines and # comments are allowed. Domains, CIDRs, zone identifiers and command output are rejected. Input order and duplicates are preserved. |
+| Run icon | Validate the entire list; errors identify the physical line. Any invalid address cancels all output. Extraction checks prefix membership and the reserved byte; reports flag nonzero suffixes. |
+| Result context menu | Copy the converted address-only list or the full report, including direction, prefix, original lines and per-address guidance. |
+| Save icon | Save the full report as UTF-8 TXT. Changes to inputs during file selection cancel saving the old result. |
+
+**Example:** With `64:ff9b::/96`, enter `192.0.2.33` and `198.51.100.7` on separate lines. The results are `64:ff9b::c000:221` and `64:ff9b::c633:6407`. Switch to extraction and paste both IPv6 addresses to recover the original list. These IPv4 examples are documentation addresses, so the report retains deployment restrictions. Format conversion does not prove NAT64 reachability.
+
+![Batch NAT64 conversion](../screenshots/nat64_batch_en_US_light.png)
+
+## ULA prefixes and subnet lookup
+
+This tool uses the locally assigned address structure in [RFC 4193](https://www.rfc-editor.org/rfc/rfc4193.html): the fd prefix, 40-bit Global ID, 16-bit Subnet ID and 64-bit interface ID.
+
+| Setting or action | Description and example |
+| --- | --- |
+| ULA /48 prefix | Enter an aligned existing /48 within fd00::/8. The fc00::/8 range, other lengths and nonzero host bits are rejected. The initial `fd12:3456:789a::/48` is a demonstration only; do not deploy it as a shared default across sites. |
+| Subnet ID | Enter 1 to 4 hexadecimal digits from 0000 to ffff, without 0x; either letter case is accepted. This is a subnet identifier, not a prefix length or a decimal ordinal. |
+| Generate icon | Use the system random source to create a new 40-bit Global ID and /48, then locate the current Subnet ID. Each click replaces the prefix; save deployed prefixes and keep them stable. |
+| Locate icon or Enter | Calculate a /64 from the existing prefix and Subnet ID without regenerating the prefix. Results include the Global ID, normalized ID, /64 and full address range. |
+| Result context menu | Copy the selected /64 CIDR or the full report. Select and copy the generated /48 directly in its input field. |
+| Save icon | Save the full report as UTF-8 TXT. Any input edit immediately clears old results and disables output. Edits during file selection also cancel saving the old result. |
+
+**Example:** Enter `fd12:3456:789a::/48` and `00ab` to obtain `fd12:3456:789a:ab::/64`, ranging from `fd12:3456:789a:ab::` to `fd12:3456:789a:ab:ffff:ffff:ffff:ffff`. A /48 provides 65,536 /64 subnets, with ffff as the final ID.
+
+Random generation provides probabilistic uniqueness without central registration or a guarantee against conflicts. Use Subnet List or two-network analysis to check overlap before merging sites. ULA does not imply Internet reachability or replace a firewall.
+
+![ULA prefixes and subnet lookup](../screenshots/ula_en_US_light.png)

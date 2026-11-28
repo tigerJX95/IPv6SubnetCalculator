@@ -27,7 +27,7 @@ python tools/check_security.py
 
 命令运行 Bandit 和应用依赖审计，报告保存在 verification/security。`build.cmd` 会先安装 CI 工具、运行这些检查，再生成构建指纹和 EXE；`verify.cmd` 也先检查 i18n 和安全规则。网络审计失败时不会忽略继续。`--source-only` 只用于独立源码扫描作业，其结果不能表示完整依赖审计通过。
 
-CodeQL 和 GitHub PR 依赖变化审查需要在仓库中运行；本地 Bandit 或 pip-audit 成功不表示 CodeQL 已通过。pip-audit 依赖漏洞库对 PyPI 分发包的覆盖，无法代替 Qt 厂商安全公告跟踪。Qt 上游事项继续见 DEPENDENCY_STATUS.md。
+CodeQL 和 GitHub PR 依赖变化审查需要在仓库中运行；本地 Bandit 或 pip-audit 成功不表示 CodeQL 已通过。pip-audit 依赖漏洞库对 PyPI 分发包的覆盖，无法代替 Qt 厂商安全公告跟踪。
 
 ## 已复核的窄范围提示
 

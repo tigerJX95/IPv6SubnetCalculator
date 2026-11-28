@@ -8,13 +8,13 @@ from PyQt6.QtCore import PYQT_VERSION_STR, qVersion
 
 class RuntimeComponentTests(unittest.TestCase):
     def test_binding_and_runtime_match_locked_release(self):
-        self.assertEqual(PYQT_VERSION_STR,'6.12.0')
-        self.assertEqual(qVersion(),'6.12.0')
-        self.assertEqual(version('PyQt6-Qt6'),'6.12.0')
+        self.assertEqual(PYQT_VERSION_STR,'6.12.1')
+        self.assertEqual(qVersion(),'6.12.1')
+        self.assertEqual(version('PyQt6-Qt6'),'6.12.1')
         self.assertEqual(version('PyQt6-sip'),'13.13.0')
 
     def test_official_index_and_versions_are_pinned(self):
         root=Path(__file__).resolve().parents[1];text=(root/'requirements.txt').read_text()
         self.assertNotIn('--extra-index-url',text)
-        for line in ('--index-url https://pypi.org/simple/','PyQt6==6.12.0','PyQt6-Qt6==6.12.0','PyQt6-sip==13.13.0'):
+        for line in ('--index-url https://pypi.org/simple/','PyQt6==6.12.1','PyQt6-Qt6==6.12.1','PyQt6-sip==13.13.0'):
             self.assertIn(line,text)

@@ -97,8 +97,9 @@ class QtNativeAdvisoryTests(unittest.TestCase):
         (self.root/'tools').mkdir()
         self.policy_path = self.root/'tools/qt_advisories.json'
         self.policy = json.loads((ROOT/'tools/qt_advisories.json').read_text())
+        self.policy['runtime_version'] = '6.12.0'
         self.write_policy()
-        shutil.copyfile(ROOT/'requirements.txt', self.root/'requirements.txt')
+        (self.root/'requirements.txt').write_text((ROOT/'requirements.txt').read_text().replace('6.12.1','6.12.0'))
         for folder in ('core', 'ui', 'services'):
             (self.root/folder).mkdir()
             (self.root/folder/'sample.py').write_text('value = 1\n')
@@ -109,9 +110,12 @@ class QtNativeAdvisoryTests(unittest.TestCase):
         self.policy_path.write_text(json.dumps(self.policy), encoding='utf-8')
 
     def test_reviewed_residual_is_not_reported_as_patched(self):
-        result = audit_qt(ROOT)
+        result = audit_qt(self.root)
         self.assertIs(result['all_patched'], False)
         self.assertEqual(result['coverage'], 'reviewed_snapshot_only')
+        current = audit_qt(ROOT)
+        self.assertTrue(current['all_patched'])
+        self.assertTrue(all(a['status'] == 'fixed_version' for a in current['advisories']))
         self.assertTrue(any(r['status']=='unpatched_no_application_entry_found' for r in result['advisories']))
 
     def test_new_cbor_alias_dynamic_lookup_and_websocket_import_fail(self):

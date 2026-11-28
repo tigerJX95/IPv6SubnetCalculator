@@ -10,8 +10,10 @@ from urllib.parse import urlsplit
 from tools.frozen_policy import EXCLUDES, forbidden_entry
 
 BASELINE = {'CVE-2026-105924': 'QtCore', 'CVE-2026-116337': 'QtNetwork',
-            'CVE-2026-114366': 'QtWebSockets', 'CVE-2026-114369': 'QtWebSockets'}
-PROBES = {'QtCore': {'QCborValue', 'fromCbor', 'toJsonValue'},
+            'CVE-2026-114366': 'QtWebSockets', 'CVE-2026-114369': 'QtWebSockets',
+            'CVE-2026-123706': 'QtQuick', 'CVE-2026-118968': 'QtMultimedia'}
+PROBES = {'QtQuick': {'QtQuick', 'VectorImage', 'QQuickView'},
+          'QtMultimedia': {'QtMultimedia', 'QSoundEffect', 'QAudioDecoder'}, 'QtCore': {'QCborValue', 'fromCbor', 'toJsonValue'},
           'QtNetwork': {'QtNetwork', 'QNetworkAccessManager'},
           'QtWebSockets': {'QtWebSockets', 'QWebSocket', 'QWebSocketServer'}}
 VERSION = r'[0-9]+\.[0-9]+\.[0-9]+'
@@ -66,7 +68,7 @@ def audit_qt(root):
         source = urlsplit(item.get('source', ''))
         affected = item.get('affected_versions')
         probes = item.get('symbols')
-        if (component not in ('QtCore', 'QtNetwork', 'QtWebSockets')
+        if (component not in PROBES
                 or source.scheme != 'https' or source.hostname != 'www.qt.io'
                 or not re.fullmatch(VERSION, item.get('fixed_in', ''))
                 or not isinstance(affected, list) or not affected

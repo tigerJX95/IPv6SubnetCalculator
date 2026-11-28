@@ -20,7 +20,7 @@ class SecurityCheckTests(unittest.TestCase):
                 if timeout:raise subprocess.TimeoutExpired(command,300)
                 if write_report:
                     target=Path(command[command.index('-o')+1]) if '-o' in command else Path(command[command.index('--output')+1])
-                    content = {'results': [], 'errors': []} if '-o' in command else {'dependencies': [{'name': n, 'version': v, 'vulns': []} for n,v in [('pyqt6','6.12.0'),('pyqt6-qt6','6.12.0'),('pyqt6-sip','13.13.0')]]}
+                    content = {'results': [], 'errors': []} if '-o' in command else {'dependencies': [{'name': n, 'version': v, 'vulns': []} for n,v in [('pyqt6','6.12.1'),('pyqt6-qt6','6.12.1'),('pyqt6-sip','13.13.0')]]}
                     target.write_text(json.dumps(content),encoding='utf-8')
                 return subprocess.CompletedProcess(command,code,'','')
             with patch('sys.argv',['check_security','--report-dir',folder]),patch('tools.check_security.subprocess.run',side_effect=fake):
@@ -39,7 +39,7 @@ class SecurityCheckTests(unittest.TestCase):
         code,result=self.run_case(0)
         self.assertEqual(code,0)
         self.assertEqual(result['checks'],{'dependency_locks':'passed','qt_native':'passed','bandit':'passed','dependencies':'passed'})
-        self.assertIs(result['qt_all_patched'],False)
+        self.assertIs(result['qt_all_patched'],True)
         self.assertEqual(result['codeql'],'not_run_locally')
 
     def test_native_and_lock_failures_cannot_be_hidden_by_successful_scanners(self):
@@ -84,7 +84,7 @@ class SecurityCheckTests(unittest.TestCase):
 
 class DependencyCoverageTests(unittest.TestCase):
     def test_empty_missing_skipped_duplicate_and_wrong_versions_fail(self):
-        valid=[{'name':n,'version':v,'vulns':[]} for n,v in [('pyqt6','6.12.0'),('pyqt6-qt6','6.12.0'),('pyqt6-sip','13.13.0')]]
+        valid=[{'name':n,'version':v,'vulns':[]} for n,v in [('pyqt6','6.12.1'),('pyqt6-qt6','6.12.1'),('pyqt6-sip','13.13.0')]]
         with tempfile.TemporaryDirectory() as folder:
             path=Path(folder)/'report.json'
             path.write_text(json.dumps({'dependencies':valid}),encoding='utf-8')

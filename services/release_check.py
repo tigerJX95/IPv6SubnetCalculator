@@ -146,7 +146,7 @@ class ReleaseCheck(QObject):
                 about.tabs.setCurrentIndex(index)
                 self.application.processEvents()
         about.close()
-        self.require(PYQT_VERSION_STR == '6.12.0' and qVersion() == '6.12.0', 'Runtime components do not match this release')
+        self.require(PYQT_VERSION_STR == '6.12.1' and qVersion() == '6.12.1', 'Runtime components do not match this release')
         self.checks.append('matched_qt_binding_runtime_versions')
         self.checks.append('about_help_licenses_legal_offline')
         calculation = self.window.calculation_page
@@ -254,6 +254,23 @@ class ReleaseCheck(QObject):
         self.require(pref64.result is None and pref64.run() and not pref64.copy_prefixes_action.isEnabled(),
                      'Unmatched Pref64 sample retained candidate output')
         self.checks.append('offline_pref64_candidates_and_output_invalidation')
+        batch = tools.nat64_batch_panel
+        batch.inputs['addresses'].setPlainText('192.0.2.33\n198.51.100.7')
+        self.require(batch.run() and batch.result.address_text() == '64:ff9b::c000:221\n64:ff9b::c633:6407',
+                     'Batch NAT64 addresses failed')
+        batch.inputs['addresses'].setPlainText('192.0.2.33\nbad')
+        self.require(batch.result is None and not batch.run() and not batch.save_button.isEnabled(),
+                     'Batch NAT64 error retained partial output')
+        self.checks.append('nat64_batch_exact_lines_and_all_or_nothing_invalidation')
+        ula = tools.ula_panel
+        ula.inputs['prefix'].setText('fd12:3456:789a::/48')
+        ula.inputs['subnet_id'].setText('ffff')
+        self.require(ula.run() and str(ula.result.subnet) == 'fd12:3456:789a:ffff::/64', 'ULA subnet ID failed')
+        ula.inputs['subnet_id'].setText('10000')
+        self.require(ula.result is None and not ula.run() and not ula.copy_result_action.isEnabled(),
+                     'ULA invalid ID retained output')
+        self.checks.append('ula_subnet_id_exact_bounds_and_invalidation')
+
 
         from services.plan_storage import save_plan, load_plan
         calculation.target_input.setText('64')

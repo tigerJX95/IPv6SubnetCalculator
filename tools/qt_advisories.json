@@ -1,44 +1,103 @@
 {
   "schema": 1,
-  "reviewed_on": "2026-11-24",
-  "runtime_version": "6.12.0",
+  "reviewed_on": "2026-11-28",
+  "runtime_version": "6.12.1",
   "coverage": "Reviewed advisory subset; this snapshot is not a live upstream vulnerability feed.",
   "advisories": [
     {
       "id": "CVE-2026-105924",
       "component": "QtCore",
-      "affected_versions": ["6.12.0"],
+      "affected_versions": [
+        "6.12.0"
+      ],
       "fixed_in": "6.12.1",
       "source": "https://www.qt.io/blog/security-advisory-cve-2026-105924",
       "resolution": "no_application_entry",
-      "symbols": ["QCborValue", "fromCbor", "toJsonValue", "toJsonObject", "toJsonArray"]
+      "symbols": [
+        "QCborValue",
+        "fromCbor",
+        "toJsonValue",
+        "toJsonObject",
+        "toJsonArray"
+      ]
     },
     {
       "id": "CVE-2026-116337",
       "component": "QtNetwork",
-      "affected_versions": ["6.12.0"],
+      "affected_versions": [
+        "6.12.0"
+      ],
       "fixed_in": "6.12.1",
       "source": "https://www.qt.io/blog/security-issue-cve-2026-116337",
       "resolution": "excluded_from_executable",
-      "symbols": ["QtNetwork", "QNetworkAccessManager", "QNetworkReply", "QHttpMultiPart"]
+      "symbols": [
+        "QtNetwork",
+        "QNetworkAccessManager",
+        "QNetworkReply",
+        "QHttpMultiPart"
+      ]
     },
     {
       "id": "CVE-2026-114366",
       "component": "QtWebSockets",
-      "affected_versions": ["6.12.0"],
+      "affected_versions": [
+        "6.12.0"
+      ],
       "fixed_in": "6.12.1",
       "source": "https://www.qt.io/blog/security-issue-cve-2026-114366",
       "resolution": "excluded_from_executable",
-      "symbols": ["QtWebSockets", "QWebSocket", "QWebSocketServer"]
+      "symbols": [
+        "QtWebSockets",
+        "QWebSocket",
+        "QWebSocketServer"
+      ]
     },
     {
       "id": "CVE-2026-114369",
       "component": "QtWebSockets",
-      "affected_versions": ["6.12.0"],
+      "affected_versions": [
+        "6.12.0"
+      ],
       "fixed_in": "6.12.1",
       "source": "https://www.qt.io/blog/security-advisory-cve-2026-114369",
       "resolution": "excluded_from_executable",
-      "symbols": ["QtWebSockets", "QWebSocket", "QWebSocketServer"]
+      "symbols": [
+        "QtWebSockets",
+        "QWebSocket",
+        "QWebSocketServer"
+      ]
+    },
+    {
+      "id": "CVE-2026-123706",
+      "component": "QtQuick",
+      "affected_versions": [
+        "6.12.0"
+      ],
+      "fixed_in": "6.12.1",
+      "source": "https://www.qt.io/blog/security-advisory-cve-2026-123706-qt",
+      "resolution": "excluded_from_executable",
+      "symbols": [
+        "QtQuick",
+        "VectorImage",
+        "QQuickView"
+      ]
+    },
+    {
+      "id": "CVE-2026-118968",
+      "component": "QtMultimedia",
+      "affected_versions": [
+        "6.12.0"
+      ],
+      "fixed_in": "6.12.1",
+      "source": "https://www.qt.io/blog/security-advisory-cve-2026-118968-denial-of-service-vulnerability-in-wav-audio-decoding-impacts-qt",
+      "resolution": "excluded_from_executable",
+      "symbols": [
+        "QtMultimedia",
+        "QSoundEffect",
+        "QAudioDecoder",
+        "QSpatialSound",
+        "QAmbientSound"
+      ]
     }
   ]
 }
