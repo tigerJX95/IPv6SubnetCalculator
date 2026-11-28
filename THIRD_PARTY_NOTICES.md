@@ -6,8 +6,8 @@ These components provide the interface and packaged runtime. Their copyright and
 
 | 组件 / Component | 版本 / Version | 上游许可说明 / Upstream license information |
 |---|---|---|
-| PyQt6 | 6.12.0 | GNU GPL v3 / Riverbank commercial license; [upstream](https://www.riverbankcomputing.com/software/pyqt/intro) |
-| Qt 6 runtime (`PyQt6-Qt6`) | 6.12.0 | LGPL v3 notice supplied by the installed wheel; individual Qt modules and third-party components retain their respective notices; [upstream](https://www.qt.io/licensing/) |
+| PyQt6 | 6.12.1 | GNU GPL v3 / Riverbank commercial license; [upstream](https://www.riverbankcomputing.com/software/pyqt/intro) |
+| Qt 6 runtime (`PyQt6-Qt6`) | 6.12.1 | LGPL v3 notice supplied by the installed wheel; individual Qt modules and third-party components retain their respective notices; [upstream](https://www.qt.io/licensing/) |
 | PyQt6-sip | 13.13.0 | SIP license notice supplied by the installed wheel; [upstream](https://www.riverbankcomputing.com/software/sip/) |
 
 随包保存的上游许可文本见 `docs/licenses/`。Windows 构建脚本也会收集已安装发行包的元信息，并把这些许可文本加入产物。组件安装包的完整说明及实际采用的授权方式应与发布配置保持一致。

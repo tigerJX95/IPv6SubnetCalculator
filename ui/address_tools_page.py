@@ -27,6 +27,7 @@ from core.network_relations import analyze_networks, relation_categories
 from ui.address_range_panel import AddressRangePanel
 from ui.address_utility_panel import AddressUtilityPanel
 from ui.nat64_panel import Nat64Panel
+from ui.network_utility_panel import NetworkUtilityPanel
 from ui.planning_utility_panel import PlanningUtilityPanel
 from ui.site_discovery_panel import SiteDiscoveryPanel
 from ui.input_feedback import bind_input, mark_invalid, clear_invalid
@@ -216,6 +217,11 @@ class AddressToolsPage(QWidget):
         self.site_prefix_panel = SiteDiscoveryPanel(clipboard)
         self.pref64_discovery_panel = SiteDiscoveryPanel(clipboard, discovery=True)
         for panel in (self.site_prefix_panel, self.pref64_discovery_panel):
+            panel.feedback.connect(self.feedback)
+            body.addWidget(panel)
+        self.nat64_batch_panel = NetworkUtilityPanel(clipboard)
+        self.ula_panel = NetworkUtilityPanel(clipboard, ula=True)
+        for panel in (self.nat64_batch_panel, self.ula_panel):
             panel.feedback.connect(self.feedback)
             body.addWidget(panel)
         body.addStretch()

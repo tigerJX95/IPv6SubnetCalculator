@@ -4666,6 +4666,142 @@ Click a link to open your default browser; a network connection is used only whe
       <source>比较五种站点前缀能否满足数量需求，不枚举所有站点。</source>
       <translation>Compare whether five site prefix sizes meet the requested count without enumerating all sites.</translation>
     </message>
+    <message>
+      <source>ULA 前缀与子网定位</source>
+      <translation>ULA prefixes and subnet lookup</translation>
+    </message>
+    <message>
+      <source>ULA /48 前缀：{0}</source>
+      <translation>ULA /48 prefix: {0}</translation>
+    </message>
+    <message>
+      <source>Global ID（40 位）：{0}</source>
+      <translation>Global ID (40 bits): {0}</translation>
+    </message>
+    <message>
+      <source>Subnet ID（十六进制）：{0}</source>
+      <translation>Subnet ID (hexadecimal): {0}</translation>
+    </message>
+    <message>
+      <source>定位的 /64 子网：{0}</source>
+      <translation>Selected /64 subnet: {0}</translation>
+    </message>
+    <message>
+      <source>一个 /48 包含 65,536 个 /64；Subnet ID 范围为 0000～ffff。</source>
+      <translation>A /48 contains 65,536 /64 subnets; Subnet IDs range from 0000 to ffff.</translation>
+    </message>
+    <message>
+      <source>随机生成使用系统随机源；唯一性是高概率保证，合并站点前仍需检查前缀冲突。</source>
+      <translation>Generation uses the operating system random source. Uniqueness is probabilistic; check for conflicting prefixes before merging sites.</translation>
+    </message>
+    <message>
+      <source>ULA 用于本地通信，不代表公网可达性，也不能替代防火墙访问控制。</source>
+      <translation>ULA is intended for local communication. It does not imply Internet reachability or replace firewall access control.</translation>
+    </message>
+    <message>
+      <source>请输入 fd00::/8 内对齐的 ULA /48 前缀；不支持 fc00::/8 或非零主机位。</source>
+      <translation>Enter an aligned ULA /48 within fd00::/8. The fc00::/8 range and nonzero host bits are not supported.</translation>
+    </message>
+    <message>
+      <source>Subnet ID 须为 1～4 位十六进制数（0000～ffff），不带 0x。</source>
+      <translation>Subnet ID must contain 1 to 4 hexadecimal digits (0000 to ffff), without 0x.</translation>
+    </message>
+    <message>
+      <source>NAT64 批量换算</source>
+      <translation>Batch NAT64 conversion</translation>
+    </message>
+    <message>
+      <source>换算方向：{0}</source>
+      <translation>Conversion direction: {0}</translation>
+    </message>
+    <message>
+      <source>换算条数：{0}；保留输入顺序及重复地址。</source>
+      <translation>Converted addresses: {0}; input order and duplicate addresses are preserved.</translation>
+    </message>
+    <message>
+      <source>原始行号：{0}</source>
+      <translation>Original line: {0}</translation>
+    </message>
+    <message>
+      <source>地址清单包含无效的 Unicode 字符。</source>
+      <translation>The address list contains invalid Unicode characters.</translation>
+    </message>
+    <message>
+      <source>地址清单最多 16 KiB、256 行及 128 个地址。</source>
+      <translation>The address list allows at most 16 KiB, 256 lines and 128 addresses.</translation>
+    </message>
+    <message>
+      <source>请输入每行一个地址，最多 128 个；允许空行和 # 注释。</source>
+      <translation>Enter one address per line, up to 128 addresses. Blank lines and # comments are allowed.</translation>
+    </message>
+    <message>
+      <source>第 {0} 行换算失败：{1}</source>
+      <translation>Conversion failed on line {0}: {1}</translation>
+    </message>
+    <message>
+      <source>ULA /48 前缀</source>
+      <translation>ULA /48 prefix</translation>
+    </message>
+    <message>
+      <source>输入 fd00::/8 内对齐的 /48；或点击生成图标创建随机前缀。</source>
+      <translation>Enter an aligned /48 within fd00::/8, or use the generate icon to create a random prefix.</translation>
+    </message>
+    <message>
+      <source>Subnet ID（十六进制）</source>
+      <translation>Subnet ID (hexadecimal)</translation>
+    </message>
+    <message>
+      <source>填写 0000～ffff，不带 0x；按 Enter 定位 /64。</source>
+      <translation>Enter 0000 to ffff without 0x; press Enter to locate the /64.</translation>
+    </message>
+    <message>
+      <source>待换算地址清单（每行一个）</source>
+      <translation>Addresses to convert (one per line)</translation>
+    </message>
+    <message>
+      <source>仅粘贴地址；最多 128 个、16 KiB、256 行；任一错误会取消整批输出。</source>
+      <translation>Paste addresses only: at most 128 addresses, 16 KiB and 256 lines. Any error cancels the entire output.</translation>
+    </message>
+    <message>
+      <source>生成新的随机 ULA /48 前缀并定位当前 Subnet ID</source>
+      <translation>Generate a new random ULA /48 prefix and locate the current Subnet ID</translation>
+    </message>
+    <message>
+      <source>定位 ULA /64 子网（Enter）</source>
+      <translation>Locate the ULA /64 subnet (Enter)</translation>
+    </message>
+    <message>
+      <source>执行 NAT64 批量换算</source>
+      <translation>Run batch NAT64 conversion</translation>
+    </message>
+    <message>
+      <source>使用系统随机源生成 40 位 Global ID；生成后请保存并检查站点间前缀冲突。</source>
+      <translation>Generate a 40-bit Global ID using the system random source. Save the prefix and check for conflicts between sites.</translation>
+    </message>
+    <message>
+      <source>按输入顺序双向换算；右键可复制纯地址清单。仅检查格式，不查询网络。</source>
+      <translation>Convert in either direction in input order. Right-click to copy the address-only list. This checks format without network queries.</translation>
+    </message>
+    <message>
+      <source>复制定位的 /64 CIDR</source>
+      <translation>Copy the selected /64 CIDR</translation>
+    </message>
+    <message>
+      <source>复制换算后的纯地址清单</source>
+      <translation>Copy the converted address-only list</translation>
+    </message>
+    <message>
+      <source>该 IPv4 地址属于组播范围，不能作为普通 NAT64 单播目标。</source>
+      <translation>This IPv4 address is multicast and cannot be used as a normal unicast NAT64 destination.</translation>
+    </message>
+    <message>
+      <source>子网起始地址：{0}</source>
+      <translation>Subnet first address: {0}</translation>
+    </message>
+    <message>
+      <source>子网结束地址：{0}</source>
+      <translation>Subnet last address: {0}</translation>
+    </message>
   </context>
   <context>
     <name>Export</name>

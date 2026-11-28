@@ -17,7 +17,7 @@ Jobs default to read-only access. Only CodeQL additionally receives security-eve
 
 Install requirements.txt and requirements-ci.txt, then run `python tools/check_security.py`. Reports are stored in verification/security. build.cmd installs check tools and runs the full local scan/audit before packaging. verify.cmd performs i18n and security preflight. Network audit failures do not silently pass. The source-only option is for the independent source-scanning job and is not a full dependency audit.
 
-Local Bandit/pip-audit success does not mean CodeQL or GitHub PR Dependency review has run. PyPI vulnerability database coverage does not replace Qt upstream advisory tracking; see DEPENDENCY_STATUS.md.
+Local Bandit/pip-audit success does not mean CodeQL or GitHub PR Dependency review has run. PyPI vulnerability database coverage does not replace Qt upstream advisory tracking.
 
 Specific B314 suppressions are limited to bundled TS parsing, self-generated XLSX XML in the application self-check, and developer-owned TS parsing in the contract maintenance tool. Each has a reviewed scope comment. No global XML skip, file exclusion or automatic baseline hides findings; these are not claimed as confirmed application vulnerabilities or vulnerability fixes.
 

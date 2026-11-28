@@ -1,16 +1,17 @@
 # 开发说明 / Development Notes
 
-## V1.38 站点前缀对比与 Pref64 离线识别 · 2026-11-27
+## V1.39 NAT64 批量换算与 ULA 子网定位 · 2026-11-28
 
-- 新增站点前缀方案对比：输入父网段与站点数量，对比 /48、/52、/56、/60、/64 的站点容量、每站点 /64 子网数及本次连续分配首末前缀，明确区分容量不足与无法细分。
-- 新增 Pref64 离线识别：粘贴 ipv4only.arpa 的 AAAA 地址，按 RFC 7050 与 RFC 6052 分析六种前缀长度，保留多个候选、原始行号与单／双地址证据，并排除无法消解的歧义样本。
-- 两项工具均支持报告复制与 TXT 保存；输入变化立即停用旧结果。更新双语帮助及实际界面截图，保留现行规范与修订草案的区别。
+- 新增 NAT64 批量双向换算：支持六种 RFC 6052 前缀长度，保留输入顺序、重复地址及原始行号；任一地址无效时取消整批输出，可复制纯地址清单或保存完整 TXT 报告。
+- 新增 ULA 前缀与子网定位：使用系统随机源生成 fd00::/8 内的 /48 前缀，或输入已有前缀，以 0000～ffff 的十六进制 Subnet ID 精确定位 /64 子网及地址范围。
+- 修正 NAT64 对组播 IPv4 的目标地址提示；补充两项工具的双语帮助、实际界面截图与输入变更后的输出保护。
 
-## V1.38 Site prefix comparison and offline Pref64 identification · 2026-11-27
+## V1.39 Batch NAT64 conversion and ULA subnet lookup · 2026-11-28
 
-- Compare site prefix options from a parent network and site count. See capacity, /64 subnets per site and the first/last prefix in the requested contiguous range for /48, /52, /56, /60 and /64; distinguish insufficient capacity from an unsplittable parent.
-- Identify Pref64 candidates offline from pasted ipv4only.arpa AAAA addresses using the six RFC 6052 layouts and RFC 7050 markers. Preserve multiple candidates, original line numbers and single/two-address evidence; exclude unresolved ambiguity.
-- Copy or save both reports as TXT; input edits immediately disable stale output. Refresh bilingual help and actual interface screenshots, keeping current specifications distinct from revision drafts.
+- Convert batches in either NAT64 direction using all six RFC 6052 prefix lengths. Preserve input order, duplicates and original line numbers; any invalid address cancels the entire output. Copy address-only lists or save full TXT reports.
+- Generate a ULA /48 within fd00::/8 using the system random source, or enter an existing prefix. Locate an exact /64 subnet and its address range using a hexadecimal Subnet ID from 0000 to ffff.
+- Correct multicast IPv4 destination guidance in NAT64 reports. Add bilingual help, actual interface screenshots and protection against exporting results after inputs change.
+
 
 [历史更新](HISTORY.md) · [Update History](HISTORY_EN.md) · [开发历史 / Development history](DEVELOPMENT_HISTORY.md)
 
@@ -25,13 +26,13 @@ python -m pip install -r requirements.txt
 python main.py
 ```
 
-Windows 下运行 `build.cmd`，会安装固定版本的界面依赖和 PyInstaller，生成 `dist/IPv6SubnetCalculator_V1.38.exe`。构建需要联网下载依赖；生成后的程序离线运行，不要求目标电脑安装 Python。EXE 的架构取决于所用 Python 的架构，建议使用 Windows x64 Python。
+Windows 下运行 `build.cmd`，会安装固定版本的界面依赖和 PyInstaller，生成 `dist/IPv6SubnetCalculator_V1.39.exe`。构建需要联网下载依赖；生成后的程序离线运行，不要求目标电脑安装 Python。EXE 的架构取决于所用 Python 的架构，建议使用 Windows x64 Python。
 
-On Windows, `build.cmd` installs the pinned interface dependencies and PyInstaller, then creates `dist/IPv6SubnetCalculator_V1.38.exe`. Building requires internet access to download dependencies. The resulting application works offline without Python on the target computer. Its architecture follows the Python interpreter used; Windows x64 Python is recommended.
+On Windows, `build.cmd` installs the pinned interface dependencies and PyInstaller, then creates `dist/IPv6SubnetCalculator_V1.39.exe`. Building requires internet access to download dependencies. The resulting application works offline without Python on the target computer. Its architecture follows the Python interpreter used; Windows x64 Python is recommended.
 
-可选运行 `python tools/package_release.py` 生成 `dist/IPv6SubnetCalculator_V1.38_Windows.zip`，包含 EXE、项目 `LICENSE`／`NOTICE` 及第三方许可文件。Windows 用户默认直接下载 EXE；ZIP 仅为可选归档，源码包单独提供。发布前运行 `verify.cmd` 检查本次 EXE。
+可选运行 `python tools/package_release.py` 生成 `dist/IPv6SubnetCalculator_V1.39_Windows.zip`，包含 EXE、项目 `LICENSE`／`NOTICE` 及第三方许可文件。Windows 用户默认直接下载 EXE；ZIP 仅为可选归档，源码包单独提供。发布前运行 `verify.cmd` 检查本次 EXE。
 
-Optionally run `python tools/package_release.py` to create `dist/IPv6SubnetCalculator_V1.38_Windows.zip`, containing the EXE, project LICENSE/NOTICE, and third-party license files. Publish the EXE as the default Windows download; the ZIP is optional and source is provided separately. Run `verify.cmd` before publishing to check the executable from this build.
+Optionally run `python tools/package_release.py` to create `dist/IPv6SubnetCalculator_V1.39_Windows.zip`, containing the EXE, project LICENSE/NOTICE, and third-party license files. Publish the EXE as the default Windows download; the ZIP is optional and source is provided separately. Run `verify.cmd` before publishing to check the executable from this build.
 
 ## 模块职责 / Module Responsibilities
 
@@ -100,9 +101,9 @@ Widget colors come from one stylesheet, without mixing in global `setPalette`. C
 
 Project-authored content uses `GPL-3.0-or-later`. The root `LICENSE` contains the unmodified GPLv3 text; `NOTICE` identifies the versions, scope, and lack of warranty. Third-party license files are retained separately.
 
-`build.cmd` 会将项目与第三方许可嵌入程序，并在 `dist/IPv6SubnetCalculator_V1.38_Licenses/` 输出可直接阅读的副本。该目录可作为独立许可附件保留；EXE 已嵌入许可文件。发布时提供与 EXE 对应版本的完整源码及构建材料（包括 `build.cmd`、`requirements.txt`、资源和开发说明）。源码可放在同一 Release 的源码附件中；确保该 Release 对应正确的提交和标签，不要仅链接到持续变化的主分支。
+`build.cmd` 会将项目与第三方许可嵌入程序，并在 `dist/IPv6SubnetCalculator_V1.39_Licenses/` 输出可直接阅读的副本。该目录可作为独立许可附件保留；EXE 已嵌入许可文件。发布时提供与 EXE 对应版本的完整源码及构建材料（包括 `build.cmd`、`requirements.txt`、资源和开发说明）。源码可放在同一 Release 的源码附件中；确保该 Release 对应正确的提交和标签，不要仅链接到持续变化的主分支。
 
-`build.cmd` embeds project and third-party license files in the application and also writes readable copies to `dist/IPv6SubnetCalculator_V1.38_Licenses/`. Retain that folder as an optional standalone license attachment; licenses are also embedded in the EXE. Provide the complete matching application source and build materials, including `build.cmd`, `requirements.txt`, assets, and these instructions. A source archive can accompany the same Release; use the matching commit and tag rather than linking only to a changing main branch.
+`build.cmd` embeds project and third-party license files in the application and also writes readable copies to `dist/IPv6SubnetCalculator_V1.39_Licenses/`. Retain that folder as an optional standalone license attachment; licenses are also embedded in the EXE. Provide the complete matching application source and build materials, including `build.cmd`, `requirements.txt`, assets, and these instructions. A source archive can accompany the same Release; use the matching commit and tag rather than linking only to a changing main branch.
 
 程序包含的第三方组件仍须按各自许可履行源码、版权和再分发义务。完整源码的提供范围包括适用许可证要求的依赖源码；仅附上项目的 Python 文件或上游主页链接并不自动满足所有第三方二进制分发条件。组件版本及获取入口见 `THIRD_PARTY_NOTICES.md`，发布时应保留所用版本的依赖源码及构建信息。
 
@@ -123,7 +124,7 @@ python tools/verify.py --report-dir verification
 指定打包程序可运行： / To include a packaged application:
 
 ```console
-python tools/verify.py --exe dist/IPv6SubnetCalculator_V1.38.exe --report-dir verification
+python tools/verify.py --exe dist/IPv6SubnetCalculator_V1.39.exe --report-dir verification
 ```
 
 `summary.json` 保存环境、逐阶段结果及性能数据；`SUMMARY.md` 为简要结果，`tests.log` 保存回归日志；`source.json` 和 `executable.json` 分别记录源码与打包程序检查。源码检查通过时，未提供的 EXE 仍标记为 `not_run`。只有在 Windows 上执行且 EXE 检查通过后，`windows_automated_checks` 才标记为通过；人工验证始终独立登记，见 [Windows 验证](WINDOWS_ACCEPTANCE.md)。
@@ -359,7 +360,7 @@ Excel uses standard-library OOXML generation in `core/candidate_xlsx.py`, with n
 
 Source packaging must include the repository's `.github/ISSUE_TEMPLATE/config.yml` unchanged. It is not an EXE resource; it controls the blank Issue entry.
 
-## V1.38 工具实现 / Tool implementation
+## V1.39 工具实现 / Tool implementation
 
 `core/site_prefixes.py` 以整数边界计算五个站点方案，不枚举站点；`core/pref64_discovery.py` 有界读取 AAAA 样本，复用 NAT64 布局并处理重复标记歧义。`ui/site_discovery_panel.py` 负责双语展示、输入失效及报告保存；两项功能均不发起网络请求。
 
@@ -368,3 +369,10 @@ The site comparison uses integer boundaries for five alternatives without enumer
 构建使用 `requirements-build.lock`；界面运行与 CI 工具分别使用 `requirements-runtime.lock` 和 `requirements-ci.lock`。更新依赖输入后，以 uv 0.13.9 运行 `python tools/update_dependency_locks.py` 重新生成三个锁文件，并完整验证后提交。
 
 Builds use `requirements-build.lock`; runtime and check tools use `requirements-runtime.lock` and `requirements-ci.lock`. After changing dependency inputs, regenerate all three with uv 0.13.9 and `python tools/update_dependency_locks.py`, then validate before committing.
+
+
+## V1.39 工具实现 / Tool implementation
+
+`core/nat64_batch.py` 有界解析地址，复用六种 NAT64 布局，整批成功后才构建结果；保留重复地址与物理行号。`core/ula.py` 使用 `secrets.token_bytes(5)` 生成 40 位 Global ID，以整数移位定位 16 位 Subnet ID，保持 /48 与 /64 边界。`ui/network_utility_panel.py` 统一处理独立结果、双语展示、右键复制及保存时的快照验证。
+
+Batch NAT64 conversion bounds input, reuses all six address layouts and constructs output only after all rows succeed, preserving duplicates and physical lines. ULA generation uses five bytes from the system random source; integer operations map 16-bit Subnet IDs within /48 boundaries. Both panels retain independent results, live localization, context copying and snapshot validation during saving. Tests: `tests/test_network_utilities.py`.
